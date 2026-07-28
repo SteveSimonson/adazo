@@ -104,7 +104,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'If it doesn’t earn a spot next to the stove, it doesn’t come home with me.',
       image: '/brand/vibes/default-avatar.svg',
-      alt: 'Maya at her kitchen island with a beauty beauty pick and fresh herbs',
+      alt: 'Maya at her kitchen island with a beauty pick and fresh herbs',
     },
     scene: {
       image: '/brand/vibes/default-scene.svg',
@@ -126,7 +126,7 @@ export const VIBES: Record<string, VibeProfile> = {
     signatureSetup:
       'One thick board center stage, utensil crock by the burner, herbs within a half-turn.',
     shoppingList: [
-      'XL beauty beauty pick',
+      'XL beauty pick',
       'Wooden spoon & spatula set',
       'Board stand or storage rack',
       'Serving board that doubles as prep',

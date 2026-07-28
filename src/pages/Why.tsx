@@ -36,7 +36,7 @@ export function Why() {
             },
             {
               t: 'Weekly Best Sellers',
-              d: 'Amazon Best Seller ranks move. Our limited-time house edit refreshes so you see what’s rising now — not a stale list from last year.',
+              d: 'Amazon Best Seller ranks move. Our limited-time beauty edit refreshes so you see what’s rising now — not a stale list from last year.',
             },
             {
               t: 'Shop here. Buy on Amazon.',

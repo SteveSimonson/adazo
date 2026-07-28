@@ -78,7 +78,7 @@ export function Shop() {
     ? CATEGORY_LABELS[cat as Category]
     : limited
       ? 'This week'
-      : 'All rooms'
+      : 'All categories'
 
   return (
     <div className="pb-28">
@@ -166,7 +166,7 @@ export function Shop() {
                 : 'bg-card border border-line hover:border-bamboo/40'
             }`}
           >
-            All rooms
+            All categories
           </button>
           {CATEGORY_OPTIONS.map((c) => (
             <button

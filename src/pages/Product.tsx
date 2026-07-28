@@ -85,7 +85,7 @@ export function ProductPage() {
       <div className="max-w-lg mx-auto px-4 py-20 text-center">
         <Seo
           title="Product not found"
-          description="This product is no longer on the Adazo house edit."
+          description="This product is no longer on the Adazo beauty edit."
           path={`/product/${slug || ''}`}
           noindex
         />
@@ -260,8 +260,8 @@ export function ProductPage() {
                     {product.source === 'amazon-bsr'
                       ? 'Part of this week’s Amazon Best Sellers edit'
                       : product.source === 'curated'
-                        ? 'Part of this week’s Adazo house edit'
-                        : 'Part of this week’s limited-time bamboo edit'}
+                        ? 'Part of this week’s Adazo beauty edit'
+                        : 'Part of this week’s limited-time beauty edit'}
                     {product.source === 'amazon-bsr' &&
                     product.bsrRank != null &&
                     product.bsrCategory
