@@ -674,7 +674,8 @@ function personaFromCategoryLeader(
   const c = topCat[0]
   if (c === 'luxury') return 'luxe'
   if (c === 'fragrance') return 'sillage'
-  if (c === 'handbags' || c === 'jewelry') return 'atelier'
+  if (c === 'handbags' || c === 'jewelry' || c === 'watches') return 'atelier'
+  if (c === 'gold') return 'gilded'
   if (c === 'makeup' || c === 'lips') return 'muse'
   if (c === 'skincare' || c === 'sun-spf' || c === 'wellness' || c === 'body')
     return 'dew'
