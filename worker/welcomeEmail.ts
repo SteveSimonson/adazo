@@ -60,8 +60,8 @@ export function buildWelcomeEmail(input: WelcomeEmailInput): WelcomeEmailParts {
   const shopUrl = utm(profile.shopPath, `shop_${profile.id}`)
 
   // Subject: identity payoff, no promo spam lexicon
-  const subject = `Your Bamboo Vibe: ${title}`
-  const preheader = `${profile.tagline} Your full vibe card is ready.`
+  const subject = `Your Adazo persona: ${title}`
+  const preheader = `${profile.tagline} Your full persona card is ready.`
 
   const traitLis = profile.traits
     .slice(0, 3)
@@ -131,7 +131,7 @@ export function buildWelcomeEmail(input: WelcomeEmailInput): WelcomeEmailParts {
           <tr>
             <td style="padding:0 28px 8px 28px;font-family:Arial,Helvetica,sans-serif;">
               <p style="margin:0 0 10px 0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#3f6b35;font-weight:700;">
-                A few things that fit your vibe
+                A few things that fit your persona
               </p>
               <ul style="margin:0 0 16px 0;padding:0 0 0 18px;">
                 ${traitLis}
@@ -146,14 +146,14 @@ export function buildWelcomeEmail(input: WelcomeEmailInput): WelcomeEmailParts {
             <td align="center" style="padding:0 28px 12px 28px;font-family:Arial,Helvetica,sans-serif;">
               <a href="${escapeHtml(vibeUrl)}"
                  style="display:inline-block;background:#1e3320;color:#f6f3eb;padding:14px 24px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:700;">
-                See your full vibe card
+                See your full persona card
               </a>
             </td>
           </tr>
           <tr>
             <td align="center" style="padding:0 28px 28px 28px;font-family:Arial,Helvetica,sans-serif;">
               <p style="margin:0;font-size:14px;line-height:1.5;color:#3d4a3c;">
-                When you are ready to outfit the room:<br />
+                When you are ready to shop the edit:<br />
                 <a href="${escapeHtml(shopUrl)}" style="color:#3f6b35;font-weight:600;">
                   ${escapeHtml(profile.shopLabel)}
                 </a>
@@ -167,7 +167,7 @@ export function buildWelcomeEmail(input: WelcomeEmailInput): WelcomeEmailParts {
                 Lists refresh weekly.
               </p>
               <p style="margin:0 0 10px 0;font-size:12px;line-height:1.5;color:#6b7768;">
-                You received this because you opted in after the Bamboo Vibe Check on adazo.com.
+                You received this because you opted in after the Adazo Vibe Check on adazo.com.
                 If this was not you, use the unsubscribe link in this email.
               </p>
               <p style="margin:0;font-size:11px;line-height:1.5;color:#6b7768;">
@@ -193,17 +193,17 @@ export function buildWelcomeEmail(input: WelcomeEmailInput): WelcomeEmailParts {
     '',
     `"${profile.catchphrase}"`,
     '',
-    'A few things that fit your vibe:',
+    'A few things that fit your persona:',
     ...profile.traits.slice(0, 3).map((t) => `• ${t}`),
     '',
     `${profile.avatarName} says: "${profile.avatarQuote}"`,
     '',
-    `See your full vibe card: ${vibeUrl}`,
+    `See your full persona card: ${vibeUrl}`,
     `${profile.shopLabel}: ${shopUrl}`,
     '',
     'Discover on Adazo. Buy on Amazon when you are ready.',
     '',
-    'You received this because you opted in after the Bamboo Vibe Check on adazo.com.',
+    'You received this because you opted in after the Adazo Vibe Check on adazo.com.',
     'Adazo · https://adazo.com',
   ].join('\n')
 

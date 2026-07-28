@@ -131,7 +131,7 @@ export function VibePage() {
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent pt-20 pb-4 px-5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
-                      Face of the vibe
+                      Face of the house
                     </p>
                     <p className="font-display text-2xl font-semibold text-white leading-tight mt-1">
                       {vibe.avatar.name}
@@ -224,9 +224,9 @@ export function VibePage() {
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-7 space-y-10">
             <div>
-              <p className="label-micro mb-2">Anchored in reality</p>
+              <p className="label-micro mb-2">Lived luxury</p>
               <h2 className="font-display text-2xl sm:text-3xl font-semibold mb-2">
-                A day in {vibe.avatar.name}’s house
+                A day in {vibe.avatar.name}’s Adazo life
               </h2>
               <p className="text-ink-soft font-light leading-relaxed mb-6 max-w-xl">
                 {vibe.flavor}
@@ -347,9 +347,9 @@ export function VibePage() {
             <div
               className={`rounded-3xl border border-line p-6 bg-gradient-to-br ${vibe.cardBg}`}
             >
-              <p className="label-micro mb-1">Material truth</p>
+              <p className="label-micro mb-1">House truth</p>
               <h2 className="font-display text-2xl font-semibold mb-4">
-                Grounded, not gimmicky
+                Elevated, not gimmicky
               </h2>
               <ul className="space-y-3">
                 {vibe.materialTruths.map((t) => (
@@ -399,9 +399,9 @@ export function VibePage() {
       {/* Rooms */}
       <section className="border-y border-line bg-paper-2/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
-          <p className="label-micro mb-2">Preferred rooms</p>
+          <p className="label-micro mb-2">Preferred shelves</p>
           <h2 className="font-display text-2xl sm:text-3xl font-semibold mb-2">
-            Where this vibe shops
+            Where this persona shops
           </h2>
           <p className="text-sm text-muted mb-6 max-w-xl">{vibe.shopHint}</p>
           <div className="flex flex-wrap gap-2">
@@ -464,7 +464,7 @@ export function VibePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
             <p className="label-micro mb-2">Often blends with</p>
             <h2 className="font-display text-2xl font-semibold mb-6">
-              Real homes mix vibes
+              Real edits mix personas
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {blendVibes.map((v) => (
@@ -499,9 +499,9 @@ export function VibePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <div>
-              <p className="label-micro mb-2">The house of vibes</p>
+              <p className="label-micro mb-2">The Adazo house</p>
               <h2 className="font-display text-2xl sm:text-3xl font-semibold">
-                Meet the full set
+                Meet every persona
               </h2>
             </div>
             <Link
@@ -695,17 +695,17 @@ function VibeCheckPrompt({
           <div>
             <p className="font-display text-xl sm:text-2xl font-semibold leading-snug">
               {!hasChecked
-                ? 'Haven’t found your vibe yet?'
+                ? 'Haven’t found your Adazo persona yet?'
                 : other
-                  ? `Your mapped vibe is ${other.title}`
-                  : 'This is your vibe — own it.'}
+                  ? `Your mapped persona is ${other.title}`
+                  : 'This is your persona — own it.'}
             </p>
             <p className="mt-1 text-sm text-paper/75 max-w-xl">
               {!hasChecked
-                ? 'Take the 60-second Bamboo Vibe Check. We’ll match you to a real house energy and rooms that fit.'
+                ? 'Take the 60-second Adazo Vibe Check. We’ll match you to luxury beauty, fragrance, or fashion finish that fits.'
                 : other
-                  ? 'Explore yours, or retake the check if your house energy shifted.'
-                  : 'Shop the rooms below, or retake the check anytime.'}
+                  ? 'Explore yours, or retake the check if your edit shifted.'
+                  : 'Shop the shelves below, or retake the check anytime.'}
             </p>
           </div>
         </div>
@@ -724,7 +724,7 @@ function VibeCheckPrompt({
                   to={vibePath(other.id)}
                   className="inline-flex items-center gap-2 rounded-full bg-white text-moss px-5 py-3 text-sm font-bold hover:bg-cream transition shadow-lg"
                 >
-                  Open my vibe card
+                  Open my persona card
                 </Link>
               )}
               <Link

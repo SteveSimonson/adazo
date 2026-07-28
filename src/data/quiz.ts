@@ -1,6 +1,8 @@
 import type { Category } from './types'
 
 const ALL_CATEGORIES: Category[] = [
+  'luxury',
+  'fragrance',
   'skincare',
   'hair',
   'makeup',
@@ -9,6 +11,8 @@ const ALL_CATEGORIES: Category[] = [
   'sun-spf',
   'wellness',
   'lips',
+  'jewelry',
+  'handbags',
 ]
 
 export type QuizOption = {
@@ -16,7 +20,6 @@ export type QuizOption = {
   label: string
   emoji: string
   blurb: string
-  /** Category scores */
   scores: Partial<Record<Category, number>>
   personaBoost?: string
 }
@@ -26,16 +29,12 @@ export type QuizQuestion = {
   prompt: string
   sub?: string
   options: QuizOption[]
-  /** Allow selecting multiple options (stored as comma-joined ids). */
   multiSelect?: boolean
-  /** Max selections when multiSelect (default 2). */
   maxSelect?: number
 }
 
-/** Answers map: single option id, or comma-joined ids for multi-select. */
 export type QuizAnswers = Record<string, string>
 
-/** Parse a stored answer value into option id list. */
 export function parseAnswerIds(raw: string | undefined): string[] {
   if (!raw) return []
   return raw
@@ -44,7 +43,6 @@ export function parseAnswerIds(raw: string | undefined): string[] {
     .filter(Boolean)
 }
 
-/** Encode option ids for storage / API (stable order). */
 export function encodeAnswerIds(ids: string[]): string {
   return [...new Set(ids)].filter(Boolean).join(',')
 }
@@ -58,383 +56,360 @@ export type Persona = {
   accent: string
 }
 
+/**
+ * Core vibe check — Adazo luxury, fragrance, fashion finish.
+ * Persona IDs: luxe · muse · sillage · atelier · dew · gilded
+ */
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
-    id: 'room',
-    prompt: 'Where should beauty show up first?',
-    sub: 'Pick up to two rooms that make you grin.',
+    id: 'desire',
+    prompt: 'What are you craving from Adazo right now?',
+    sub: 'Pick up to two. This is your house edit, not a test.',
     multiSelect: true,
     maxSelect: 2,
     options: [
       {
-        id: 'skincare',
-        label: 'My skincare shelf',
-        emoji: '🍳',
-        blurb: 'Chop, stir, serve — warm tools at arm’s reach.',
-        scores: { skincare: 3, 'tools': 2, makeup: 1 },
-        personaBoost: 'craft',
-      },
-      {
-        id: 'body',
-        label: 'The bath',
-        emoji: '🛁',
-        blurb: 'Soft fiber, quiet counters, spa energy.',
-        scores: { body: 4 },
-        personaBoost: 'ritual',
-      },
-      {
-        id: 'hair',
-        label: 'The desk',
-        emoji: '💻',
-        blurb: 'Calm focus, tidy cables, elevated workday.',
-        scores: { hair: 4, wellness: 1 },
-        personaBoost: 'focus',
-      },
-      {
-        id: 'whole-home',
-        label: 'Everywhere',
-        emoji: '🌿',
-        blurb: 'A full-house beauty through-line.',
-        scores: {
-          skincare: 1,
-          body: 1,
-          hair: 1,
-          wellness: 2,
-          'sun-spf': 1,
-        },
-        personaBoost: 'host',
-      },
-    ],
-  },
-  {
-    id: 'weekend',
-    prompt: 'Ideal weekend energy?',
-    sub: 'No wrong answers — only vibes.',
-    options: [
-      {
-        id: 'host',
-        label: 'Hosting friends',
-        emoji: '🥂',
-        blurb: 'Boards, platters, and table moments.',
-        scores: { makeup: 3, 'tools': 2, 'sun-spf': 1 },
-        personaBoost: 'host',
-      },
-      {
-        id: 'ritual',
-        label: 'Slow self-care',
-        emoji: '🕯️',
-        blurb: 'Bath trays, soft towels, unhurried mornings.',
-        scores: { body: 3 },
-        personaBoost: 'ritual',
-      },
-      {
-        id: 'focus',
-        label: 'Deep work',
-        emoji: '📓',
-        blurb: 'Clean desk, clear mind.',
-        scores: { hair: 3, wellness: 2 },
-        personaBoost: 'focus',
-      },
-      {
-        id: 'outdoors',
-        label: 'Outside time',
-        emoji: '☀️',
-        blurb: 'Patio plates, garden tools, open air.',
-        scores: { 'sun-spf': 4, makeup: 1 },
-        personaBoost: 'patio',
-      },
-    ],
-  },
-  {
-    id: 'texture',
-    prompt: 'Which texture pulls you in?',
-    sub: 'Imagine running your hand over it.',
-    options: [
-      {
-        id: 'grain',
-        label: 'Solid grain boards',
-        emoji: '🪵',
-        blurb: 'Knife-friendly surfaces with natural weight.',
-        scores: { 'tools': 4, skincare: 1 },
-        personaBoost: 'craft',
-      },
-      {
-        id: 'soft',
-        label: 'Soft beauty fiber',
-        emoji: '☁️',
-        blurb: 'Sheets, towels, skin-kind textiles.',
-        scores: { body: 3 },
-        personaBoost: 'ritual',
-      },
-      {
-        id: 'tools',
-        label: 'Utensils & tools',
-        emoji: '🥄',
-        blurb: 'Spoons, tongs, everyday cookware allies.',
-        scores: { skincare: 4 },
-        personaBoost: 'craft',
-      },
-      {
-        id: 'storage',
-        label: 'Smart storage',
-        emoji: '📦',
-        blurb: 'Drawers, shelves, calm order.',
-        scores: { wellness: 4, hair: 1 },
-        personaBoost: 'focus',
-      },
-    ],
-  },
-  {
-    id: 'who',
-    prompt: 'Who is this shopping for?',
-    sub: 'We’ll bias the recs a little.',
-    options: [
-      {
-        id: 'me',
-        label: 'Just me',
+        id: 'prestige',
+        label: 'Prestige beauty',
         emoji: '✨',
-        blurb: 'Treat-yourself beauty upgrades.',
-        scores: { skincare: 1, body: 1, hair: 1 },
+        blurb: 'Quiet luxury on the vanity — serums that feel like jewels.',
+        scores: { luxury: 4, skincare: 2 },
+        personaBoost: 'luxe',
       },
       {
-        id: 'home',
-        label: 'Our home',
-        emoji: '🏠',
-        blurb: 'Shared spaces, shared style.',
-        scores: { wellness: 2, makeup: 2, skincare: 1 },
-        personaBoost: 'host',
+        id: 'glam',
+        label: 'Soft glam color',
+        emoji: '💄',
+        blurb: 'Lips, flush, lashes — polished without costume energy.',
+        scores: { makeup: 4, lips: 2, luxury: 1 },
+        personaBoost: 'muse',
       },
       {
-        id: 'gift',
-        label: 'A gift',
-        emoji: '🎁',
-        blurb: 'Beautiful, useful, easy to love.',
-        scores: { skincare: 1, 'tools': 2, body: 1 },
+        id: 'scent',
+        label: 'A signature scent',
+        emoji: '🌸',
+        blurb: 'The trail you leave in a room — fragrance first.',
+        scores: { fragrance: 4, luxury: 1 },
+        personaBoost: 'sillage',
       },
       {
-        id: 'little',
-        label: 'Little ones',
-        emoji: '👶',
-        blurb: 'Gentle first plates and mealtime gear.',
-        scores: { lips: 5 },
-        personaBoost: 'nest',
+        id: 'finish',
+        label: 'Fashion finish',
+        emoji: '👜',
+        blurb: 'Bags, gold, the last piece that makes the look land.',
+        scores: { handbags: 3, jewelry: 3 },
+        personaBoost: 'atelier',
       },
     ],
   },
   {
-    id: 'word',
-    prompt: 'One word for your beauty era?',
-    sub: 'Almost there — then your vibe reveal.',
+    id: 'evening',
+    prompt: 'Your ideal evening energy?',
+    sub: 'Where Adazo meets real life.',
     options: [
       {
-        id: 'crafted',
-        label: 'Crafted',
-        emoji: '🛠️',
-        blurb: 'Solid, intentional pieces.',
-        scores: { 'tools': 2, skincare: 2 },
-        personaBoost: 'craft',
+        id: 'velvet',
+        label: 'Velvet & candlelight',
+        emoji: '🕯️',
+        blurb: 'Slow, expensive-feeling calm — skin glassed, scent low.',
+        scores: { luxury: 2, fragrance: 2, skincare: 1 },
+        personaBoost: 'luxe',
       },
       {
-        id: 'calm',
-        label: 'Calm',
-        emoji: '🍃',
-        blurb: 'Soft edges, soft light.',
-        scores: { body: 2, hair: 1 },
-        personaBoost: 'ritual',
+        id: 'mirror',
+        label: 'Mirror & playlist',
+        emoji: '🪞',
+        blurb: 'Getting ready is the event — color, glow, confidence.',
+        scores: { makeup: 3, lips: 2, hair: 1 },
+        personaBoost: 'muse',
       },
       {
-        id: 'ordered',
-        label: 'Ordered',
-        emoji: '📐',
-        blurb: 'Everything has a place.',
-        scores: { wellness: 3, hair: 2 },
-        personaBoost: 'focus',
+        id: 'entrance',
+        label: 'Out the door',
+        emoji: '🌆',
+        blurb: 'Bag, heels optional, scent unforgettable.',
+        scores: { handbags: 2, fragrance: 2, jewelry: 2 },
+        personaBoost: 'atelier',
       },
       {
-        id: 'playful',
-        label: 'Playful',
-        emoji: '🎉',
-        blurb: 'Hosting energy, easy joy.',
-        scores: { makeup: 3, 'sun-spf': 1, 'tools': 1 },
-        personaBoost: 'host',
+        id: 'reset',
+        label: 'Skincare sanctuary',
+        emoji: '💧',
+        blurb: 'Cleanse, treat, dew — the ritual is the reward.',
+        scores: { skincare: 3, 'sun-spf': 1, wellness: 1, lips: 1 },
+        personaBoost: 'dew',
+      },
+    ],
+  },
+  {
+    id: 'gift',
+    prompt: 'You’re buying a gift for yourself. What feels right?',
+    options: [
+      {
+        id: 'jar',
+        label: 'A prestige jar',
+        emoji: '🫙',
+        blurb: 'Something weighty and beautiful on the vanity.',
+        scores: { luxury: 4, skincare: 1 },
+        personaBoost: 'luxe',
       },
       {
-        id: 'open-air',
-        label: 'Open-air',
+        id: 'bottle',
+        label: 'A full bottle of perfume',
+        emoji: '💎',
+        blurb: 'Not a sample — the real signature.',
+        scores: { fragrance: 4 },
+        personaBoost: 'sillage',
+      },
+      {
+        id: 'gold',
+        label: 'Something that catches light',
+        emoji: '✨',
+        blurb: 'Hoops, a pendant, a stack that finishes the neckline.',
+        scores: { jewelry: 4, handbags: 1 },
+        personaBoost: 'atelier',
+      },
+      {
+        id: 'kit',
+        label: 'The whole Adazo moment',
+        emoji: '🎁',
+        blurb: 'Beauty + fashion + scent — an edit, not a single SKU.',
+        scores: { luxury: 2, fragrance: 2, handbags: 1, jewelry: 1, makeup: 1 },
+        personaBoost: 'gilded',
+      },
+    ],
+  },
+  {
+    id: 'style',
+    prompt: 'How do you want Adazo to feel when you open the site?',
+    options: [
+      {
+        id: 'gallery',
+        label: 'Like a private gallery',
+        emoji: '🖼️',
+        blurb: 'Fewer pieces. Higher stakes. Nothing loud.',
+        scores: { luxury: 3, fragrance: 1 },
+        personaBoost: 'luxe',
+      },
+      {
+        id: 'vanity',
+        label: 'Like your dream vanity',
+        emoji: '💋',
+        blurb: 'Color, light, and products that perform on camera.',
+        scores: { makeup: 3, lips: 2, tools: 1 },
+        personaBoost: 'muse',
+      },
+      {
+        id: 'closet',
+        label: 'Like the perfect closet corner',
+        emoji: '👗',
+        blurb: 'Bags and jewels that make getting dressed a ceremony.',
+        scores: { handbags: 3, jewelry: 2 },
+        personaBoost: 'atelier',
+      },
+      {
+        id: 'spa',
+        label: 'Like a five-star bath floor',
+        emoji: '🛁',
+        blurb: 'Barrier-first skincare, soft light, no rush.',
+        scores: { skincare: 3, body: 2, wellness: 1 },
+        personaBoost: 'dew',
+      },
+    ],
+  },
+  {
+    id: 'priority',
+    prompt: 'If Adazo only kept three shelves for you, which matter most?',
+    sub: 'Pick up to two priorities.',
+    multiSelect: true,
+    maxSelect: 2,
+    options: [
+      {
+        id: 'lux-shelf',
+        label: 'Luxury Beauty',
+        emoji: '👑',
+        blurb: 'Prestige skincare & makeup — the elevated commission tier.',
+        scores: { luxury: 4 },
+        personaBoost: 'luxe',
+      },
+      {
+        id: 'frag-shelf',
+        label: 'Fragrance',
+        emoji: '🌺',
+        blurb: 'Sillage that announces you before you speak.',
+        scores: { fragrance: 4 },
+        personaBoost: 'sillage',
+      },
+      {
+        id: 'fashion-shelf',
+        label: 'Fashion finish',
+        emoji: '💍',
+        blurb: 'Handbags & jewelry — the polish after the glow.',
+        scores: { handbags: 3, jewelry: 3 },
+        personaBoost: 'atelier',
+      },
+      {
+        id: 'skin-shelf',
+        label: 'Skin & ritual',
         emoji: '🌿',
-        blurb: 'Fresh air is the main room.',
-        scores: { 'sun-spf': 4, makeup: 1 },
-        personaBoost: 'patio',
+        blurb: 'Everyday skincare that still feels luxurious.',
+        scores: { skincare: 3, 'sun-spf': 2, lips: 1 },
+        personaBoost: 'dew',
       },
     ],
   },
 ]
 
-/**
- * Optional branch questions — shown after core answers when a persona leans.
- * One tailored prompt makes scoring feel smarter without a long tree.
- */
-export const BRANCH_QUESTIONS: QuizQuestion[] = [
+const BRANCH_QUESTIONS: QuizQuestion[] = [
   {
-    id: 'host-priority',
-    prompt: 'For hosting, what matters more?',
-    sub: 'We’ll tilt your table edit.',
+    id: 'luxe-priority',
+    prompt: 'Within luxury — what pulls you first?',
     options: [
       {
-        id: 'look',
-        label: 'Look & mood',
+        id: 'luxe-skin',
+        label: 'Prestige skincare',
+        emoji: '💧',
+        blurb: 'Creams and essences with weight and reputation.',
+        scores: { luxury: 3, skincare: 2 },
+        personaBoost: 'luxe',
+      },
+      {
+        id: 'luxe-color',
+        label: 'Prestige color',
+        emoji: '💋',
+        blurb: 'Lipsticks and complexion that photograph expensive.',
+        scores: { luxury: 2, makeup: 3, lips: 1 },
+        personaBoost: 'muse',
+      },
+    ],
+  },
+  {
+    id: 'muse-priority',
+    prompt: 'Your soft glam starts where?',
+    options: [
+      {
+        id: 'muse-lips',
+        label: 'Lips first',
+        emoji: '👄',
+        blurb: 'The right nude or rose changes everything.',
+        scores: { lips: 3, makeup: 2 },
+        personaBoost: 'muse',
+      },
+      {
+        id: 'muse-face',
+        label: 'Full face polish',
         emoji: '✨',
-        blurb: 'The board should feel like an invitation.',
-        scores: { makeup: 3, 'tools': 1 },
-        personaBoost: 'host',
-      },
-      {
-        id: 'durability',
-        label: 'Durability',
-        emoji: '💪',
-        blurb: 'Built for real parties, not just photos.',
-        scores: { 'tools': 3, skincare: 1 },
-        personaBoost: 'craft',
+        blurb: 'Skin, flush, lashes — the complete mirror moment.',
+        scores: { makeup: 3, skincare: 1, tools: 1 },
+        personaBoost: 'muse',
       },
     ],
   },
   {
-    id: 'craft-priority',
-    prompt: 'What does your routine need most?',
-    sub: 'A quick nudge for your counter edit.',
+    id: 'sillage-priority',
+    prompt: 'How do you wear fragrance?',
     options: [
       {
-        id: 'prep',
-        label: 'Prep power',
-        emoji: '🔪',
-        blurb: 'Boards and tools that earn the counter.',
-        scores: { 'tools': 3, skincare: 2 },
-        personaBoost: 'craft',
+        id: 'sillage-signature',
+        label: 'One signature forever',
+        emoji: '🔏',
+        blurb: 'Loyal to a bottle people recognize as you.',
+        scores: { fragrance: 4 },
+        personaBoost: 'sillage',
       },
       {
-        id: 'serve',
-        label: 'Serve ready',
-        emoji: '🍽️',
-        blurb: 'From stove to shared plate without friction.',
-        scores: { makeup: 2, skincare: 2 },
-        personaBoost: 'host',
+        id: 'sillage-wardrobe',
+        label: 'A whole wardrobe',
+        emoji: '📚',
+        blurb: 'Day, night, season — scent as collection.',
+        scores: { fragrance: 3, luxury: 1 },
+        personaBoost: 'sillage',
       },
     ],
   },
   {
-    id: 'ritual-priority',
-    prompt: 'For your reset ritual, lean…',
-    sub: 'Soft edges either way.',
+    id: 'atelier-priority',
+    prompt: 'Fashion finish — what’s the hero?',
     options: [
       {
-        id: 'soak',
-        label: 'Slow soak',
-        emoji: '🛁',
-        blurb: 'Trays, towels, unhurried evenings.',
-        scores: { body: 3 },
-        personaBoost: 'ritual',
+        id: 'atelier-bag',
+        label: 'The bag',
+        emoji: '👜',
+        blurb: 'Structure, silhouette, the piece that carries the look.',
+        scores: { handbags: 4 },
+        personaBoost: 'atelier',
       },
       {
-        id: 'counter',
-        label: 'Quiet counters',
-        emoji: '🌿',
-        blurb: 'Calm holders and order by the sink.',
-        scores: { body: 2, wellness: 2 },
-        personaBoost: 'focus',
+        id: 'atelier-gold',
+        label: 'The gold',
+        emoji: '📿',
+        blurb: 'Earrings, layers, light on the collarbone.',
+        scores: { jewelry: 4 },
+        personaBoost: 'atelier',
       },
     ],
   },
   {
-    id: 'focus-priority',
-    prompt: 'At the desk, what helps more?',
-    sub: 'We’ll bias the workspace edit.',
+    id: 'dew-priority',
+    prompt: 'Your skin ritual is really about…',
     options: [
       {
-        id: 'surface',
-        label: 'Clear surface',
-        emoji: '🖥️',
-        blurb: 'Risers and clean lines in the work zone.',
-        scores: { hair: 3 },
-        personaBoost: 'focus',
+        id: 'dew-barrier',
+        label: 'Barrier & calm',
+        emoji: '🛡️',
+        blurb: 'Gentle, consistent, no drama on the face.',
+        scores: { skincare: 3, body: 1 },
+        personaBoost: 'dew',
       },
       {
-        id: 'drawers',
-        label: 'Hidden order',
-        emoji: '📦',
-        blurb: 'Drawers and shelves that absorb the chaos.',
-        scores: { wellness: 3, hair: 1 },
-        personaBoost: 'focus',
+        id: 'dew-glow',
+        label: 'Dew & light',
+        emoji: '🌅',
+        blurb: 'Glass skin energy — SPF and glow as non-negotiables.',
+        scores: { skincare: 2, 'sun-spf': 3, lips: 1 },
+        personaBoost: 'dew',
       },
     ],
   },
   {
-    id: 'patio-priority',
-    prompt: 'Outside time is more about…',
-    sub: 'Deck energy, your way.',
+    id: 'gilded-priority',
+    prompt: 'The full Adazo edit should lean…',
     options: [
       {
-        id: 'serve-out',
-        label: 'Outdoor serve',
-        emoji: '🥂',
-        blurb: 'Trays and platters under open sky.',
-        scores: { 'sun-spf': 2, makeup: 2 },
-        personaBoost: 'patio',
+        id: 'gilded-beauty',
+        label: 'Beauty-led luxury',
+        emoji: '👑',
+        blurb: 'Fragrance + prestige skin first; fashion as the encore.',
+        scores: { luxury: 2, fragrance: 2, makeup: 1 },
+        personaBoost: 'gilded',
       },
       {
-        id: 'garden',
-        label: 'Garden side',
-        emoji: '🌱',
-        blurb: 'Tools and pieces that live by the plants.',
-        scores: { 'sun-spf': 3, skincare: 1 },
-        personaBoost: 'patio',
-      },
-    ],
-  },
-  {
-    id: 'nest-priority',
-    prompt: 'For little ones, prioritize…',
-    sub: 'Gentle either way.',
-    options: [
-      {
-        id: 'mealtime',
-        label: 'Mealtime gear',
-        emoji: '🥣',
-        blurb: 'Plates and spoons scaled for tiny hands.',
-        scores: { lips: 4 },
-        personaBoost: 'nest',
-      },
-      {
-        id: 'parent-prep',
-        label: 'Parent prep',
-        emoji: '👨‍🍳',
-        blurb: 'Kitchen allies that survive the toddler years.',
-        scores: { skincare: 2, lips: 2 },
-        personaBoost: 'craft',
+        id: 'gilded-fashion',
+        label: 'Fashion-led luxury',
+        emoji: '💎',
+        blurb: 'Bags and jewels first; beauty as the glow around them.',
+        scores: { handbags: 2, jewelry: 2, fragrance: 1, luxury: 1 },
+        personaBoost: 'gilded',
       },
     ],
   },
 ]
 
 const BRANCH_BY_PERSONA: Record<string, string> = {
-  host: 'host-priority',
-  craft: 'craft-priority',
-  ritual: 'ritual-priority',
-  focus: 'focus-priority',
-  patio: 'patio-priority',
-  nest: 'nest-priority',
+  luxe: 'luxe-priority',
+  muse: 'muse-priority',
+  sillage: 'sillage-priority',
+  atelier: 'atelier-priority',
+  dew: 'dew-priority',
+  gilded: 'gilded-priority',
 }
 
-/** Branch question for a leaning persona, if any. */
 export function getBranchQuestion(personaId: string): QuizQuestion | null {
   const id = BRANCH_BY_PERSONA[personaId]
   if (!id) return null
   return BRANCH_QUESTIONS.find((q) => q.id === id) || null
 }
 
-/**
- * All questions that apply for scoring (core + answered branch).
- * Branch only counts once answered.
- */
 export function questionsForScoring(answers: QuizAnswers): QuizQuestion[] {
   const list = [...QUIZ_QUESTIONS]
   for (const b of BRANCH_QUESTIONS) {
@@ -444,239 +419,233 @@ export function questionsForScoring(answers: QuizAnswers): QuizQuestion[] {
 }
 
 export const PERSONAS: Record<string, Persona> = {
-  craft: {
-    id: 'craft',
-    title: 'Countertop Craftsperson',
-    tagline: 'Boards, utensils, and the heart of the house.',
+  luxe: {
+    id: 'luxe',
+    title: 'The Quiet Luxe',
+    tagline: 'Prestige beauty. Soft power. Nothing loud.',
     story:
-      'You cook like you mean it. Beauty that earns a permanent spot by the stove — knife-kind boards, warm tools, meal-prep ready.',
-    categories: ['tools', 'skincare', 'makeup'],
-    accent: '#3f6b35',
+      'You don’t chase trends — you collect presence. Adazo’s Luxury Beauty shelf is your language: weighty jars, considered formulas, vanity that looks like a private gallery. Discover here. Buy on Amazon.',
+    categories: ['luxury', 'skincare', 'fragrance'],
+    accent: '#9a6b2f',
   },
-  ritual: {
-    id: 'ritual',
-    title: 'Bath Ritualist',
-    tagline: 'Soft fiber, quiet counters, spa at home.',
+  muse: {
+    id: 'muse',
+    title: 'The Soft Glam Muse',
+    tagline: 'Color, light, and confidence in the mirror.',
     story:
-      'Your reset button lives in the bath. Beauty that feels like a slow exhale — trays, holders, and skin-kind textiles.',
-    categories: ['body'],
+      'Getting ready is a ritual worth dressing for. You want lips, flush, and finish that photograph expensive — polished, never costume. Adazo curates the soft glam edit; Amazon completes the cart.',
+    categories: ['makeup', 'lips', 'luxury'],
+    accent: '#b76e79',
+  },
+  sillage: {
+    id: 'sillage',
+    title: 'The Signature Scent',
+    tagline: 'You arrive before you speak.',
+    story:
+      'Fragrance is memory and identity. You build a wardrobe of sillage — day, night, gift — and Adazo points you to the bottles worth the vanity real estate. Discover here. Buy on Amazon.',
+    categories: ['fragrance', 'luxury', 'body'],
+    accent: '#7a4a8a',
+  },
+  atelier: {
+    id: 'atelier',
+    title: 'The Fashion Finisher',
+    tagline: 'Bags, gold, the last perfect piece.',
+    story:
+      'Beauty alone isn’t the look — the finish is. You shop Adazo for handbags and jewelry that complete the glow: structure, light, silhouette. Fashion energy with beauty-house taste.',
+    categories: ['handbags', 'jewelry', 'fragrance'],
+    accent: '#5c3a2e',
+  },
+  dew: {
+    id: 'dew',
+    title: 'The Glow Ritualist',
+    tagline: 'Barrier, dew, and daylight discipline.',
+    story:
+      'Your face is the long game. Cleanse, treat, SPF, soft lips — Adazo’s skin-first shelves without the noise. Luxury when it earns it; everyday when it’s honest.',
+    categories: ['skincare', 'sun-spf', 'lips', 'wellness'],
     accent: '#1e5a52',
   },
-  focus: {
-    id: 'focus',
-    title: 'Focus Nest Builder',
-    tagline: 'Desk calm + drawer order.',
+  gilded: {
+    id: 'gilded',
+    title: 'The Full Adazo Edit',
+    tagline: 'Beauty elevated. Fashion finished. All of it.',
     story:
-      'Clarity is a material choice. Risers, organizers, and clean lines that keep your workday grounded.',
-    categories: ['hair', 'wellness'],
-    accent: '#4a5568',
-  },
-  host: {
-    id: 'host',
-    title: 'Tabletop Host',
-    tagline: 'Serving boards, shared plates, candlelight.',
-    story:
-      'You set the mood for other people. Beauty that hosts well — charcuterie energy, generous serving, the table as invitation.',
-    categories: ['makeup', 'tools', 'skincare'],
-    accent: '#b45309',
-  },
-  nest: {
-    id: 'nest',
-    title: 'Little Nest Starter',
-    tagline: 'Gentle mealtime for tiny humans.',
-    story:
-      'First bites deserve soft edges. Beauty plates, spoons, and trays scaled for little hands.',
-    categories: ['lips', 'skincare'],
-    accent: '#7a9e5a',
-  },
-  patio: {
-    id: 'patio',
-    title: 'Patio Naturalist',
-    tagline: 'Open air, warm grain, evenings that start outside.',
-    story:
-      'Fresh air is your main room. Beauty that lives on the deck — trays, outdoor serve, garden-side tools that still look intentional.',
-    categories: ['sun-spf', 'makeup', 'skincare'],
-    accent: '#5a7a3a',
+      'You don’t want a single category — you want the house. Prestige beauty, fragrance, a bag, a flash of gold. Adazo is your private showroom for the complete elevated cart.',
+    categories: ['luxury', 'fragrance', 'handbags', 'jewelry', 'makeup'],
+    accent: '#8b4513',
   },
 }
 
-/** One curated pick slot: role name + why-line for a persona. */
 export type QuizPickSlot = {
   role: string
   categories: Category[]
   why: string
 }
 
-/**
- * Named pick roles per persona — variety over six near-identical boards.
- * Used by buildQuizPicks to diversify category + story.
- */
 export const PERSONA_PICK_SLOTS: Record<string, QuizPickSlot[]> = {
-  host: [
+  luxe: [
     {
-      role: 'Hosting board',
-      categories: ['tools', 'makeup'],
-      why: 'Generous surface for share plates and graze boards.',
+      role: 'Prestige jar',
+      categories: ['luxury', 'skincare'],
+      why: 'Weighty, beautiful, and worthy of permanent vanity space.',
     },
     {
-      role: 'Tabletop moment',
+      role: 'Signature treatment',
+      categories: ['luxury'],
+      why: 'The step that makes the whole routine feel expensive.',
+    },
+    {
+      role: 'Quiet luxury color',
+      categories: ['luxury', 'makeup', 'lips'],
+      why: 'Color that reads rich, not loud.',
+    },
+    {
+      role: 'Fragrance encore',
+      categories: ['fragrance', 'luxury'],
+      why: 'Sillage to match the prestige skin story.',
+    },
+    {
+      role: 'Gift-ready prestige',
+      categories: ['luxury'],
+      why: 'Easy to love as a self-gift or hostess moment.',
+    },
+  ],
+  muse: [
+    {
+      role: 'Hero lip',
+      categories: ['lips', 'luxury', 'makeup'],
+      why: 'The shade that finishes the mirror check.',
+    },
+    {
+      role: 'Soft flush',
       categories: ['makeup'],
-      why: 'Looks good left out between courses.',
+      why: 'Color that looks like better blood flow, not costume.',
     },
     {
-      role: 'Kitchen ally',
+      role: 'Lash lift',
+      categories: ['makeup'],
+      why: 'Open eyes, soft drama, camera-ready.',
+    },
+    {
+      role: 'Skin prep',
+      categories: ['skincare', 'luxury'],
+      why: 'Makeup sits better on a considered base.',
+    },
+    {
+      role: 'Tool upgrade',
+      categories: ['tools', 'makeup'],
+      why: 'Application that feels intentional.',
+    },
+  ],
+  sillage: [
+    {
+      role: 'Day signature',
+      categories: ['fragrance'],
+      why: 'The trail people notice at noon.',
+    },
+    {
+      role: 'Night signature',
+      categories: ['fragrance', 'luxury'],
+      why: 'Deeper, warmer, made for after dark.',
+    },
+    {
+      role: 'Body layer',
+      categories: ['body', 'fragrance'],
+      why: 'Mist and moisture that extend the scent story.',
+    },
+    {
+      role: 'Gift bottle',
+      categories: ['fragrance'],
+      why: 'Full size — not a sample energy.',
+    },
+    {
+      role: 'Prestige pair',
+      categories: ['luxury', 'fragrance'],
+      why: 'Beauty that matches the perfume’s attitude.',
+    },
+  ],
+  atelier: [
+    {
+      role: 'Hero bag',
+      categories: ['handbags'],
+      why: 'Silhouette and structure that finish the outfit.',
+    },
+    {
+      role: 'Everyday gold',
+      categories: ['jewelry'],
+      why: 'Light on the ear and collarbone — daily polish.',
+    },
+    {
+      role: 'Layer stack',
+      categories: ['jewelry'],
+      why: 'Necklaces that build presence without noise.',
+    },
+    {
+      role: 'Scent bridge',
+      categories: ['fragrance'],
+      why: 'Fragrance that walks with the fashion finish.',
+    },
+    {
+      role: 'Night bag',
+      categories: ['handbags'],
+      why: 'Compact, intentional, made for after six.',
+    },
+  ],
+  dew: [
+    {
+      role: 'Gentle cleanse',
       categories: ['skincare'],
-      why: 'Warm tools for prepping the spread.',
+      why: 'Barrier-first — no strip, no drama.',
     },
     {
-      role: 'Gift-ready set',
-      categories: ['tools', 'skincare'],
-      why: 'Beautiful, useful, easy to love as a host gift.',
+      role: 'Treatment step',
+      categories: ['skincare', 'luxury'],
+      why: 'The serum or cream that earns its place.',
     },
     {
-      role: 'Utensil upgrade',
-      categories: ['skincare'],
-      why: 'Everyday host energy at the stove.',
-    },
-  ],
-  craft: [
-    {
-      role: 'Everyday prep',
-      categories: ['tools'],
-      why: 'Knife-kind surface that earns a permanent stove-side spot.',
-    },
-    {
-      role: 'Utensil upgrade',
-      categories: ['skincare'],
-      why: 'Tools that feel intentional in the hand.',
-    },
-    {
-      role: 'Serving piece',
-      categories: ['makeup', 'tools'],
-      why: 'Board energy from prep to plate.',
-    },
-    {
-      role: 'Counter staple',
-      categories: ['skincare'],
-      why: 'Warm grain that belongs on the counter, not in a drawer.',
-    },
-    {
-      role: 'Gift-ready craft',
-      categories: ['tools', 'skincare'],
-      why: 'Solid piece for the cook who cares about tools.',
-    },
-  ],
-  ritual: [
-    {
-      role: 'Bath tray',
-      categories: ['body'],
-      why: 'Spa energy for unhurried soaks.',
-    },
-    {
-      role: 'Counter calm',
-      categories: ['body'],
-      why: 'Quiet storage that softens the morning rush.',
-    },
-    {
-      role: 'Skin-kind textile',
-      categories: ['body'],
-      why: 'Soft beauty fiber for the reset ritual.',
-    },
-    {
-      role: 'Holder upgrade',
-      categories: ['body', 'wellness'],
-      why: 'Everything has a calm place by the sink.',
-    },
-    {
-      role: 'Gift-ready ritual',
-      categories: ['body'],
-      why: 'Easy to love for anyone who treasures slow evenings.',
-    },
-  ],
-  focus: [
-    {
-      role: 'Desk calm',
-      categories: ['hair'],
-      why: 'Clean lines that keep the workday grounded.',
-    },
-    {
-      role: 'Drawer order',
-      categories: ['wellness'],
-      why: 'Everything has a place — no more desk chaos.',
-    },
-    {
-      role: 'Cable tidy',
-      categories: ['hair', 'wellness'],
-      why: 'Elevated workday without the tangle.',
-    },
-    {
-      role: 'Shelf riser',
-      categories: ['hair', 'wellness'],
-      why: 'Lift and separate so focus stays clear.',
-    },
-    {
-      role: 'Gift-ready nest',
-      categories: ['hair', 'wellness'],
-      why: 'Clarity as a material choice for someone you care about.',
-    },
-  ],
-  nest: [
-    {
-      role: 'First plates',
-      categories: ['lips'],
-      why: 'Soft edges scaled for little hands.',
-    },
-    {
-      role: 'Mealtime gear',
-      categories: ['lips', 'skincare'],
-      why: 'Gentle spoons and trays for first bites.',
-    },
-    {
-      role: 'Parent ally',
-      categories: ['skincare', 'lips'],
-      why: 'Warm prep tools that survive the toddler years.',
-    },
-    {
-      role: 'Table starter',
-      categories: ['makeup', 'lips'],
-      why: 'Shared table moments, tiny-human edition.',
-    },
-    {
-      role: 'Gift-ready nest',
-      categories: ['lips'],
-      why: 'Beautiful, useful, easy to love for new parents.',
-    },
-  ],
-  patio: [
-    {
-      role: 'Outdoor serve',
-      categories: ['sun-spf', 'makeup'],
-      why: 'Deck-ready trays that still look intentional.',
-    },
-    {
-      role: 'Garden-side tool',
+      role: 'Daylight discipline',
       categories: ['sun-spf', 'skincare'],
-      why: 'Warm grain for evenings that start outside.',
+      why: 'SPF as non-negotiable finish.',
     },
     {
-      role: 'Patio platter',
-      categories: ['makeup', 'sun-spf'],
-      why: 'Share plates under open sky.',
+      role: 'Soft lips',
+      categories: ['lips'],
+      why: 'Mask or balm for the last gentle step.',
     },
     {
-      role: 'Open-air upgrade',
-      categories: ['sun-spf'],
-      why: 'Fresh air is the main room — equip it well.',
+      role: 'Wellness support',
+      categories: ['wellness', 'body'],
+      why: 'Inside-out care that still feels beautiful.',
+    },
+  ],
+  gilded: [
+    {
+      role: 'Prestige anchor',
+      categories: ['luxury'],
+      why: 'The luxury piece the whole cart orbits.',
     },
     {
-      role: 'Gift-ready patio',
-      categories: ['sun-spf', 'makeup'],
-      why: 'Easy joy for the friend who lives outside.',
+      role: 'Signature scent',
+      categories: ['fragrance'],
+      why: 'Sillage for the full Adazo moment.',
+    },
+    {
+      role: 'Fashion finish',
+      categories: ['handbags', 'jewelry'],
+      why: 'Bag or gold — the look leaves the vanity.',
+    },
+    {
+      role: 'Soft glam accent',
+      categories: ['makeup', 'lips'],
+      why: 'Color that bridges beauty and fashion.',
+    },
+    {
+      role: 'Skin insurance',
+      categories: ['skincare', 'sun-spf'],
+      why: 'Glow that holds under the whole edit.',
     },
   ],
 }
 
-/** A product pick with persona-tied role + why line for the result grid. */
 export type QuizPick = {
   product: import('./types').Product
   role: string
@@ -685,16 +654,12 @@ export type QuizPick = {
 
 export type QuizScoreResult = {
   persona: Persona
-  /** Runner-up persona when votes support a clear second (null if none). */
   secondaryPersona: Persona | null
-  /** Primary vote share 0–1 among persona boosts (confidence signal). */
   confidence: number
   categoryScores: Record<string, number>
   topCategories: Category[]
   interestTags: string[]
-  /** Short labels of chosen answers, in question order (for “You chose: …”). */
   answerLabels: string[]
-  /** One-line recap: "Kitchen · Hosting · … → Tabletop Host" */
   answerSummary: string
   personaVotes: Record<string, number>
 }
@@ -703,13 +668,16 @@ function personaFromCategoryLeader(
   categoryScores: Record<string, number>,
 ): string {
   const topCat = Object.entries(categoryScores).sort((a, b) => b[1] - a[1])[0]
-  if (!topCat) return 'craft'
-  if (topCat[0] === 'body') return 'ritual'
-  if (topCat[0] === 'hair' || topCat[0] === 'wellness') return 'focus'
-  if (topCat[0] === 'lips') return 'nest'
-  if (topCat[0] === 'sun-spf') return 'patio'
-  if (topCat[0] === 'makeup') return 'host'
-  return 'craft'
+  if (!topCat) return 'luxe'
+  const c = topCat[0]
+  if (c === 'luxury') return 'luxe'
+  if (c === 'fragrance') return 'sillage'
+  if (c === 'handbags' || c === 'jewelry') return 'atelier'
+  if (c === 'makeup' || c === 'lips') return 'muse'
+  if (c === 'skincare' || c === 'sun-spf' || c === 'wellness' || c === 'body')
+    return 'dew'
+  if (c === 'hair' || c === 'tools') return 'muse'
+  return 'gilded'
 }
 
 export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
@@ -722,7 +690,6 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
     const ids = parseAnswerIds(answers[q.id])
     if (ids.length === 0) continue
 
-    // Multi-select: slight dampen so two rooms don't dominate single picks
     const scale = ids.length > 1 ? 0.75 : 1
     const labels: string[] = []
 
@@ -746,14 +713,12 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
 
   const ranked = Object.entries(personaVotes).sort((a, b) => {
     if (b[1] !== a[1]) return b[1] - a[1]
-    // Stable id order when votes tie (category leader applied next)
     return a[0].localeCompare(b[0])
   })
-  let personaId = ranked[0]?.[0] || 'craft'
+  let personaId = ranked[0]?.[0] || 'luxe'
   let best = ranked[0]?.[1] ?? 0
   const hadPersonaVotes = best > 0
 
-  // No votes, or equal top votes → resolve with category leader
   if (!hadPersonaVotes) {
     personaId = personaFromCategoryLeader(categoryScores)
   } else if (ranked.length >= 2 && ranked[1][1] === ranked[0][1]) {
@@ -764,9 +729,8 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
     personaId = tiedIds.includes(fromCats) ? fromCats : tiedIds[0]
   }
 
-  const persona = PERSONAS[personaId] || PERSONAS.craft
+  const persona = PERSONAS[personaId] || PERSONAS.luxe
 
-  // Secondary = clear runner-up (≥40% of primary votes, not the same id)
   let secondaryPersona: Persona | null = null
   const others = ranked.filter(([id]) => id !== personaId)
   if (others.length >= 1 && hadPersonaVotes) {
@@ -777,7 +741,6 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
   }
 
   const totalVotes = ranked.reduce((s, [, n]) => s + n, 0)
-  // Category-only fallback is uncertain — keep confidence low so UI hides the chip
   const confidence = hadPersonaVotes
     ? Math.min(1, Math.max(0, best / (totalVotes || 1)))
     : 0.3
@@ -788,7 +751,6 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
     .filter((c) => ALL_CATEGORIES.includes(c))
     .slice(0, 3)
 
-  // Blend secondary categories lightly into interest tags for cross-sell
   const secondaryCats = secondaryPersona?.categories || []
   const interestTags = [
     ...new Set([
@@ -816,31 +778,21 @@ export function scoreQuiz(answers: QuizAnswers): QuizScoreResult {
   }
 }
 
-/**
- * Curate 3–5 named, category-diverse picks for a persona.
- * Prefers limited-time + Amazon images; avoids stacking near-identical SKUs.
- */
 export function buildQuizPicks(
   products: import('./types').Product[],
   personaId: string,
   topCategories: Category[],
   limit = 5,
 ): QuizPick[] {
-  const slots =
-    PERSONA_PICK_SLOTS[personaId] ||
-    PERSONA_PICK_SLOTS.craft
+  const slots = PERSONA_PICK_SLOTS[personaId] || PERSONA_PICK_SLOTS.luxe
   const preferredCats = [
-    ...new Set([
-      ...slots.flatMap((s) => s.categories),
-      ...topCategories,
-    ]),
+    ...new Set([...slots.flatMap((s) => s.categories), ...topCategories]),
   ]
 
   const pool = products.filter(
     (p) =>
-      p.images?.length &&
-      (preferredCats.includes(p.category) ||
-        topCategories.includes(p.category)),
+      preferredCats.includes(p.category) ||
+      topCategories.includes(p.category),
   )
 
   const usedIds = new Set<string>()
@@ -860,17 +812,16 @@ export function buildQuizPicks(
     if (p.limitedTime) s += 3
     if (p.badge) s += 1
     if (p.bsrRank != null && p.bsrRank <= 50) s += 2
-    // Penalize repeating the same category too often
+    if ((p.images || []).some((u) => /media-amazon\.com\/images\/I\//i.test(u)))
+      s += 2
     const catCount = usedCats.get(p.category) || 0
     s -= catCount * 6
-    // Slight prefer higher rating
     if (p.rating) s += Math.min(p.rating, 5) * 0.3
     return s
   }
 
   for (const slot of slots) {
     if (picks.length >= limit) break
-    // Prefer a product that matches the slot’s categories when any remain
     const hasInSlot = pool.some(
       (p) => !usedIds.has(p.id) && slot.categories.includes(p.category),
     )
@@ -884,24 +835,18 @@ export function buildQuizPicks(
     if (!best) continue
     usedIds.add(best.id)
     usedCats.set(best.category, (usedCats.get(best.category) || 0) + 1)
-    // Only attach slot role/why when the product matches the slot category
     const inSlot = slot.categories.includes(best.category)
     picks.push({
       product: best,
-      role: inSlot ? slot.role : 'Vibe pick',
+      role: inSlot ? slot.role : 'Adazo pick',
       why: inSlot
         ? slot.why
-        : best.tagline || 'Picked for your beauty persona.',
+        : best.tagline || 'Chosen for your Adazo persona.',
     })
   }
 
-  // Fill if slots undershot (thin catalog for a persona)
   if (picks.length < Math.min(3, limit)) {
-    const fallbackPool =
-      pool.filter((p) => !usedIds.has(p.id)).length > 0
-        ? pool
-        : products.filter((p) => p.images?.length)
-    const fallback = fallbackPool
+    const fallback = products
       .filter((p) => !usedIds.has(p.id))
       .sort((a, b) => {
         const la = a.limitedTime ? 1 : 0
@@ -913,8 +858,8 @@ export function buildQuizPicks(
       usedIds.add(p.id)
       picks.push({
         product: p,
-        role: 'Vibe pick',
-        why: p.tagline || 'Picked for your beauty persona.',
+        role: 'Adazo pick',
+        why: p.tagline || 'Chosen for your Adazo persona.',
       })
     }
   }
@@ -924,5 +869,5 @@ export function buildQuizPicks(
 
 export function shopLinkForCategories(cats: Category[]): string {
   if (cats[0]) return `/shop?cat=${cats[0]}`
-  return '/shop?limited=1'
+  return '/shop?cat=luxury'
 }

@@ -29,7 +29,7 @@ const categories = [
   'wellness',
 ]
 
-const vibes = ['craft', 'ritual', 'focus', 'host', 'nest', 'patio']
+const vibes = ['luxe', 'muse', 'sillage', 'atelier', 'dew', 'gilded']
 
 function extractSlugs(filePath) {
   try {

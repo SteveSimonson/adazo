@@ -38,10 +38,10 @@ import {
 import { Seo } from '../components/Seo'
 import { quizSeo } from '../lib/seoData'
 
-/** Short shop-edit label from persona id (host → “host edit”). */
+/** Short shop-edit label from persona id (luxe → “luxe edit”). */
 function editWordForPersona(personaId: string): string {
-  const known = ['host', 'craft', 'ritual', 'focus', 'nest', 'patio'] as const
-  return (known as readonly string[]).includes(personaId) ? personaId : 'house'
+  const known = ['luxe', 'muse', 'sillage', 'atelier', 'dew', 'gilded'] as const
+  return (known as readonly string[]).includes(personaId) ? personaId : 'Adazo'
 }
 
 type Phase = 'intro' | 'questions' | 'result'
@@ -338,7 +338,7 @@ export function Quiz() {
             <ArrowLeft className="size-4" /> Home
           </Link>
           <p className="label-micro flex items-center gap-1.5">
-            <Sparkles className="size-3.5" /> Bamboo Vibe Check
+            <Sparkles className="size-3.5" /> Adazo Vibe Check
           </p>
         </div>
 
@@ -411,15 +411,15 @@ function Intro({ onStart }: { onStart: () => void }) {
   return (
     <div className="text-center animate-in">
       <div className="inline-flex items-center gap-2 rounded-full bg-moss text-paper px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider mb-6">
-        <PartyPopper className="size-3.5" /> 60-second vibe check
+        <PartyPopper className="size-3.5" /> 60-second Adazo vibe check
       </div>
       <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.08] text-balance">
-        What beauty vibe fits you right now?
+        Which Adazo persona is yours — luxury, glam, scent, or finish?
       </h1>
       <p className="mt-5 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">
-        A handful of quick taps. Zero wrong answers. See your beauty persona
-        and named picks immediately — save to the house book only if you want
-        updates.
+        A handful of quick taps. Zero wrong answers. Meet your house persona —
+        Quiet Luxe, Soft Glam Muse, Signature Scent, Fashion Finisher, and more —
+        with named picks ready. Save to the private edit only if you want updates.
       </p>
       <button type="button" onClick={onStart} className="btn-primary mt-10 !px-10">
         Start the vibe check <ArrowRight className="size-4" />
@@ -538,7 +538,7 @@ function QuestionStep({
   )
 }
 
-function SaveHouseBook({
+function SavePrivateEdit({
   persona,
   firstName,
   email,
@@ -566,19 +566,19 @@ function SaveHouseBook({
   return (
     <section
       className="mt-8 rounded-2xl border border-bamboo/25 bg-paper-2/90 p-5 sm:p-6 shadow-[0_12px_40px_-24px_rgba(63,107,53,0.35)]"
-      aria-labelledby="save-house-book-heading"
+      aria-labelledby="save-private-edit-heading"
     >
-      <p className="label-micro text-bamboo mb-1">Optional · house book</p>
+      <p className="label-micro text-bamboo mb-1">Optional · private edit</p>
       <h3
-        id="save-house-book-heading"
+        id="save-private-edit-heading"
         className="font-display text-xl sm:text-2xl font-semibold leading-tight"
       >
         Save your {persona.title} card
       </h3>
       <p className="mt-2 text-sm text-ink-soft leading-relaxed">
-        Keep this vibe in the house book and get this week’s {editLabel} edit
-        by email. You already have full results above — this is just for
-        follow-up.
+        Keep this persona in your private Adazo edit and get this week’s{' '}
+        {editLabel} drop by email. You already have full results above — this is
+        just for follow-up.
       </p>
 
       <form onSubmit={onSubmit} className="mt-5 space-y-3">
@@ -619,7 +619,7 @@ function SaveHouseBook({
             className="mt-1 rounded border-line"
           />
           <span>
-            Welcome note + occasional limited-time beauty drops. Unsubscribe
+            Welcome note + occasional limited luxury & fashion drops. Unsubscribe
             anytime.
           </span>
         </label>
@@ -644,7 +644,7 @@ function SaveHouseBook({
             </>
           ) : (
             <>
-              Save to house book <Sparkles className="size-4" />
+              Save private edit <Sparkles className="size-4" />
             </>
           )}
         </button>
@@ -717,7 +717,7 @@ function ResultStep({
           )}
           <div className="p-6 sm:p-8">
             <p className="label-micro" style={{ color: persona.accent }}>
-              Your beauty persona
+              Your Adazo persona
               {vibe ? ` · ${vibe.avatar.name}` : ''}
             </p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold mt-2 leading-tight">
@@ -847,7 +847,7 @@ function ResultStep({
 
       {/* Reverse email: soft save after full results */}
       {!saved && (
-        <SaveHouseBook
+        <SavePrivateEdit
           persona={persona}
           firstName={firstName}
           email={email}
@@ -864,10 +864,10 @@ function ResultStep({
       {picks.length > 0 && (
         <section className="mt-12">
           <h3 className="font-display text-2xl sm:text-3xl font-semibold">
-            Named picks for your vibe
+            Named picks for your persona
           </h3>
           <p className="mt-1 text-sm text-muted">
-            Variety over six similar boards — each pick has a role and a why.
+            Prestige, glam, scent, and finish — each pick has a role and a why.
           </p>
           <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {picks.map((pick) => (

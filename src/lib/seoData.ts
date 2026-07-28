@@ -144,9 +144,9 @@ export function productSeo(p: Product): PageSeo {
 export function vibeSeo(vibe: VibeProfile): PageSeo {
  const path = `/vibe/${vibe.id}`
  return {
-  title: `${vibe.title} — vibe card`,
+  title: `${vibe.title} — Adazo persona card`,
   description: clipMeta(
-   `${vibe.tagline} ${vibe.story} Meet ${vibe.avatar.name} and shop rooms that match the ${vibe.title} lifestyle on Adazo.`,
+   `${vibe.tagline} ${vibe.story} Meet ${vibe.avatar.name} and shop luxury beauty, fragrance, and fashion finish that match the ${vibe.title} on Adazo.`,
   ),
   path,
   image: vibe.avatar.image,
@@ -182,9 +182,9 @@ export function whySeo(): PageSeo {
 
 export function quizSeo(): PageSeo {
  return {
-  title: 'Vibe Check — find your beauty vibe',
+  title: 'Adazo Vibe Check — find your luxury persona',
   description:
-   'Take the 60-second Vibe Check. Match with a lifestyle persona—craft, ritual, focus, host, or nest—then shop rooms that fit.',
+   'Take the 60-second Adazo Vibe Check. Match with Quiet Luxe, Soft Glam Muse, Signature Scent, Fashion Finisher, Glow Ritualist, or Full Edit — then shop prestige beauty, fragrance, and fashion finish.',
   path: '/quiz',
  }
 }
