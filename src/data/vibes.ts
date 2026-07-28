@@ -587,7 +587,10 @@ export function roomLinks(categories: Category[]) {
   return categories.map((c) => ({ cat: c }))
 }
 
-/** Primary vibe most associated with a shop room (for category CTAs). */
+/**
+ * Primary vibe most associated with a shop room (stable default / SEO).
+ * Prefer `pickVibeForCategory` for UI — it randomizes within a related pool.
+ */
 export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
   luxury: 'luxe',
   fragrance: 'sillage',
@@ -604,10 +607,109 @@ export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
   watches: 'atelier',
 }
 
+/**
+ * Related personas for category vibe-check CTAs.
+ * Pools include a primary + peers so the graphic rotates instead of always
+ * showing the same face on every category visit.
+ */
+export const CATEGORY_VIBE_POOL: Partial<Record<Category, string[]>> = {
+  luxury: ['luxe', 'gilded', 'muse', 'sillage'],
+  fragrance: ['sillage', 'luxe', 'gilded', 'atelier'],
+  skincare: ['dew', 'luxe', 'muse'],
+  makeup: ['muse', 'luxe', 'gilded'],
+  lips: ['muse', 'dew', 'luxe'],
+  hair: ['muse', 'atelier', 'dew'],
+  tools: ['muse', 'atelier', 'dew'],
+  body: ['sillage', 'dew', 'luxe'],
+  'sun-spf': ['dew', 'muse', 'sillage'],
+  wellness: ['dew', 'luxe', 'muse'],
+  jewelry: ['atelier', 'gilded', 'luxe', 'muse'],
+  handbags: ['atelier', 'gilded', 'sillage', 'luxe'],
+  watches: ['atelier', 'gilded', 'luxe', 'sillage'],
+}
+
+const CAT_VIBE_SESSION_PREFIX = 'adazo-cat-vibe:'
+
+function vibePoolForCategory(cat: Category): string[] {
+  const pool = CATEGORY_VIBE_POOL[cat]
+  if (pool?.length) return pool.filter((id) => Boolean(getVibe(id)))
+  const primary = CATEGORY_PRIMARY_VIBE[cat]
+  if (primary && getVibe(primary)) return [primary]
+  return VIBE_LIST.map((v) => v.id)
+}
+
+/**
+ * Stable random pick for a category within the current browser session
+ * (mid + end CTAs on the same shop page share one face).
+ * Call again after session clear / new visit for a new graphic.
+ */
+export function pickVibeForCategory(
+  cat: string | null | undefined,
+): VibeProfile | undefined {
+  if (!cat) return undefined
+  const category = cat as Category
+  const pool = vibePoolForCategory(category)
+  if (!pool.length) return undefined
+
+  const key = `${CAT_VIBE_SESSION_PREFIX}${category}`
+  try {
+    const existing = sessionStorage.getItem(key)
+    if (existing && pool.includes(existing)) {
+      const vibe = getVibe(existing)
+      if (vibe) return vibe
+    }
+  } catch {
+    /* ignore */
+  }
+
+  const id = pool[Math.floor(Math.random() * pool.length)]
+  try {
+    sessionStorage.setItem(key, id)
+  } catch {
+    /* ignore */
+  }
+  return getVibe(id)
+}
+
+/** @deprecated Prefer pickVibeForCategory for rotating CTAs */
 export function vibeForCategory(
   cat: string | null | undefined,
 ): VibeProfile | undefined {
   if (!cat) return undefined
   const id = CATEGORY_PRIMARY_VIBE[cat as Category]
-  return id ? getVibe(id) : undefined
+  return id ? getVibe(id) : pickVibeForCategory(cat)
+}
+
+/** Portrait or scene art for the category vibe CTA (randomized per session). */
+export function pickVibeGraphic(vibe: VibeProfile): {
+  src: string
+  alt: string
+  kind: 'avatar' | 'scene'
+} {
+  let useScene = false
+  try {
+    const key = `adazo-cat-vibe-graphic:${vibe.id}`
+    const existing = sessionStorage.getItem(key)
+    if (existing === 'scene' || existing === 'avatar') {
+      useScene = existing === 'scene'
+    } else {
+      useScene = Math.random() < 0.45
+      sessionStorage.setItem(key, useScene ? 'scene' : 'avatar')
+    }
+  } catch {
+    useScene = Math.random() < 0.45
+  }
+
+  if (useScene && vibe.scene?.image) {
+    return {
+      src: vibe.scene.image,
+      alt: vibe.scene.alt || vibe.title,
+      kind: 'scene',
+    }
+  }
+  return {
+    src: vibe.avatar.image,
+    alt: vibe.avatar.alt || vibe.avatar.name,
+    kind: 'avatar',
+  }
 }
