@@ -17,6 +17,8 @@ export type Category =
   | 'handbags'
   /** Luxury watches $1,000+ — Swiss & designer timepieces */
   | 'watches'
+  /** Solid gold jewelry $500+ — chains, bands, fine gold */
+  | 'gold'
 
 export interface ProductSpec {
   label: string
@@ -34,6 +36,7 @@ export type MaterialFamily =
   | 'jewelry'
   | 'handbag'
   | 'watch'
+  | 'gold'
   | 'other'
 
 export type ProductSource =

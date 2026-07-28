@@ -55,12 +55,12 @@ const PROMO_TILES = [
     alt: 'Luxury watch editorial still life',
   },
   {
-    to: '/shop?cat=luxury',
-    kicker: 'Prestige beauty',
-    title: 'Luxury Beauty',
-    blurb: 'Prestige skincare & makeup — the elevated edit.',
-    image: '/brand/promo/nav-luxury.jpg',
-    alt: 'Luxury beauty vanity still life',
+    to: '/shop?cat=gold',
+    kicker: 'Solid gold · $500+',
+    title: 'Gold',
+    blurb: '14K & 18K chains, bands, and fine gold polish.',
+    image: '/brand/promo/nav-jewelry.jpg',
+    alt: 'Solid gold jewelry still life',
   },
 ] as const
 
@@ -209,6 +209,12 @@ export function Home() {
                   className="inline-flex items-center gap-2 rounded-full border border-white/40 text-white px-5 py-2.5 text-sm font-bold hover:bg-white/10 transition"
                 >
                   Watches
+                </Link>
+                <Link
+                  to="/shop?cat=gold"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/40 text-white px-5 py-2.5 text-sm font-bold hover:bg-white/10 transition"
+                >
+                  Gold
                 </Link>
               </div>
             </div>

@@ -32,6 +32,7 @@ const CATEGORY_HUE: Record<string, number> = {
   jewelry: 50,
   handbags: 25,
   watches: 210,
+  gold: 48,
 }
 
 /**
@@ -65,6 +66,12 @@ const CATEGORY_PROMO_POOL: Partial<Record<string, string[]>> = {
     '/brand/categories/jewelry.jpg',
     '/brand/promo/nav-jewelry.jpg',
     '/brand/vibes/atelier-scene.jpg',
+  ],
+  gold: [
+    '/brand/categories/jewelry.jpg',
+    '/brand/promo/nav-jewelry.jpg',
+    '/brand/vibes/luxe-scene.jpg',
+    '/brand/vibes/gilded-scene.jpg',
   ],
   skincare: ['/brand/categories/skincare.jpg', '/brand/vibes/dew-scene.jpg'],
   hair: ['/brand/categories/hair.jpg'],

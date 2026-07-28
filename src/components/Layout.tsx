@@ -15,9 +15,9 @@ const nav: NavItem[] = [
   { kind: 'shop', mode: 'cat', cat: 'handbags', label: 'Handbags' },
   { kind: 'shop', mode: 'cat', cat: 'jewelry', label: 'Jewelry' },
   { kind: 'shop', mode: 'cat', cat: 'watches', label: 'Watches' },
+  { kind: 'shop', mode: 'cat', cat: 'gold', label: 'Gold' },
   { kind: 'shop', mode: 'cat', cat: 'luxury', label: 'Luxury' },
   { kind: 'shop', mode: 'cat', cat: 'fragrance', label: 'Fragrance' },
-  { kind: 'shop', mode: 'cat', cat: 'skincare', label: 'Skincare' },
 ]
 
 function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
