@@ -15,6 +15,9 @@ const SITE = 'https://adazo.com'
 const today = new Date().toISOString().slice(0, 10)
 
 const categories = [
+  'handbags',
+  'jewelry',
+  'watches',
   'luxury',
   'fragrance',
   'skincare',
@@ -24,8 +27,6 @@ const categories = [
   'tools',
   'sun-spf',
   'lips',
-  'jewelry',
-  'handbags',
   'wellness',
 ]
 

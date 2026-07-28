@@ -88,11 +88,12 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     alt: 'Crystal perfume bottles with soft violet light',
   },
   jewelry: {
-    title: 'Jewelry',
-    blurb: 'Fashion and fine jewelry for everyday polish and gifting.',
+    title: 'Luxury Jewelry',
+    blurb:
+      'Fine jewelry $1,000+ — diamonds, designer pieces, and pre-loved polish.',
     image: '/brand/categories/jewelry.jpg',
     objectPosition: 'center 40%',
-    alt: 'Layered gold jewelry on champagne silk',
+    alt: 'Luxury diamond and gold jewelry on silk',
   },
   handbags: {
     title: 'Luxury Handbags',
@@ -101,6 +102,14 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     image: '/brand/categories/handbags.jpg',
     objectPosition: 'center 45%',
     alt: 'Structured luxury designer handbag still life',
+  },
+  watches: {
+    title: 'Luxury Watches',
+    blurb:
+      'Luxury watches $1,000+ — Swiss and designer timepieces for the finished look.',
+    image: '/brand/categories/jewelry.jpg',
+    objectPosition: 'center 35%',
+    alt: 'Luxury watch on a polished surface',
   },
 }
 
