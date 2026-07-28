@@ -107,11 +107,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Candlelit vanity suite',
       quote:
         'If it doesn’t feel expensive in the hand, it doesn’t stay on my shelf.',
-      image: '/brand/vibes/default-avatar.svg',
+      image: '/brand/vibes/luxe-avatar.jpg',
       alt: 'Vivienne at a candlelit vanity with prestige beauty jars',
     },
     scene: {
-      image: '/brand/vibes/default-scene.svg',
+      image: '/brand/vibes/luxe-scene.jpg',
       alt: 'Marble vanity with gold-capped prestige jars, soft candlelight, silk robe',
       caption: '7:40 p.m. — tray set, scent low, mirror still kind.',
     },
@@ -190,11 +190,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Backlit vanity with playlist on',
       quote:
         'If the lip is wrong, nothing else matters. Soft glam is a full decision.',
-      image: '/brand/vibes/default-avatar.svg',
+      image: '/brand/vibes/muse-avatar.jpg',
       alt: 'Camille applying soft glam makeup at a lit vanity mirror',
     },
     scene: {
-      image: '/brand/vibes/default-scene.svg',
+      image: '/brand/vibes/muse-scene.jpg',
       alt: 'Vanity with lipsticks, blush, lashes, and warm mirror light',
       caption: '6:18 p.m. — playlist on, lip liner drawn, door still optional.',
     },
@@ -273,11 +273,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Perfume wardrobe wall',
       quote:
         'I don’t wear a sample energy. The bottle is the signature — and people remember the trail.',
-      image: '/brand/vibes/default-avatar.svg',
+      image: '/brand/vibes/sillage-avatar.jpg',
       alt: 'Noor misting fragrance near a curated perfume shelf',
     },
     scene: {
-      image: '/brand/vibes/default-scene.svg',
+      image: '/brand/vibes/sillage-scene.jpg',
       alt: 'Crystal perfume bottles on a vanity with soft purple light and silk',
       caption: '8:02 p.m. — pulse points, one mist in the air, door open.',
     },
@@ -356,11 +356,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Walk-in with gold light',
       quote:
         'The bag and the gold are not extras. They’re the sentence that ends the look.',
-      image: '/brand/vibes/default-avatar.svg',
+      image: '/brand/vibes/atelier-avatar.jpg',
       alt: 'Margot with a structured bag and gold jewelry in soft closet light',
     },
     scene: {
-      image: '/brand/vibes/default-scene.svg',
+      image: '/brand/vibes/atelier-scene.jpg',
       alt: 'Structured handbag, gold hoops, layered necklaces on linen and marble',
       caption: '7:05 p.m. — bag chosen, gold stacked, scent already on.',
     },
@@ -439,11 +439,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Steam-soft bath sanctuary',
       quote:
         'The five minutes of cleanse and treat are the only ones that fully belong to my face.',
-      image: '/brand/vibes/default-avatar.svg',
+      image: '/brand/vibes/dew-avatar.jpg',
       alt: 'Isla in a soft robe applying skincare in morning light',
     },
     scene: {
-      image: '/brand/vibes/default-scene.svg',
+      image: '/brand/vibes/dew-scene.jpg',
       alt: 'Skincare ritual tray with serum, SPF, lip balm, and soft steam',
       caption: '6:12 a.m. — cleanse done, SPF next, phone still outside.',
     },
@@ -522,11 +522,11 @@ export const VIBES: Record<string, VibeProfile> = {
       hometown: 'Private showroom at home',
       quote:
         'I don’t shop one category. I shop the feeling — beauty, scent, and the piece that finishes the night.',
-      image: '/brand/vibes/default-avatar.svg',
+      image: '/brand/vibes/gilded-avatar.jpg',
       alt: 'Aurelia with prestige beauty, perfume, bag, and gold jewelry styled together',
     },
     scene: {
-      image: '/brand/vibes/default-scene.svg',
+      image: '/brand/vibes/gilded-scene.jpg',
       alt: 'Styled flat lay of luxury beauty, fragrance bottle, handbag, and gold jewelry',
       caption: 'Friday 7:30 p.m. — full edit laid out, door in twenty minutes.',
     },

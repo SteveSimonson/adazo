@@ -22,7 +22,7 @@ export type VibeEmailProfile = {
 }
 
 const BASE = 'https://adazo.com'
-const DEFAULT_AVATAR = `${BASE}/brand/vibes/default-avatar.svg`
+const DEFAULT_AVATAR = `${BASE}/brand/vibes/luxe-avatar.jpg`
 
 export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
   luxe: {
@@ -40,7 +40,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     avatarName: 'Vivienne',
     avatarQuote:
       'If it doesn’t feel expensive in the hand, it doesn’t stay on my shelf.',
-    avatarImageUrl: DEFAULT_AVATAR,
+    avatarImageUrl: `${BASE}/brand/vibes/luxe-avatar.jpg`,
     shopPath: '/shop?cat=luxury',
     shopLabel: 'Browse Luxury Beauty',
   },
@@ -59,7 +59,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     avatarName: 'Camille',
     avatarQuote:
       'If the lip is wrong, nothing else matters. Soft glam is a full decision.',
-    avatarImageUrl: DEFAULT_AVATAR,
+    avatarImageUrl: `${BASE}/brand/vibes/muse-avatar.jpg`,
     shopPath: '/shop?cat=makeup',
     shopLabel: 'Browse soft glam makeup',
   },
@@ -78,7 +78,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     avatarName: 'Noor',
     avatarQuote:
       'I don’t wear a sample energy. The bottle is the signature — and people remember the trail.',
-    avatarImageUrl: DEFAULT_AVATAR,
+    avatarImageUrl: `${BASE}/brand/vibes/sillage-avatar.jpg`,
     shopPath: '/shop?cat=fragrance',
     shopLabel: 'Browse fragrance',
   },
@@ -97,7 +97,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     avatarName: 'Margot',
     avatarQuote:
       'The bag and the gold are not extras. They’re the sentence that ends the look.',
-    avatarImageUrl: DEFAULT_AVATAR,
+    avatarImageUrl: `${BASE}/brand/vibes/atelier-avatar.jpg`,
     shopPath: '/shop?cat=handbags',
     shopLabel: 'Browse fashion finish',
   },
@@ -116,7 +116,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     avatarName: 'Isla',
     avatarQuote:
       'The five minutes of cleanse and treat are the only ones that fully belong to my face.',
-    avatarImageUrl: DEFAULT_AVATAR,
+    avatarImageUrl: `${BASE}/brand/vibes/dew-avatar.jpg`,
     shopPath: '/shop?cat=skincare',
     shopLabel: 'Browse skincare & glow',
   },
@@ -135,7 +135,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
     avatarName: 'Aurelia',
     avatarQuote:
       'I don’t shop one category. I shop the feeling — beauty, scent, and the piece that finishes the night.',
-    avatarImageUrl: DEFAULT_AVATAR,
+    avatarImageUrl: `${BASE}/brand/vibes/gilded-avatar.jpg`,
     shopPath: '/shop?cat=luxury',
     shopLabel: 'Browse the full Adazo edit',
   },
