@@ -64,7 +64,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'desire',
     prompt: 'What are you craving from Adazo right now?',
-    sub: 'Pick up to two. This is your house edit, not a test.',
+    sub: 'Pick up to two. No wrong answers — this is your edit.',
     multiSelect: true,
     maxSelect: 2,
     options: [
@@ -228,7 +228,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
         id: 'lux-shelf',
         label: 'Luxury Beauty',
         emoji: '👑',
-        blurb: 'Prestige skincare & makeup — the elevated commission tier.',
+        blurb: 'Prestige skincare & makeup — the elevated vanity.',
         scores: { luxury: 4 },
         personaBoost: 'luxe',
       },
@@ -373,7 +373,7 @@ const BRANCH_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 'gilded-priority',
-    prompt: 'The full Adazo edit should lean…',
+    prompt: 'Your complete look should lean…',
     options: [
       {
         id: 'gilded-beauty',
@@ -451,7 +451,7 @@ export const PERSONAS: Record<string, Persona> = {
     title: 'The Fashion Finisher',
     tagline: 'Bags, gold, the last perfect piece.',
     story:
-      'Beauty alone isn’t the look — the finish is. You shop Adazo for handbags and jewelry that complete the glow: structure, light, silhouette. Fashion energy with beauty-house taste.',
+      'Beauty alone isn’t the look — the finish is. You shop Adazo for handbags and jewelry that complete the glow: structure, light, silhouette. Fashion energy with beauty-editor taste.',
     categories: ['handbags', 'jewelry', 'fragrance'],
     accent: '#5c3a2e',
   },
@@ -466,10 +466,10 @@ export const PERSONAS: Record<string, Persona> = {
   },
   gilded: {
     id: 'gilded',
-    title: 'The Full Adazo Edit',
-    tagline: 'Beauty elevated. Fashion finished. All of it.',
+    title: 'The Gilded Collector',
+    tagline: 'Prestige, scent, and finish — the complete look.',
     story:
-      'You don’t want a single category — you want the house. Prestige beauty, fragrance, a bag, a flash of gold. Adazo is your private showroom for the complete elevated cart.',
+      'You don’t shop one shelf — you build the whole moment. Prestige beauty, a signature fragrance, a bag, a flash of gold. Curated here; completed on Amazon.',
     categories: ['luxury', 'fragrance', 'handbags', 'jewelry', 'makeup'],
     accent: '#8b4513',
   },
@@ -626,7 +626,7 @@ export const PERSONA_PICK_SLOTS: Record<string, QuizPickSlot[]> = {
     {
       role: 'Signature scent',
       categories: ['fragrance'],
-      why: 'Sillage for the full Adazo moment.',
+      why: 'Sillage for the complete elevated moment.',
     },
     {
       role: 'Fashion finish',

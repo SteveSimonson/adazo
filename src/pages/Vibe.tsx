@@ -131,7 +131,7 @@ export function VibePage() {
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent pt-20 pb-4 px-5">
                     <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
-                      Face of the house
+                      Face of the persona
                     </p>
                     <p className="font-display text-2xl font-semibold text-white leading-tight mt-1">
                       {vibe.avatar.name}
@@ -655,7 +655,7 @@ function VibeTradingCard({
           </div>
 
           <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted text-center">
-            ★ {vibe.rarity} · House series
+            ★ {vibe.rarity} · Persona series
           </p>
         </div>
       </div>

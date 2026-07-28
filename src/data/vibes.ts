@@ -124,7 +124,7 @@ export const VIBES: Record<string, VibeProfile> = {
     materialTruths: [
       'Prestige formulas often win on texture and finish, not just marketing',
       'Weighty packaging signals care — and lasts as vanity décor',
-      'Luxury Beauty is Adazo’s elevated commission tier for a reason',
+      'Prestige formulas and packaging that earn vanity real estate',
       'Quiet color and scent complete the prestige story',
     ],
     signatureSetup:
@@ -252,7 +252,7 @@ export const VIBES: Record<string, VibeProfile> = {
       },
     ],
     benefits: [
-      'Fragrance with real cart size',
+      'Fragrance with full-bottle presence',
       'Day and night signatures',
       'Body layers that extend the trail',
       'Gift-ready full bottles',
@@ -289,7 +289,7 @@ export const VIBES: Record<string, VibeProfile> = {
     ],
     materialTruths: [
       'Full bottles convert better than discovery kits for loyal wearers',
-      'Body care extends sillage and cart value',
+      'Body care extends sillage past the first hour',
       'Fragrance pairs beautifully with prestige skin and fashion finish',
       'A signature scent is wearable identity',
     ],
@@ -315,7 +315,7 @@ export const VIBES: Record<string, VibeProfile> = {
       'Bag-as-architecture thinker',
       'Gold that catches collarbone light',
       'Outfit ceremony energy',
-      'Fashion with beauty-house taste',
+      'Fashion with beauty-editor taste',
     ],
     powers: [
       {
@@ -335,7 +335,7 @@ export const VIBES: Record<string, VibeProfile> = {
       },
     ],
     benefits: [
-      'Handbags that lift cart size and polish',
+      'Handbags that lift polish and presence',
       'Jewelry that finishes the neckline',
       'Scent that walks with the fashion finish',
       'Gift-ready fashion energy',
@@ -371,7 +371,7 @@ export const VIBES: Record<string, VibeProfile> = {
       'Gift season: jewelry that finishes someone else’s neckline',
     ],
     materialTruths: [
-      'Handbags are high-AOV fashion finish next to beauty',
+      'Handbags complete the look the way a final piece of jewelry does',
       'Hoops and layers convert as everyday polish gifts',
       'Fragrance bridges vanity beauty and the walk out the door',
       'Structure and light matter more than logo shouting',
@@ -471,23 +471,23 @@ export const VIBES: Record<string, VibeProfile> = {
   },
   gilded: {
     ...PERSONAS.gilded,
-    typeLabel: 'Full Edit · House',
+    typeLabel: 'Collector · Full Spectrum',
     rarity: 'Private Showroom',
     emoji: '👑',
     flavor:
-      'You don’t want a single shelf — you want the house. Prestige beauty, fragrance, a bag, a flash of gold. The complete elevated cart.',
+      'You don’t want a single shelf — you want the whole look. Prestige beauty, fragrance, a bag, a flash of gold. Everything that makes the night feel finished.',
     catchphrase: 'Beauty elevated. Fashion finished.',
     traits: [
-      'Whole-house shopper',
-      'Beauty + fashion in one cart',
-      'Gift edit instinct',
+      'Collector of complete looks',
+      'Beauty and fashion in one edit',
+      'Gift-stack instinct',
       'Private showroom energy',
     ],
     powers: [
       {
-        name: 'Full Cart Aura',
+        name: 'Full Look Aura',
         detail:
-          'You build an Adazo moment: prestige anchor, scent, finish, soft glam — not a lonely SKU.',
+          'You build a moment: prestige anchor, scent, finish, soft glam — never a lonely single product.',
       },
       {
         name: 'Gift Architecture',
@@ -495,16 +495,16 @@ export const VIBES: Record<string, VibeProfile> = {
           'You know how to stack a present that feels like a private showroom visit.',
       },
       {
-        name: 'House Edit',
+        name: 'Spectrum Edit',
         detail:
-          'Luxury Beauty, fragrance, handbags, jewelry — you let the brand do the curation.',
+          'Luxury beauty, fragrance, handbags, jewelry — you let curation do the hard work.',
       },
     ],
     benefits: [
-      'The complete Adazo experience',
-      'High-AOV beauty + fashion carts',
+      'The complete elevated experience',
+      'Beauty and fashion finish together',
       'Gift-ready multi-category edits',
-      'One house for vanity and closet',
+      'One path from vanity to closet',
     ],
     stats: [
       { label: 'Prestige', value: 88 },
@@ -514,10 +514,10 @@ export const VIBES: Record<string, VibeProfile> = {
     ],
     gradient: 'from-[#5c2e0a] via-[#8b4513] to-[#c9a227]',
     cardBg: 'from-[#fbf7f0] via-[#f5ead8] to-[#e8d5b0]',
-    shopHint: 'Luxury, fragrance, handbags, jewelry — the full Adazo edit.',
+    shopHint: 'Luxury, fragrance, handbags, jewelry — the full spectrum.',
     avatar: {
       name: 'Aurelia',
-      role: 'Full Adazo edit · House curator',
+      role: 'Collector · Private showroom',
       ageBand: 'Mid-40s',
       hometown: 'Private showroom at home',
       quote:
@@ -534,13 +534,13 @@ export const VIBES: Record<string, VibeProfile> = {
       'Morning: prestige skin + day scent',
       'Work: everyday gold and a bag with architecture',
       'Evening: soft glam, night fragrance, mini bag',
-      'Weekend: gift a full Adazo moment — not a single lonely SKU',
+      'Weekend: gift the whole moment — not a single lonely piece',
     ],
     materialTruths: [
-      'Multi-category carts are how luxury affiliates scale AOV',
-      'Beauty + fashion finish feel like a private showroom',
-      'Fragrance is the bridge between vanity and the walk out',
-      'Adazo is built for the complete elevated edit',
+      'Beauty and fashion finish feel complete together',
+      'Fragrance bridges the vanity and the walk out the door',
+      'A considered multi-shelf edit beats a random single product',
+      'The look lands when glow, scent, and finish all agree',
     ],
     signatureSetup:
       'Vanity prestige + perfume front, bag and gold by the door, soft glam ready for night.',
