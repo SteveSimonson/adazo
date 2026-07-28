@@ -7,12 +7,17 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
+    // Worker runs for every request: SEO head injection, canonical
+    // redirects, real 404s, and Cache-Control all happen in worker/index.ts.
     "run_worker_first": true
   },
   "workers_dev": true,
+  // Zone routes (not custom_domain) so apex can keep existing A records.
+  // www is also attached as a Workers custom domain via API.
+  // Apex custom_domain fails while externally managed A records remain.
   "routes": [
-    { "pattern": "adazo.com", "custom_domain": true },
-    { "pattern": "www.adazo.com", "custom_domain": true }
+    { "pattern": "adazo.com/*", "zone_name": "adazo.com" },
+    { "pattern": "www.adazo.com/*", "zone_name": "adazo.com" }
   ],
   "observability": {
     "enabled": true
