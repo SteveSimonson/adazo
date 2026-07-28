@@ -78,7 +78,7 @@ export function Shop() {
     ? CATEGORY_LABELS[cat as Category]
     : limited
       ? 'This week'
-      : 'All rooms'
+      : 'All categories'
 
   return (
     <div className="pb-28">
@@ -104,7 +104,7 @@ export function Shop() {
             </h1>
             <p className="text-ink-soft mt-3 max-w-xl text-lg font-light leading-relaxed">
               {limited
-                ? "Amazon Best Sellers edit for women\'s beauty. Options only available for a limited time—lists refresh weekly and ranks move."
+                ? "Amazon Best Sellers edit for women's beauty. Options only available for a limited time—lists refresh weekly and ranks move."
                 : 'Browse by concern and category, then buy on Amazon with secure checkout.'}
             </p>
 
@@ -166,7 +166,7 @@ export function Shop() {
                 : 'bg-card border border-line hover:border-bamboo/40'
             }`}
           >
-            All rooms
+            All categories
           </button>
           {CATEGORY_OPTIONS.map((c) => (
             <button

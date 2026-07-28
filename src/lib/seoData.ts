@@ -32,8 +32,8 @@ export function homeSeo(): PageSeo {
   title: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
   path: '/',
-  image: '/brand/hero.webp',
-  preloadImage: '/brand/hero.webp',
+  image: '/brand/social.png',
+  preloadImage: '/brand/social.png',
  }
 }
 
@@ -61,7 +61,7 @@ export function shopSeo(opts: {
   ? `${CATEGORY_LABELS[cat]}`
   : limited
    ? 'This week’s limited options'
-   : 'Shop for every room'
+   : 'Shop for every routine'
 
  const description =
   cat && categoryHero
@@ -69,8 +69,8 @@ export function shopSeo(opts: {
      `${categoryHero.blurb} Browse ${count} ${CATEGORY_LABELS[cat].toLowerCase()} picks on Adazo; buy on Amazon.`,
     )
    : limited
-    ? 'Amazon Best Sellers edit for kitchen, table, bath, and desk. Limited-time options that refresh weekly—discover on Adazo, buy on Amazon.'
-    : 'Shop kitchen tools, cutting boards, tabletop, bath, desk, and home. Discover the collection on Adazo; complete purchase on Amazon.'
+    ? 'Amazon Best Sellers edit for skincare, hair, makeup, and body. Limited-time options that refresh weekly—discover on Adazo, buy on Amazon.'
+    : 'Shop skincare, hair, makeup, body, SPF, and tools. Discover the collection on Adazo; complete purchase on Amazon.'
 
  const crumbs = [
   { name: 'Home', path: '/' },
@@ -170,19 +170,19 @@ export function vibeSeo(vibe: VibeProfile): PageSeo {
 
 export function whySeo(): PageSeo {
  return {
-  title: 'Our story — for the whole house',
+  title: "Our story — women's beauty, curated",
   description:
-   'Adazo is a destination for natural living—kitchen, table, bath, and desk. We curate the collection; Amazon handles fulfillment you already trust.',
+   'Adazo is a destination for women\'s beauty—skincare, hair, makeup, and body. We curate the collection; Amazon handles fulfillment you already trust.',
   path: '/why',
-  image: '/brand/landing-forest.webp',
-  preloadImage: '/brand/landing-forest.webp',
+  image: '/brand/social.png',
+  preloadImage: '/brand/social.png',
   type: 'article',
  }
 }
 
 export function quizSeo(): PageSeo {
  return {
-  title: 'Vibe Check — find your house energy',
+  title: 'Vibe Check — find your beauty vibe',
   description:
    'Take the 60-second Vibe Check. Match with a lifestyle persona—craft, ritual, focus, host, or nest—then shop rooms that fit.',
   path: '/quiz',

@@ -180,8 +180,13 @@ export function resolveProductImages(
     }
   }
 
-  if (product.asin) {
-    for (const c of amazonImageCandidates(product.asin, size)) push(c)
+  // Do NOT inject flaky P/{ASIN} CDN guesses here. Many return HTTP 200 with a
+  // 1×1 GIF, so <img onError> never fires and cards look blank. Prefer:
+  // - reliable catalog /images/I/ URLs when present
+  // - quiet monogram until Creators API (or scrape) supplies real images
+  const hasReliableAmazon = out.some((u) => isReliableAmazonImage(u))
+  if (!hasReliableAmazon) {
+    // monogram only — skip P/ candidates
   }
 
   push(quietPlaceholderUrl(product))

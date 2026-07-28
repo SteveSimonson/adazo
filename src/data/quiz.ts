@@ -68,7 +68,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     options: [
       {
         id: 'skincare',
-        label: 'The kitchen',
+        label: 'My skincare shelf',
         emoji: '🍳',
         blurb: 'Chop, stir, serve — warm tools at arm’s reach.',
         scores: { skincare: 3, 'tools': 2, makeup: 1 },
@@ -300,7 +300,7 @@ export const BRANCH_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 'craft-priority',
-    prompt: 'In the kitchen, what wins?',
+    prompt: 'What does your routine need most?',
     sub: 'A quick nudge for your counter edit.',
     options: [
       {

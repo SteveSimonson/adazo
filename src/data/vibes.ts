@@ -104,11 +104,11 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'If it doesn’t earn a spot next to the stove, it doesn’t come home with me.',
       image: '/brand/vibes/default-avatar.svg',
-      alt: 'Maya at her kitchen island with a beauty cutting board and fresh herbs',
+      alt: 'Maya at her kitchen island with a beauty pick and fresh herbs',
     },
     scene: {
       image: '/brand/vibes/default-scene.svg',
-      alt: 'Beauty cutting board with chopped vegetables beside a steaming pan',
+      alt: 'Beauty beauty pick with chopped vegetables beside a steaming pan',
       caption: 'Tuesday 6:40 p.m. — board out, onions already going.',
     },
     dayInTheLife: [
@@ -126,7 +126,7 @@ export const VIBES: Record<string, VibeProfile> = {
     signatureSetup:
       'One thick board center stage, utensil crock by the burner, herbs within a half-turn.',
     shoppingList: [
-      'XL beauty cutting board',
+      'XL beauty pick',
       'Wooden spoon & spatula set',
       'Board stand or storage rack',
       'Serving board that doubles as prep',
