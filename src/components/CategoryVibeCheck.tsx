@@ -5,15 +5,18 @@ import { CATEGORY_LABELS } from '../data/catalog'
 import type { Category } from '../data/types'
 import {
   getVibe,
+  pickVibeForCategory,
+  pickVibeGraphic,
   readStoredVibeId,
-  vibeForCategory,
   vibePath,
+  type VibeProfile,
 } from '../data/vibes'
 import { trackVibeCta } from '../lib/analytics'
 
 /**
  * Room-aware vibe check CTA for category shop pages.
  * Drives quiz engagement (and optional email registration on the quiz).
+ * Persona graphic is randomized per category per session (not a fixed face).
  */
 export function CategoryVibeCheck({
   category,
@@ -24,16 +27,34 @@ export function CategoryVibeCheck({
   placement?: 'mid' | 'end'
 }) {
   const [storedId, setStoredId] = useState<string | null>(null)
-  const suggested = vibeForCategory(category)
+  /** Session-stable random persona for this category (client). */
+  const [suggested, setSuggested] = useState<VibeProfile | undefined>(() =>
+    typeof window !== 'undefined' ? pickVibeForCategory(category) : undefined,
+  )
+  const [graphic, setGraphic] = useState<{
+    src: string
+    alt: string
+    kind: 'avatar' | 'scene'
+  } | null>(null)
   const roomLabel = CATEGORY_LABELS[category]
 
   useEffect(() => {
     setStoredId(readStoredVibeId())
+    setSuggested(pickVibeForCategory(category))
   }, [category])
 
   const yours = storedId ? getVibe(storedId) : null
   const face = yours ?? suggested
-  if (!face) return null
+
+  useEffect(() => {
+    if (!face) {
+      setGraphic(null)
+      return
+    }
+    setGraphic(pickVibeGraphic(face))
+  }, [face, category])
+
+  if (!face || !graphic) return null
 
   const isEnd = placement === 'end'
   const hasChecked = Boolean(yours)
@@ -62,13 +83,17 @@ export function CategoryVibeCheck({
         <div className="flex items-start sm:items-center gap-4 min-w-0 flex-1">
           <div
             className={`relative shrink-0 overflow-hidden rounded-2xl border-2 shadow-md ${
-              isEnd ? 'border-white/25 size-16 sm:size-20' : 'border-white size-14 sm:size-16'
+              isEnd
+                ? 'border-white/25 size-16 sm:size-20'
+                : 'border-white size-14 sm:size-16'
             }`}
           >
             <img
-              src={face.avatar.image}
-              alt=""
-              className="w-full h-full object-cover object-top"
+              src={graphic.src}
+              alt={graphic.alt}
+              className={`w-full h-full object-cover ${
+                graphic.kind === 'avatar' ? 'object-top' : 'object-center'
+              }`}
               loading="lazy"
             />
           </div>
@@ -104,9 +129,9 @@ export function CategoryVibeCheck({
             >
               {hasChecked
                 ? matchRoom
-                  ? `${yours!.avatar.name}’s pick for ${roomLabel.toLowerCase()}. Open your card or retake the check anytime.`
+                  ? `${yours!.avatar.name}’s energy for ${roomLabel.toLowerCase()}. Open your card or retake the check anytime.`
                   : `Take 60 seconds to confirm — or open ${yours!.avatar.name}’s persona card.`
-                : `60-second Adazo Vibe Check maps you to a luxury persona like ${face.avatar.name} (${face.title}) — then unlock your card and optional private edit.`}
+                : `60-second Adazo Vibe Check maps you to a luxury persona — this shelf is featuring ${face.avatar.name} (${face.title}). Meet them or take the check.`}
             </p>
           </div>
         </div>
