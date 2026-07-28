@@ -60,10 +60,14 @@ function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
   const out: Product[] = []
 
   for (const p of [...bsr, ...base]) {
-    // Shop only real Amazon listings (ASIN required). Drops house-edit pads.
+    // Drops house-edit pads; allows curated keyword rows without ASIN.
     if (!isMerchandisableProduct(p)) continue
-    if (seenAsin.has(p.asin!)) continue
-    seenAsin.add(p.asin!)
+    // ASIN dedupe only when present — do not collapse all ASIN-less rows on `undefined`.
+    if (p.asin) {
+      const asinKey = p.asin.toUpperCase()
+      if (seenAsin.has(asinKey)) continue
+      seenAsin.add(asinKey)
+    }
     let slug = p.slug
     if (seenSlug.has(slug)) slug = `${slug}-${p.id}`
     seenSlug.add(slug)
