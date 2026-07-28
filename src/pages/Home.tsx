@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Clock3, Sparkles } from 'lucide-react'
 import {
+  bigTicketProducts,
   bsrLeaders,
   CATEGORY_OPTIONS,
   formatExpiry,
@@ -14,20 +15,32 @@ import { ProductCard } from '../components/ProductCard'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 
+/** Editor picks: badge first, then highest price (big tickets lead). */
 const featured = [
-  ...shopProducts.filter((p) => p.badge),
-  ...shopProducts,
+  ...shopProducts.filter((p) => p.badge === 'Big ticket' || p.badge === 'Luxury bag'),
+  ...shopProducts.filter((p) => p.badge && p.badge !== 'Big ticket' && p.badge !== 'Luxury bag'),
+  ...shopProducts.slice().sort((a, b) => (b.priceHint || 0) - (a.priceHint || 0)),
 ]
   .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
   .slice(0, 8)
+
+const bigTickets = bigTicketProducts(8)
 
 const newArrivals = shopProducts.slice().reverse().slice(0, 4)
 
 /** High-impact navigational promos — luxury / fashion brand energy */
 const PROMO_TILES = [
   {
+    to: '/shop?cat=handbags',
+    kicker: 'Big ticket · $900+',
+    title: 'Luxury Handbags',
+    blurb: 'Designer bags — LV, Gucci, Prada, and more.',
+    image: '/brand/promo/nav-fashion.jpg',
+    alt: 'Luxury designer handbag editorial still life',
+  },
+  {
     to: '/shop?cat=luxury',
-    kicker: 'Highest commission tier',
+    kicker: 'Prestige beauty',
     title: 'Luxury Beauty',
     blurb: 'Prestige skincare & makeup — the elevated edit.',
     image: '/brand/promo/nav-luxury.jpg',
@@ -35,25 +48,17 @@ const PROMO_TILES = [
   },
   {
     to: '/shop?cat=fragrance',
-    kicker: 'Gift-ready AOV',
+    kicker: 'Signature scent',
     title: 'Fragrance',
     blurb: 'Signature scents for gifting and everyday polish.',
     image: '/brand/promo/nav-fragrance.jpg',
     alt: 'Fragrance campaign still life',
   },
   {
-    to: '/shop?cat=handbags',
-    kicker: 'Fashion & finish',
-    title: 'Handbags',
-    blurb: 'Bags that complete the look and lift cart size.',
-    image: '/brand/promo/nav-fashion.jpg',
-    alt: 'Fashion handbag editorial still life',
-  },
-  {
     to: '/shop?cat=jewelry',
-    kicker: 'Everyday sparkle',
+    kicker: 'Finish the look',
     title: 'Jewelry',
-    blurb: 'Hoops, layers, and gift-ready pieces.',
+    blurb: 'Hoops, layers, and gift-ready polish.',
     image: '/brand/promo/nav-jewelry.jpg',
     alt: 'Gold jewelry on silk',
   },
@@ -83,28 +88,27 @@ export function Home() {
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6">
               <Clock3 className="size-3.5 text-gold" />
-              Luxury · fragrance · fashion beauty
+              Luxury handbags · prestige beauty · fragrance
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
               Beauty elevated. Fashion finished.
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
-              Curated Amazon Best Sellers across prestige beauty, fragrance,
-              jewelry, and bags — plus everyday skincare that actually earns a
-              place in your routine. Discover here. Buy on Amazon.
+              Designer luxury handbags ($900+), prestige beauty, fragrance, and
+              jewelry — curated on Adazo, completed on Amazon.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                to="/shop?cat=luxury"
+                to="/shop?cat=handbags"
                 className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)]"
               >
-                Shop luxury beauty <ArrowRight className="size-4" />
+                Shop luxury handbags <ArrowRight className="size-4" />
               </Link>
               <Link
-                to="/shop?limited=1"
+                to="/shop?cat=luxury"
                 className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 backdrop-blur-sm px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/18 transition"
               >
-                This week’s drop
+                Luxury beauty
               </Link>
             </div>
             {until && (
@@ -131,8 +135,8 @@ export function Home() {
                 Shop the elevated shelves
               </h2>
               <p className="text-ink-soft mt-2 max-w-xl font-light">
-                Luxury Beauty for prestige commission yield, plus fragrance and
-                fashion finishes that raise cart size.
+                Big-ticket designer handbags first, then prestige beauty,
+                fragrance, and jewelry to finish the look.
               </p>
             </div>
           </div>
@@ -170,6 +174,38 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {bigTickets.length > 0 && (
+        <section className="border-b border-line bg-[#1a1410] text-paper">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14">
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold mb-2">
+                  Big ticket · $900+
+                </p>
+                <h2 className="font-display text-3xl sm:text-4xl font-semibold text-white">
+                  Designer handbags & prestige pieces
+                </h2>
+                <p className="text-white/70 mt-2 max-w-xl font-light">
+                  Highest-ticket picks first — luxury handbags and elevated
+                  cart-makers from Amazon.
+                </p>
+              </div>
+              <Link
+                to="/shop?cat=handbags"
+                className="inline-flex items-center gap-2 rounded-full bg-white text-ink px-5 py-2.5 text-sm font-bold hover:bg-cream transition"
+              >
+                All luxury handbags <ArrowRight className="size-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              {bigTickets.map((p) => (
+                <ProductCard key={p.id} product={p} listName="home_big_ticket" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {weekLeaders.length > 0 && (
         <section className="border-b border-line bg-[#fff5f7]">

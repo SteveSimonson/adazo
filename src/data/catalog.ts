@@ -79,7 +79,9 @@ function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
 
 export const CATEGORY_LABELS: Record<Category, string> = {
   luxury: 'Luxury Beauty',
+  handbags: 'Luxury Handbags',
   fragrance: 'Fragrance',
+  jewelry: 'Jewelry',
   skincare: 'Skincare',
   hair: 'Hair',
   makeup: 'Makeup',
@@ -87,14 +89,43 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   tools: 'Tools',
   'sun-spf': 'Sun & SPF',
   lips: 'Lips',
-  jewelry: 'Jewelry',
-  handbags: 'Handbags',
   wellness: 'Wellness',
 }
 
-export const CATEGORY_OPTIONS = (
-  Object.entries(CATEGORY_LABELS) as [Category, string][]
-).map(([id, label]) => ({ id, label }))
+/** Nav / shop chip order — big-ticket fashion & prestige first */
+const CATEGORY_ORDER: Category[] = [
+  'handbags',
+  'luxury',
+  'fragrance',
+  'jewelry',
+  'skincare',
+  'makeup',
+  'hair',
+  'body',
+  'tools',
+  'sun-spf',
+  'lips',
+  'wellness',
+]
+
+export const CATEGORY_OPTIONS = CATEGORY_ORDER.filter(
+  (id) => id in CATEGORY_LABELS,
+).map((id) => ({ id, label: CATEGORY_LABELS[id] }))
+
+/** Big-ticket threshold for “luxury chic” merchandising ($900+). */
+export const BIG_TICKET_MIN = 900
+
+export function isBigTicket(p: Product): boolean {
+  return (p.priceHint || 0) >= BIG_TICKET_MIN
+}
+
+/** Highest-price storefront products first (designer bags, prestige, etc.). */
+export function bigTicketProducts(limit = 8): Product[] {
+  return shopProducts
+    .filter(isBigTicket)
+    .sort((a, b) => (b.priceHint || 0) - (a.priceHint || 0))
+    .slice(0, limit)
+}
 
 export const collections = Array.from(
   new Map(
@@ -129,7 +160,9 @@ function collectionBlurb(label: string): string {
     Wellness: 'Collagen and beauty-adjacent wellness picks.',
     Lips: 'Masks, balms, and soft-finish lip care.',
     Jewelry: 'Fashion and fine jewelry for gifting and everyday polish.',
-    Handbags: 'Bags and fashion accessories with high cart value.',
+    Handbags: 'Designer luxury handbags — big-ticket fashion finish.',
+    'Luxury Handbags':
+      'Designer luxury handbags from Amazon ($900+ focus) — LV, Gucci, Prada, and more.',
   }
   return map[label] ?? 'Curated women\'s health and beauty for real routines.'
 }
@@ -209,6 +242,12 @@ export function filterProducts(opts: {
         p.bsrCategory?.toLowerCase().includes(q) ||
         p.features.some((f) => f.toLowerCase().includes(q)),
     )
+  }
+  // Luxury handbags & prestige shelves: show highest ticket first
+  if (opts.cat === 'handbags' || opts.cat === 'luxury' || opts.cat === 'jewelry') {
+    list = list
+      .slice()
+      .sort((a, b) => (b.priceHint || 0) - (a.priceHint || 0))
   }
   return list
 }

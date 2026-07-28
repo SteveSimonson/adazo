@@ -95,11 +95,12 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     alt: 'Layered gold jewelry on champagne silk',
   },
   handbags: {
-    title: 'Handbags',
-    blurb: 'Bags and fashion accessories that lift average order value.',
+    title: 'Luxury Handbags',
+    blurb:
+      'Designer bags $900+ — Louis Vuitton, Gucci, Prada, and more. Big-ticket fashion finish.',
     image: '/brand/categories/handbags.jpg',
     objectPosition: 'center 45%',
-    alt: 'Structured cognac handbag on linen',
+    alt: 'Structured luxury designer handbag still life',
   },
 }
 
