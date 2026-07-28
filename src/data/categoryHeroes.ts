@@ -4,99 +4,102 @@ import { CATEGORY_LABELS } from './catalog'
 export type CategoryHeroContent = {
   title: string
   blurb: string
-  /** Public path under /brand/categories/ */
+  /** Public path under /brand/ */
   image: string
   /** CSS object-position for crop */
   objectPosition?: string
   alt: string
 }
 
-/** Lifestyle heroes for every shop category (photo + copy). */
+/**
+ * Lifestyle heroes for every shop category (photo + copy).
+ * Each category has a unique JPG — no shared promo reuse across rooms.
+ */
 export const HEROES: Record<Category, CategoryHeroContent> = {
   skincare: {
     title: 'Skincare',
     blurb: 'Cleansers, serums, and moisturizers for real skin concerns.',
-    image: '/brand/categories/skincare.svg',
+    image: '/brand/categories/skincare.jpg',
     objectPosition: 'center 40%',
     alt: 'Soft skincare bottles on a marble vanity',
   },
   hair: {
     title: 'Hair',
     blurb: 'Treatments, oils, and refresh essentials for healthier-feeling hair.',
-    image: '/brand/categories/hair.svg',
+    image: '/brand/categories/hair.jpg',
     objectPosition: 'center 45%',
-    alt: 'Hair care bottles and a soft brush',
+    alt: 'Hair care oil and brush on a warm vanity',
   },
   makeup: {
     title: 'Makeup',
     blurb: 'Everyday color and finish staples without the noise.',
-    image: '/brand/categories/makeup.svg',
+    image: '/brand/categories/makeup.jpg',
     objectPosition: 'center 40%',
-    alt: 'Makeup essentials on a soft blush surface',
+    alt: 'Makeup essentials on soft blush silk',
   },
   body: {
     title: 'Body',
     blurb: 'Lotions, mists, and body care that make the routine feel intentional.',
-    image: '/brand/categories/body.svg',
+    image: '/brand/categories/body.jpg',
     objectPosition: 'center 45%',
-    alt: 'Body lotion and mist on a clean bathroom shelf',
+    alt: 'Body lotion and mist on a clean spa tray',
   },
   tools: {
     title: 'Tools',
     blurb: 'Stylers, dryers, and devices that earn counter space.',
-    image: '/brand/categories/tools.svg',
+    image: '/brand/categories/tools.jpg',
     objectPosition: 'center 40%',
-    alt: 'Beauty tools and a hot air brush',
+    alt: 'Premium beauty tools on cool marble',
   },
   'sun-spf': {
     title: 'Sun & SPF',
     blurb: 'Daily SPF that wears well under makeup and real life.',
-    image: '/brand/categories/sun-spf.svg',
+    image: '/brand/categories/sun-spf.jpg',
     objectPosition: 'center 40%',
     alt: 'Sunscreen bottles in soft daylight',
   },
   wellness: {
     title: 'Wellness',
     blurb: 'Beauty-adjacent wellness picks like collagen and daily support.',
-    image: '/brand/categories/wellness.svg',
+    image: '/brand/categories/wellness.jpg',
     objectPosition: 'center 45%',
-    alt: 'Wellness jar on a kitchen counter',
+    alt: 'Wellness jar and glass in morning light',
   },
   lips: {
     title: 'Lips',
     blurb: 'Masks, balms, and soft-finish lip care.',
-    image: '/brand/categories/lips.svg',
+    image: '/brand/categories/lips.jpg',
     objectPosition: 'center 40%',
-    alt: 'Lip mask jar and balm',
+    alt: 'Lip mask jar and balm on blush silk',
   },
   luxury: {
     title: 'Luxury Beauty',
     blurb:
       'Prestige skincare and makeup — the highest Amazon Associates commission tier (~10%).',
-    image: '/brand/promo/nav-luxury.jpg',
+    image: '/brand/categories/luxury.jpg',
     objectPosition: 'center 40%',
-    alt: 'Luxury beauty vanity with perfume and gold accents',
+    alt: 'Prestige cream jars on a champagne marble vanity',
   },
   fragrance: {
     title: 'Fragrance',
     blurb: 'Perfume and fine fragrance with gift-ready cart size.',
-    image: '/brand/promo/nav-fragrance.jpg',
+    image: '/brand/categories/fragrance.jpg',
     objectPosition: 'center 45%',
-    alt: 'Soft luxury fragrance still life',
+    alt: 'Crystal perfume bottles with soft violet light',
   },
   jewelry: {
     title: 'Jewelry',
     blurb: 'Fashion and fine jewelry for everyday polish and gifting.',
-    image: '/brand/promo/nav-jewelry.jpg',
+    image: '/brand/categories/jewelry.jpg',
     objectPosition: 'center 40%',
-    alt: 'Layered gold jewelry on silk',
+    alt: 'Layered gold jewelry on champagne silk',
   },
   handbags: {
     title: 'Handbags',
     blurb: 'Bags and fashion accessories that lift average order value.',
-    image: '/brand/promo/nav-fashion.jpg',
+    image: '/brand/categories/handbags.jpg',
     objectPosition: 'center 45%',
-    alt: 'Structured handbag and gold earrings still life',
+    alt: 'Structured cognac handbag on linen',
   },
 }
 

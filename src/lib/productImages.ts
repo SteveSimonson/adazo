@@ -33,12 +33,52 @@ const CATEGORY_HUE: Record<string, number> = {
   handbags: 25,
 }
 
-/** Promotional lifestyle art when Amazon images are missing (luxury/fashion). */
-const CATEGORY_PROMO_FALLBACK: Partial<Record<string, string>> = {
-  luxury: '/brand/promo/nav-luxury.jpg',
-  fragrance: '/brand/promo/nav-fragrance.jpg',
-  jewelry: '/brand/promo/nav-jewelry.jpg',
-  handbags: '/brand/promo/nav-fashion.jpg',
+/**
+ * Lifestyle art when Amazon images are missing.
+ * Multiple options per category so product grids do not show one identical tile
+ * for every SKU in luxury / fragrance / fashion.
+ */
+const CATEGORY_PROMO_POOL: Partial<Record<string, string[]>> = {
+  luxury: [
+    '/brand/categories/luxury.jpg',
+    '/brand/promo/nav-luxury.jpg',
+    '/brand/vibes/luxe-scene.jpg',
+    '/brand/vibes/gilded-scene.jpg',
+  ],
+  fragrance: [
+    '/brand/categories/fragrance.jpg',
+    '/brand/promo/nav-fragrance.jpg',
+    '/brand/vibes/sillage-scene.jpg',
+  ],
+  jewelry: [
+    '/brand/categories/jewelry.jpg',
+    '/brand/promo/nav-jewelry.jpg',
+    '/brand/vibes/atelier-scene.jpg',
+  ],
+  handbags: [
+    '/brand/categories/handbags.jpg',
+    '/brand/promo/nav-fashion.jpg',
+    '/brand/vibes/atelier-scene.jpg',
+  ],
+  skincare: ['/brand/categories/skincare.jpg', '/brand/vibes/dew-scene.jpg'],
+  hair: ['/brand/categories/hair.jpg'],
+  makeup: ['/brand/categories/makeup.jpg', '/brand/vibes/muse-scene.jpg'],
+  body: ['/brand/categories/body.jpg'],
+  tools: ['/brand/categories/tools.jpg'],
+  'sun-spf': ['/brand/categories/sun-spf.jpg'],
+  wellness: ['/brand/categories/wellness.jpg'],
+  lips: ['/brand/categories/lips.jpg', '/brand/vibes/muse-scene.jpg'],
+}
+
+function categoryPromoForProduct(product: {
+  id: string
+  asin?: string
+  category?: string
+}): string | undefined {
+  const pool = CATEGORY_PROMO_POOL[product.category || '']
+  if (!pool?.length) return undefined
+  const seed = hashSeed(product.asin || product.id)
+  return pool[seed % pool.length]
 }
 
 export function isAmazonCdnImage(url: string | undefined | null): boolean {
@@ -195,10 +235,10 @@ export function resolveProductImages(
   // Do NOT inject flaky P/{ASIN} CDN guesses here. Many return HTTP 200 with a
   // 1×1 GIF, so <img onError> never fires and cards look blank. Prefer:
   // - reliable catalog /images/I/ URLs when present
-  // - category promo photography for luxury/fashion shelves
+  // - diversified category lifestyle art (hashed per product — not one shared tile)
   // - quiet monogram last
   if (!out.some((u) => isReliableAmazonImage(u))) {
-    const promo = CATEGORY_PROMO_FALLBACK[product.category]
+    const promo = categoryPromoForProduct(product)
     if (promo) push(promo)
   }
 
