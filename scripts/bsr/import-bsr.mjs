@@ -278,12 +278,16 @@ function isBeautyRelated(title = '', features = []) {
   if (exclude.test(t)) return false
   // Prefer explicit beauty language; still allow BSR leaf-node titles through
   const include =
-    /skin|serum|moisturizer|cleanser|sunscreen|spf|mascara|blush|foundation|lipstick|lip |hair|shampoo|conditioner|dry shampoo|body lotion|body mist|collagen|retinol|niacinamide|hyaluronic|ceramide|primer|concealer|eyeliner|brow|toner|exfoliat|mask|cream|oil|brush|styler|blow.?dry|curling|straightener|perfume|fragrance|beauty|cosmetic|makeup|make-up|wellness|peptide|vitamin c|eye cream|facial|scalp/i
+    /skin|serum|moisturizer|cleanser|sunscreen|spf|mascara|blush|foundation|lipstick|lip |hair|shampoo|conditioner|dry shampoo|body lotion|body mist|collagen|retinol|niacinamide|hyaluronic|ceramide|primer|concealer|eyeliner|brow|toner|exfoliat|mask|cream|oil|brush|styler|blow.?dry|curling|straightener|perfume|parfum|fragrance|cologne|eau de|beauty|cosmetic|makeup|make-up|wellness|peptide|vitamin c|eye cream|facial|scalp|luxury|prestige|la mer|sk-ii|jewelry|jewellery|earring|necklace|bracelet|ring|handbag|crossbody|tote bag|shoulder bag|purse|clutch/i
   return include.test(t)
 }
 
 function materialFamily(title = '', material = '') {
   const t = `${title} ${material}`.toLowerCase()
+  if (/handbag|crossbody|tote bag|shoulder bag|purse|clutch|satchel/.test(t)) return 'handbag'
+  if (/earring|necklace|bracelet|ring|jewelry|jewellery|pendant|hoop/.test(t)) return 'jewelry'
+  if (/perfume|parfum|fragrance|cologne|eau de/.test(t)) return 'fragrance'
+  if (/la mer|sk-ii|charlotte tilbury|drunk elephant|augustinus|prestige|luxury beauty/.test(t)) return 'luxury'
   if (/hair dryer|airwrap|hot air|styler|straighten|curling|brush tool|device|led mask/.test(t)) return 'device'
   if (/collagen|peptide|supplement|vitamin/.test(t)) return 'supplement'
   if (/mascara|blush|foundation|lipstick|concealer|eyeliner|brow|makeup|make-up/.test(t)) return 'makeup'

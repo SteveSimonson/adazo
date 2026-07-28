@@ -19,6 +19,8 @@ const BUSY_BRAND_PATHS = [
 
 /** Cool, low-saturation hues for monogram placeholders (match new surface system). */
 const CATEGORY_HUE: Record<string, number> = {
+  luxury: 45,
+  fragrance: 300,
   skincare: 340,
   hair: 280,
   makeup: 10,
@@ -27,6 +29,8 @@ const CATEGORY_HUE: Record<string, number> = {
   'sun-spf': 40,
   wellness: 100,
   lips: 350,
+  jewelry: 50,
+  handbags: 25,
 }
 
 export function isAmazonCdnImage(url: string | undefined | null): boolean {

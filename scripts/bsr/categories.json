@@ -1,9 +1,52 @@
 {
-  "description": "Amazon BSR nodes for women's health & beauty. Target: ≥20 products per Adazo category when filling.",
+  "description": "Amazon BSR nodes for women's health & beauty with high-commission skew (Luxury Beauty ~10%, Beauty ~3%, fashion jewelry/handbags for AOV). Target: ≥20 products per Adazo category when filling.",
   "refreshCadence": "weekly",
   "perCategoryQuota": 20,
   "associateTagEnv": "VITE_AMAZON_ASSOCIATE_TAG",
   "categories": [
+    {
+      "id": "luxury-beauty",
+      "label": "Luxury Beauty",
+      "department": "luxury-beauty",
+      "node": "11055981",
+      "adazoCategory": "luxury",
+      "collection": "Luxury Beauty",
+      "beautyBias": "high",
+      "enabled": true,
+      "commissionNote": "~10% Associates (Luxury Beauty)"
+    },
+    {
+      "id": "premium-beauty-skin",
+      "label": "Premium Skin Care",
+      "department": "beauty",
+      "node": "11060451",
+      "adazoCategory": "luxury",
+      "collection": "Luxury Beauty",
+      "beautyBias": "high",
+      "enabled": true,
+      "commissionNote": "Filter prestige brands into luxury shelf"
+    },
+    {
+      "id": "womens-fragrance",
+      "label": "Women's Fragrance",
+      "department": "beauty",
+      "node": "11058271",
+      "adazoCategory": "fragrance",
+      "collection": "Fragrance",
+      "beautyBias": "high",
+      "enabled": true,
+      "commissionNote": "High AOV; often Luxury Beauty rate"
+    },
+    {
+      "id": "perfume-cologne",
+      "label": "Perfume & Cologne",
+      "department": "beauty",
+      "node": "11056591",
+      "adazoCategory": "fragrance",
+      "collection": "Fragrance",
+      "beautyBias": "high",
+      "enabled": true
+    },
     {
       "id": "skin-care",
       "label": "Skin Care",
@@ -103,9 +146,62 @@
       "collection": "Tools",
       "beautyBias": "medium",
       "enabled": true
+    },
+    {
+      "id": "womens-fashion-jewelry",
+      "label": "Women's Fashion Jewelry",
+      "department": "fashion",
+      "node": "7192394011",
+      "adazoCategory": "jewelry",
+      "collection": "Jewelry",
+      "beautyBias": "medium",
+      "enabled": true,
+      "commissionNote": "Fashion-adjacent rates + gift AOV"
+    },
+    {
+      "id": "fine-jewelry",
+      "label": "Fine Jewelry",
+      "department": "fashion",
+      "node": "3880591",
+      "adazoCategory": "jewelry",
+      "collection": "Jewelry",
+      "beautyBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "womens-handbags",
+      "label": "Women's Handbags",
+      "department": "fashion",
+      "node": "15743631",
+      "adazoCategory": "handbags",
+      "collection": "Handbags",
+      "beautyBias": "medium",
+      "enabled": true,
+      "commissionNote": "High AOV fashion category"
+    },
+    {
+      "id": "shoulder-bags",
+      "label": "Shoulder Bags",
+      "department": "fashion",
+      "node": "2474937011",
+      "adazoCategory": "handbags",
+      "collection": "Handbags",
+      "beautyBias": "medium",
+      "enabled": true
     }
   ],
   "searches": [
+    { "q": "luxury beauty best sellers women", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "SK-II facial treatment essence", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "La Mer moisturizing cream", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "Charlotte Tilbury pillow talk lipstick", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "Drunk Elephant protini polypeptide cream", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "Tatcha dewy skin cream", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "Augustinus Bader the cream", "adazoCategory": "luxury", "collection": "Luxury Beauty" },
+    { "q": "women eau de parfum best seller", "adazoCategory": "fragrance", "collection": "Fragrance" },
+    { "q": "Chanel Chance perfume women", "adazoCategory": "fragrance", "collection": "Fragrance" },
+    { "q": "Yves Saint Laurent Libre perfume", "adazoCategory": "fragrance", "collection": "Fragrance" },
+    { "q": "Viktor Rolf Flowerbomb", "adazoCategory": "fragrance", "collection": "Fragrance" },
     { "q": "best seller face serum women", "adazoCategory": "skincare", "collection": "Skincare" },
     { "q": "ceramide moisturizer for dry skin", "adazoCategory": "skincare", "collection": "Skincare" },
     { "q": "niacinamide serum for face", "adazoCategory": "skincare", "collection": "Skincare" },
@@ -117,6 +213,12 @@
     { "q": "facial sunscreen invisible finish", "adazoCategory": "sun-spf", "collection": "SPF" },
     { "q": "hot air brush blow dryer", "adazoCategory": "tools", "collection": "Tools" },
     { "q": "lip sleeping mask", "adazoCategory": "lips", "collection": "Lips" },
-    { "q": "collagen peptides powder unflavored", "adazoCategory": "wellness", "collection": "Wellness" }
+    { "q": "collagen peptides powder unflavored", "adazoCategory": "wellness", "collection": "Wellness" },
+    { "q": "gold hoop earrings women best seller", "adazoCategory": "jewelry", "collection": "Jewelry" },
+    { "q": "sterling silver necklace women", "adazoCategory": "jewelry", "collection": "Jewelry" },
+    { "q": "initial pendant necklace women", "adazoCategory": "jewelry", "collection": "Jewelry" },
+    { "q": "crossbody bag women best seller", "adazoCategory": "handbags", "collection": "Handbags" },
+    { "q": "leather tote bag women", "adazoCategory": "handbags", "collection": "Handbags" },
+    { "q": "designer inspired handbag women", "adazoCategory": "handbags", "collection": "Handbags" }
   ]
 }

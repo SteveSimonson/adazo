@@ -69,6 +69,35 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     objectPosition: 'center 40%',
     alt: 'Lip mask jar and balm',
   },
+  luxury: {
+    title: 'Luxury Beauty',
+    blurb:
+      'Prestige skincare and makeup — the highest Amazon Associates commission tier (~10%).',
+    image: '/brand/categories/luxury.svg',
+    objectPosition: 'center 40%',
+    alt: 'Luxury beauty bottles on marble',
+  },
+  fragrance: {
+    title: 'Fragrance',
+    blurb: 'Perfume and fine fragrance with gift-ready cart size.',
+    image: '/brand/categories/fragrance.svg',
+    objectPosition: 'center 45%',
+    alt: 'Perfume bottle in soft light',
+  },
+  jewelry: {
+    title: 'Jewelry',
+    blurb: 'Fashion and fine jewelry for everyday polish and gifting.',
+    image: '/brand/categories/jewelry.svg',
+    objectPosition: 'center 40%',
+    alt: 'Gold jewelry on soft fabric',
+  },
+  handbags: {
+    title: 'Handbags',
+    blurb: 'Bags and fashion accessories that lift average order value.',
+    image: '/brand/categories/handbags.svg',
+    objectPosition: 'center 45%',
+    alt: 'Structured handbag on a clean surface',
+  },
 }
 
 export function getCategoryHero(cat: Category | string | null | undefined) {

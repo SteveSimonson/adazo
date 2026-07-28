@@ -23,6 +23,8 @@ function fillerImages() {
 }
 
 const collectionFor = {
+  luxury: 'Luxury Beauty',
+  fragrance: 'Fragrance',
   skincare: 'Skincare',
   hair: 'Hair',
   makeup: 'Makeup',
@@ -31,9 +33,13 @@ const collectionFor = {
   'sun-spf': 'SPF',
   wellness: 'Wellness',
   lips: 'Lips',
+  jewelry: 'Jewelry',
+  handbags: 'Handbags',
 }
 
 const fillers = {
+  luxury: [['Prestige Serum Edit', 'Luxury Beauty commission tier.']],
+  fragrance: [['Signature Eau de Parfum', 'Gift-ready fragrance AOV.']],
   skincare: [['Gentle Ceramide Cleanser', 'Barrier-first daily cleanse.']],
   hair: [['Bond Repair Treatment', 'Weekly strength for tired hair.']],
   makeup: [['Everyday Length Mascara', 'Soft definition without clumps.']],
@@ -42,6 +48,8 @@ const fillers = {
   'sun-spf': [['Invisible Daily SPF', 'Light finish under makeup.']],
   wellness: [['Collagen Peptides', 'Unflavored daily scoop.']],
   lips: [['Overnight Lip Mask', 'Softer mornings.']],
+  jewelry: [['Everyday Gold Hoops', 'Fashion jewelry gift pick.']],
+  handbags: [['Structured Crossbody', 'High-AOV bag staple.']],
 }
 
 function slugify(s) {

@@ -12,11 +12,11 @@ type NavItem =
 
 const nav: NavItem[] = [
   { kind: 'link', to: '/quiz', label: 'Vibe check' },
+  { kind: 'shop', mode: 'cat', cat: 'luxury', label: 'Luxury' },
+  { kind: 'shop', mode: 'cat', cat: 'fragrance', label: 'Fragrance' },
   { kind: 'shop', mode: 'cat', cat: 'skincare', label: 'Skincare' },
-  { kind: 'shop', mode: 'cat', cat: 'hair', label: 'Hair' },
   { kind: 'shop', mode: 'cat', cat: 'makeup', label: 'Makeup' },
-  { kind: 'shop', mode: 'cat', cat: 'body', label: 'Body' },
-  { kind: 'shop', mode: 'cat', cat: 'sun-spf', label: 'SPF' },
+  { kind: 'shop', mode: 'cat', cat: 'jewelry', label: 'Jewelry' },
 ]
 
 function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
