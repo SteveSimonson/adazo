@@ -111,6 +111,14 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     objectPosition: 'center 35%',
     alt: 'Luxury watch on a polished surface',
   },
+  gold: {
+    title: 'Gold',
+    blurb:
+      'Solid gold jewelry $500+ — 14K & 18K chains, bands, and fine gold polish.',
+    image: '/brand/categories/jewelry.jpg',
+    objectPosition: 'center 30%',
+    alt: 'Solid gold chains and fine gold jewelry',
+  },
 }
 
 export function getCategoryHero(cat: Category | string | null | undefined) {

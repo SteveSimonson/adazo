@@ -18,6 +18,7 @@ const categories = [
   'handbags',
   'jewelry',
   'watches',
+  'gold',
   'luxury',
   'fragrance',
   'skincare',

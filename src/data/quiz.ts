@@ -14,6 +14,7 @@ const ALL_CATEGORIES: Category[] = [
   'jewelry',
   'handbags',
   'watches',
+  'gold',
 ]
 
 export type QuizOption = {

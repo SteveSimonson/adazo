@@ -605,6 +605,7 @@ export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
   jewelry: 'atelier',
   handbags: 'atelier',
   watches: 'atelier',
+  gold: 'gilded',
 }
 
 /**
@@ -626,6 +627,7 @@ export const CATEGORY_VIBE_POOL: Partial<Record<Category, string[]>> = {
   jewelry: ['atelier', 'gilded', 'luxe', 'muse'],
   handbags: ['atelier', 'gilded', 'sillage', 'luxe'],
   watches: ['atelier', 'gilded', 'luxe', 'sillage'],
+  gold: ['gilded', 'atelier', 'luxe', 'muse'],
 }
 
 const CAT_VIBE_SESSION_PREFIX = 'adazo-cat-vibe:'

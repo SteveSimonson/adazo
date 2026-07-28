@@ -81,6 +81,7 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   handbags: 'Luxury Handbags',
   jewelry: 'Luxury Jewelry',
   watches: 'Luxury Watches',
+  gold: 'Gold',
   luxury: 'Luxury Beauty',
   fragrance: 'Fragrance',
   skincare: 'Skincare',
@@ -98,6 +99,7 @@ const CATEGORY_ORDER: Category[] = [
   'handbags',
   'jewelry',
   'watches',
+  'gold',
   'luxury',
   'fragrance',
   'skincare',
@@ -169,6 +171,7 @@ function collectionBlurb(label: string): string {
       'Fine and designer jewelry $1,000+ — Cartier, Tiffany, diamonds, and more.',
     'Luxury Watches':
       'Luxury watches $1,000+ — Swiss and designer timepieces.',
+    Gold: 'Solid gold jewelry $500+ — chains, bands, and fine gold polish.',
   }
   return map[label] ?? 'Curated women\'s health and beauty for real routines.'
 }
@@ -254,6 +257,7 @@ export function filterProducts(opts: {
     opts.cat === 'handbags' ||
     opts.cat === 'jewelry' ||
     opts.cat === 'watches' ||
+    opts.cat === 'gold' ||
     opts.cat === 'luxury'
   ) {
     list = list
@@ -301,9 +305,10 @@ export function youMayAlsoLike(product: Product, limit = 4): Product[] {
     'sun-spf': ['skincare', 'makeup', 'luxury'],
     wellness: ['skincare', 'hair', 'body'],
     lips: ['luxury', 'skincare', 'makeup'],
-    jewelry: ['watches', 'handbags', 'fragrance', 'luxury'],
-    handbags: ['jewelry', 'watches', 'fragrance', 'luxury'],
-    watches: ['jewelry', 'handbags', 'luxury', 'fragrance'],
+    jewelry: ['gold', 'watches', 'handbags', 'fragrance', 'luxury'],
+    handbags: ['jewelry', 'watches', 'gold', 'fragrance', 'luxury'],
+    watches: ['jewelry', 'gold', 'handbags', 'luxury', 'fragrance'],
+    gold: ['jewelry', 'watches', 'handbags', 'luxury'],
   }
 
   const cats = new Set([product.category, ...(adjacent[product.category] ?? [])])
