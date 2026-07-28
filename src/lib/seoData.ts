@@ -170,7 +170,7 @@ export function vibeSeo(vibe: VibeProfile): PageSeo {
 
 export function whySeo(): PageSeo {
  return {
-  title: 'Our story — women's beauty, curated',
+  title: "Our story — women's beauty, curated",
   description:
    'Adazo is a destination for women\'s beauty—skincare, hair, makeup, and body. We curate the collection; Amazon handles fulfillment you already trust.',
   path: '/why',
