@@ -78,10 +78,11 @@ function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  luxury: 'Luxury Beauty',
   handbags: 'Luxury Handbags',
+  jewelry: 'Luxury Jewelry',
+  watches: 'Luxury Watches',
+  luxury: 'Luxury Beauty',
   fragrance: 'Fragrance',
-  jewelry: 'Jewelry',
   skincare: 'Skincare',
   hair: 'Hair',
   makeup: 'Makeup',
@@ -95,9 +96,10 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 /** Nav / shop chip order — big-ticket fashion & prestige first */
 const CATEGORY_ORDER: Category[] = [
   'handbags',
+  'jewelry',
+  'watches',
   'luxury',
   'fragrance',
-  'jewelry',
   'skincare',
   'makeup',
   'hair',
@@ -159,10 +161,14 @@ function collectionBlurb(label: string): string {
     SPF: 'Daily sun protection that wears well under makeup.',
     Wellness: 'Collagen and beauty-adjacent wellness picks.',
     Lips: 'Masks, balms, and soft-finish lip care.',
-    Jewelry: 'Fashion and fine jewelry for gifting and everyday polish.',
+    Jewelry: 'Fine jewelry $1,000+ — diamonds, designer, pre-loved polish.',
     Handbags: 'Designer luxury handbags — big-ticket fashion finish.',
     'Luxury Handbags':
       'Designer luxury handbags from Amazon ($900+ focus) — LV, Gucci, Prada, and more.',
+    'Luxury Jewelry':
+      'Fine and designer jewelry $1,000+ — Cartier, Tiffany, diamonds, and more.',
+    'Luxury Watches':
+      'Luxury watches $1,000+ — Swiss and designer timepieces.',
   }
   return map[label] ?? 'Curated women\'s health and beauty for real routines.'
 }
@@ -243,8 +249,13 @@ export function filterProducts(opts: {
         p.features.some((f) => f.toLowerCase().includes(q)),
     )
   }
-  // Luxury handbags & prestige shelves: show highest ticket first
-  if (opts.cat === 'handbags' || opts.cat === 'luxury' || opts.cat === 'jewelry') {
+  // Luxury fashion & prestige shelves: show highest ticket first
+  if (
+    opts.cat === 'handbags' ||
+    opts.cat === 'jewelry' ||
+    opts.cat === 'watches' ||
+    opts.cat === 'luxury'
+  ) {
     list = list
       .slice()
       .sort((a, b) => (b.priceHint || 0) - (a.priceHint || 0))
@@ -290,8 +301,9 @@ export function youMayAlsoLike(product: Product, limit = 4): Product[] {
     'sun-spf': ['skincare', 'makeup', 'luxury'],
     wellness: ['skincare', 'hair', 'body'],
     lips: ['luxury', 'skincare', 'makeup'],
-    jewelry: ['handbags', 'fragrance', 'luxury'],
-    handbags: ['jewelry', 'fragrance', 'luxury'],
+    jewelry: ['watches', 'handbags', 'fragrance', 'luxury'],
+    handbags: ['jewelry', 'watches', 'fragrance', 'luxury'],
+    watches: ['jewelry', 'handbags', 'luxury', 'fragrance'],
   }
 
   const cats = new Set([product.category, ...(adjacent[product.category] ?? [])])

@@ -11,10 +11,12 @@ export type Category =
   | 'luxury'
   /** Perfume & fine fragrance — high AOV, often Luxury Beauty commission */
   | 'fragrance'
-  /** Fashion jewelry — better fashion-adjacent rates + gift AOV */
+  /** Fine jewelry $1,000+ — diamonds, designer, pre-loved */
   | 'jewelry'
-  /** Handbags & fashion accessories — high AOV gift category */
+  /** Luxury handbags $900+ — designer fashion finish */
   | 'handbags'
+  /** Luxury watches $1,000+ — Swiss & designer timepieces */
+  | 'watches'
 
 export interface ProductSpec {
   label: string
@@ -31,6 +33,7 @@ export type MaterialFamily =
   | 'fragrance'
   | 'jewelry'
   | 'handbag'
+  | 'watch'
   | 'other'
 
 export type ProductSource =

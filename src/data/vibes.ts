@@ -601,6 +601,7 @@ export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
   wellness: 'dew',
   jewelry: 'atelier',
   handbags: 'atelier',
+  watches: 'atelier',
 }
 
 export function vibeForCategory(

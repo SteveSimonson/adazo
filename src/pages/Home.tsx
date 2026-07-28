@@ -39,28 +39,28 @@ const PROMO_TILES = [
     alt: 'Luxury designer handbag editorial still life',
   },
   {
+    to: '/shop?cat=jewelry',
+    kicker: 'Big ticket · $1,000+',
+    title: 'Luxury Jewelry',
+    blurb: 'Diamonds, designer pieces, and polish above $1k.',
+    image: '/brand/promo/nav-jewelry.jpg',
+    alt: 'Luxury diamond and gold jewelry',
+  },
+  {
+    to: '/shop?cat=watches',
+    kicker: 'Big ticket · $1,000+',
+    title: 'Luxury Watches',
+    blurb: 'Swiss and designer timepieces for the finish.',
+    image: '/brand/promo/nav-jewelry.jpg',
+    alt: 'Luxury watch editorial still life',
+  },
+  {
     to: '/shop?cat=luxury',
     kicker: 'Prestige beauty',
     title: 'Luxury Beauty',
     blurb: 'Prestige skincare & makeup — the elevated edit.',
     image: '/brand/promo/nav-luxury.jpg',
     alt: 'Luxury beauty vanity still life',
-  },
-  {
-    to: '/shop?cat=fragrance',
-    kicker: 'Signature scent',
-    title: 'Fragrance',
-    blurb: 'Signature scents for gifting and everyday polish.',
-    image: '/brand/promo/nav-fragrance.jpg',
-    alt: 'Fragrance campaign still life',
-  },
-  {
-    to: '/shop?cat=jewelry',
-    kicker: 'Finish the look',
-    title: 'Jewelry',
-    blurb: 'Hoops, layers, and gift-ready polish.',
-    image: '/brand/promo/nav-jewelry.jpg',
-    alt: 'Gold jewelry on silk',
   },
 ] as const
 
@@ -88,14 +88,14 @@ export function Home() {
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6">
               <Clock3 className="size-3.5 text-gold" />
-              Luxury handbags · prestige beauty · fragrance
+              Handbags · jewelry · watches · prestige beauty
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
               Beauty elevated. Fashion finished.
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
-              Designer luxury handbags ($900+), prestige beauty, fragrance, and
-              jewelry — curated on Adazo, completed on Amazon.
+              Designer handbags, fine jewelry, and luxury watches above $1,000 —
+              plus prestige beauty and fragrance. Curated on Adazo; buy on Amazon.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -184,19 +184,33 @@ export function Home() {
                   Big ticket · $900+
                 </p>
                 <h2 className="font-display text-3xl sm:text-4xl font-semibold text-white">
-                  Designer handbags & prestige pieces
+                  Handbags, jewelry & watches
                 </h2>
                 <p className="text-white/70 mt-2 max-w-xl font-light">
-                  Highest-ticket picks first — luxury handbags and elevated
-                  cart-makers from Amazon.
+                  Highest-ticket fashion finish first — designer bags, fine
+                  jewelry, and luxury timepieces from Amazon.
                 </p>
               </div>
-              <Link
-                to="/shop?cat=handbags"
-                className="inline-flex items-center gap-2 rounded-full bg-white text-ink px-5 py-2.5 text-sm font-bold hover:bg-cream transition"
-              >
-                All luxury handbags <ArrowRight className="size-4" />
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  to="/shop?cat=handbags"
+                  className="inline-flex items-center gap-2 rounded-full bg-white text-ink px-5 py-2.5 text-sm font-bold hover:bg-cream transition"
+                >
+                  Handbags
+                </Link>
+                <Link
+                  to="/shop?cat=jewelry"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/40 text-white px-5 py-2.5 text-sm font-bold hover:bg-white/10 transition"
+                >
+                  Jewelry
+                </Link>
+                <Link
+                  to="/shop?cat=watches"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/40 text-white px-5 py-2.5 text-sm font-bold hover:bg-white/10 transition"
+                >
+                  Watches
+                </Link>
+              </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {bigTickets.map((p) => (
