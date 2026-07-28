@@ -122,14 +122,14 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
   },
   gilded: {
     id: 'gilded',
-    title: 'The Full Adazo Edit',
-    tagline: 'Beauty elevated. Fashion finished. All of it.',
+    title: 'The Gilded Collector',
+    tagline: 'Prestige, scent, and finish — the complete look.',
     story:
-      'You want the house — prestige beauty, fragrance, a bag, a flash of gold. Adazo is your private showroom for the complete elevated cart.',
+      'You don’t shop one shelf — you build the whole moment. Prestige beauty, a signature fragrance, a bag, a flash of gold.',
     catchphrase: 'Beauty elevated. Fashion finished.',
     traits: [
-      'Whole-house shopper',
-      'Beauty + fashion in one cart',
+      'Collector of complete looks',
+      'Beauty and fashion in one edit',
       'Private showroom energy',
     ],
     avatarName: 'Aurelia',
@@ -137,7 +137,7 @@ export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
       'I don’t shop one category. I shop the feeling — beauty, scent, and the piece that finishes the night.',
     avatarImageUrl: `${BASE}/brand/vibes/gilded-avatar.jpg`,
     shopPath: '/shop?cat=luxury',
-    shopLabel: 'Browse the full Adazo edit',
+    shopLabel: 'Browse the full spectrum',
   },
 }
 
