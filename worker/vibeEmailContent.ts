@@ -22,121 +22,122 @@ export type VibeEmailProfile = {
 }
 
 const BASE = 'https://adazo.com'
+const DEFAULT_AVATAR = `${BASE}/brand/vibes/default-avatar.svg`
 
 export const VIBE_EMAIL: Record<string, VibeEmailProfile> = {
-  craft: {
-    id: 'craft',
-    title: 'Countertop Craftsperson',
-    tagline: 'Boards, utensils, and the heart of the house.',
+  luxe: {
+    id: 'luxe',
+    title: 'The Quiet Luxe',
+    tagline: 'Prestige beauty. Soft power. Nothing loud.',
     story:
-      'You cook like you mean it. Beauty that earns a permanent spot by the stove — knife-kind boards, warm tools, meal-prep ready.',
-    catchphrase: 'Built for the burners.',
+      'You collect presence, not trends. Adazo’s Luxury Beauty shelf is your language — weighty jars, considered formulas, vanity that feels like a private gallery.',
+    catchphrase: 'Soft power. Prestige only.',
     traits: [
-      'Decisive prep energy',
-      'Loves a solid board under the wrist',
-      'Allergic to flimsy tools',
-    ],
-    avatarName: 'Maya',
-    avatarQuote:
-      'If it does not earn a spot next to the stove, it does not come home with me.',
-    avatarImageUrl: `${BASE}/brand/vibes/craft-avatar.jpg`,
-    shopPath: '/shop?cat=skincare',
-    shopLabel: 'Browse skincare beauty',
-  },
-  ritual: {
-    id: 'ritual',
-    title: 'Bath Ritualist',
-    tagline: 'Soft fiber, quiet counters, spa at home.',
-    story:
-      'Your reset button lives in the body. Beauty that feels like a slow exhale — trays, holders, and a calmer counter.',
-    catchphrase: 'Reset is a material choice.',
-    traits: [
-      'Slow-morning loyalist',
-      'Texture-first shopper',
       'Quiet luxury instinct',
+      'Collects presence, not trends',
+      'Vanity as private gallery',
     ],
-    avatarName: 'Elena',
+    avatarName: 'Vivienne',
     avatarQuote:
-      'The five minutes before the day starts are the only ones that fully belong to me.',
-    avatarImageUrl: `${BASE}/brand/vibes/ritual-avatar.jpg`,
-    shopPath: '/shop?cat=body',
-    shopLabel: 'Browse body beauty',
+      'If it doesn’t feel expensive in the hand, it doesn’t stay on my shelf.',
+    avatarImageUrl: DEFAULT_AVATAR,
+    shopPath: '/shop?cat=luxury',
+    shopLabel: 'Browse Luxury Beauty',
   },
-  focus: {
-    id: 'focus',
-    title: 'Focus Nest Builder',
-    tagline: 'Desk calm and drawer order.',
+  muse: {
+    id: 'muse',
+    title: 'The Soft Glam Muse',
+    tagline: 'Color, light, and confidence in the mirror.',
     story:
-      'Clarity is a material choice. Risers, organizers, and clean lines that keep your workday grounded.',
-    catchphrase: 'Clear surface. Clear mind.',
+      'Getting ready is a ritual worth dressing for. Soft glam lips, flush, and finish that photograph expensive — polished, never costume.',
+    catchphrase: 'Mirror first. Soft glam always.',
     traits: [
-      'Systems thinker',
-      'Hates visual noise',
-      'Buys once, keeps forever',
+      'Playlist-ready glam',
+      'Lip-first decision maker',
+      'Polished, never costume',
     ],
-    avatarName: 'Jordan',
+    avatarName: 'Camille',
     avatarQuote:
-      'If my desk is noisy, my thinking is noisy. Beauty keeps the surface honest.',
-    avatarImageUrl: `${BASE}/brand/vibes/focus-avatar.jpg`,
-    shopPath: '/shop?cat=desk',
-    shopLabel: 'Browse workspace beauty',
+      'If the lip is wrong, nothing else matters. Soft glam is a full decision.',
+    avatarImageUrl: DEFAULT_AVATAR,
+    shopPath: '/shop?cat=makeup',
+    shopLabel: 'Browse soft glam makeup',
   },
-  host: {
-    id: 'host',
-    title: 'Tabletop Host',
-    tagline: 'Serving boards, patio plates, shared plates.',
+  sillage: {
+    id: 'sillage',
+    title: 'The Signature Scent',
+    tagline: 'You arrive before you speak.',
     story:
-      'You set the mood for other people. Beauty that hosts well — generous boards, warm grain, easy sharing.',
-    catchphrase: 'The table is the invitation.',
+      'Fragrance is memory and identity. Build a wardrobe of sillage — day, night, gift — with bottles that earn vanity real estate.',
+    catchphrase: 'The trail is the introduction.',
     traits: [
-      'Born host energy',
-      'Loves a long board of shared plates',
-      'Guests leave happier than they arrived',
+      'Loyal to a signature',
+      'Builds a scent wardrobe',
+      'Full bottles, never samples only',
     ],
-    avatarName: 'Sofia',
+    avatarName: 'Noor',
     avatarQuote:
-      'People relax when the board is already full. The table does half my hosting for me.',
-    avatarImageUrl: `${BASE}/brand/vibes/host-avatar.jpg`,
-    shopPath: '/shop?cat=dining',
-    shopLabel: 'Browse tabletop beauty',
+      'I don’t wear a sample energy. The bottle is the signature — and people remember the trail.',
+    avatarImageUrl: DEFAULT_AVATAR,
+    shopPath: '/shop?cat=fragrance',
+    shopLabel: 'Browse fragrance',
   },
-  nest: {
-    id: 'nest',
-    title: 'Little Nest Starter',
-    tagline: 'Gentle mealtime for tiny humans.',
+  atelier: {
+    id: 'atelier',
+    title: 'The Fashion Finisher',
+    tagline: 'Bags, gold, the last perfect piece.',
     story:
-      'First bites deserve soft edges. Beauty plates, spoons, and trays scaled for little hands — calm enough for everyday.',
-    catchphrase: 'Small hands. Kind materials.',
+      'Beauty alone isn’t the look — the finish is. Handbags and jewelry that complete the glow: structure, light, silhouette.',
+    catchphrase: 'The finish makes the look.',
     traits: [
-      'Protective caretaker energy',
-      'Chooses gentle forms first',
-      'Loves a calm mealtime ritual',
+      'Bag-as-architecture thinker',
+      'Gold that catches collarbone light',
+      'Fashion with beauty-house taste',
     ],
-    avatarName: 'Priya',
+    avatarName: 'Margot',
     avatarQuote:
-      'If mealtime feels gentle, the whole morning softens. That is the real product.',
-    avatarImageUrl: `${BASE}/brand/vibes/nest-avatar.jpg`,
-    shopPath: '/shop?cat=baby',
-    shopLabel: 'Browse little-ones beauty',
+      'The bag and the gold are not extras. They’re the sentence that ends the look.',
+    avatarImageUrl: DEFAULT_AVATAR,
+    shopPath: '/shop?cat=handbags',
+    shopLabel: 'Browse fashion finish',
   },
-  patio: {
-    id: 'patio',
-    title: 'Patio Naturalist',
-    tagline: 'Open air, warm grain, evenings that start outside.',
+  dew: {
+    id: 'dew',
+    title: 'The Glow Ritualist',
+    tagline: 'Barrier, dew, and daylight discipline.',
     story:
-      'Fresh air is your main room. Beauty that lives on the deck — trays, outdoor serve, garden-side tools that still look intentional.',
-    catchphrase: 'The evening starts outside.',
+      'Your face is the long game. Cleanse, treat, SPF, soft lips — skin-first shelves without the noise. Luxury when it earns it.',
+    catchphrase: 'Barrier first. Dew always.',
     traits: [
-      'Open-air loyalist',
-      'Golden-hour planner',
-      'Trays over TV trays',
+      'Barrier-first loyalist',
+      'SPF as non-negotiable',
+      'Glow without the drama',
     ],
-    avatarName: 'Marcus',
+    avatarName: 'Isla',
     avatarQuote:
-      'If the tray is outside, the night has already started. Fresh air does half the hosting.',
-    avatarImageUrl: `${BASE}/brand/vibes/patio-avatar.jpg`,
-    shopPath: '/shop?cat=outdoor',
-    shopLabel: 'Browse outdoor beauty',
+      'The five minutes of cleanse and treat are the only ones that fully belong to my face.',
+    avatarImageUrl: DEFAULT_AVATAR,
+    shopPath: '/shop?cat=skincare',
+    shopLabel: 'Browse skincare & glow',
+  },
+  gilded: {
+    id: 'gilded',
+    title: 'The Full Adazo Edit',
+    tagline: 'Beauty elevated. Fashion finished. All of it.',
+    story:
+      'You want the house — prestige beauty, fragrance, a bag, a flash of gold. Adazo is your private showroom for the complete elevated cart.',
+    catchphrase: 'Beauty elevated. Fashion finished.',
+    traits: [
+      'Whole-house shopper',
+      'Beauty + fashion in one cart',
+      'Private showroom energy',
+    ],
+    avatarName: 'Aurelia',
+    avatarQuote:
+      'I don’t shop one category. I shop the feeling — beauty, scent, and the piece that finishes the night.',
+    avatarImageUrl: DEFAULT_AVATAR,
+    shopPath: '/shop?cat=luxury',
+    shopLabel: 'Browse the full Adazo edit',
   },
 }
 
@@ -152,15 +153,15 @@ export function getVibeEmailProfile(
   const label = String(personaLabel || '').trim()
   return {
     id: personaId && /^[a-z0-9-]+$/i.test(personaId) ? personaId : 'explorer',
-    title: label || 'Beauty explorer',
-    tagline: 'Warm grain for everyday living.',
+    title: label || 'Adazo explorer',
+    tagline: 'Luxury beauty. Fashion finish. Your edit awaits.',
     story:
-      'Thanks for taking the Beauty Vibe Check. Your full house energy is ready when you are.',
-    catchphrase: 'Beauty living, elevated.',
-    traits: ['Curious about natural materials', 'Values pieces that last'],
+      'Thanks for taking the Adazo Vibe Check. Your full house energy is ready when you are — prestige beauty, fragrance, and fashion finish.',
+    catchphrase: 'Discover on Adazo. Buy on Amazon.',
+    traits: ['Curious about elevated beauty', 'Values a considered cart'],
     avatarName: 'Adazo',
     avatarQuote: 'Discover on Adazo. Buy on Amazon when you are ready.',
-    avatarImageUrl: `${BASE}/brand/vibes/craft-avatar.jpg`,
+    avatarImageUrl: DEFAULT_AVATAR,
     shopPath: '/shop',
     shopLabel: 'Browse the collection',
   }

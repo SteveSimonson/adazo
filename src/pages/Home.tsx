@@ -270,9 +270,9 @@ export function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
-        <p className="label-micro mb-2">Vibe check</p>
+        <p className="label-micro mb-2">Adazo vibe check</p>
         <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-8">
-          What’s your beauty energy?
+          What’s your luxury persona?
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {VIBE_LIST.map((v) => (
@@ -298,7 +298,7 @@ export function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
             <h2 className="font-display text-3xl font-semibold mb-8">
-              More from the house
+              More from Adazo
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {newArrivals.map((p) => (

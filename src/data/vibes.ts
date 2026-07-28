@@ -39,9 +39,9 @@ export type VibeProfile = Persona & {
   scene: VibeScene
   /** Concrete day moments that ground the persona */
   dayInTheLife: string[]
-  /** Material / product truths, not fluff */
+  /** Product / beauty truths, not fluff */
   materialTruths: string[]
-  /** How this vibe shows up at home */
+  /** How this vibe shows up in real life */
   signatureSetup: string
   /** What they buy most often */
   shoppingList: string[]
@@ -49,504 +49,508 @@ export type VibeProfile = Persona & {
   blendsWith: string[]
 }
 
+/**
+ * Adazo house personas — luxury beauty, fragrance, fashion finish.
+ * IDs must match PERSONAS in quiz.ts: luxe · muse · sillage · atelier · dew · gilded
+ */
 export const VIBES: Record<string, VibeProfile> = {
-  craft: {
-    ...PERSONAS.craft,
-    typeLabel: 'Culinary · Grain',
+  luxe: {
+    ...PERSONAS.luxe,
+    typeLabel: 'Prestige · Quiet Power',
     rarity: 'House Classic',
-    emoji: '🪵',
+    emoji: '✨',
     flavor:
-      'When the knife hits the board, the whole kitchen exhales. You don’t “decorate” the counter—you outfit it.',
-    catchphrase: 'Built for the burners.',
+      'You don’t decorate a vanity — you curate one. Weight, light, and formulas that feel like private-gallery beauty.',
+    catchphrase: 'Soft power. Prestige only.',
     traits: [
-      'Decisive prep energy',
-      'Loves a solid board under the wrist',
-      'Allergic to flimsy tools',
-      'Weeknight hero, weekend host',
+      'Quiet luxury instinct',
+      'Collects presence, not trends',
+      'Jar weight matters as much as claim',
+      'Vanity as private gallery',
     ],
     powers: [
       {
-        name: 'Edge Respect',
+        name: 'Prestige Aura',
         detail:
-          'Knife-kind beauty surfaces that give blades a better landing pad than glass or cheap plastic.',
+          'You spot the piece that photographs expensive before it leaves the shelf — cream, serum, or set.',
       },
       {
-        name: 'Heat of the Moment',
+        name: 'Gallery Edit',
         detail:
-          'Spoons, spatulas, and tools that live by the stove without warping or screaming “gadget.”',
+          'Fewer products, higher stakes. Every bottle earns permanent vanity real estate.',
       },
       {
-        name: 'Meal-Prep Aura',
+        name: 'Soft Authority',
         detail:
-          'Everything within reach when dinner is non-negotiable—boards, utensils, grab-and-go flow.',
+          'People notice the glow and the restraint — never costume energy, always polish.',
       },
     ],
     benefits: [
-      'Warm grain that elevates everyday cooking',
-      'Pieces that earn permanent counter real estate',
-      'Natural material you can feel in the hand',
-      'Pairs with this week’s limited kitchen drop',
+      'Luxury Beauty picks with presence',
+      'Prestige skincare that feels considered',
+      'A vanity story worth showing',
+      'Gift-ready jars without the noise',
     ],
     stats: [
-      { label: 'Craft', value: 95 },
-      { label: 'Calm', value: 55 },
-      { label: 'Host', value: 70 },
-      { label: 'Order', value: 60 },
+      { label: 'Prestige', value: 96 },
+      { label: 'Glam', value: 55 },
+      { label: 'Sillage', value: 70 },
+      { label: 'Finish', value: 65 },
     ],
-    gradient: 'from-[#2c4f25] via-[#3f6b35] to-[#7a9e5a]',
-    cardBg: 'from-[#f6f3eb] via-[#ebe6d9] to-[#dce8d4]',
-    shopHint: 'Load up boards, spoons, and kitchen essentials.',
+    gradient: 'from-[#6b4a1f] via-[#9a6b2f] to-[#d4a84b]',
+    cardBg: 'from-[#faf6ef] via-[#f3ebe0] to-[#e8dcc8]',
+    shopHint: 'Luxury Beauty, prestige skin, and quiet fragrance.',
     avatar: {
-      name: 'Maya',
-      role: 'Home cook · Weeknight lead',
-      ageBand: 'Mid-30s',
-      hometown: 'Portland kitchen island',
+      name: 'Vivienne',
+      role: 'Quiet luxe editor · Prestige skin',
+      ageBand: 'Late 30s',
+      hometown: 'Candlelit vanity suite',
       quote:
-        'If it doesn’t earn a spot next to the stove, it doesn’t come home with me.',
+        'If it doesn’t feel expensive in the hand, it doesn’t stay on my shelf.',
       image: '/brand/vibes/default-avatar.svg',
-      alt: 'Maya at her kitchen island with a beauty pick and fresh herbs',
+      alt: 'Vivienne at a candlelit vanity with prestige beauty jars',
     },
     scene: {
       image: '/brand/vibes/default-scene.svg',
-      alt: 'Beauty beauty pick with chopped vegetables beside a steaming pan',
-      caption: 'Tuesday 6:40 p.m. — board out, onions already going.',
+      alt: 'Marble vanity with gold-capped prestige jars, soft candlelight, silk robe',
+      caption: '7:40 p.m. — tray set, scent low, mirror still kind.',
     },
     dayInTheLife: [
-      'Morning coffee, then a quick board wipe before the day starts',
-      'Weeknight: one solid board for veg + protein, no plastic shuffle',
-      'Sunday: meal-prep stack—boards, spoons, containers in arm’s reach',
-      'Guests? Same tools, just more confident plating',
+      'Morning: one prestige serum, no twelve-step circus',
+      'Midday: reapply the cream that photographs like glass',
+      'Evening: fragrance and a slow face reset by candlelight',
+      'Weekend: gift a jar that feels like a private gallery piece',
     ],
     materialTruths: [
-      'Beauty is dense and knife-friendlier than glass or marble boards',
-      'Warm grain reads “chef’s kitchen” without a remodel',
-      'Well-made boards and utensils last seasons of real cooking',
-      'Natural material pairs with cast iron, stainless, and linen',
+      'Prestige formulas often win on texture and finish, not just marketing',
+      'Weighty packaging signals care — and lasts as vanity décor',
+      'Luxury Beauty is Adazo’s elevated commission tier for a reason',
+      'Quiet color and scent complete the prestige story',
     ],
     signatureSetup:
-      'One thick board center stage, utensil crock by the burner, herbs within a half-turn.',
+      'Marble tray, two prestige jars, one signature scent, silk light, zero clutter.',
     shoppingList: [
-      'XL beauty pick',
-      'Wooden spoon & spatula set',
-      'Board stand or storage rack',
-      'Serving board that doubles as prep',
+      'Prestige cream or essence',
+      'Signature luxury treatment',
+      'Quiet prestige color',
+      'Fragrance encore for the vanity',
     ],
-    blendsWith: ['host', 'nest'],
+    blendsWith: ['sillage', 'gilded'],
   },
-  ritual: {
-    ...PERSONAS.ritual,
-    typeLabel: 'Spa · Soft Fiber',
-    rarity: 'Serenity Rare',
-    emoji: '🕯️',
+  muse: {
+    ...PERSONAS.muse,
+    typeLabel: 'Soft Glam · Mirror',
+    rarity: 'Editor’s Darling',
+    emoji: '💄',
     flavor:
-      'You treat the bath like a small temple. Steam, soft light, and surfaces that don’t shout.',
-    catchphrase: 'Reset is a material choice.',
+      'Getting ready is the main event. You want lips, flush, and light that look polished — never costume.',
+    catchphrase: 'Mirror first. Soft glam always.',
     traits: [
-      'Slow-morning loyalist',
-      'Texture-first shopper',
-      'Quiet luxury instinct',
-      'Plant-forward bath shelf',
+      'Playlist-ready glam',
+      'Lip-first decision maker',
+      'Camera-aware color',
+      'Polished, never costume',
     ],
     powers: [
       {
-        name: 'Steam Sanctuary',
+        name: 'Mirror Moment',
         detail:
-          'Beauty trays and holders that soften vanity clutter into a deliberate spa moment.',
+          'You build a face that holds under lights, photos, and the walk to the door.',
       },
       {
-        name: 'Exhale Mode',
+        name: 'Hero Lip',
         detail:
-          'Objects that make the pause feel intentional—not another pile of plastic bottles.',
+          'The right nude or rose changes the whole edit — you never leave without it.',
       },
       {
-        name: 'Soft Armor',
+        name: 'Soft Drama',
         detail:
-          'Warm wood against cool tile: a tactile reset after screens and fluorescent days.',
+          'Lashes, flush, and glow that read expensive without looking like a costume party.',
       },
     ],
     benefits: [
-      'Spa energy without a remodel',
-      'Warm wood against cool porcelain',
-      'A calmer start and end to the day',
-      'Gifts that feel personal, not generic',
+      'Soft glam color that photographs well',
+      'Lips and flush with intention',
+      'Skin prep that lets makeup sit better',
+      'Tools that make application feel deliberate',
     ],
     stats: [
-      { label: 'Craft', value: 45 },
-      { label: 'Calm', value: 98 },
-      { label: 'Host', value: 40 },
-      { label: 'Order', value: 65 },
+      { label: 'Prestige', value: 60 },
+      { label: 'Glam', value: 97 },
+      { label: 'Sillage', value: 45 },
+      { label: 'Finish', value: 75 },
+    ],
+    gradient: 'from-[#7a3d48] via-[#b76e79] to-[#e8a0ab]',
+    cardBg: 'from-[#fdf6f7] via-[#f8e8eb] to-[#f0d4da]',
+    shopHint: 'Makeup, lips, and soft prestige color.',
+    avatar: {
+      name: 'Camille',
+      role: 'Soft glam muse · Mirror lead',
+      ageBand: 'Early 30s',
+      hometown: 'Backlit vanity with playlist on',
+      quote:
+        'If the lip is wrong, nothing else matters. Soft glam is a full decision.',
+      image: '/brand/vibes/default-avatar.svg',
+      alt: 'Camille applying soft glam makeup at a lit vanity mirror',
+    },
+    scene: {
+      image: '/brand/vibes/default-scene.svg',
+      alt: 'Vanity with lipsticks, blush, lashes, and warm mirror light',
+      caption: '6:18 p.m. — playlist on, lip liner drawn, door still optional.',
+    },
+    dayInTheLife: [
+      'Morning: skin prep that makes color sit like silk',
+      'Lunch: lip refresh — the shade that finishes the check',
+      'Evening: full soft glam — flush, lashes, light',
+      'Night out: tool upgrade and a prestige color encore',
+    ],
+    materialTruths: [
+      'Hero lips convert because they complete the mirror check',
+      'Soft flush beats heavy contour for everyday polish',
+      'Skin prep is half of soft glam — makeup is the other half',
+      'Tools change the finish as much as the product',
+    ],
+    signatureSetup:
+      'Lit mirror, hero lip front and center, blush and mascara within reach, playlist ready.',
+    shoppingList: [
+      'Hero lip shade',
+      'Soft flush / blush',
+      'Lash lift mascara',
+      'Skin prep + one tool upgrade',
+    ],
+    blendsWith: ['luxe', 'atelier'],
+  },
+  sillage: {
+    ...PERSONAS.sillage,
+    typeLabel: 'Fragrance · Trail',
+    rarity: 'Scent Legend',
+    emoji: '🌸',
+    flavor:
+      'You arrive before you speak. Fragrance is identity — day signature, night wardrobe, full bottles only.',
+    catchphrase: 'The trail is the introduction.',
+    traits: [
+      'Loyal to a signature',
+      'Builds a scent wardrobe',
+      'Body layer for lasting trail',
+      'Gift bottles, never samples only',
+    ],
+    powers: [
+      {
+        name: 'Signature Lock',
+        detail:
+          'People recognize your scent as you — one bottle that becomes identity.',
+      },
+      {
+        name: 'Wardrobe Scent',
+        detail:
+          'Day, night, season: you rotate like a collector, not a one-note sprayer.',
+      },
+      {
+        name: 'Sillage Bloom',
+        detail:
+          'Body mists and moisture that extend the story past the first hour.',
+      },
+    ],
+    benefits: [
+      'Fragrance with real cart size',
+      'Day and night signatures',
+      'Body layers that extend the trail',
+      'Gift-ready full bottles',
+    ],
+    stats: [
+      { label: 'Prestige', value: 75 },
+      { label: 'Glam', value: 50 },
+      { label: 'Sillage', value: 98 },
+      { label: 'Finish', value: 55 },
+    ],
+    gradient: 'from-[#4a2a58] via-[#7a4a8a] to-[#b88bc4]',
+    cardBg: 'from-[#f8f4fa] via-[#efe6f4] to-[#e2d4ea]',
+    shopHint: 'Fragrance first — prestige bottles and body layers.',
+    avatar: {
+      name: 'Noor',
+      role: 'Signature scent · Trail architect',
+      ageBand: 'Mid-30s',
+      hometown: 'Perfume wardrobe wall',
+      quote:
+        'I don’t wear a sample energy. The bottle is the signature — and people remember the trail.',
+      image: '/brand/vibes/default-avatar.svg',
+      alt: 'Noor misting fragrance near a curated perfume shelf',
+    },
+    scene: {
+      image: '/brand/vibes/default-scene.svg',
+      alt: 'Crystal perfume bottles on a vanity with soft purple light and silk',
+      caption: '8:02 p.m. — pulse points, one mist in the air, door open.',
+    },
+    dayInTheLife: [
+      'Morning: day signature on wrists and neck',
+      'Afternoon: body layer to keep the trail honest',
+      'Evening: deeper night bottle for after six',
+      'Gifting: full size only — never a lonely sample',
+    ],
+    materialTruths: [
+      'Full bottles convert better than discovery kits for loyal wearers',
+      'Body care extends sillage and cart value',
+      'Fragrance pairs beautifully with prestige skin and fashion finish',
+      'A signature scent is wearable identity',
+    ],
+    signatureSetup:
+      'Two hero bottles front row, body mist beside them, one empty slot for the next obsession.',
+    shoppingList: [
+      'Day signature eau de parfum',
+      'Night / deeper bottle',
+      'Body mist or cream layer',
+      'Prestige pair for the vanity',
+    ],
+    blendsWith: ['luxe', 'atelier'],
+  },
+  atelier: {
+    ...PERSONAS.atelier,
+    typeLabel: 'Fashion · Finish',
+    rarity: 'Runway Edit',
+    emoji: '👜',
+    flavor:
+      'Beauty alone isn’t the look — the finish is. Bags, gold, silhouette: the last piece that makes everything land.',
+    catchphrase: 'The finish makes the look.',
+    traits: [
+      'Bag-as-architecture thinker',
+      'Gold that catches collarbone light',
+      'Outfit ceremony energy',
+      'Fashion with beauty-house taste',
+    ],
+    powers: [
+      {
+        name: 'Silhouette Lock',
+        detail:
+          'You choose structure and proportion — the bag that finishes the outfit, not the afterthought tote.',
+      },
+      {
+        name: 'Gold Light',
+        detail:
+          'Earrings, layers, and hoops that catch light where the face and neckline meet.',
+      },
+      {
+        name: 'Fashion Bridge',
+        detail:
+          'You pair scent and soft glam so the look leaves the vanity complete.',
+      },
+    ],
+    benefits: [
+      'Handbags that lift cart size and polish',
+      'Jewelry that finishes the neckline',
+      'Scent that walks with the fashion finish',
+      'Gift-ready fashion energy',
+    ],
+    stats: [
+      { label: 'Prestige', value: 70 },
+      { label: 'Glam', value: 65 },
+      { label: 'Sillage', value: 60 },
+      { label: 'Finish', value: 98 },
+    ],
+    gradient: 'from-[#3d261c] via-[#5c3a2e] to-[#a67c52]',
+    cardBg: 'from-[#faf7f4] via-[#f0e8e0] to-[#e4d5c8]',
+    shopHint: 'Handbags, jewelry, and the scent that walks with them.',
+    avatar: {
+      name: 'Margot',
+      role: 'Fashion finisher · Closet ceremony',
+      ageBand: 'Late 30s',
+      hometown: 'Walk-in with gold light',
+      quote:
+        'The bag and the gold are not extras. They’re the sentence that ends the look.',
+      image: '/brand/vibes/default-avatar.svg',
+      alt: 'Margot with a structured bag and gold jewelry in soft closet light',
+    },
+    scene: {
+      image: '/brand/vibes/default-scene.svg',
+      alt: 'Structured handbag, gold hoops, layered necklaces on linen and marble',
+      caption: '7:05 p.m. — bag chosen, gold stacked, scent already on.',
+    },
+    dayInTheLife: [
+      'Morning: everyday gold before the first meeting',
+      'Commute: hero crossbody or tote that carries the look',
+      'Evening: mini bag + layer stack for after six',
+      'Gift season: jewelry that finishes someone else’s neckline',
+    ],
+    materialTruths: [
+      'Handbags are high-AOV fashion finish next to beauty',
+      'Hoops and layers convert as everyday polish gifts',
+      'Fragrance bridges vanity beauty and the walk out the door',
+      'Structure and light matter more than logo shouting',
+    ],
+    signatureSetup:
+      'Hero bag on the hook, everyday gold by the mirror, night mini ready, scent last.',
+    shoppingList: [
+      'Hero bag (tote, crossbody, or mini)',
+      'Everyday gold hoops or studs',
+      'Layer necklace stack',
+      'Scent bridge for the finish',
+    ],
+    blendsWith: ['muse', 'gilded'],
+  },
+  dew: {
+    ...PERSONAS.dew,
+    typeLabel: 'Glow · Ritual',
+    rarity: 'Glass Skin Edition',
+    emoji: '💧',
+    flavor:
+      'Your face is the long game. Barrier, dew, SPF, soft lips — luxury when it earns it, honesty when it doesn’t.',
+    catchphrase: 'Barrier first. Dew always.',
+    traits: [
+      'Barrier-first loyalist',
+      'SPF as non-negotiable',
+      'Slow sanctuary energy',
+      'Glow without the drama',
+    ],
+    powers: [
+      {
+        name: 'Barrier Guard',
+        detail:
+          'You choose gentle, consistent care — no strip, no circus, no irritated skin story.',
+      },
+      {
+        name: 'Daylight Discipline',
+        detail:
+          'SPF is the finish of every morning. Glow holds because you protect it.',
+      },
+      {
+        name: 'Sanctuary Reset',
+        detail:
+          'Evening cleanse and treat feel like a five-star bath floor — calm, lit, intentional.',
+      },
+    ],
+    benefits: [
+      'Skincare that still feels luxurious',
+      'SPF and dew as daily polish',
+      'Soft lips as the last gentle step',
+      'Wellness that supports the face story',
+    ],
+    stats: [
+      { label: 'Prestige', value: 55 },
+      { label: 'Glam', value: 40 },
+      { label: 'Sillage', value: 35 },
+      { label: 'Glow', value: 97 },
     ],
     gradient: 'from-[#0f3d3a] via-[#1e5a52] to-[#4a9b8c]',
     cardBg: 'from-[#eef6f4] via-[#e4f0ed] to-[#d5e8e4]',
-    shopHint: 'Bath trays, holders, and soft-touch beauty.',
+    shopHint: 'Skincare, SPF, lips, and calm wellness.',
     avatar: {
-      name: 'Elena',
-      role: 'Bath ritualist · Quiet reset',
+      name: 'Isla',
+      role: 'Glow ritualist · Barrier lead',
       ageBand: 'Early 30s',
-      hometown: 'Morning light bathroom',
+      hometown: 'Steam-soft bath sanctuary',
       quote:
-        'The five minutes before the day starts are the only ones that fully belong to me.',
+        'The five minutes of cleanse and treat are the only ones that fully belong to my face.',
       image: '/brand/vibes/default-avatar.svg',
-      alt: 'Elena in a waffle robe by a beauty bath tray with candle and towels',
+      alt: 'Isla in a soft robe applying skincare in morning light',
     },
     scene: {
       image: '/brand/vibes/default-scene.svg',
-      alt: 'Marble vanity with beauty tray, candle, towels, and soft steam',
-      caption: '6:12 a.m. — tray set, steam up, phone still in the other room.',
+      alt: 'Skincare ritual tray with serum, SPF, lip balm, and soft steam',
+      caption: '6:12 a.m. — cleanse done, SPF next, phone still outside.',
     },
     dayInTheLife: [
-      'Phone stays outside the bath zone when possible',
-      'Tray holds the non-negotiables: towel, candle, one good cleanser',
-      'Evening rinse is a full reset, not a rush-through',
-      'Weekend: longer soak, same tray, zero plastic clutter on the rim',
+      'Morning: cleanse, treat, SPF — no skip, no drama',
+      'Midday: lip balm and water, not another harsh product',
+      'Evening: barrier-first reset with soft light',
+      'Weekend: longer sanctuary — dew and light as the reward',
     ],
     materialTruths: [
-      'Beauty trays handle humidity better than soft woods when cared for',
-      'Warm grain softens cold tile and chrome without feeling sterile',
-      'A single tray corrals bottles so the vanity looks intentional',
-      'Spa cues (steam, scent, wood) beat more square footage',
+      'Barrier-first routines beat aggressive trends for long-term glow',
+      'SPF is the highest-ROI step most people skip',
+      'Soft lips finish every ritual without adding noise',
+      'Luxury skincare earns its place when texture and results match the price',
     ],
     signatureSetup:
-      'Slatted beauty tray on the vanity: candle, folded towel, one botanical stem.',
+      'Clean tray: cleanser, treatment, SPF, lip balm, soft towel, one botanical stem.',
     shoppingList: [
-      'Beauty bath / vanity tray',
-      'Toothbrush or soap holders',
-      'Towel ladder or shelf accents',
-      'Small organizers for the counter',
+      'Gentle cleanser',
+      'Treatment serum or cream',
+      'Daily SPF',
+      'Soft lip balm or mask',
     ],
-    blendsWith: ['focus', 'nest'],
+    blendsWith: ['luxe', 'muse'],
   },
-  focus: {
-    ...PERSONAS.focus,
-    typeLabel: 'Clarity · Order',
-    rarity: 'Focus Elite',
-    emoji: '📐',
+  gilded: {
+    ...PERSONAS.gilded,
+    typeLabel: 'Full Edit · House',
+    rarity: 'Private Showroom',
+    emoji: '👑',
     flavor:
-      'Your desk is a landing pad, not a junk drawer with Wi‑Fi. Grain, height, and order = deep work.',
-    catchphrase: 'Clear surface. Clear mind.',
+      'You don’t want a single shelf — you want the house. Prestige beauty, fragrance, a bag, a flash of gold. The complete elevated cart.',
+    catchphrase: 'Beauty elevated. Fashion finished.',
     traits: [
-      'Systems thinker',
-      'Hates visual noise',
-      'Morning ritual: clear the deck',
-      'Buys once, keeps forever',
+      'Whole-house shopper',
+      'Beauty + fashion in one cart',
+      'Gift edit instinct',
+      'Private showroom energy',
     ],
     powers: [
       {
-        name: 'Signal Boost',
+        name: 'Full Cart Aura',
         detail:
-          'Risers and stands that lift the laptop to a better angle—less neck ache, more deep work.',
+          'You build an Adazo moment: prestige anchor, scent, finish, soft glam — not a lonely SKU.',
       },
       {
-        name: 'Drawer Zen',
+        name: 'Gift Architecture',
         detail:
-          'Organizers that turn cable chaos and pen piles into quiet compartments.',
+          'You know how to stack a present that feels like a private showroom visit.',
       },
       {
-        name: 'Focus Field',
+        name: 'House Edit',
         detail:
-          'Warm beauty next to screens grounds the desk without plastic clutter.',
+          'Luxury Beauty, fragrance, handbags, jewelry — you let the brand do the curation.',
       },
     ],
     benefits: [
-      'A workspace that feels intentional',
-      'Less friction starting deep work',
-      'Natural texture next to glass and metal',
-      'Order that still looks human',
+      'The complete Adazo experience',
+      'High-AOV beauty + fashion carts',
+      'Gift-ready multi-category edits',
+      'One house for vanity and closet',
     ],
     stats: [
-      { label: 'Craft', value: 50 },
-      { label: 'Calm', value: 75 },
-      { label: 'Host', value: 35 },
-      { label: 'Order', value: 96 },
+      { label: 'Prestige', value: 88 },
+      { label: 'Glam', value: 80 },
+      { label: 'Sillage', value: 82 },
+      { label: 'Finish', value: 90 },
     ],
-    gradient: 'from-[#2d3748] via-[#4a5568] to-[#718096]',
-    cardBg: 'from-[#f0f2f5] via-[#e8ebef] to-[#dde3ea]',
-    shopHint: 'Desk stands, caddies, and calm organizers.',
+    gradient: 'from-[#5c2e0a] via-[#8b4513] to-[#c9a227]',
+    cardBg: 'from-[#fbf7f0] via-[#f5ead8] to-[#e8d5b0]',
+    shopHint: 'Luxury, fragrance, handbags, jewelry — the full Adazo edit.',
     avatar: {
-      name: 'Jordan',
-      role: 'Deep-work desk · Systems first',
-      ageBand: 'Early 40s',
-      hometown: 'Quiet corner office at home',
+      name: 'Aurelia',
+      role: 'Full Adazo edit · House curator',
+      ageBand: 'Mid-40s',
+      hometown: 'Private showroom at home',
       quote:
-        'If my desk is noisy, my thinking is noisy. Beauty keeps the surface honest.',
+        'I don’t shop one category. I shop the feeling — beauty, scent, and the piece that finishes the night.',
       image: '/brand/vibes/default-avatar.svg',
-      alt: 'Jordan at a clean desk with a laptop on a beauty riser',
+      alt: 'Aurelia with prestige beauty, perfume, bag, and gold jewelry styled together',
     },
     scene: {
       image: '/brand/vibes/default-scene.svg',
-      alt: 'Minimal desk with beauty laptop stand, organizer tray, and coffee',
-      caption: '9:05 a.m. — riser set, inbox closed, one mug, zero clutter.',
+      alt: 'Styled flat lay of luxury beauty, fragrance bottle, handbag, and gold jewelry',
+      caption: 'Friday 7:30 p.m. — full edit laid out, door in twenty minutes.',
     },
     dayInTheLife: [
-      'Clear the deck before the first meeting',
-      'Laptop on a riser; notebook and pen in one tray',
-      'Cables and chargers live in a drawer organizer, not on the surface',
-      'End of day: wipe, reset, leave tomorrow a clean launchpad',
+      'Morning: prestige skin + day scent',
+      'Work: everyday gold and a bag with architecture',
+      'Evening: soft glam, night fragrance, mini bag',
+      'Weekend: gift a full Adazo moment — not a single lonely SKU',
     ],
     materialTruths: [
-      'A laptop riser improves posture more than another motivational sticker',
-      'Beauty organizers hide visual noise without looking sterile',
-      'Warm wood next to screens reduces the “office basement” feel',
-      'Buy once: good desk pieces outlast gadget cycles',
+      'Multi-category carts are how luxury affiliates scale AOV',
+      'Beauty + fashion finish feel like a private showroom',
+      'Fragrance is the bridge between vanity and the walk out',
+      'Adazo is built for the complete elevated edit',
     ],
     signatureSetup:
-      'Laptop on beauty riser, one tray for tools, plant for life, nothing else.',
+      'Vanity prestige + perfume front, bag and gold by the door, soft glam ready for night.',
     shoppingList: [
-      'Beauty laptop / monitor stand',
-      'Desktop organizer tray',
-      'Drawer dividers',
-      'Cable-friendly caddy',
+      'Prestige beauty anchor',
+      'Signature fragrance',
+      'Fashion finish (bag or gold)',
+      'Soft glam accent + skin insurance',
     ],
-    blendsWith: ['ritual', 'craft'],
-  },
-  host: {
-    ...PERSONAS.host,
-    typeLabel: 'Gather · Serve',
-    rarity: 'Social Legend',
-    emoji: '🥂',
-    flavor:
-      'You set the table like a love language. Boards, bowls, patio light—the night starts before the first pour.',
-    catchphrase: 'The table is the invitation.',
-    traits: [
-      'Born host energy',
-      'Loves a long board of shared plates',
-      'Outdoor optional, vibe mandatory',
-      'Guests leave happier than they arrived',
-    ],
-    powers: [
-      {
-        name: 'Board Presence',
-        detail:
-          'Long serving surfaces that steal the middle of the table and start the conversation.',
-      },
-      {
-        name: 'Patio Glow',
-        detail:
-          'Pieces that move from dining room to deck without looking like camping gear.',
-      },
-      {
-        name: 'Share Mode',
-        detail:
-          'Generous forms that make family-style and grazing boards feel effortless.',
-      },
-    ],
-    benefits: [
-      'Hosting that looks effortless',
-      'Warm wood against candlelight and linen',
-      'Works indoors and al fresco',
-      'Conversation-starting centerpieces',
-    ],
-    stats: [
-      { label: 'Craft', value: 65 },
-      { label: 'Calm', value: 50 },
-      { label: 'Host', value: 97 },
-      { label: 'Order', value: 45 },
-    ],
-    gradient: 'from-[#7c2d12] via-[#b45309] to-[#d97706]',
-    cardBg: 'from-[#fff7ed] via-[#ffedd5] to-[#fed7aa]',
-    shopHint: 'Serving boards, tabletop, and outdoor gather gear.',
-    avatar: {
-      name: 'Sofia',
-      role: 'Tabletop host · Night starter',
-      ageBand: 'Late 30s',
-      hometown: 'Candlelit dining room',
-      quote:
-        'People relax when the board is already full. The table does half my hosting for me.',
-      image: '/brand/vibes/default-avatar.svg',
-      alt: 'Sofia arranging a long beauty charcuterie board for guests',
-    },
-    scene: {
-      image: '/brand/vibes/default-scene.svg',
-      alt: 'Long beauty serving board with cheese, fruit, bread, wine, and candles',
-      caption: 'Friday 7:15 p.m. — board down, candles lit, doorbell any second.',
-    },
-    dayInTheLife: [
-      'Board out first—food before people walk in',
-      'One long graze + simple plates beats a dozen tiny dishes',
-      'Same board works for brunch, wine night, or patio sunset',
-      'Cleanup is easy: wipe grain, fold linen, done',
-    ],
-    materialTruths: [
-      'A long beauty board is a centerpiece and a serving system',
-      'Warm wood photographs and feels better under candlelight than plastic trays',
-      'Outdoor-capable pieces earn their keep across seasons',
-      'Guests touch the board—material quality shows',
-    ],
-    signatureSetup:
-      'Linen runner, long beauty board down the middle, candles, two carafes, no fuss.',
-    shoppingList: [
-      'Extra-long serving / charcuterie board',
-      'Salad servers',
-      'Outdoor-friendly plates or trays',
-      'Secondary small boards for cheese corners',
-    ],
-    blendsWith: ['craft', 'patio'],
-  },
-  patio: {
-    ...PERSONAS.patio,
-    typeLabel: 'Outdoor · Open Air',
-    rarity: 'Golden Hour Edition',
-    emoji: '🌿',
-    flavor:
-      'The evening starts when the tray hits the outdoor table. You don’t wait for a special occasion—you treat the patio like a room.',
-    catchphrase: 'The evening starts outside.',
-    traits: [
-      'Open-air loyalist',
-      'Golden-hour planner',
-      'Trays over TV trays',
-      'Garden-adjacent energy',
-    ],
-    powers: [
-      {
-        name: 'Deck Presence',
-        detail:
-          'Outdoor trays and servers that look intentional on teak, stone, or grass.',
-      },
-      {
-        name: 'Fresh Air Field',
-        detail:
-          'Pieces that move from kitchen to patio without looking like camping gear.',
-      },
-      {
-        name: 'Sunset Mode',
-        detail:
-          'Warm grain that photographs and feels better than plastic under string lights.',
-      },
-    ],
-    benefits: [
-      'Open-air evenings that feel designed, not improvised',
-      'Beauty that works deck-side and table-side',
-      'Less plastic in the outdoor kit',
-      'A natural through-line from kitchen to patio',
-    ],
-    stats: [
-      { label: 'Craft', value: 55 },
-      { label: 'Calm', value: 70 },
-      { label: 'Host', value: 80 },
-      { label: 'Order', value: 40 },
-    ],
-    gradient: 'from-[#3d5c28] via-[#5a7a3a] to-[#8fad5c]',
-    cardBg: 'from-[#f3f7ec] via-[#e8f0dc] to-[#d4e5b8]',
-    shopHint: 'Outdoor trays, patio serve, and garden-side beauty.',
-    avatar: {
-      name: 'Marcus',
-      role: 'Patio naturalist · Golden hour',
-      ageBand: 'Mid-30s',
-      hometown: 'Deck at dusk',
-      quote:
-        'If the tray is outside, the night has already started. Fresh air does half the hosting.',
-      image: '/brand/vibes/default-avatar.svg',
-      alt: 'Marcus on a wooden deck at golden hour with a beauty outdoor serving tray',
-    },
-    scene: {
-      image: '/brand/vibes/default-scene.svg',
-      alt: 'Beauty tray with drinks on an outdoor table at golden hour',
-      caption: '6:48 p.m. — tray out, string lights on, no one inside yet.',
-    },
-    dayInTheLife: [
-      'Coffee outside first when weather allows',
-      'Weeknight: tray + simple plates on the deck, not the couch',
-      'Weekend: open-air snacks before anyone asks what’s for dinner',
-      'Season change: same beauty kit moves from patio to garden table',
-    ],
-    materialTruths: [
-      'Outdoor-ready beauty still looks intentional under string lights',
-      'Trays beat armloads of kitchen plastic for deck service',
-      'Warm grain photographs better than disposable outdoorware',
-      'Pieces that work inside and outside get used twice as often',
-    ],
-    signatureSetup:
-      'Beauty tray center stage, outdoor table wiped, plants nearby, drinks already poured.',
-    shoppingList: [
-      'Outdoor beauty serving tray',
-      'Patio-friendly plates or servers',
-      'Garden-side tools with warm grain',
-      'Lightweight boards for open-air snacks',
-    ],
-    blendsWith: ['host', 'craft'],
-  },
-  nest: {
-    ...PERSONAS.nest,
-    typeLabel: 'Gentle · First Meals',
-    rarity: 'Tender Edition',
-    emoji: '🪺',
-    flavor:
-      'Tiny humans, soft edges, no harsh plastics if you can help it. Mealtime should feel safe and a little magical.',
-    catchphrase: 'Small hands. Kind materials.',
-    traits: [
-      'Protective caretaker energy',
-      'Chooses gentle forms first',
-      'Loves a calm mealtime ritual',
-      'Gifts that feel thoughtful',
-    ],
-    powers: [
-      {
-        name: 'Soft Edge',
-        detail:
-          'Shapes scaled for first spoons and tiny plates—less fight, more joy at the table.',
-      },
-      {
-        name: 'Nest Shield',
-        detail:
-          'Natural materials for the most sensitive routines, when plastic piles start to feel wrong.',
-      },
-      {
-        name: 'Joy Bite',
-        detail:
-          'Warm wood that makes everyday meals feel special for little humans (and tired adults).',
-      },
-    ],
-    benefits: [
-      'Mealtime gear that feels kind',
-      'Beautiful enough for the adult table too',
-      'A calmer first-foods era',
-      'Memorable gifts for new nests',
-    ],
-    stats: [
-      { label: 'Craft', value: 40 },
-      { label: 'Calm', value: 85 },
-      { label: 'Host', value: 55 },
-      { label: 'Order', value: 50 },
-    ],
-    gradient: 'from-[#3f6b35] via-[#7a9e5a] to-[#a3c585]',
-    cardBg: 'from-[#f4f7ef] via-[#e8f0dc] to-[#d9e8c8]',
-    shopHint: 'Little plates, spoons, and gentle kitchen helpers.',
-    avatar: {
-      name: 'Priya',
-      role: 'Little nest starter · Mealtime calm',
-      ageBand: 'Early 30s',
-      hometown: 'Sunlit family kitchen',
-      quote:
-        'If mealtime feels gentle, the whole morning softens. That’s the real product.',
-      image: '/brand/vibes/default-avatar.svg',
-      alt: 'Priya setting a small beauty plate and spoon for a gentle mealtime',
-    },
-    scene: {
-      image: '/brand/vibes/default-scene.svg',
-      alt: 'Small beauty plate with soft foods, spoon, sippy cup, and napkin in morning light',
-      caption: '8:20 a.m. — plate ready, spoon waiting, no plastic mountain.',
-    },
-    dayInTheLife: [
-      'Plate + spoon set before little hands hit the chair',
-      'Soft foods on warm wood—less “cafeteria plastic,” more home',
-      'Same gentle kit for snacks, not a drawer of disposable nonsense',
-      'Gift season: nest starters get thoughtful beauty, not more plastic',
-    ],
-    materialTruths: [
-      'Small beauty plates and spoons feel kinder than hard plastic stacks',
-      'Natural grain is calm to look at during messy meals',
-      'Pieces that look good enough for adult tables get used more',
-      'Thoughtful materials signal care—even when the floor is covered in crumbs',
-    ],
-    signatureSetup:
-      'Small beauty plate, soft spoon, cloth napkin, sippy within reach—low drama table.',
-    shoppingList: [
-      'Child-scale beauty plate set',
-      'Soft-edge beauty spoons',
-      'Small serving board for family snacks',
-      'Gentle kitchen helpers for prep',
-    ],
-    blendsWith: ['craft', 'ritual'],
+    blendsWith: ['luxe', 'atelier'],
   },
 }
 
@@ -585,14 +589,18 @@ export function roomLinks(categories: Category[]) {
 
 /** Primary vibe most associated with a shop room (for category CTAs). */
 export const CATEGORY_PRIMARY_VIBE: Partial<Record<Category, string>> = {
-  skincare: 'craft',
-  'tools': 'craft',
-  makeup: 'host',
-  'sun-spf': 'patio',
-  body: 'ritual',
-  hair: 'focus',
-  wellness: 'focus',
-  lips: 'nest',
+  luxury: 'luxe',
+  fragrance: 'sillage',
+  skincare: 'dew',
+  makeup: 'muse',
+  lips: 'muse',
+  hair: 'muse',
+  tools: 'muse',
+  body: 'sillage',
+  'sun-spf': 'dew',
+  wellness: 'dew',
+  jewelry: 'atelier',
+  handbags: 'atelier',
 }
 
 export function vibeForCategory(

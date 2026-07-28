@@ -46,7 +46,7 @@ export function CategoryVibeCheck({
           ? 'border-bamboo/25 bg-gradient-to-br from-moss via-[#1e3320] to-[#2c4f25] text-paper mt-14'
           : 'border-line bg-card mt-2 mb-8'
       }`}
-      aria-label="Beauty vibe check"
+      aria-label="Adazo vibe check"
     >
       {!isEnd && (
         <div
@@ -92,9 +92,9 @@ export function CategoryVibeCheck({
             >
               {hasChecked
                 ? matchRoom
-                  ? `${yours!.title} loves this room`
+                  ? `${yours!.title} loves this shelf`
                   : `You’re a ${yours!.title} — still browsing ${roomLabel}?`
-                : `Does ${roomLabel} fit your house energy?`}
+                : `Does ${roomLabel} fit your Adazo persona?`}
             </h2>
 
             <p
@@ -105,8 +105,8 @@ export function CategoryVibeCheck({
               {hasChecked
                 ? matchRoom
                   ? `${yours!.avatar.name}’s pick for ${roomLabel.toLowerCase()}. Open your card or retake the check anytime.`
-                  : `Take 60 seconds to confirm — or open ${yours!.avatar.name}’s vibe card.`
-                : `60-second Bamboo Vibe Check maps you to a persona like ${face.avatar.name} (${face.title}) — then unlock your card and optional email save.`}
+                  : `Take 60 seconds to confirm — or open ${yours!.avatar.name}’s persona card.`
+                : `60-second Adazo Vibe Check maps you to a luxury persona like ${face.avatar.name} (${face.title}) — then unlock your card and optional private edit.`}
             </p>
           </div>
         </div>

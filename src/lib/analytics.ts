@@ -71,7 +71,7 @@ export function trackQuizComplete(opts: {
   })
 }
 
-/** Email capture submitted to CRM (house book). No PII in GA. */
+/** Email capture submitted to CRM (private edit). No PII in GA. */
 export function trackRegistration(opts: {
   personaId: string
   personaLabel: string
