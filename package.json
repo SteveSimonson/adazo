@@ -1,0 +1,36 @@
+{
+  "name": "adazo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "build": "npm run sitemap && tsc -b && vite build",
+    "lint": "oxlint src",
+    "preview": "vite preview",
+    "import:bsr": "node scripts/bsr/import-bsr.mjs && node scripts/bsr/fill-quota.mjs",
+    "fill:quota": "node scripts/bsr/fill-quota.mjs",
+    "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "lucide-react": "^1.25.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.74.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "wrangler": "^4.112.0"
+  }
+}

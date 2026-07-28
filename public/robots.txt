@@ -1,0 +1,5 @@
+# Adazo — https://adazo.com
+User-agent: *
+Allow: /
+
+Sitemap: https://adazo.com/sitemap.xml

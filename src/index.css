@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+
+  /*
+   * Surface system (product photography first):
+   * Soft warm paper + pure white wells for Amazon studio shots.
+   * Blush/rose accents for beauty brand energy — never under product images.
+   */
+  --color-ink: #1a1418;
+  --color-ink-soft: #4a3f45;
+  --color-muted: #7a6d74;
+  --color-paper: #faf7f8;
+  --color-paper-2: #f3ecef;
+  --color-card: #ffffff;
+  --color-well: #ffffff;
+  --color-line: #eadfe4;
+  --color-bamboo: #b76e79;
+  --color-bamboo-deep: #944e5a;
+  --color-leaf: #d4a5ad;
+  --color-moss: #5c2e3a;
+  --color-cream: #f7f1f3;
+  --color-wood: #c9a08a;
+  --color-gold: #c4a07a;
+  --color-sunset: #d4846a;
+  --color-charcoal: #1a1216;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  ::selection {
+    background: rgba(183, 110, 121, 0.22);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .label-micro {
+    @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-bamboo;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-moss text-white px-7 py-3.5 text-sm font-semibold tracking-wide shadow-[0_10px_30px_-12px_rgba(92,46,58,0.45)] transition hover:bg-bamboo-deep;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-7 py-3.5 text-sm font-semibold text-ink transition hover:border-bamboo/35 hover:bg-paper-2;
+  }
+  .btn-amazon {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#FF9900] text-ink px-7 py-3.5 text-sm font-bold tracking-tight shadow-[0_8px_24px_-8px_rgba(255,153,0,0.35)] transition hover:bg-[#e88b00];
+  }
+  .card-soft {
+    @apply rounded-2xl border border-line bg-card shadow-[0_2px_16px_-10px_rgba(26,20,24,0.10)] transition duration-300;
+  }
+  .card-soft:hover {
+    @apply shadow-[0_16px_36px_-18px_rgba(26,20,24,0.16)] border-bamboo/20;
+    transform: translateY(-2px);
+  }
+  .product-well {
+    @apply bg-well;
+  }
+  .price {
+    @apply font-semibold tabular-nums tracking-tight;
+  }
+  .animate-in {
+    animation: adazo-fade-up 0.45s ease-out both;
+  }
+}
+
+@keyframes adazo-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vibe-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes vibe-stat-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes vibe-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@layer utilities {
+  .vibe-foil {
+    background-size: 200% 200%;
+    animation: vibe-shimmer 8s ease infinite;
+  }
+}

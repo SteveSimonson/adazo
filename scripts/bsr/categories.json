@@ -1,0 +1,122 @@
+{
+  "description": "Amazon BSR nodes for women's health & beauty. Target: ≥20 products per Adazo category when filling.",
+  "refreshCadence": "weekly",
+  "perCategoryQuota": 20,
+  "associateTagEnv": "VITE_AMAZON_ASSOCIATE_TAG",
+  "categories": [
+    {
+      "id": "skin-care",
+      "label": "Skin Care",
+      "department": "beauty",
+      "node": "11060451",
+      "adazoCategory": "skincare",
+      "collection": "Skincare",
+      "beautyBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "facial-serums",
+      "label": "Facial Serums",
+      "department": "beauty",
+      "node": "11062741",
+      "adazoCategory": "skincare",
+      "collection": "Skincare",
+      "beautyBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "face-moisturizers",
+      "label": "Face Moisturizers",
+      "department": "beauty",
+      "node": "11062031",
+      "adazoCategory": "skincare",
+      "collection": "Skincare",
+      "beautyBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "hair-care",
+      "label": "Hair Care",
+      "department": "beauty",
+      "node": "11057241",
+      "adazoCategory": "hair",
+      "collection": "Hair",
+      "beautyBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "makeup",
+      "label": "Makeup",
+      "department": "beauty",
+      "node": "11058281",
+      "adazoCategory": "makeup",
+      "collection": "Makeup",
+      "beautyBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "body-lotions",
+      "label": "Body Lotions & Creams",
+      "department": "beauty",
+      "node": "11056381",
+      "adazoCategory": "body",
+      "collection": "Body",
+      "beautyBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "sunscreens",
+      "label": "Sunscreens & Tanning Products",
+      "department": "beauty",
+      "node": "11062781",
+      "adazoCategory": "sun-spf",
+      "collection": "SPF",
+      "beautyBias": "high",
+      "enabled": true
+    },
+    {
+      "id": "hair-tools",
+      "label": "Hair Styling Tools",
+      "department": "beauty",
+      "node": "11058691",
+      "adazoCategory": "tools",
+      "collection": "Tools",
+      "beautyBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "lip-care",
+      "label": "Lip Care",
+      "department": "beauty",
+      "node": "11058291",
+      "adazoCategory": "lips",
+      "collection": "Lips",
+      "beautyBias": "medium",
+      "enabled": true
+    },
+    {
+      "id": "beauty-tools",
+      "label": "Beauty Tools & Accessories",
+      "department": "beauty",
+      "node": "11058671",
+      "adazoCategory": "tools",
+      "collection": "Tools",
+      "beautyBias": "medium",
+      "enabled": true
+    }
+  ],
+  "searches": [
+    { "q": "best seller face serum women", "adazoCategory": "skincare", "collection": "Skincare" },
+    { "q": "ceramide moisturizer for dry skin", "adazoCategory": "skincare", "collection": "Skincare" },
+    { "q": "niacinamide serum for face", "adazoCategory": "skincare", "collection": "Skincare" },
+    { "q": "best dry shampoo for women", "adazoCategory": "hair", "collection": "Hair" },
+    { "q": "hair oil for frizz", "adazoCategory": "hair", "collection": "Hair" },
+    { "q": "liquid blush best seller", "adazoCategory": "makeup", "collection": "Makeup" },
+    { "q": "mascara lengthening best seller", "adazoCategory": "makeup", "collection": "Makeup" },
+    { "q": "body lotion shea butter women", "adazoCategory": "body", "collection": "Body" },
+    { "q": "facial sunscreen invisible finish", "adazoCategory": "sun-spf", "collection": "SPF" },
+    { "q": "hot air brush blow dryer", "adazoCategory": "tools", "collection": "Tools" },
+    { "q": "lip sleeping mask", "adazoCategory": "lips", "collection": "Lips" },
+    { "q": "collagen peptides powder unflavored", "adazoCategory": "wellness", "collection": "Wellness" }
+  ]
+}
