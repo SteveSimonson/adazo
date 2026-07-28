@@ -32,8 +32,8 @@ export function homeSeo(): PageSeo {
   title: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
   path: '/',
-  image: '/brand/social.png',
-  preloadImage: '/brand/social.png',
+  image: '/brand/promo/hero-luxury.jpg',
+  preloadImage: '/brand/promo/hero-luxury.jpg',
  }
 }
 

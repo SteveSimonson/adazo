@@ -33,6 +33,14 @@ const CATEGORY_HUE: Record<string, number> = {
   handbags: 25,
 }
 
+/** Promotional lifestyle art when Amazon images are missing (luxury/fashion). */
+const CATEGORY_PROMO_FALLBACK: Partial<Record<string, string>> = {
+  luxury: '/brand/promo/nav-luxury.jpg',
+  fragrance: '/brand/promo/nav-fragrance.jpg',
+  jewelry: '/brand/promo/nav-jewelry.jpg',
+  handbags: '/brand/promo/nav-fashion.jpg',
+}
+
 export function isAmazonCdnImage(url: string | undefined | null): boolean {
   if (!url) return false
   return (
@@ -187,10 +195,11 @@ export function resolveProductImages(
   // Do NOT inject flaky P/{ASIN} CDN guesses here. Many return HTTP 200 with a
   // 1×1 GIF, so <img onError> never fires and cards look blank. Prefer:
   // - reliable catalog /images/I/ URLs when present
-  // - quiet monogram until Creators API (or scrape) supplies real images
-  const hasReliableAmazon = out.some((u) => isReliableAmazonImage(u))
-  if (!hasReliableAmazon) {
-    // monogram only — skip P/ candidates
+  // - category promo photography for luxury/fashion shelves
+  // - quiet monogram last
+  if (!out.some((u) => isReliableAmazonImage(u))) {
+    const promo = CATEGORY_PROMO_FALLBACK[product.category]
+    if (promo) push(promo)
   }
 
   push(quietPlaceholderUrl(product))

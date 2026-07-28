@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Clock3 } from 'lucide-react'
+import { ArrowRight, Clock3, Sparkles } from 'lucide-react'
 import {
   bsrLeaders,
   CATEGORY_OPTIONS,
@@ -23,6 +23,42 @@ const featured = [
 
 const newArrivals = shopProducts.slice().reverse().slice(0, 4)
 
+/** High-impact navigational promos — luxury / fashion brand energy */
+const PROMO_TILES = [
+  {
+    to: '/shop?cat=luxury',
+    kicker: 'Highest commission tier',
+    title: 'Luxury Beauty',
+    blurb: 'Prestige skincare & makeup — the elevated edit.',
+    image: '/brand/promo/nav-luxury.jpg',
+    alt: 'Luxury beauty vanity still life',
+  },
+  {
+    to: '/shop?cat=fragrance',
+    kicker: 'Gift-ready AOV',
+    title: 'Fragrance',
+    blurb: 'Signature scents for gifting and everyday polish.',
+    image: '/brand/promo/nav-fragrance.jpg',
+    alt: 'Fragrance campaign still life',
+  },
+  {
+    to: '/shop?cat=handbags',
+    kicker: 'Fashion & finish',
+    title: 'Handbags',
+    blurb: 'Bags that complete the look and lift cart size.',
+    image: '/brand/promo/nav-fashion.jpg',
+    alt: 'Fashion handbag editorial still life',
+  },
+  {
+    to: '/shop?cat=jewelry',
+    kicker: 'Everyday sparkle',
+    title: 'Jewelry',
+    blurb: 'Hoops, layers, and gift-ready pieces.',
+    image: '/brand/promo/nav-jewelry.jpg',
+    alt: 'Gold jewelry on silk',
+  },
+] as const
+
 export function Home() {
   const limited = limitedTimeCopy()
   const weekLeaders = bsrLeaders(8)
@@ -33,38 +69,42 @@ export function Home() {
     <>
       <Seo {...homeSeo()} />
       <section className="relative min-h-[min(92vh,52rem)] flex items-end overflow-hidden bg-charcoal">
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-[#5c2e3a] via-[#8b4a58] to-[#c9a08a]"
-          aria-hidden
+        <img
+          src="/brand/promo/hero-luxury.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-[center_35%]"
+          fetchPriority="high"
+          decoding="async"
         />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(255,255,255,0.18),transparent_55%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/35 to-charcoal/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/92 via-charcoal/45 to-charcoal/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/25 to-transparent" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-14 sm:pb-20 pt-28 sm:pt-36">
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6">
               <Clock3 className="size-3.5 text-gold" />
-              Limited-time beauty edit
+              Luxury · fragrance · fashion beauty
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
-              Beauty, curated for real life.
+              Beauty elevated. Fashion finished.
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
-              Weekly Amazon Best Sellers and concern-first routines for skin,
-              hair, makeup, and body. Discover here. Buy on Amazon.
+              Curated Amazon Best Sellers across prestige beauty, fragrance,
+              jewelry, and bags — plus everyday skincare that actually earns a
+              place in your routine. Discover here. Buy on Amazon.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                to="/shop?limited=1"
+                to="/shop?cat=luxury"
                 className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)]"
               >
-                Shop this week’s drop <ArrowRight className="size-4" />
+                Shop luxury beauty <ArrowRight className="size-4" />
               </Link>
               <Link
-                to="/quiz"
+                to="/shop?limited=1"
                 className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 backdrop-blur-sm px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/18 transition"
               >
-                Take the vibe check
+                This week’s drop
               </Link>
             </div>
             {until && (
@@ -75,6 +115,58 @@ export function Home() {
                   : ''}
               </p>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Luxury + fashion promo navigation */}
+      <section className="border-b border-line bg-cream">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="label-micro mb-2 inline-flex items-center gap-1.5">
+                <Sparkles className="size-3.5" /> Prestige & fashion
+              </p>
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink">
+                Shop the elevated shelves
+              </h2>
+              <p className="text-ink-soft mt-2 max-w-xl font-light">
+                Luxury Beauty for prestige commission yield, plus fragrance and
+                fashion finishes that raise cart size.
+              </p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {PROMO_TILES.map((tile) => (
+              <Link
+                key={tile.to}
+                to={tile.to}
+                className="group relative overflow-hidden rounded-3xl border border-line aspect-[3/4] bg-charcoal shadow-[0_12px_40px_-24px_rgba(26,20,24,0.35)]"
+              >
+                <img
+                  src={tile.image}
+                  alt={tile.alt}
+                  className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/25 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-gold mb-2">
+                    {tile.kicker}
+                  </p>
+                  <p className="font-display text-2xl font-semibold text-white">
+                    {tile.title}
+                  </p>
+                  <p className="text-white/75 text-sm mt-1.5 font-light">
+                    {tile.blurb}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                    Explore <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -114,7 +206,7 @@ export function Home() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
-            <p className="label-micro mb-2">Shop by concern</p>
+            <p className="label-micro mb-2">Shop by category</p>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold">
               Find your category
             </h2>
@@ -132,8 +224,19 @@ export function Home() {
                 to={`/shop?cat=${c.id}`}
                 className="group relative overflow-hidden rounded-2xl border border-line bg-card aspect-[4/5] sm:aspect-[5/4]"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-paper-2 to-leaf/30 group-hover:scale-105 transition duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent" />
+                {hero?.image ? (
+                  <img
+                    src={hero.image}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                    style={{ objectPosition: hero.objectPosition || 'center' }}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-paper-2 to-leaf/30 group-hover:scale-105 transition duration-500" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/75 via-charcoal/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
                   <p className="font-display text-xl sm:text-2xl font-semibold text-white">
                     {hero?.title || c.label}

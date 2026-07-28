@@ -73,30 +73,30 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Luxury Beauty',
     blurb:
       'Prestige skincare and makeup — the highest Amazon Associates commission tier (~10%).',
-    image: '/brand/categories/luxury.svg',
+    image: '/brand/promo/nav-luxury.jpg',
     objectPosition: 'center 40%',
-    alt: 'Luxury beauty bottles on marble',
+    alt: 'Luxury beauty vanity with perfume and gold accents',
   },
   fragrance: {
     title: 'Fragrance',
     blurb: 'Perfume and fine fragrance with gift-ready cart size.',
-    image: '/brand/categories/fragrance.svg',
+    image: '/brand/promo/nav-fragrance.jpg',
     objectPosition: 'center 45%',
-    alt: 'Perfume bottle in soft light',
+    alt: 'Soft luxury fragrance still life',
   },
   jewelry: {
     title: 'Jewelry',
     blurb: 'Fashion and fine jewelry for everyday polish and gifting.',
-    image: '/brand/categories/jewelry.svg',
+    image: '/brand/promo/nav-jewelry.jpg',
     objectPosition: 'center 40%',
-    alt: 'Gold jewelry on soft fabric',
+    alt: 'Layered gold jewelry on silk',
   },
   handbags: {
     title: 'Handbags',
     blurb: 'Bags and fashion accessories that lift average order value.',
-    image: '/brand/categories/handbags.svg',
+    image: '/brand/promo/nav-fashion.jpg',
     objectPosition: 'center 45%',
-    alt: 'Structured handbag on a clean surface',
+    alt: 'Structured handbag and gold earrings still life',
   },
 }
 
