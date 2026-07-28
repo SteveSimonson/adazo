@@ -11,7 +11,7 @@ export const bsrExpiresAt = '' as const
 export const bsrMarketing = {
   headline: 'OPTIONS ONLY AVAILABLE FOR A LIMITED TIME',
   subhead:
-    "This week's women\'s beauty edit — Amazon Best Sellers curated for Adazo. Lists refresh weekly.",
+    "This week's women's beauty edit — Amazon Best Sellers curated for Adazo. Lists refresh weekly.",
   refreshCadence: 'weekly',
 } as const
 
