@@ -108,7 +108,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'If it doesn’t feel expensive in the hand, it doesn’t stay on my shelf.',
       image: '/brand/vibes/luxe-avatar.jpg',
-      alt: 'Vivienne at a candlelit vanity with prestige beauty jars',
+      alt: 'Vivienne, a Black woman in cream cashmere at a candlelit vanity',
     },
     scene: {
       image: '/brand/vibes/luxe-scene.jpg',
@@ -191,7 +191,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'If the lip is wrong, nothing else matters. Soft glam is a full decision.',
       image: '/brand/vibes/muse-avatar.jpg',
-      alt: 'Camille applying soft glam makeup at a lit vanity mirror',
+      alt: 'Camille, an East Asian woman with soft glam makeup at a vanity mirror',
     },
     scene: {
       image: '/brand/vibes/muse-scene.jpg',
@@ -274,7 +274,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'I don’t wear a sample energy. The bottle is the signature — and people remember the trail.',
       image: '/brand/vibes/sillage-avatar.jpg',
-      alt: 'Noor misting fragrance near a curated perfume shelf',
+      alt: 'Noor, a South Asian woman misting perfume in violet light',
     },
     scene: {
       image: '/brand/vibes/sillage-scene.jpg',
@@ -357,7 +357,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'The bag and the gold are not extras. They’re the sentence that ends the look.',
       image: '/brand/vibes/atelier-avatar.jpg',
-      alt: 'Margot with a structured bag and gold jewelry in soft closet light',
+      alt: 'Margot, a Latina woman in a blazer with gold hoops and a structured bag',
     },
     scene: {
       image: '/brand/vibes/atelier-scene.jpg',
@@ -440,7 +440,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'The five minutes of cleanse and treat are the only ones that fully belong to my face.',
       image: '/brand/vibes/dew-avatar.jpg',
-      alt: 'Isla in a soft robe applying skincare in morning light',
+      alt: 'Isla, a freckled redhead with dewy skin using a jade roller',
     },
     scene: {
       image: '/brand/vibes/dew-scene.jpg',
@@ -523,7 +523,7 @@ export const VIBES: Record<string, VibeProfile> = {
       quote:
         'I don’t shop one category. I shop the feeling — beauty, scent, and the piece that finishes the night.',
       image: '/brand/vibes/gilded-avatar.jpg',
-      alt: 'Aurelia with prestige beauty, perfume, bag, and gold jewelry styled together',
+      alt: 'Aurelia, a mature woman with silver-streaked hair in gold jewelry and bronze silk',
     },
     scene: {
       image: '/brand/vibes/gilded-scene.jpg',
