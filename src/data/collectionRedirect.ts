@@ -14,6 +14,16 @@ const COLLECTION_TO_CAT: Record<string, Category> = {
   sun: 'sun-spf',
   wellness: 'wellness',
   lips: 'lips',
+  luxury: 'luxury',
+  'luxury-beauty': 'luxury',
+  prestige: 'luxury',
+  fragrance: 'fragrance',
+  perfume: 'fragrance',
+  jewelry: 'jewelry',
+  jewellery: 'jewelry',
+  handbags: 'handbags',
+  bags: 'handbags',
+  accessories: 'handbags',
 }
 
 export function resolveCollectionToCategory(

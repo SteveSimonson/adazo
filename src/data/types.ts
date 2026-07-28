@@ -7,6 +7,14 @@ export type Category =
   | 'sun-spf'
   | 'wellness'
   | 'lips'
+  /** Prestige / Luxury Beauty — highest Associates rate (~10%) */
+  | 'luxury'
+  /** Perfume & fine fragrance — high AOV, often Luxury Beauty commission */
+  | 'fragrance'
+  /** Fashion jewelry — better fashion-adjacent rates + gift AOV */
+  | 'jewelry'
+  /** Handbags & fashion accessories — high AOV gift category */
+  | 'handbags'
 
 export interface ProductSpec {
   label: string
@@ -19,6 +27,10 @@ export type MaterialFamily =
   | 'makeup'
   | 'device'
   | 'supplement'
+  | 'luxury'
+  | 'fragrance'
+  | 'jewelry'
+  | 'handbag'
   | 'other'
 
 export type ProductSource =

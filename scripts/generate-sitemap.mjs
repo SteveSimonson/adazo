@@ -15,14 +15,18 @@ const SITE = 'https://adazo.com'
 const today = new Date().toISOString().slice(0, 10)
 
 const categories = [
-  'kitchen',
-  'cutting-boards',
-  'dining',
-  'bath',
-  'organization',
-  'desk',
-  'outdoor',
-  'baby',
+  'luxury',
+  'fragrance',
+  'skincare',
+  'hair',
+  'makeup',
+  'body',
+  'tools',
+  'sun-spf',
+  'lips',
+  'jewelry',
+  'handbags',
+  'wellness',
 ]
 
 const vibes = ['craft', 'ritual', 'focus', 'host', 'nest', 'patio']

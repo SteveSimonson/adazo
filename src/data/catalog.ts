@@ -32,11 +32,15 @@ import type { Category, Product } from './types'
  * Excludes house-edit pads (fill-*, no ASIN) that produce identical busy cards.
  */
 export function isMerchandisableProduct(p: Product): boolean {
-  // Must map to a real Amazon product page
-  if (!p.asin || !/^[A-Z0-9]{10}$/i.test(p.asin)) return false
   // Explicit house-edit filler ids from fill-quota (never shop-ready)
   if (p.id.startsWith('fill-') || p.slug.startsWith('fill-')) return false
-  return true
+  // Prefer real ASIN product pages
+  if (p.asin && /^[A-Z0-9]{10}$/i.test(p.asin)) return true
+  // Curated fashion/gift rows may use keyword affiliate search until ASINs verified
+  if (p.source === 'curated' && (p.searchKeywords || '').trim().length > 2) {
+    return true
+  }
+  return false
 }
 
 /** Prefer products that already have a real Amazon CDN photo in catalog data. */
@@ -70,14 +74,18 @@ function mergeCatalog(bsr: Product[], base: Product[]): Product[] {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
+  luxury: 'Luxury Beauty',
+  fragrance: 'Fragrance',
   skincare: 'Skincare',
   hair: 'Hair',
   makeup: 'Makeup',
   body: 'Body',
   tools: 'Tools',
   'sun-spf': 'Sun & SPF',
-  wellness: 'Wellness',
   lips: 'Lips',
+  jewelry: 'Jewelry',
+  handbags: 'Handbags',
+  wellness: 'Wellness',
 }
 
 export const CATEGORY_OPTIONS = (
@@ -105,6 +113,9 @@ export const collections = Array.from(
 
 function collectionBlurb(label: string): string {
   const map: Record<string, string> = {
+    'Luxury Beauty':
+      'Prestige skincare and makeup — highest Associates commission tier (~10%).',
+    Fragrance: 'Perfume and fine fragrance with gift-ready AOV.',
     Skincare: 'Cleansers, serums, moisturizers, and barrier care.',
     Hair: 'Treatments, oils, and refresh essentials.',
     Makeup: 'Everyday color and finish staples.',
@@ -113,6 +124,8 @@ function collectionBlurb(label: string): string {
     SPF: 'Daily sun protection that wears well under makeup.',
     Wellness: 'Collagen and beauty-adjacent wellness picks.',
     Lips: 'Masks, balms, and soft-finish lip care.',
+    Jewelry: 'Fashion and fine jewelry for gifting and everyday polish.',
+    Handbags: 'Bags and fashion accessories with high cart value.',
   }
   return map[label] ?? 'Curated women\'s health and beauty for real routines.'
 }
@@ -224,14 +237,18 @@ export function similarProducts(product: Product, limit = 4): Product[] {
 
 export function youMayAlsoLike(product: Product, limit = 4): Product[] {
   const adjacent: Record<Category, Category[]> = {
-    skincare: ['sun-spf', 'lips', 'makeup'],
-    hair: ['tools', 'wellness'],
-    makeup: ['skincare', 'lips', 'tools'],
-    body: ['skincare', 'wellness'],
-    tools: ['hair', 'makeup'],
-    'sun-spf': ['skincare', 'makeup'],
+    luxury: ['fragrance', 'skincare', 'makeup', 'lips'],
+    fragrance: ['luxury', 'body', 'handbags'],
+    skincare: ['luxury', 'sun-spf', 'lips', 'makeup'],
+    hair: ['tools', 'wellness', 'luxury'],
+    makeup: ['luxury', 'skincare', 'lips', 'tools'],
+    body: ['fragrance', 'skincare', 'wellness'],
+    tools: ['hair', 'makeup', 'luxury'],
+    'sun-spf': ['skincare', 'makeup', 'luxury'],
     wellness: ['skincare', 'hair', 'body'],
-    lips: ['skincare', 'makeup'],
+    lips: ['luxury', 'skincare', 'makeup'],
+    jewelry: ['handbags', 'fragrance', 'luxury'],
+    handbags: ['jewelry', 'fragrance', 'luxury'],
   }
 
   const cats = new Set([product.category, ...(adjacent[product.category] ?? [])])
