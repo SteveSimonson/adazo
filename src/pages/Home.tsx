@@ -35,7 +35,7 @@ const PROMO_TILES = [
     kicker: 'Big ticket · $900+',
     title: 'Luxury Handbags',
     blurb: 'Designer bags — LV, Gucci, Prada, and more.',
-    image: '/brand/promo/nav-fashion.jpg?v=2',
+    image: '/brand/promo/nav-handbags-black.jpg',
     alt: 'Black structured designer handbag on marble',
   },
   {
@@ -43,7 +43,7 @@ const PROMO_TILES = [
     kicker: 'Big ticket · $1,000+',
     title: 'Luxury Jewelry',
     blurb: 'Diamonds, designer pieces, and polish above $1k.',
-    image: '/brand/promo/nav-jewelry.jpg?v=2',
+    image: '/brand/promo/nav-jewelry-diamonds.jpg',
     alt: 'Diamond earrings bracelet and pendant on dark silk',
   },
   {
@@ -51,7 +51,7 @@ const PROMO_TILES = [
     kicker: 'Big ticket · $1,000+',
     title: 'Luxury Watches',
     blurb: 'Swiss and designer timepieces for the finish.',
-    image: '/brand/promo/nav-watches.jpg?v=2',
+    image: '/brand/promo/nav-watches-steel.jpg',
     alt: 'Steel luxury watch on blue velvet',
   },
   {
@@ -59,7 +59,7 @@ const PROMO_TILES = [
     kicker: 'Solid gold · $500+',
     title: 'Gold',
     blurb: '14K & 18K chains, bands, and fine gold polish.',
-    image: '/brand/promo/nav-gold.jpg?v=2',
+    image: '/brand/promo/nav-gold-cuban.jpg',
     alt: 'Solid yellow gold cuban chain and signet ring',
   },
 ] as const
