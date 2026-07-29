@@ -1,15 +1,13 @@
 import { VIBE_LIST, vibePath, type VibeCampaign, type VibeProfile } from './vibes'
 
-export type MagazineSeries = 'house' | 'world' | 'wild'
+export type MagazineSeries = 'house' | 'world' | 'wild' | 'carpet'
 
 export type MagazinePage = {
   id: string
   kind: 'cover' | 'divider' | 'spread'
   series?: MagazineSeries
-  /** Display title on chrome / divider */
   title: string
   kicker: string
-  /** Full-bleed campaign image (spread pages) */
   image?: string
   alt?: string
   personaId?: string
@@ -17,12 +15,14 @@ export type MagazinePage = {
   personaTitle?: string
   destination?: string
   concept?: string
-  /** Link under the page */
   to?: string
 }
 
 function seriesOf(campaign: VibeCampaign): MagazineSeries {
   const s = campaign.season.toLowerCase()
+  if (s.includes('carpet') || s.includes('oscar') || s.includes('cannes')) {
+    return 'carpet'
+  }
   if (s.includes('wild')) return 'wild'
   if (s.includes('world')) return 'world'
   return 'house'
@@ -36,6 +36,8 @@ function seriesLabel(series: MagazineSeries): { title: string; kicker: string } 
       return { title: 'World Edit', kicker: 'Volume Two · Travel' }
     case 'wild':
       return { title: 'Wild Edit', kicker: 'Volume Three · On location' }
+    case 'carpet':
+      return { title: 'Carpet Edit', kicker: 'Volume Four · Red carpet' }
   }
 }
 
@@ -50,10 +52,14 @@ export function buildMagazinePages(): MagazinePage[] {
     },
   ]
 
-  const bySeries: Record<MagazineSeries, { vibe: VibeProfile; campaign: VibeCampaign }[]> = {
+  const bySeries: Record<
+    MagazineSeries,
+    { vibe: VibeProfile; campaign: VibeCampaign }[]
+  > = {
     house: [],
     world: [],
     wild: [],
+    carpet: [],
   }
 
   for (const vibe of VIBE_LIST) {
@@ -62,7 +68,7 @@ export function buildMagazinePages(): MagazinePage[] {
     }
   }
 
-  const order: MagazineSeries[] = ['house', 'world', 'wild']
+  const order: MagazineSeries[] = ['house', 'world', 'wild', 'carpet']
   for (const series of order) {
     const entries = bySeries[series]
     if (!entries.length) continue
@@ -106,4 +112,5 @@ export const MAGAZINE_SERIES_FILTERS: {
   { id: 'house', label: 'House' },
   { id: 'world', label: 'World' },
   { id: 'wild', label: 'Wild' },
+  { id: 'carpet', label: 'Carpet' },
 ]

@@ -238,11 +238,13 @@ export function VibePage() {
                 </p>
               </div>
               <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
-                {campaign.season.startsWith('Wild')
-                  ? `Wild Edit — on location with exotic animals. Face locked; jewelry and wardrobe free.`
-                  : campaign.season.startsWith('World')
-                    ? `World Edit — travel fashion still. New destination, same model fidelity.`
-                    : `House campaign with ${vibe.avatar.name}’s face locked from her reference — ADAZO branding.`}
+                {campaign.season.startsWith('Carpet')
+                  ? `Carpet Edit — Oscars & Cannes glamour. Face locked; jewelry and wardrobe free.`
+                  : campaign.season.startsWith('Wild')
+                    ? `Wild Edit — on location with exotic animals. Face locked; jewelry and wardrobe free.`
+                    : campaign.season.startsWith('World')
+                      ? `World Edit — travel fashion still. New destination, same model fidelity.`
+                      : `House campaign with ${vibe.avatar.name}’s face locked from her reference — ADAZO branding.`}
               </p>
             </div>
 

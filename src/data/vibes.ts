@@ -169,6 +169,17 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/luxe-wild-safari.jpg',
         alt: 'ADAZO Wild Edit — Vivienne on safari with elephants in Botswana',
       },
+      {
+        title: 'Black Diamond Night',
+        season: 'Carpet Edit · Red carpet',
+        destination: 'Oscar Night',
+        concept:
+          'Red-carpet wave — midnight black crystal column gown, paparazzi flash, premiere energy outside the theater.',
+        direction:
+          'Carpet Edit. Face locked to Vivienne. Hip-weight wave (not stairs gown, Seine walk, or safari seat); black crystal gown (not ivory/ochre/charcoal).',
+        image: '/brand/vibes/portfolio/luxe-carpet-oscars.jpg',
+        alt: 'ADAZO Carpet Edit — Vivienne waving on the Oscars red carpet in black crystal',
+      },
     ],
     dayInTheLife: [
       'Morning: one prestige serum, no twelve-step circus',
@@ -285,6 +296,17 @@ export const VIBES: Record<string, VibeProfile> = {
           'Wild Edit. Face locked to Camille. Kneeling (not vanity, studio hand-in-hair, or Tokyo walk); emerald sari-inspired gown (not rose/fuchsia/black mini).',
         image: '/brand/vibes/portfolio/camille-peacocks.jpg',
         alt: 'ADAZO Wild Edit — Camille kneeling in emerald silk with peacocks in Rajasthan',
+      },
+      {
+        title: 'Silver Palais',
+        season: 'Carpet Edit · Red carpet',
+        destination: 'Cannes',
+        concept:
+          'Cannes red-carpet stairs — liquid silver mermaid gown, crystal clutch, looking up into festival flash.',
+        direction:
+          'Carpet Edit. Face locked to Camille. Stair three-quarter look-up (not vanity, studio hand-in-hair, Tokyo walk, or peacock kneel); silver gown (not rose/fuchsia/emerald).',
+        image: '/brand/vibes/portfolio/muse-carpet-cannes.jpg',
+        alt: 'ADAZO Carpet Edit — Camille in silver on the Cannes red carpet stairs',
       },
     ],
     dayInTheLife: [
@@ -403,6 +425,17 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/sillage-wild-falcon.jpg',
         alt: 'ADAZO Wild Edit — Noor with a falcon in the desert dunes',
       },
+      {
+        title: 'Sapphire Arrival',
+        season: 'Carpet Edit · Red carpet',
+        destination: 'Premiere',
+        concept:
+          'Arrivals moment — seated in an open limousine door on the red carpet, royal sapphire satin and diamond-sapphire jewels.',
+        direction:
+          'Carpet Edit. Face locked to Noor. Car-door seated arrival (not perfume mist, rooftop walk, Marrakech stand, or falcon profile); sapphire gown (not black/violet/ruby).',
+        image: '/brand/vibes/portfolio/sillage-carpet-arrival.jpg',
+        alt: 'ADAZO Carpet Edit — Noor arriving in sapphire satin from a black car',
+      },
     ],
     dayInTheLife: [
       'Morning: day signature on wrists and neck',
@@ -519,6 +552,17 @@ export const VIBES: Record<string, VibeProfile> = {
           'Wild Edit. Face locked to Margot. Horse-side stand (not closet blazer, museum look-back gown, or café seat); burgundy riding (not black gown or ivory trench).',
         image: '/brand/vibes/portfolio/atelier-wild-andalucia.jpg',
         alt: 'ADAZO Wild Edit — Margot with a white Andalusian horse',
+      },
+      {
+        title: 'Gold Train',
+        season: 'Carpet Edit · Red carpet',
+        destination: 'Oscar Night',
+        concept:
+          'Full red-carpet walk toward camera — champagne-gold sequin gown with dramatic train and diamond earrings.',
+        direction:
+          'Carpet Edit. Face locked to Margot. Train walk into lens (not closet blazer, museum look-back, café seat, or horse stand); gold sequin gown (not black/ivory/burgundy).',
+        image: '/brand/vibes/portfolio/atelier-carpet-walk.jpg',
+        alt: 'ADAZO Carpet Edit — Margot walking the Oscars carpet in gold sequins',
       },
     ],
     dayInTheLife: [
@@ -637,6 +681,17 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/dew-wild-flamingos.jpg',
         alt: 'ADAZO Wild Edit — Isla in a coral dress among flamingos in the Yucatán',
       },
+      {
+        title: 'Blush Organza',
+        season: 'Carpet Edit · Red carpet',
+        destination: 'Premiere',
+        concept:
+          'Seated on red-carpet steps — blush organza ball gown, polished updo, soft over-shoulder glamour.',
+        direction:
+          'Carpet Edit. Face locked to Isla. Seated step over-shoulder (not spa, greenhouse sage, Santorini stand, or lagoon coral); blush organza (not white/sage/coral).',
+        image: '/brand/vibes/portfolio/dew-carpet-blush.jpg',
+        alt: 'ADAZO Carpet Edit — Isla in blush organza on red carpet steps',
+      },
     ],
     dayInTheLife: [
       'Morning: cleanse, treat, SPF — no skip, no drama',
@@ -753,6 +808,17 @@ export const VIBES: Record<string, VibeProfile> = {
           'Wild Edit. Face locked to Aurelia. Seated terrace with peacock (not jewelry-table seat, opera bronze stand, or Venice walk); emerald/gold (not bronze gown or black velvet coat).',
         image: '/brand/vibes/portfolio/gilded-wild-jaipur.jpg',
         alt: 'ADAZO Wild Edit — Aurelia with a white peacock on a Jaipur palace terrace',
+      },
+      {
+        title: 'Crystal Power',
+        season: 'Carpet Edit · Red carpet',
+        destination: 'Cannes',
+        concept:
+          'Front-facing red-carpet power stance — ivory crystal couture, architectural shoulders, diamond armor and clutch.',
+        direction:
+          'Carpet Edit. Face locked to Aurelia. Hand-on-hip frontal (not jewelry table, opera bronze look-up, Venice walk, or Jaipur peacock seat); ivory crystal (not bronze/black/emerald).',
+        image: '/brand/vibes/portfolio/gilded-carpet-power.jpg',
+        alt: 'ADAZO Carpet Edit — Aurelia in ivory crystal couture on the Cannes carpet',
       },
     ],
     dayInTheLife: [
