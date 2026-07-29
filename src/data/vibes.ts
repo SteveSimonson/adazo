@@ -20,6 +20,20 @@ export type VibeScene = {
   caption: string
 }
 
+/** Full-page fashion ad still for the persona page (Fashionista-style campaign). */
+export type VibeCampaign = {
+  /** Campaign title (house name, not a real brand) */
+  title: string
+  /** Season / series line */
+  season: string
+  /** Short concept line under the title */
+  concept: string
+  /** One-line creative direction credit (inspiration, not affiliation) */
+  direction: string
+  image: string
+  alt: string
+}
+
 export type VibeProfile = Persona & {
   typeLabel: string
   rarity: string
@@ -37,6 +51,8 @@ export type VibeProfile = Persona & {
   avatar: VibeAvatar
   /** Lived-in room scene for the hero */
   scene: VibeScene
+  /** Fashionista-inspired house campaign ad starring the persona */
+  campaign: VibeCampaign
   /** Concrete day moments that ground the persona */
   dayInTheLife: string[]
   /** Product / beauty truths, not fluff */
@@ -114,6 +130,16 @@ export const VIBES: Record<string, VibeProfile> = {
       image: '/brand/vibes/luxe-scene.jpg',
       alt: 'Marble vanity with gold-capped prestige jars, soft candlelight, silk robe',
       caption: '7:40 p.m. — tray set, scent low, mirror still kind.',
+    },
+    campaign: {
+      title: 'Soft Power',
+      season: 'House Campaign · Prestige',
+      concept:
+        'Quiet luxury studio portrait — cream cashmere, candlelit marble, prestige skin as soft authority.',
+      direction:
+        'Inspired by refined studio quiet-luxury ads (GapStudio / intimate prestige casting energy).',
+      image: '/brand/vibes/campaigns/luxe.jpg',
+      alt: 'Vivienne in a Soft Power campaign still — cream cashmere at a candlelit vanity',
     },
     dayInTheLife: [
       'Morning: one prestige serum, no twelve-step circus',
@@ -198,6 +224,16 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Vanity with lipsticks, blush, lashes, and warm mirror light',
       caption: '6:18 p.m. — playlist on, lip liner drawn, door still optional.',
     },
+    campaign: {
+      title: 'Mirror First',
+      season: 'House Campaign · Soft Glam',
+      concept:
+        'Intimate beauty campaign — Hollywood vanity lights, hero lip, the mirror as the main event.',
+      direction:
+        'Inspired by internet-breaking intimate beauty campaigns and soft-glam editorial intensity.',
+      image: '/brand/vibes/campaigns/muse.jpg',
+      alt: 'Camille in a Mirror First campaign still — soft glam at a lit vanity',
+    },
     dayInTheLife: [
       'Morning: skin prep that makes color sit like silk',
       'Lunch: lip refresh — the shade that finishes the check',
@@ -280,6 +316,16 @@ export const VIBES: Record<string, VibeProfile> = {
       image: '/brand/vibes/sillage-scene.jpg',
       alt: 'Crystal perfume bottles on a vanity with soft purple light and silk',
       caption: '8:02 p.m. — pulse points, one mist in the air, door open.',
+    },
+    campaign: {
+      title: 'The Trail',
+      season: 'House Campaign · Fragrance',
+      concept:
+        'Dreamlike fragrance still — violet haze, crystal bottle, scent as atmosphere you walk through.',
+      direction:
+        'Inspired by surreal 2025 dream-zone campaign aesthetics (cinematic mist, otherworldly light).',
+      image: '/brand/vibes/campaigns/sillage.jpg',
+      alt: 'Noor in The Trail campaign still — misting perfume in violet haze',
     },
     dayInTheLife: [
       'Morning: day signature on wrists and neck',
@@ -364,6 +410,16 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Structured handbag, gold hoops, layered necklaces on linen and marble',
       caption: '7:05 p.m. — bag chosen, gold stacked, scent already on.',
     },
+    campaign: {
+      title: 'The Finish',
+      season: 'House Campaign · Fashion',
+      concept:
+        'Architecture of the look — tailored stride, structured bag, gold light that ends the outfit.',
+      direction:
+        'Inspired by luxury fashion-house walk campaigns and 2025 finish-first casting energy.',
+      image: '/brand/vibes/campaigns/atelier.jpg',
+      alt: 'Margot in The Finish campaign still — blazer, gold hoops, structured bag mid-stride',
+    },
     dayInTheLife: [
       'Morning: everyday gold before the first meeting',
       'Commute: hero crossbody or tote that carries the look',
@@ -447,6 +503,16 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Skincare ritual tray with serum, SPF, lip balm, and soft steam',
       caption: '6:12 a.m. — cleanse done, SPF next, phone still outside.',
     },
+    campaign: {
+      title: 'Barrier First',
+      season: 'House Campaign · Glow',
+      concept:
+        'Sanctuary ritual campaign — glass skin, soft steam, honest dew as the long game.',
+      direction:
+        'Inspired by 2025 rest-and-ritual beauty aesthetics and clean-luxury skin campaigns.',
+      image: '/brand/vibes/campaigns/dew.jpg',
+      alt: 'Isla in a Barrier First campaign still — dewy freckled skin with jade roller',
+    },
     dayInTheLife: [
       'Morning: cleanse, treat, SPF — no skip, no drama',
       'Midday: lip balm and water, not another harsh product',
@@ -529,6 +595,16 @@ export const VIBES: Record<string, VibeProfile> = {
       image: '/brand/vibes/gilded-scene.jpg',
       alt: 'Styled flat lay of luxury beauty, fragrance bottle, handbag, and gold jewelry',
       caption: 'Friday 7:30 p.m. — full edit laid out, door in twenty minutes.',
+    },
+    campaign: {
+      title: 'Private Showroom',
+      season: 'House Campaign · Collector',
+      concept:
+        'Cinematic collector casting — candlelit jewels, bronze silk, the full spectrum on one table.',
+      direction:
+        'Inspired by prestige icon-casting campaigns and private-showroom drama of 2025.',
+      image: '/brand/vibes/campaigns/gilded.jpg',
+      alt: 'Aurelia in a Private Showroom campaign still — gold jewelry and bronze silk',
     },
     dayInTheLife: [
       'Morning: prestige skin + day scent',

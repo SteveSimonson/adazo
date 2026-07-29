@@ -213,6 +213,127 @@ export function VibePage() {
         </div>
       </section>
 
+      {/* Fashionista-inspired house campaign ad starring this persona */}
+      <section
+        className="border-b border-line bg-charcoal"
+        aria-labelledby="campaign-title"
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="label-micro text-gold mb-2">
+                Adazo house campaign
+              </p>
+              <h2
+                id="campaign-title"
+                className="font-display text-3xl sm:text-4xl font-semibold text-white"
+              >
+                {vibe.campaign.title}
+              </h2>
+              <p className="mt-2 text-sm text-white/55 max-w-xl">
+                {vibe.campaign.season} · Starring {vibe.avatar.name}
+              </p>
+            </div>
+            <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
+              Fashionista-inspired ad concept — original house creative, not
+              affiliated with third-party brands.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+            {/* Full-page campaign still */}
+            <figure className="lg:col-span-7 relative group">
+              <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-ink shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)]">
+                <div className="relative aspect-[3/4] sm:aspect-[4/5] max-h-[40rem] w-full">
+                  <img
+                    src={vibe.campaign.image}
+                    alt={vibe.campaign.alt}
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
+                  {/* Magazine-style type strip (CSS, not baked into image) */}
+                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">
+                      Adazo · {vibe.campaign.season}
+                    </p>
+                    <p className="font-display text-3xl sm:text-4xl font-semibold text-white mt-1 leading-none">
+                      {vibe.campaign.title}
+                    </p>
+                    <p className="mt-2 text-sm text-white/75 font-light max-w-md">
+                      “{vibe.catchphrase}”
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <figcaption className="sr-only">{vibe.campaign.alt}</figcaption>
+            </figure>
+
+            {/* Campaign dossier */}
+            <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 sm:p-7 space-y-5">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
+                    Creative concept
+                  </p>
+                  <p className="mt-2 text-base text-white/85 font-light leading-relaxed">
+                    {vibe.campaign.concept}
+                  </p>
+                </div>
+                <div className="border-t border-white/10 pt-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
+                    Direction
+                  </p>
+                  <p className="mt-2 text-sm text-white/60 leading-relaxed">
+                    {vibe.campaign.direction}
+                  </p>
+                </div>
+                <div className="border-t border-white/10 pt-5 grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                      Talent
+                    </p>
+                    <p className="mt-1 font-semibold text-white">
+                      {vibe.avatar.name}
+                    </p>
+                    <p className="text-white/50 text-xs mt-0.5">
+                      {vibe.avatar.role}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                      Persona
+                    </p>
+                    <p className="mt-1 font-semibold text-white">
+                      {vibe.title}
+                    </p>
+                    <p className="text-white/50 text-xs mt-0.5">
+                      {vibe.typeLabel}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  to={`/shop?cat=${vibe.categories[0]}`}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white text-ink px-5 py-3 text-xs font-bold hover:bg-gold transition"
+                >
+                  Shop the campaign edit <ArrowRight className="size-3.5" />
+                </Link>
+                <Link
+                  to="/quiz"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-5 py-3 text-xs font-semibold text-white/85 hover:border-white/50 hover:text-white transition"
+                >
+                  Find my persona
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <VibeCheckPrompt
         hasChecked={hasChecked}
         currentId={vibe.id}
