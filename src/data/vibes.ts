@@ -158,6 +158,17 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/luxe-paris-v2.jpg',
         alt: 'ADAZO World Edit — Vivienne in a charcoal coat with red gloves on the Seine',
       },
+      {
+        title: 'Savanna Light',
+        season: 'Wild Edit · On Location',
+        destination: 'Botswana',
+        concept:
+          'Luxury safari editorial — seated on an open vehicle in ochre silk jumpsuit, gold jewelry, elephants in the golden savanna beyond.',
+        direction:
+          'Wild Edit. Face locked to Vivienne. Pose seated-on-vehicle (not stairs stand, not Seine walk); wardrobe ochre jumpsuit (not ivory gown, not charcoal coat).',
+        image: '/brand/vibes/portfolio/luxe-wild-safari.jpg',
+        alt: 'ADAZO Wild Edit — Vivienne on safari with elephants in Botswana',
+      },
     ],
     dayInTheLife: [
       'Morning: one prestige serum, no twelve-step circus',
@@ -263,6 +274,17 @@ export const VIBES: Record<string, VibeProfile> = {
           'Fashionista-inspired world-travel campaign. Face locked to Camille — destination nightlife energy.',
         image: '/brand/vibes/portfolio/muse-travel-tokyo.jpg',
         alt: 'ADAZO World Edit — Camille in Tokyo nights fashion street style',
+      },
+      {
+        title: 'Palace Peacocks',
+        season: 'Wild Edit · On Location',
+        destination: 'Rajasthan',
+        concept:
+          'Kneeling palace-courtyard editorial — emerald silk with gold border, loose waves, peacocks in a sandstone Rajasthan courtyard.',
+        direction:
+          'Wild Edit. Face locked to Camille. Kneeling (not vanity, studio hand-in-hair, or Tokyo walk); emerald sari-inspired gown (not rose/fuchsia/black mini).',
+        image: '/brand/vibes/portfolio/muse-wild-rajasthan.jpg',
+        alt: 'ADAZO Wild Edit — Camille kneeling in emerald silk with peacocks in Rajasthan',
       },
     ],
     dayInTheLife: [
@@ -370,6 +392,17 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/noor-marrakech.jpg',
         alt: 'ADAZO World Edit — Noor in a Marrakech riad at golden hour',
       },
+      {
+        title: 'Desert Falcon',
+        season: 'Wild Edit · On Location',
+        destination: 'Empty Quarter',
+        concept:
+          'Desert falconry editorial — ruby coat in dune wind, falcon on glove under dramatic sky. Trail as atmosphere and power.',
+        direction:
+          'Wild Edit. Face locked to Noor. Profile-with-falcon (not perfume mist, rooftop walk, or Marrakech standing kaftan); ruby coat (not black/violet).',
+        image: '/brand/vibes/portfolio/sillage-wild-falcon.jpg',
+        alt: 'ADAZO Wild Edit — Noor with a falcon in the desert dunes',
+      },
     ],
     dayInTheLife: [
       'Morning: day signature on wrists and neck',
@@ -475,6 +508,17 @@ export const VIBES: Record<string, VibeProfile> = {
           'World Edit. Face locked to Margot. Completely different pose and wardrobe from house gown and control closet blazer.',
         image: '/brand/vibes/portfolio/atelier-milan-v2.jpg',
         alt: 'ADAZO World Edit — Margot seated at a Milan café in an ivory trench',
+      },
+      {
+        title: 'White Horse',
+        season: 'Wild Edit · On Location',
+        destination: 'Andalucía',
+        concept:
+          'Andalusian ranch editorial — standing with a white horse, hand on its neck, burgundy velvet riding jacket and tall boots.',
+        direction:
+          'Wild Edit. Face locked to Margot. Horse-side stand (not closet blazer, museum look-back gown, or café seat); burgundy riding (not black gown or ivory trench).',
+        image: '/brand/vibes/portfolio/atelier-wild-andalucia.jpg',
+        alt: 'ADAZO Wild Edit — Margot with a white Andalusian horse',
       },
     ],
     dayInTheLife: [
@@ -582,6 +626,17 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/dew-travel-santorini.jpg',
         alt: 'ADAZO World Edit — Isla in Santorini white linen overlooking the caldera',
       },
+      {
+        title: 'Lagoon Flock',
+        season: 'Wild Edit · On Location',
+        destination: 'Yucatán',
+        concept:
+          'Standing knee-deep in a turquoise lagoon at sunrise — coral maxi dress, windblown hair, pink flamingos behind her.',
+        direction:
+          'Wild Edit. Face locked to Isla. In-water look-back (not spa close-up, seated sage slip, or Santorini white stand); coral maxi (not white/sage).',
+        image: '/brand/vibes/portfolio/dew-wild-flamingos.jpg',
+        alt: 'ADAZO Wild Edit — Isla in a coral dress among flamingos in the Yucatán',
+      },
     ],
     dayInTheLife: [
       'Morning: cleanse, treat, SPF — no skip, no drama',
@@ -687,6 +742,17 @@ export const VIBES: Record<string, VibeProfile> = {
           'World Edit. Face locked to Aurelia. Black velvet motion vs house bronze static gown.',
         image: '/brand/vibes/portfolio/gilded-venice-v2.jpg',
         alt: 'ADAZO World Edit — Aurelia walking a Venice alley in a black velvet coat',
+      },
+      {
+        title: 'White Peacock',
+        season: 'Wild Edit · On Location',
+        destination: 'Jaipur',
+        concept:
+          'Seated palace-terrace editorial — emerald velvet jacket, gold trousers, dramatic emerald jewelry, white peacock beside her.',
+        direction:
+          'Wild Edit. Face locked to Aurelia. Seated terrace with peacock (not jewelry-table seat, opera bronze stand, or Venice walk); emerald/gold (not bronze gown or black velvet coat).',
+        image: '/brand/vibes/portfolio/gilded-wild-jaipur.jpg',
+        alt: 'ADAZO Wild Edit — Aurelia with a white peacock on a Jaipur palace terrace',
       },
     ],
     dayInTheLife: [
