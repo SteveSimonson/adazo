@@ -24,10 +24,15 @@ Standing note for campaign / fashion clips meant to **drop into the Amazon produ
 
 A magazine-style **row break** between product rows may use **`16:9`**. That is **not** an Amazon insert tile.
 
-## Placement roadmap
+## Placement
 
-1. **Now:** category fashion reels on **`/reels`** (Product Reels page) — one clip per shop category, 4:5 well.  
-2. **Later:** randomizer picks from the insert pool and injects into product grids (shop / home / PDP related) at product-card size.
+1. **Catalog page:** **`/reels`** — full set of category clips.  
+2. **Product scroll randomizer (live):** `ProductGrid` + `interleaveReelInserts` inject reels into shop / home / PDP “similar” grids at product-card size.  
+   - Pool = `CATEGORY_REELS` (grows as you add clips)  
+   - **Cross-promo:** excludes the room the shopper is already in (`excludeCategory`)  
+   - Density: ~1 insert per `every` products (shop default 5; home 4; PDP 3)  
+   - Seeded per list + day so order is stable within a session/filter, reshuffles daily  
+   - Click → `/shop?cat={reel}` + GA `reel_insert_click`
 
 ## Storage & Imagine ZDR
 
@@ -49,5 +54,8 @@ A magazine-style **row break** between product rows may use **`16:9`**. That is 
 ## Related
 
 - Product card: `src/components/ProductCard.tsx` → `aspect-[4/5]`  
+- Insert tile: `src/components/ReelInsertCard.tsx`  
+- Grid wrapper: `src/components/ProductGrid.tsx`  
+- Interleave logic: `src/lib/reelInserts.ts`  
 - Reels data: `src/data/reels.ts`  
 - Persona face rules (when using house models): [`persona-portfolio-rules.md`](./persona-portfolio-rules.md)  

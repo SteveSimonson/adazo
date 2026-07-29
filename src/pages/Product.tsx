@@ -20,7 +20,7 @@ import {
   similarProducts,
   youMayAlsoLike,
 } from '../data/catalog'
-import { ProductCard } from '../components/ProductCard'
+import { ProductGrid } from '../components/ProductGrid'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
 import { affiliateUrl, AMAZON_ASSOCIATE_TAG } from '../lib/amazon'
@@ -442,16 +442,15 @@ export function ProductPage() {
                 View category
               </Link>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {similar.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  product={p}
-                  compact
-                  listName="product_similar"
-                />
-              ))}
-            </div>
+            <ProductGrid
+              products={similar}
+              listName="product_similar"
+              excludeCategory={product.category}
+              every={3}
+              maxInserts={2}
+              compact
+              className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            />
           </section>
         )}
 
@@ -464,16 +463,15 @@ export function ProductPage() {
                 You may also like
               </h2>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {alsoLike.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  product={p}
-                  compact
-                  listName="product_also_like"
-                />
-              ))}
-            </div>
+            <ProductGrid
+              products={alsoLike}
+              listName="product_also_like"
+              excludeCategory={product.category}
+              every={3}
+              maxInserts={2}
+              compact
+              className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            />
           </section>
         )}
       </div>

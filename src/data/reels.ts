@@ -1,6 +1,7 @@
 /**
  * Category fashion reels — Amazon insert size (4:5 product-card well).
- * See docs/amazon-insert-video.md. Later: randomizer injects these into grids.
+ * Inserted into product grids via ProductGrid / interleaveReelInserts
+ * (cross-promo other categories). See docs/amazon-insert-video.md.
  */
 import type { Category } from './types'
 import { CATEGORY_LABELS } from './catalog'
