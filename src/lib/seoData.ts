@@ -189,6 +189,22 @@ export function quizSeo(): PageSeo {
  }
 }
 
+/** Product reels — 4:5 Amazon-insert fashion clips per category. */
+export function reelsSeo(): PageSeo {
+ return {
+  title: 'Product reels — fashion in the scroll',
+  description:
+   'Short fashion reels for every Adazo shop category, sized like product cards (4:5 Amazon insert). Handbags, jewelry, beauty, and more — then shop the room on Amazon.',
+  path: '/reels',
+  image: '/brand/promo/lookbook-handbags.jpg',
+  preloadImage: '/brand/promo/lookbook-handbags.jpg',
+  jsonLd: breadcrumbJsonLd([
+   { name: 'Home', path: '/' },
+   { name: 'Product reels', path: '/reels' },
+  ]),
+ }
+}
+
 /** Rendered head values for one route (pageTitle/clipMeta applied, absolute URLs). */
 export type RouteMeta = {
  title: string

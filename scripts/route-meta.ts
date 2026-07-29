@@ -18,6 +18,7 @@ import {
   homeSeo,
   productSeo,
   quizSeo,
+  reelsSeo,
   shopSeo,
   vibeSeo,
   whySeo,
@@ -44,6 +45,7 @@ export function buildRouteMeta(): RouteMetaFile {
     )
   }
   routes['/quiz'] = finalizeRouteMeta(quizSeo())
+  routes['/reels'] = finalizeRouteMeta(reelsSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
 
   for (const vibe of VIBE_LIST) {
