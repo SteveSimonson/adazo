@@ -231,7 +231,7 @@ export const VIBES: Record<string, VibeProfile> = {
         'Bold beauty fashion studio — rose satin cocktail dress on seamless cherry-red paper, hero lip and hand-in-hair cover pose.',
       direction:
         'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Camille.',
-      image: '/brand/vibes/portfolio/muse-ad.jpg',
+      image: '/brand/vibes/portfolio/muse-mirror-first-ad.jpg',
       alt: 'ADAZO Mirror First campaign — Camille in rose satin against a red studio backdrop',
     },
     dayInTheLife: [
