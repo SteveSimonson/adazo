@@ -32,6 +32,9 @@ interface SendEmail {
 
 interface Env {
   ASSETS: Fetcher
+  MEDIA: R2Bucket
+  /** Bearer secret for POST /api/media/upload-url (wrangler secret) */
+  MEDIA_UPLOAD_SECRET?: string
   EMAIL?: SendEmail
   EMAIL_FROM: string
   EMAIL_FROM_NAME: string

@@ -19,6 +19,13 @@
     { "pattern": "adazo.com/*", "zone_name": "adazo.com" },
     { "pattern": "www.adazo.com/*", "zone_name": "adazo.com" }
   ],
+  // Imagine ZDR video uploads + public /media/* delivery
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "adazo-media"
+    }
+  ],
   "observability": {
     "enabled": true
   }
