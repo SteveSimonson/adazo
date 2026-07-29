@@ -177,7 +177,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Red-carpet wave — midnight black crystal column gown, paparazzi flash, premiere energy outside the theater.',
         direction:
           'Carpet Edit. Face locked to Vivienne. Hip-weight wave (not stairs gown, Seine walk, or safari seat); black crystal gown (not ivory/ochre/charcoal).',
-        image: '/brand/vibes/portfolio/luxe-carpet-oscars.jpg',
+        image: '/brand/vibes/portfolio/vivienne-oscars.jpg',
         alt: 'ADAZO Carpet Edit — Vivienne waving on the Oscars red carpet in black crystal',
       },
     ],
@@ -305,7 +305,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Cannes red-carpet stairs — liquid silver mermaid gown, crystal clutch, looking up into festival flash.',
         direction:
           'Carpet Edit. Face locked to Camille. Stair three-quarter look-up (not vanity, studio hand-in-hair, Tokyo walk, or peacock kneel); silver gown (not rose/fuchsia/emerald).',
-        image: '/brand/vibes/portfolio/muse-carpet-cannes.jpg',
+        image: '/brand/vibes/portfolio/camille-cannes.jpg',
         alt: 'ADAZO Carpet Edit — Camille in silver on the Cannes red carpet stairs',
       },
     ],
