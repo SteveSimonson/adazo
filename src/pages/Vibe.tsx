@@ -303,7 +303,11 @@ export function VibePage() {
                       </p>
                       <p className="text-white/50 text-xs mt-0.5">
                         {campaign.destination
-                          ? 'World Edit series'
+                          ? campaign.season.startsWith('Carpet')
+                            ? 'Carpet Edit series'
+                            : campaign.season.startsWith('Wild')
+                              ? 'Wild Edit series'
+                              : 'World Edit series'
                           : vibe.typeLabel}
                       </p>
                     </div>
@@ -326,6 +330,38 @@ export function VibePage() {
                 </div>
               </div>
             </div>
+
+            {/* Seamless premiere clip under carpet (and any campaign with video) */}
+            {campaign.video && (
+              <div className="mt-8 lg:mt-10">
+                <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
+                      Premiere clip · 16:9
+                    </p>
+                    <p className="font-display text-xl sm:text-2xl font-semibold text-white mt-1">
+                      {vibe.avatar.name} on the carpet
+                    </p>
+                  </div>
+                  <p className="text-xs text-white/40 max-w-sm text-right hidden sm:block">
+                    Paparazzi flash energy — same face, living red-carpet moment.
+                  </p>
+                </div>
+                <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]">
+                  <div className="relative aspect-video w-full">
+                    <video
+                      className="absolute inset-0 h-full w-full object-cover"
+                      src={campaign.video}
+                      poster={campaign.image}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      aria-label={`${vibe.avatar.name} red carpet premiere clip`}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       ))}
