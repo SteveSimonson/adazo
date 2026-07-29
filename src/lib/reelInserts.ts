@@ -1,6 +1,7 @@
 /**
  * Interleave fashion reels into product lists for cross-category promo.
- * Pool grows as CATEGORY_REELS grows — no hard cap beyond density rules.
+ * Pool = all generations in CATEGORY_REELS (gen1 + gen2 + …).
+ * Density rules unchanged; more generations → more variety, not denser by default.
  * See docs/amazon-insert-video.md.
  */
 import type { Product } from '../data/types'

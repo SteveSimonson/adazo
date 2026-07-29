@@ -206,9 +206,34 @@ def download(url: str, dest: Path) -> None:
             f.write(chunk)
 
 
+def resolve_image_url(image: str) -> str:
+    """HTTPS URL pass-through, or local file → data URI for the API."""
+    if image.startswith("http://") or image.startswith("https://") or image.startswith(
+        "data:"
+    ):
+        return image
+    path = Path(image)
+    if not path.is_file():
+        die(f"image not found: {image}")
+    raw = path.read_bytes()
+    # keep payloads reasonable
+    if len(raw) > 12 * 1024 * 1024:
+        die(f"image too large ({len(raw)} bytes): {image}")
+    import base64
+    import mimetypes
+
+    mime = mimetypes.guess_type(path.name)[0] or "image/jpeg"
+    b64 = base64.b64encode(raw).decode("ascii")
+    return f"data:{mime};base64,{b64}"
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--image", required=True, help="Public HTTPS image URL (first frame)")
+    ap.add_argument(
+        "--image",
+        required=True,
+        help="Public HTTPS image URL, data URI, or local file path (first frame)",
+    )
     ap.add_argument("--prompt", required=True, help="Motion prompt")
     ap.add_argument("--name", required=True, help="Object name stem for R2 key")
     ap.add_argument("--out", required=True, help="Local path to write the MP4")
@@ -222,6 +247,11 @@ def main() -> None:
 
     token = load_xai_token()
     secret = load_media_secret()
+    image_url = resolve_image_url(args.image)
+    if image_url.startswith("data:"):
+        print(f"image: local → data URI ({len(image_url)} chars)", flush=True)
+    else:
+        print(f"image: {image_url}", flush=True)
 
     print(f"minting R2 upload_url for {args.name}…", flush=True)
     mint = mint_upload(secret, name=args.name, ttl=args.ttl, key=args.key)
@@ -234,7 +264,7 @@ def main() -> None:
     request_id = start_video(
         token,
         prompt=args.prompt,
-        image_url=args.image,
+        image_url=image_url,
         upload_url=upload_url,
         duration=args.duration,
         resolution=args.resolution,

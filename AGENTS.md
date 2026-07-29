@@ -17,7 +17,7 @@ Ship via PR ship-gate; do not land campaign assets only on `main` without review
 
 Clips meant to sit **in the product grid** (same cell as a product card) use **4:5 portrait, 6s, 720p**, muted. Stage Imagine stills at **3:4** if needed. Full note: [`docs/amazon-insert-video.md`](docs/amazon-insert-video.md). Product Reels page: `/reels`.
 
-**Grid randomizer:** `ProductGrid` interleaves `CATEGORY_REELS` into shop/home/PDP lists for cross-category promo. Exclude the current room with `excludeCategory`. Pool auto-grows when you add reels to `src/data/reels.ts`.
+**Grid randomizer:** `ProductGrid` interleaves full `CATEGORY_REELS` (all generations) into shop/home/PDP lists for cross-category promo. Exclude the current room with `excludeCategory`. Add a new generation (one clip per category) in `src/data/reels.ts` — pool variety grows; density caps stay the same. See insertion protocol in [`docs/amazon-insert-video.md`](docs/amazon-insert-video.md).
 
 ## Imagine video (R2 / ZDR)
 

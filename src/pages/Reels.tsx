@@ -1,15 +1,24 @@
 import { Link } from 'react-router-dom'
 import { Play } from 'lucide-react'
 import { Seo } from '../components/Seo'
-import { CATEGORY_REELS } from '../data/reels'
+import {
+  CATEGORY_REELS,
+  REEL_LATEST_GENERATION,
+  reelsForGeneration,
+  type CategoryReel,
+  type ReelGeneration,
+} from '../data/reels'
 import { reelsSeo } from '../lib/seoData'
 import { useEffect, useRef } from 'react'
 
 /**
- * Product Reels — Amazon-insert-sized (4:5) fashion clips per shop category.
- * Later: randomizer injects these into product grids; this page is the full set.
+ * Product Reels — Amazon-insert-sized (4:5) fashion clips.
+ * Multiple generations per category; full set feeds the grid insert pool.
  */
 export function ReelsPage() {
+  const gen1 = reelsForGeneration(1)
+  const gen2 = reelsForGeneration(2)
+
   return (
     <>
       <Seo {...reelsSeo()} />
@@ -23,8 +32,9 @@ export function ReelsPage() {
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
             Short category clips in the same portrait size as product cards
-            (4:5 Amazon insert). Browse every room here — later these will
-            appear randomly in the shop grid.
+            (4:5 Amazon insert). {CATEGORY_REELS.length} clips across{' '}
+            {REEL_LATEST_GENERATION} generations — the same pool that randomly
+            inserts into shop and home product grids to cross-promote rooms.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/shop" className="btn-primary">
@@ -37,22 +47,64 @@ export function ReelsPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-          {CATEGORY_REELS.map((reel) => (
-            <ReelCard key={reel.category} reel={reel} />
-          ))}
-        </div>
-      </section>
+      <GenerationSection
+        generation={2}
+        label="Generation 2"
+        blurb="New creative wave — fresh pose, wardrobe, and light for every room."
+        reels={gen2}
+        featured
+      />
+      <GenerationSection
+        generation={1}
+        label="Generation 1"
+        blurb="Launch set — the original category insert clips."
+        reels={gen1}
+      />
     </>
   )
 }
 
-function ReelCard({
-  reel,
+function GenerationSection({
+  generation,
+  label,
+  blurb,
+  reels,
+  featured = false,
 }: {
-  reel: (typeof CATEGORY_REELS)[number]
+  generation: ReelGeneration
+  label: string
+  blurb: string
+  reels: CategoryReel[]
+  featured?: boolean
 }) {
+  return (
+    <section
+      className={`mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 ${
+        featured ? '' : 'border-t border-line'
+      }`}
+    >
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6 sm:mb-8">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-bamboo">
+            {label}
+            {generation === REEL_LATEST_GENERATION ? ' · Latest' : ''}
+          </p>
+          <h2 className="mt-1 font-display text-2xl sm:text-3xl font-semibold text-ink">
+            {reels.length} category clips
+          </h2>
+          <p className="mt-2 text-sm text-ink-soft max-w-lg">{blurb}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+        {reels.map((reel) => (
+          <ReelCard key={reel.id} reel={reel} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function ReelCard({ reel }: { reel: CategoryReel }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const shopTo = `/shop?cat=${reel.category}`
 
@@ -88,12 +140,17 @@ function ReelCard({
           loop
           playsInline
           preload="metadata"
-          aria-label={`${reel.title}: ${reel.motionLabel}`}
+          aria-label={`${reel.title} gen ${reel.generation}: ${reel.motionLabel}`}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent opacity-90" />
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
-          <Play className="size-3 fill-current" aria-hidden />
-          Insert size
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
+            <Play className="size-3 fill-current" aria-hidden />
+            Insert size
+          </span>
+          <span className="rounded-full bg-moss/95 text-paper text-[10px] font-bold uppercase tracking-wider px-2.5 py-1">
+            Gen {reel.generation}
+          </span>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">
           <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-gold">

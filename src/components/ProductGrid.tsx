@@ -75,7 +75,7 @@ export function ProductGrid({
         if (item.kind === 'reel') {
           return (
             <ReelInsertCard
-              key={`reel-${item.reel.category}-${item.slot}-${listName}`}
+              key={`reel-${item.reel.id}-${item.slot}-${listName}`}
               reel={item.reel}
               listName={listName}
               compact={compact}

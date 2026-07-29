@@ -21,6 +21,7 @@ import {
   reelsSeo,
   shopSeo,
   vibeSeo,
+  watchSeo,
   whySeo,
   type RouteMeta,
 } from '../src/lib/seoData'
@@ -46,6 +47,7 @@ export function buildRouteMeta(): RouteMetaFile {
   }
   routes['/quiz'] = finalizeRouteMeta(quizSeo())
   routes['/reels'] = finalizeRouteMeta(reelsSeo())
+  routes['/watch'] = finalizeRouteMeta(watchSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
 
   for (const vibe of VIBE_LIST) {
