@@ -222,7 +222,7 @@ export function VibePage() {
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <div>
               <p className="label-micro text-gold mb-2">
-                Adazo house campaign
+                Adazo · fashion destination
               </p>
               <h2
                 id="campaign-title"
@@ -231,20 +231,20 @@ export function VibePage() {
                 {vibe.campaign.title}
               </h2>
               <p className="mt-2 text-sm text-white/55 max-w-xl">
-                {vibe.campaign.season} · Starring {vibe.avatar.name}
+                {vibe.campaign.season} · Model portfolio · {vibe.avatar.name}
               </p>
             </div>
             <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
-              Fashionista-inspired ad concept — original house creative, not
-              affiliated with third-party brands.
+              New fashion editorial scene with {vibe.avatar.name}’s face locked
+              from her reference — house ADAZO branding, original creative.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-            {/* Full-page campaign still */}
+            {/* Full-page campaign still — branded portfolio ad (ADAZO type baked in) */}
             <figure className="lg:col-span-7 relative group">
               <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-ink shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)]">
-                <div className="relative aspect-[3/4] sm:aspect-[4/5] max-h-[40rem] w-full">
+                <div className="relative aspect-[3/4] w-full">
                   <img
                     src={vibe.campaign.image}
                     alt={vibe.campaign.alt}
@@ -252,19 +252,6 @@ export function VibePage() {
                     decoding="async"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
-                  {/* Magazine-style type strip (CSS, not baked into image) */}
-                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">
-                      Adazo · {vibe.campaign.season}
-                    </p>
-                    <p className="font-display text-3xl sm:text-4xl font-semibold text-white mt-1 leading-none">
-                      {vibe.campaign.title}
-                    </p>
-                    <p className="mt-2 text-sm text-white/75 font-light max-w-md">
-                      “{vibe.catchphrase}”
-                    </p>
-                  </div>
                 </div>
               </div>
               <figcaption className="sr-only">{vibe.campaign.alt}</figcaption>
