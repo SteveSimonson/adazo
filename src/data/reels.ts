@@ -119,6 +119,8 @@ const GEN2_SHIPPED: Category[] = [
   'gold',
   'luxury',
   'fragrance',
+  'skincare',
+  'hair',
 ]
 
 /** Generation 2 (second wave) — new creative per category */
