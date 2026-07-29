@@ -13,6 +13,10 @@ Non-negotiables:
 
 Ship via PR ship-gate; do not land campaign assets only on `main` without review.
 
+## Amazon insert video size
+
+Clips meant to sit **in the product grid** (same cell as a product card) use **4:5 portrait, 6s, 720p**, muted. Stage Imagine stills at **3:4** if needed. Full note: [`docs/amazon-insert-video.md`](docs/amazon-insert-video.md). Product Reels page: `/reels`.
+
 ## Imagine video (R2 / ZDR)
 
 Campaign **`image_to_video`** needs a Zero Data Retention **`upload_url`**. Mint one from the Worker (R2 bucket `adazo-media`), then pass it to Imagine. Full flow: [`docs/imagine-r2-videos.md`](docs/imagine-r2-videos.md).

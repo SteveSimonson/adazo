@@ -12,6 +12,7 @@ type NavItem =
 
 const nav: NavItem[] = [
   { kind: 'link', to: '/quiz', label: 'Vibe check' },
+  { kind: 'link', to: '/reels', label: 'Reels' },
   { kind: 'shop', mode: 'cat', cat: 'handbags', label: 'Handbags' },
   { kind: 'shop', mode: 'cat', cat: 'jewelry', label: 'Jewelry' },
   { kind: 'shop', mode: 'cat', cat: 'watches', label: 'Watches' },
@@ -33,6 +34,7 @@ function useShopNavActive() {
   return (item: NavItem): boolean => {
     if (item.kind === 'link') {
       if (item.to === '/quiz') return pathname.startsWith('/quiz')
+      if (item.to === '/reels') return pathname.startsWith('/reels')
       return pathname === item.to
     }
     if (!onShop) return false
@@ -190,6 +192,11 @@ export function Layout() {
               <li>
                 <Link to="/quiz" className="hover:text-bamboo">
                   Vibe check
+                </Link>
+              </li>
+              <li>
+                <Link to="/reels" className="hover:text-bamboo">
+                  Product reels
                 </Link>
               </li>
             </ul>
