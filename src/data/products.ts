@@ -674,8 +674,9 @@ export const products: Product[] = [
       { label: 'Area', value: 'Eye contour' },
     ],
     priceHint: 14.99,
-    asin: '',
+    asin: 'B07PM7FQZP',
     searchKeywords: 'The INKEY List Retinol Eye Cream',
+    // ASIN image CDN via productImageChain; listing gallery filled when PA-API/import refreshes
     images: [],
     rating: 4.3,
     reviewCount: 15000,
