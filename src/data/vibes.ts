@@ -231,7 +231,7 @@ export const VIBES: Record<string, VibeProfile> = {
         'Intimate beauty campaign — Hollywood vanity lights, hero lip, the mirror as the main event.',
       direction:
         'Inspired by internet-breaking intimate beauty campaigns and soft-glam editorial intensity.',
-      image: '/brand/vibes/campaigns/muse.jpg',
+      image: '/brand/vibes/campaigns/muse-mirror.jpg',
       alt: 'Camille in a Mirror First campaign still — soft glam at a lit vanity',
     },
     dayInTheLife: [
