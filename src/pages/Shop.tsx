@@ -13,7 +13,7 @@ import {
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
 import { resolveCollectionToCategory } from '../data/collectionRedirect'
-import { ProductCard } from '../components/ProductCard'
+import { ProductGrid } from '../components/ProductGrid'
 import { CategoryHero } from '../components/CategoryHero'
 import { CategoryVibeCheck } from '../components/CategoryVibeCheck'
 import { Seo } from '../components/Seo'
@@ -226,21 +226,20 @@ export function Shop() {
             </button>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {filtered.map((p) => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                listName={
-                  cat
-                    ? `shop_${cat}`
-                    : limited
-                      ? 'shop_limited'
-                      : 'shop_all'
-                }
-              />
-            ))}
-          </div>
+          <ProductGrid
+            products={filtered}
+            listName={
+              cat
+                ? `shop_${cat}`
+                : limited
+                  ? 'shop_limited'
+                  : 'shop_all'
+            }
+            excludeCategory={cat || null}
+            every={5}
+            maxInserts={6}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+          />
         )}
 
         {/* Second touch after browsing — stronger CTA */}

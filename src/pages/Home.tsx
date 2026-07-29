@@ -10,7 +10,7 @@ import {
 } from '../data/catalog'
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
-import { ProductCard } from '../components/ProductCard'
+import { ProductGrid } from '../components/ProductGrid'
 import { LookbookHero } from '../components/LookbookHero'
 import { MagazineFlip } from '../components/MagazineFlip'
 import { Seo } from '../components/Seo'
@@ -173,11 +173,13 @@ export function Home() {
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              {bigTickets.map((p) => (
-                <ProductCard key={p.id} product={p} listName="home_big_ticket" />
-              ))}
-            </div>
+            <ProductGrid
+              products={bigTickets}
+              listName="home_big_ticket"
+              every={4}
+              maxInserts={2}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
+            />
           </div>
         </section>
       )}
@@ -205,11 +207,13 @@ export function Home() {
                 View all {limitedAll.length || ''} <ArrowRight className="size-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              {weekLeaders.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
+            <ProductGrid
+              products={weekLeaders}
+              listName="home_week_leaders"
+              every={4}
+              maxInserts={2}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
+            />
           </div>
         </section>
       )}
@@ -272,11 +276,13 @@ export function Home() {
               </h2>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            {featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
+          <ProductGrid
+            products={featured}
+            listName="home_featured"
+            every={4}
+            maxInserts={2}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
+          />
         </div>
       </section>
 
@@ -311,11 +317,14 @@ export function Home() {
             <h2 className="font-display text-3xl font-semibold mb-8">
               More from Adazo
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              {newArrivals.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
+            <ProductGrid
+              products={newArrivals}
+              listName="home_more"
+              every={4}
+              maxInserts={1}
+              minProducts={3}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
+            />
           </div>
         </section>
       )}
