@@ -48,7 +48,7 @@ export const LOOKBOOK_SLIDES: LookbookSlide[] = [
       'Swiss and designer watches $1,000+ — the quiet flex on the cuff.',
     cta: 'Shop luxury watches',
     to: '/shop?cat=watches',
-    image: '/brand/promo/lookbook-watches.jpg?v=2',
+    image: '/brand/promo/lookbook-watches-steel.jpg',
     alt: 'Steel luxury watch close-up on blue velvet',
     objectPosition: 'center 45%',
   },

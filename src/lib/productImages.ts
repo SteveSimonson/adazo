@@ -53,20 +53,20 @@ const CATEGORY_PROMO_POOL: Partial<Record<string, string[]>> = {
     '/brand/vibes/sillage-scene.jpg',
   ],
   jewelry: [
-    '/brand/categories/jewelry.jpg?v=2',
-    '/brand/promo/nav-jewelry.jpg?v=2',
+    '/brand/categories/jewelry-diamonds.jpg',
+    '/brand/promo/nav-jewelry-diamonds.jpg',
   ],
   handbags: [
-    '/brand/categories/handbags.jpg?v=2',
-    '/brand/promo/nav-fashion.jpg?v=2',
+    '/brand/categories/handbags-black.jpg',
+    '/brand/promo/nav-handbags-black.jpg',
   ],
   watches: [
-    '/brand/categories/watches.jpg?v=2',
-    '/brand/promo/nav-watches.jpg?v=2',
+    '/brand/categories/watches-steel.jpg',
+    '/brand/promo/nav-watches-steel.jpg',
   ],
   gold: [
-    '/brand/categories/gold.jpg?v=2',
-    '/brand/promo/nav-gold.jpg?v=2',
+    '/brand/categories/gold-cuban.jpg',
+    '/brand/promo/nav-gold-cuban.jpg',
   ],
   skincare: ['/brand/categories/skincare.jpg', '/brand/vibes/dew-scene.jpg'],
   hair: ['/brand/categories/hair.jpg'],

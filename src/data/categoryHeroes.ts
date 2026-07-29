@@ -91,7 +91,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Luxury Jewelry',
     blurb:
       'Fine jewelry $1,000+ — diamonds, designer pieces, and pre-loved polish.',
-    image: '/brand/categories/jewelry.jpg?v=2',
+    image: '/brand/categories/jewelry-diamonds.jpg',
     objectPosition: 'center 40%',
     alt: 'Diamond earrings, tennis bracelet, and pendant on dark silk',
   },
@@ -99,7 +99,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Luxury Handbags',
     blurb:
       'Designer bags $900+ — Louis Vuitton, Gucci, Prada, and more. Big-ticket fashion finish.',
-    image: '/brand/categories/handbags.jpg?v=2',
+    image: '/brand/categories/handbags-black.jpg',
     objectPosition: 'center 45%',
     alt: 'Black structured designer handbag on white marble',
   },
@@ -107,7 +107,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Luxury Watches',
     blurb:
       'Luxury watches $1,000+ — Swiss and designer timepieces for the finished look.',
-    image: '/brand/categories/watches.jpg?v=2',
+    image: '/brand/categories/watches-steel.jpg',
     objectPosition: 'center 35%',
     alt: 'Steel luxury watch on blue velvet',
   },
@@ -115,7 +115,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Gold',
     blurb:
       'Solid gold jewelry $500+ — 14K & 18K chains, bands, and fine gold polish.',
-    image: '/brand/categories/gold.jpg?v=2',
+    image: '/brand/categories/gold-cuban.jpg',
     objectPosition: 'center 30%',
     alt: 'Solid yellow gold cuban chain and signet ring',
   },
