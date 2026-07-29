@@ -107,7 +107,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Luxury Watches',
     blurb:
       'Luxury watches $1,000+ — Swiss and designer timepieces for the finished look.',
-    image: '/brand/categories/jewelry.jpg',
+    image: '/brand/categories/watches.jpg',
     objectPosition: 'center 35%',
     alt: 'Luxury watch on a polished surface',
   },
@@ -115,7 +115,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
     title: 'Gold',
     blurb:
       'Solid gold jewelry $500+ — 14K & 18K chains, bands, and fine gold polish.',
-    image: '/brand/categories/jewelry.jpg',
+    image: '/brand/categories/gold.jpg',
     objectPosition: 'center 30%',
     alt: 'Solid gold chains and fine gold jewelry',
   },
