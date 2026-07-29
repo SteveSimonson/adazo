@@ -48,8 +48,8 @@ export const LOOKBOOK_SLIDES: LookbookSlide[] = [
       'Swiss and designer watches $1,000+ — the quiet flex on the cuff.',
     cta: 'Shop luxury watches',
     to: '/shop?cat=watches',
-    image: '/brand/promo/lookbook-watches.jpg',
-    alt: 'High fashion luxury watch campaign still life',
+    image: '/brand/promo/lookbook-watches.jpg?v=2',
+    alt: 'Steel luxury watch close-up on blue velvet',
     objectPosition: 'center 45%',
   },
   {
@@ -61,7 +61,7 @@ export const LOOKBOOK_SLIDES: LookbookSlide[] = [
     cta: 'Shop gold',
     to: '/shop?cat=gold',
     image: '/brand/promo/lookbook-gold.jpg',
-    alt: 'High fashion solid gold chains editorial still life',
+    alt: 'Solid yellow gold rope chains and bangles on silk',
     objectPosition: 'center 40%',
   },
   {
