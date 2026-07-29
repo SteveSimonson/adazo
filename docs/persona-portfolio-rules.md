@@ -13,6 +13,9 @@ Build each house persona as a **model portfolio**: absolute face fidelity to the
 | **Control** | Face + identity reference only | `/brand/vibes/{id}-avatar.jpg` |
 | **House campaign** | Primary fashion ad | `/brand/vibes/portfolio/*` |
 | **World Edit** | Travel fashion ad | `/brand/vibes/portfolio/*` |
+| **Wild Edit** | On-location fashion with exotic animals | `/brand/vibes/portfolio/*-wild-*` |
+
+Jewelry / hair / accessories may change. **Core face + body identity** must not.
 
 Control images are **references**, never the campaign deliverable. Do not enlarge, lightly regrade, or re-crop the control and ship it as a campaign.
 
@@ -80,16 +83,18 @@ If any check fails, **regenerate** — do not ship.
 
 ## Pose / wardrobe matrix (current locked set)
 
-| Persona | Control | House | World Edit |
-|---------|---------|-------|------------|
-| **Vivienne** | Seated vanity, cream wrap | Standing stairs, ivory gown + cape | Walking Seine, charcoal coat + red gloves |
-| **Camille** | Vanity close-up, pink robe | Studio 3/4, rose satin, hand in hair | Walking Tokyo night, fuchsia trench + black mini |
-| **Noor** | Perfume mist close-up | Rooftop walk, black jumpsuit + violet organza | Standing Marrakech riad, embroidered kaftan |
-| **Margot** | Closet 3/4, brown blazer | Standing museum, black one-shoulder gown, look-back | Seated Duomo café (Milan Caffè), ivory trench |
-| **Isla** | Spa close-up, jade roller | Seated greenhouse, sage silk slip | Standing Santorini, white linen + hat |
-| **Aurelia** | Seated jewelry showroom | Standing opera stairs, bronze gown + gloves | Walking Venice calle, black velvet coat |
+| Persona | Control | House | World Edit | Wild Edit |
+|---------|---------|-------|------------|-----------|
+| **Vivienne** | Seated vanity, cream wrap | Standing stairs, ivory gown + cape | Walking Seine, charcoal coat + red gloves | Seated safari vehicle, ochre jumpsuit, elephants (Botswana) |
+| **Camille** | Vanity close-up, pink robe | Studio 3/4, rose satin, hand in hair | Walking Tokyo night, fuchsia trench + black mini | Kneeling palace court, emerald silk, peacocks (Rajasthan) |
+| **Noor** | Perfume mist close-up | Rooftop walk, black jumpsuit + violet organza | Standing Marrakech riad, embroidered kaftan | Desert profile, ruby coat, falcon on glove |
+| **Margot** | Closet 3/4, brown blazer | Standing museum, black one-shoulder gown, look-back | Seated Duomo café, ivory trench | Standing with white horse, burgundy riding jacket (Andalucía) |
+| **Isla** | Spa close-up, jade roller | Seated greenhouse, sage silk slip | Standing Santorini, white linen + hat | In-water lagoon look-back, coral maxi, flamingos (Yucatán) |
+| **Aurelia** | Seated jewelry showroom | Standing opera stairs, bronze gown + gloves | Walking Venice calle, black velvet coat | Seated palace terrace, emerald velvet + gold, white peacock (Jaipur) |
 
-When adding a **third** campaign, invent a new row cell that collides with **none** of the three columns above.
+When adding a **fourth** campaign, invent a new cell that collides with **none** of the columns above.
+
+Jewelry, hair styling, and accessories **may change** freely. Only **core face + body identity** must stay locked to control.
 
 ## Prompt pattern (required language)
 
