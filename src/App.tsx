@@ -9,6 +9,7 @@ import { Why } from './pages/Why'
 import { Quiz } from './pages/Quiz'
 import { VibePage } from './pages/Vibe'
 import { ReelsPage } from './pages/Reels'
+import { WatchPage } from './pages/Watch'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="why" element={<Why />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="reels" element={<ReelsPage />} />
+          <Route path="watch" element={<WatchPage />} />
           <Route path="vibe/:vibeId" element={<VibePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

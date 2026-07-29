@@ -65,9 +65,14 @@ export function ReelInsertCard({
             aria-label={`${reel.title} fashion reel: ${reel.motionLabel}`}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-charcoal/20" />
-          <span className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
-            <Sparkles className="size-3 text-bamboo" aria-hidden />
-            Discover
+          <span className="absolute top-3 left-3 inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
+              <Sparkles className="size-3 text-bamboo" aria-hidden />
+              Discover
+            </span>
+            <span className="rounded-full bg-moss/90 text-paper text-[10px] font-bold uppercase tracking-wider px-2 py-1">
+              G{reel.generation}
+            </span>
           </span>
           <span className="absolute top-3 right-3 inline-flex items-center justify-center size-8 rounded-full bg-black/45 text-white backdrop-blur-sm">
             <Play className="size-3.5 fill-current ml-0.5" aria-hidden />

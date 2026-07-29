@@ -65,6 +65,7 @@ const urls = [
   { loc: '/shop?limited=1', changefreq: 'daily', priority: '0.9' },
   { loc: '/quiz', changefreq: 'weekly', priority: '0.85' },
   { loc: '/reels', changefreq: 'weekly', priority: '0.8' },
+  { loc: '/watch', changefreq: 'weekly', priority: '0.75' },
   { loc: '/why', changefreq: 'monthly', priority: '0.7' },
 ]
 

@@ -189,18 +189,34 @@ export function quizSeo(): PageSeo {
  }
 }
 
-/** Product reels — 4:5 Amazon-insert fashion clips per category. */
+/** Product reels — 4:5 Amazon-insert fashion clips (multi-generation). */
 export function reelsSeo(): PageSeo {
  return {
   title: 'Product reels — fashion in the scroll',
   description:
-   'Short fashion reels for every Adazo shop category, sized like product cards (4:5 Amazon insert). Handbags, jewelry, beauty, and more — then shop the room on Amazon.',
+   'Short fashion reels for every Adazo shop category — multiple creative generations, sized like product cards (4:5 Amazon insert). The same pool randomly inserts into shop grids to cross-promote rooms.',
   path: '/reels',
   image: '/brand/promo/lookbook-handbags.jpg',
   preloadImage: '/brand/promo/lookbook-handbags.jpg',
   jsonLd: breadcrumbJsonLd([
    { name: 'Home', path: '/' },
    { name: 'Product reels', path: '/reels' },
+  ]),
+ }
+}
+
+/** Muted short-video gallery of all brand clips. */
+export function watchSeo(): PageSeo {
+ return {
+  title: 'Watch — short fashion films',
+  description:
+   'Muted short videos from the Adazo library: category fashion reels and red-carpet premieres. Pure visual — scroll to play.',
+  path: '/watch',
+  image: '/brand/promo/lookbook-handbags.jpg',
+  preloadImage: '/brand/promo/lookbook-handbags.jpg',
+  jsonLd: breadcrumbJsonLd([
+   { name: 'Home', path: '/' },
+   { name: 'Watch', path: '/watch' },
   ]),
  }
 }
