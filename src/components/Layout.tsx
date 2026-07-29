@@ -1,48 +1,16 @@
-import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom'
-import { Menu, Search, X } from 'lucide-react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
 import { VIBE_LIST, vibePath } from '../data/vibes'
-import type { Category } from '../data/types'
 import { GlobalSeo } from './Seo'
 
-type NavItem =
-  | { kind: 'link'; to: string; label: string }
-  | { kind: 'shop'; mode: 'cat'; cat: Category; label: string }
-
-const nav: NavItem[] = [
-  { kind: 'link', to: '/quiz', label: 'Vibe check' },
-  { kind: 'link', to: '/reels', label: 'Reels' },
-  { kind: 'link', to: '/watch', label: 'Watch' },
-  { kind: 'shop', mode: 'cat', cat: 'handbags', label: 'Handbags' },
-  { kind: 'shop', mode: 'cat', cat: 'jewelry', label: 'Jewelry' },
-  { kind: 'shop', mode: 'cat', cat: 'watches', label: 'Watches' },
-  { kind: 'shop', mode: 'cat', cat: 'gold', label: 'Gold' },
-  { kind: 'shop', mode: 'cat', cat: 'luxury', label: 'Luxury' },
-  { kind: 'shop', mode: 'cat', cat: 'fragrance', label: 'Fragrance' },
-]
-
-function shopHref(item: Extract<NavItem, { kind: 'shop' }>) {
-  return `/shop?cat=${item.cat}`
-}
-
-function useShopNavActive() {
-  const { pathname } = useLocation()
-  const [params] = useSearchParams()
-  const cat = params.get('cat') || ''
-  const onShop = pathname === '/shop' || pathname.startsWith('/shop/')
-
-  return (item: NavItem): boolean => {
-    if (item.kind === 'link') {
-      if (item.to === '/quiz') return pathname.startsWith('/quiz')
-      if (item.to === '/reels') return pathname.startsWith('/reels')
-      if (item.to === '/watch') return pathname.startsWith('/watch')
-      return pathname === item.to
-    }
-    if (!onShop) return false
-    return cat === item.cat
-  }
-}
+/** Lean primary nav — categories live on /shop, not the header. */
+const primaryNav = [
+  { to: '/shop', label: 'Shop', match: (path: string) => path === '/shop' || path.startsWith('/shop') || path.startsWith('/product/') },
+  { to: '/quiz', label: 'Vibe', match: (path: string) => path.startsWith('/quiz') || path.startsWith('/vibe/') },
+  { to: '/watch', label: 'Watch', match: (path: string) => path.startsWith('/watch') || path.startsWith('/reels') },
+] as const
 
 function navClass(active: boolean) {
   return `px-3.5 py-2 rounded-full text-[13px] font-semibold transition whitespace-nowrap ${
@@ -54,9 +22,9 @@ function navClass(active: boolean) {
 
 export function Layout() {
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
   const limited = limitedTimeCopy()
   const until = formatExpiry(limited.expiresAt ?? undefined)
-  const isActive = useShopNavActive()
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -77,7 +45,7 @@ export function Layout() {
       </div>
 
       <header className="sticky top-0 z-50 bg-paper/92 backdrop-blur-xl border-b border-line shadow-[0_1px_0_rgba(26,20,24,0.04)]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 sm:h-[4.75rem] flex items-center justify-between gap-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 sm:h-[4.75rem] flex items-center justify-between gap-3 sm:gap-4">
           <Link
             to="/"
             className="group flex items-center shrink-0 py-1"
@@ -89,49 +57,32 @@ export function Layout() {
           </Link>
 
           <nav
-            className="hidden lg:flex items-center gap-0.5 flex-1 justify-center"
+            className="hidden md:flex items-center gap-0.5 flex-1 justify-center"
             aria-label="Primary"
           >
-            {nav.map((item) => {
-              const active = isActive(item)
-              if (item.kind === 'link') {
-                return (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    className={navClass(active)}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              }
-              return (
-                <Link
-                  key={item.cat}
-                  to={shopHref(item)}
-                  className={navClass(active)}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
+            {primaryNav.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={navClass(item.match(pathname))}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Link
-              to="/shop"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-line bg-card px-3.5 py-2 text-[13px] font-semibold text-ink-soft hover:bg-paper-2 transition"
+              to="/shop?limited=1"
+              className="btn-primary !px-3.5 sm:!px-4 !py-2.5 text-xs"
             >
-              <Search className="size-3.5" />
-              Shop
-            </Link>
-            <Link to="/shop?limited=1" className="btn-primary !px-4 !py-2.5 text-xs">
               This week
             </Link>
             <button
               type="button"
-              className="lg:hidden p-2 rounded-full border border-line"
+              className="md:hidden p-2 rounded-full border border-line"
               aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -140,20 +91,35 @@ export function Layout() {
         </div>
 
         {open && (
-          <div className="lg:hidden border-t border-line bg-paper px-4 py-4 space-y-1">
-            {nav.map((item) => {
-              const to = item.kind === 'link' ? item.to : shopHref(item)
-              return (
-                <Link
-                  key={to}
-                  to={to}
-                  className="block px-3 py-2.5 rounded-xl font-semibold text-ink hover:bg-paper-2"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
+          <div className="md:hidden border-t border-line bg-paper px-4 py-4 space-y-1">
+            {primaryNav.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`block px-3 py-2.5 rounded-xl font-semibold ${
+                  item.match(pathname)
+                    ? 'bg-ink text-paper'
+                    : 'text-ink hover:bg-paper-2'
+                }`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              to="/shop?limited=1"
+              className="block px-3 py-2.5 rounded-xl font-semibold text-ink hover:bg-paper-2"
+              onClick={() => setOpen(false)}
+            >
+              This week
+            </Link>
+            <Link
+              to="/reels"
+              className="block px-3 py-2.5 rounded-xl font-semibold text-ink hover:bg-paper-2"
+              onClick={() => setOpen(false)}
+            >
+              Product reels
+            </Link>
             <Link
               to="/why"
               className="block px-3 py-2.5 rounded-xl font-semibold text-ink hover:bg-paper-2"
@@ -179,11 +145,11 @@ export function Layout() {
             </p>
           </div>
           <div>
-            <p className="label-micro mb-3">Shop</p>
+            <p className="label-micro mb-3">Explore</p>
             <ul className="space-y-2 text-sm font-medium">
               <li>
                 <Link to="/shop" className="hover:text-bamboo">
-                  All products
+                  Shop
                 </Link>
               </li>
               <li>
@@ -197,13 +163,13 @@ export function Layout() {
                 </Link>
               </li>
               <li>
-                <Link to="/reels" className="hover:text-bamboo">
-                  Product reels
+                <Link to="/watch" className="hover:text-bamboo">
+                  Watch
                 </Link>
               </li>
               <li>
-                <Link to="/watch" className="hover:text-bamboo">
-                  Watch
+                <Link to="/reels" className="hover:text-bamboo">
+                  Product reels
                 </Link>
               </li>
             </ul>
