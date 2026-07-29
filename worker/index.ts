@@ -1,5 +1,5 @@
 /**
- * Adazo Worker: static SPA + quiz API + SEO edge layer.
+ * Adazo Worker: static SPA + quiz API + SEO edge layer + R2 media.
  *
  * - Canonical redirects: http:// and www.adazo.com → https://adazo.com (301)
  * - Raw-HTML SEO: per-route title/description/canonical/og + JSON-LD injected
@@ -12,15 +12,23 @@
  * - CRM: GoHighLevel contact upsert (secrets GHL_PIT, GHL_LOCATION_ID)
  * - Email: Cloudflare Email Sending binding (`EMAIL`) from hello@adazo.com
  *   Domain onboarded: `npx wrangler email sending enable adazo.com`
+ * - R2 (`MEDIA` → adazo-media): public GET /media/*, HMAC PUT for Imagine ZDR
+ *   (POST /api/media/upload-url → upload_url for image_to_video)
  */
 
 import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
+import {
+  handleMediaPut,
+  handleUploadUrl,
+  serveMedia,
+} from './media'
 
 /** Secrets not always present in generated Env until re-run wrangler types after secret put */
 type WorkerEnv = Env & {
   GHL_PIT?: string
   GHL_LOCATION_ID?: string
+  MEDIA_UPLOAD_SECRET?: string
 }
 
 type RouteMeta = {
@@ -511,6 +519,22 @@ async function handleRequest(
       return handleQuiz(request, env)
     }
     return json({ ok: false, error: 'Method not allowed' }, 405)
+  }
+
+  // Imagine ZDR: mint a short-lived PUT URL that lands in R2
+  if (url.pathname === '/api/media/upload-url') {
+    return handleUploadUrl(request, env)
+  }
+
+  // Signed PUT target for image_to_video (and manual uploads)
+  if (url.pathname === '/api/media/put') {
+    return handleMediaPut(request, env)
+  }
+
+  // Public R2 media (videos / stills uploaded via Imagine or CLI)
+  if (url.pathname.startsWith('/media/')) {
+    const mediaRes = await serveMedia(request, env)
+    if (mediaRes) return mediaRes
   }
 
   // API misses are JSON 404s, never the HTML shell

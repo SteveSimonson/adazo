@@ -12,3 +12,16 @@ Non-negotiables:
 4. Run the pre-ship checklist in that doc (side-by-side audit) before merge.
 
 Ship via PR ship-gate; do not land campaign assets only on `main` without review.
+
+## Imagine video (R2 / ZDR)
+
+Campaign **`image_to_video`** needs a Zero Data Retention **`upload_url`**. Mint one from the Worker (R2 bucket `adazo-media`), then pass it to Imagine. Full flow: [`docs/imagine-r2-videos.md`](docs/imagine-r2-videos.md).
+
+```bash
+# Requires MEDIA_UPLOAD_SECRET (wrangler secret)
+curl -sS -X POST 'https://adazo.com/api/media/upload-url' \
+  -H "Authorization: Bearer $MEDIA_UPLOAD_SECRET" \
+  -H 'Content-Type: application/json' \
+  -d '{"kind":"video","name":"my-clip","contentType":"video/mp4"}'
+# → upload_url (PUT target) + public_url (GET https://adazo.com/media/…)
+```
