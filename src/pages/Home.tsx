@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Clock3, Sparkles } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import {
   bigTicketProducts,
   bsrLeaders,
   CATEGORY_OPTIONS,
-  formatExpiry,
   limitedProducts,
   limitedTimeCopy,
   shopProducts,
@@ -12,6 +11,7 @@ import {
 import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
+import { LookbookHero } from '../components/LookbookHero'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 
@@ -51,7 +51,7 @@ const PROMO_TILES = [
     kicker: 'Big ticket · $1,000+',
     title: 'Luxury Watches',
     blurb: 'Swiss and designer timepieces for the finish.',
-    image: '/brand/promo/nav-jewelry.jpg',
+    image: '/brand/promo/nav-watches.jpg',
     alt: 'Luxury watch editorial still life',
   },
   {
@@ -59,7 +59,7 @@ const PROMO_TILES = [
     kicker: 'Solid gold · $500+',
     title: 'Gold',
     blurb: '14K & 18K chains, bands, and fine gold polish.',
-    image: '/brand/promo/nav-jewelry.jpg',
+    image: '/brand/promo/nav-gold.jpg',
     alt: 'Solid gold jewelry still life',
   },
 ] as const
@@ -68,60 +68,11 @@ export function Home() {
   const limited = limitedTimeCopy()
   const weekLeaders = bsrLeaders(8)
   const limitedAll = limitedProducts()
-  const until = formatExpiry(limited.expiresAt ?? undefined)
 
   return (
     <>
       <Seo {...homeSeo()} />
-      <section className="relative min-h-[min(92vh,52rem)] flex items-end overflow-hidden bg-charcoal">
-        <img
-          src="/brand/promo/hero-luxury.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-[center_35%]"
-          fetchPriority="high"
-          decoding="async"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/92 via-charcoal/45 to-charcoal/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/25 to-transparent" />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-14 sm:pb-20 pt-28 sm:pt-36">
-          <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/12 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] mb-6">
-              <Clock3 className="size-3.5 text-gold" />
-              Handbags · jewelry · watches · prestige beauty
-            </p>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.25rem] font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]">
-              Beauty elevated. Fashion finished.
-            </h1>
-            <p className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light">
-              Designer handbags, fine jewelry, and luxury watches above $1,000 —
-              plus prestige beauty and fragrance. Curated on Adazo; buy on Amazon.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link
-                to="/shop?cat=handbags"
-                className="btn-primary !bg-white !text-moss hover:!bg-cream !shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)]"
-              >
-                Shop luxury handbags <ArrowRight className="size-4" />
-              </Link>
-              <Link
-                to="/shop?cat=luxury"
-                className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 backdrop-blur-sm px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/18 transition"
-              >
-                Luxury beauty
-              </Link>
-            </div>
-            {until && (
-              <p className="mt-6 text-sm text-white/60">
-                Edit refreshes {until}
-                {limited.count > 0
-                  ? ` · ${limited.count} limited options live`
-                  : ''}
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
+      <LookbookHero />
 
       {/* Luxury + fashion promo navigation */}
       <section className="border-b border-line bg-cream">
