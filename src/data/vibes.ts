@@ -32,6 +32,8 @@ export type VibeCampaign = {
   direction: string
   image: string
   alt: string
+  /** Optional destination pin for travel series */
+  destination?: string
 }
 
 export type VibeProfile = Persona & {
@@ -51,8 +53,11 @@ export type VibeProfile = Persona & {
   avatar: VibeAvatar
   /** Lived-in room scene for the hero */
   scene: VibeScene
-  /** Fashionista-inspired house campaign ad starring the persona */
-  campaign: VibeCampaign
+  /**
+   * Fashionista-inspired house campaign ads starring the persona.
+   * Ordered portfolio: house fashion first, then world-travel series, etc.
+   */
+  campaigns: VibeCampaign[]
   /** Concrete day moments that ground the persona */
   dayInTheLife: string[]
   /** Product / beauty truths, not fluff */
@@ -131,16 +136,29 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Marble vanity with gold-capped prestige jars, soft candlelight, silk robe',
       caption: '7:40 p.m. — tray set, scent low, mirror still kind.',
     },
-    campaign: {
-      title: 'Soft Power',
-      season: 'House Campaign · Prestige',
-      concept:
-        'Full-length quiet-luxury editorial — ivory silk column gown and champagne cape on a grand marble hotel staircase at dusk.',
-      direction:
-        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Vivienne.',
-      image: '/brand/vibes/portfolio/luxe-ad.jpg',
-      alt: 'ADAZO Soft Power campaign — Vivienne in an ivory silk gown on a marble staircase',
-    },
+    campaigns: [
+      {
+        title: 'Soft Power',
+        season: 'House Campaign · Prestige',
+        concept:
+          'Full-length quiet-luxury editorial — ivory silk column gown and champagne cape on a grand marble hotel staircase at dusk.',
+        direction:
+          'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Vivienne.',
+        image: '/brand/vibes/portfolio/luxe-ad.jpg',
+        alt: 'ADAZO Soft Power campaign — Vivienne in an ivory silk gown on a marble staircase',
+      },
+      {
+        title: 'Paris at Dusk',
+        season: 'World Edit · Travel',
+        destination: 'Paris',
+        concept:
+          'Luxury travel editorial — ivory cashmere coat over silk on a Paris balcony at blue hour, Seine and tower lights beyond.',
+        direction:
+          'Fashionista-inspired world-travel campaign. Face locked to Vivienne — passport glam, no product props required.',
+        image: '/brand/vibes/portfolio/luxe-travel-paris.jpg',
+        alt: 'ADAZO World Edit — Vivienne in Paris at dusk with a travel bag',
+      },
+    ],
     dayInTheLife: [
       'Morning: one prestige serum, no twelve-step circus',
       'Midday: reapply the cream that photographs like glass',
@@ -224,16 +242,29 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Vanity with lipsticks, blush, lashes, and warm mirror light',
       caption: '6:18 p.m. — playlist on, lip liner drawn, door still optional.',
     },
-    campaign: {
-      title: 'Mirror First',
-      season: 'House Campaign · Soft Glam',
-      concept:
-        'Bold beauty fashion studio — rose satin cocktail dress on seamless cherry-red paper, hero lip and hand-in-hair cover pose.',
-      direction:
-        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Camille.',
-      image: '/brand/vibes/portfolio/muse-mirror-first-ad.jpg',
-      alt: 'ADAZO Mirror First campaign — Camille in rose satin against a red studio backdrop',
-    },
+    campaigns: [
+      {
+        title: 'Mirror First',
+        season: 'House Campaign · Soft Glam',
+        concept:
+          'Bold beauty fashion studio — rose satin cocktail dress on seamless cherry-red paper, hero lip and hand-in-hair cover pose.',
+        direction:
+          'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Camille.',
+        image: '/brand/vibes/portfolio/muse-mirror-first-ad.jpg',
+        alt: 'ADAZO Mirror First campaign — Camille in rose satin against a red studio backdrop',
+      },
+      {
+        title: 'Tokyo Nights',
+        season: 'World Edit · Travel',
+        destination: 'Tokyo',
+        concept:
+          'Night-city travel editorial — fuchsia trench over black satin mini, neon Shinjuku alley, cosmopolitan soft glam on the move.',
+        direction:
+          'Fashionista-inspired world-travel campaign. Face locked to Camille — destination nightlife energy.',
+        image: '/brand/vibes/portfolio/muse-travel-tokyo.jpg',
+        alt: 'ADAZO World Edit — Camille in Tokyo nights fashion street style',
+      },
+    ],
     dayInTheLife: [
       'Morning: skin prep that makes color sit like silk',
       'Lunch: lip refresh — the shade that finishes the check',
@@ -317,16 +348,29 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Crystal perfume bottles on a vanity with soft purple light and silk',
       caption: '8:02 p.m. — pulse points, one mist in the air, door open.',
     },
-    campaign: {
-      title: 'The Trail',
-      season: 'House Campaign · Fragrance',
-      concept:
-        'Night rooftop fashion editorial — black evening jumpsuit, sheer violet organza coat, city skyline bokeh. No product — pure atmosphere.',
-      direction:
-        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Noor.',
-      image: '/brand/vibes/portfolio/sillage-ad.jpg',
-      alt: 'ADAZO The Trail campaign — Noor on a night rooftop in violet organza',
-    },
+    campaigns: [
+      {
+        title: 'The Trail',
+        season: 'House Campaign · Fragrance',
+        concept:
+          'Night rooftop fashion editorial — black evening jumpsuit, sheer violet organza coat, city skyline bokeh. No product — pure atmosphere.',
+        direction:
+          'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Noor.',
+        image: '/brand/vibes/portfolio/sillage-ad.jpg',
+        alt: 'ADAZO The Trail campaign — Noor on a night rooftop in violet organza',
+      },
+      {
+        title: 'Marrakech Gold',
+        season: 'World Edit · Travel',
+        destination: 'Marrakech',
+        concept:
+          'Riad courtyard at golden hour — flowing black-and-violet silk with gold embroidery, lantern light, scent-of-place without a bottle.',
+        direction:
+          'Fashionista-inspired world-travel campaign. Face locked to Noor — trail that travels.',
+        image: '/brand/vibes/portfolio/sillage-travel-marrakech.jpg',
+        alt: 'ADAZO World Edit — Noor in a Marrakech riad at golden hour',
+      },
+    ],
     dayInTheLife: [
       'Morning: day signature on wrists and neck',
       'Afternoon: body layer to keep the trail honest',
@@ -410,16 +454,29 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Structured handbag, gold hoops, layered necklaces on linen and marble',
       caption: '7:05 p.m. — bag chosen, gold stacked, scent already on.',
     },
-    campaign: {
-      title: 'The Finish',
-      season: 'House Campaign · Fashion',
-      concept:
-        'Fashion-week street editorial — espresso pantsuit mid-stride on a limestone boulevard at golden hour, cognac top-handle bag.',
-      direction:
-        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Margot.',
-      image: '/brand/vibes/portfolio/atelier-ad.jpg',
-      alt: 'ADAZO The Finish campaign — Margot walking a European boulevard in a tailored suit',
-    },
+    campaigns: [
+      {
+        title: 'The Finish',
+        season: 'House Campaign · Fashion',
+        concept:
+          'Fashion-week street editorial — espresso pantsuit mid-stride on a limestone boulevard at golden hour, cognac top-handle bag.',
+        direction:
+          'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Margot.',
+        image: '/brand/vibes/portfolio/atelier-ad.jpg',
+        alt: 'ADAZO The Finish campaign — Margot walking a European boulevard in a tailored suit',
+      },
+      {
+        title: 'Milan Stride',
+        season: 'World Edit · Travel',
+        destination: 'Milan',
+        concept:
+          'Galleria arcade fashion travel — camel travel suit mid-stride, cognac tote, glass dome and Italian limestone light.',
+        direction:
+          'Fashionista-inspired world-travel campaign. Face locked to Margot — the finish goes abroad.',
+        image: '/brand/vibes/portfolio/atelier-travel-milan.jpg',
+        alt: 'ADAZO World Edit — Margot striding through Milan’s Galleria',
+      },
+    ],
     dayInTheLife: [
       'Morning: everyday gold before the first meeting',
       'Commute: hero crossbody or tote that carries the look',
@@ -503,16 +560,29 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Skincare ritual tray with serum, SPF, lip balm, and soft steam',
       caption: '6:12 a.m. — cleanse done, SPF next, phone still outside.',
     },
-    campaign: {
-      title: 'Barrier First',
-      season: 'House Campaign · Glow',
-      concept:
-        'Sunlit conservatory fashion editorial — white linen cutout dress among pale botanicals, clean-luxury glow without spa tools.',
-      direction:
-        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Isla.',
-      image: '/brand/vibes/portfolio/dew-ad.jpg',
-      alt: 'ADAZO Barrier First campaign — Isla in white linen in a glass conservatory',
-    },
+    campaigns: [
+      {
+        title: 'Barrier First',
+        season: 'House Campaign · Glow',
+        concept:
+          'Sunlit conservatory fashion editorial — white linen cutout dress among pale botanicals, clean-luxury glow without spa tools.',
+        direction:
+          'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Isla.',
+        image: '/brand/vibes/portfolio/dew-ad.jpg',
+        alt: 'ADAZO Barrier First campaign — Isla in white linen in a glass conservatory',
+      },
+      {
+        title: 'Santorini Light',
+        season: 'World Edit · Travel',
+        destination: 'Santorini',
+        concept:
+          'Aegean morning travel editorial — white linen dress, straw hat in hand, blue-domed cliffs and sea light — glow that travels.',
+        direction:
+          'Fashionista-inspired world-travel campaign. Face locked to Isla — island dew, fashion first.',
+        image: '/brand/vibes/portfolio/dew-travel-santorini.jpg',
+        alt: 'ADAZO World Edit — Isla in Santorini white linen overlooking the caldera',
+      },
+    ],
     dayInTheLife: [
       'Morning: cleanse, treat, SPF — no skip, no drama',
       'Midday: lip balm and water, not another harsh product',
@@ -596,16 +666,29 @@ export const VIBES: Record<string, VibeProfile> = {
       alt: 'Styled flat lay of luxury beauty, fragrance bottle, handbag, and gold jewelry',
       caption: 'Friday 7:30 p.m. — full edit laid out, door in twenty minutes.',
     },
-    campaign: {
-      title: 'Private Showroom',
-      season: 'House Campaign · Collector',
-      concept:
-        'Opera-house evening campaign — liquid bronze gown, gold gloves, red-carpet staircase and gold balustrades.',
-      direction:
-        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Aurelia.',
-      image: '/brand/vibes/portfolio/gilded-ad.jpg',
-      alt: 'ADAZO Private Showroom campaign — Aurelia in a bronze gown on an opera staircase',
-    },
+    campaigns: [
+      {
+        title: 'Private Showroom',
+        season: 'House Campaign · Collector',
+        concept:
+          'Opera-house evening campaign — liquid bronze gown, gold gloves, red-carpet staircase and gold balustrades.',
+        direction:
+          'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Aurelia.',
+        image: '/brand/vibes/portfolio/gilded-ad.jpg',
+        alt: 'ADAZO Private Showroom campaign — Aurelia in a bronze gown on an opera staircase',
+      },
+      {
+        title: 'Venice Grand Tour',
+        season: 'World Edit · Travel',
+        destination: 'Venice',
+        concept:
+          'Canal-bridge dusk editorial — bronze silk evening dress, gold jewelry, stamped passport in hand, grand-tour glamour.',
+        direction:
+          'Fashionista-inspired world-travel campaign. Face locked to Aurelia — collector on the move.',
+        image: '/brand/vibes/portfolio/gilded-travel-venice.jpg',
+        alt: 'ADAZO World Edit — Aurelia on a Venice bridge at dusk with passport',
+      },
+    ],
     dayInTheLife: [
       'Morning: prestige skin + day scent',
       'Work: everyday gold and a bag with architecture',
