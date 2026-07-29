@@ -19,13 +19,19 @@ Clips meant to sit **in the product grid** (same cell as a product card) use **4
 
 ## Imagine video (R2 / ZDR)
 
-Campaign **`image_to_video`** needs a Zero Data Retention **`upload_url`**. Mint one from the Worker (R2 bucket `adazo-media`), then pass it to Imagine. Full flow: [`docs/imagine-r2-videos.md`](docs/imagine-r2-videos.md).
+**Do not use Ken Burns as a substitute.** Full generative video:
 
 ```bash
-# Requires MEDIA_UPLOAD_SECRET (wrangler secret)
-curl -sS -X POST 'https://adazo.com/api/media/upload-url' \
-  -H "Authorization: Bearer $MEDIA_UPLOAD_SECRET" \
-  -H 'Content-Type: application/json' \
-  -d '{"kind":"video","name":"my-clip","contentType":"video/mp4"}'
-# → upload_url (PUT target) + public_url (GET https://adazo.com/media/…)
+# Mints R2 upload_url dynamically, calls xAI videos API, downloads MP4
+python3 scripts/imagine-video.py \
+  --image 'https://adazo.com/…/first-frame.jpg' \
+  --name my-clip \
+  --prompt 'One clear motion…' \
+  --out public/brand/videos/my-clip.mp4
+
+# All product reels (4:5/3:4 insert size)
+python3 scripts/generate-category-reels.py
 ```
+
+Needs `MEDIA_UPLOAD_SECRET` + `XAI_API_KEY` (or Grok Build `~/.grok/auth.json`).  
+Docs: [`docs/imagine-r2-videos.md`](docs/imagine-r2-videos.md).
