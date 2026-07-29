@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ExternalLink, Play } from 'lucide-react'
+import { Play } from 'lucide-react'
 import { Seo } from '../components/Seo'
 import { CATEGORY_REELS } from '../data/reels'
 import { reelsSeo } from '../lib/seoData'
@@ -108,18 +108,12 @@ function ReelCard({
         <p className="text-sm text-ink-soft line-clamp-2 leading-snug">
           {reel.blurb}
         </p>
-        <div className="mt-auto pt-2 flex flex-col gap-2">
+        <div className="mt-auto pt-2">
           <Link
             to={shopTo}
             className="btn-primary !w-full !py-2.5 !text-xs text-center"
           >
             Shop {reel.title}
-          </Link>
-          <Link
-            to={shopTo}
-            className="inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-bamboo hover:underline underline-offset-2"
-          >
-            Open category <ExternalLink className="size-3" />
           </Link>
         </div>
       </div>
