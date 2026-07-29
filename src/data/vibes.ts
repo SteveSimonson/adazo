@@ -283,7 +283,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Kneeling palace-courtyard editorial — emerald silk with gold border, loose waves, peacocks in a sandstone Rajasthan courtyard.',
         direction:
           'Wild Edit. Face locked to Camille. Kneeling (not vanity, studio hand-in-hair, or Tokyo walk); emerald sari-inspired gown (not rose/fuchsia/black mini).',
-        image: '/brand/vibes/portfolio/muse-wild-rajasthan.jpg',
+        image: '/brand/vibes/portfolio/camille-peacocks.jpg',
         alt: 'ADAZO Wild Edit — Camille kneeling in emerald silk with peacocks in Rajasthan',
       },
     ],
