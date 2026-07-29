@@ -34,6 +34,8 @@ export type VibeCampaign = {
   alt: string
   /** Optional destination pin for travel series */
   destination?: string
+  /** Optional 16:9 premiere clip (Carpet Edit, etc.) */
+  video?: string
 }
 
 export type VibeProfile = Persona & {
@@ -179,6 +181,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Carpet Edit. Face locked to Vivienne. Hip-weight wave (not stairs gown, Seine walk, or safari seat); black crystal gown (not ivory/ochre/charcoal).',
         image: '/brand/vibes/portfolio/vivienne-oscars.jpg',
         alt: 'ADAZO Carpet Edit — Vivienne waving on the Oscars red carpet in black crystal',
+        video: '/brand/videos/luxe-carpet-premiere.mp4',
       },
     ],
     dayInTheLife: [
@@ -307,6 +310,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Carpet Edit. Face locked to Camille. Stair three-quarter look-up (not vanity, studio hand-in-hair, Tokyo walk, or peacock kneel); silver gown (not rose/fuchsia/emerald).',
         image: '/brand/vibes/portfolio/camille-cannes.jpg',
         alt: 'ADAZO Carpet Edit — Camille in silver on the Cannes red carpet stairs',
+        video: '/brand/videos/muse-carpet-premiere.mp4',
       },
     ],
     dayInTheLife: [
@@ -435,6 +439,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Carpet Edit. Face locked to Noor. Car-door seated arrival (not perfume mist, rooftop walk, Marrakech stand, or falcon profile); sapphire gown (not black/violet/ruby).',
         image: '/brand/vibes/portfolio/sillage-carpet-arrival.jpg',
         alt: 'ADAZO Carpet Edit — Noor arriving in sapphire satin from a black car',
+        video: '/brand/videos/sillage-carpet-premiere.mp4',
       },
     ],
     dayInTheLife: [
@@ -563,6 +568,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Carpet Edit. Face locked to Margot. Train walk into lens (not closet blazer, museum look-back, café seat, or horse stand); gold sequin gown (not black/ivory/burgundy).',
         image: '/brand/vibes/portfolio/atelier-carpet-walk.jpg',
         alt: 'ADAZO Carpet Edit — Margot walking the Oscars carpet in gold sequins',
+        video: '/brand/videos/atelier-carpet-premiere.mp4',
       },
     ],
     dayInTheLife: [
@@ -691,6 +697,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Carpet Edit. Face locked to Isla. Seated step over-shoulder (not spa, greenhouse sage, Santorini stand, or lagoon coral); blush organza (not white/sage/coral).',
         image: '/brand/vibes/portfolio/dew-carpet-blush.jpg',
         alt: 'ADAZO Carpet Edit — Isla in blush organza on red carpet steps',
+        video: '/brand/videos/dew-carpet-premiere.mp4',
       },
     ],
     dayInTheLife: [
@@ -819,6 +826,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Carpet Edit. Face locked to Aurelia. Hand-on-hip frontal (not jewelry table, opera bronze look-up, Venice walk, or Jaipur peacock seat); ivory crystal (not bronze/black/emerald).',
         image: '/brand/vibes/portfolio/gilded-carpet-power.jpg',
         alt: 'ADAZO Carpet Edit — Aurelia in ivory crystal couture on the Cannes carpet',
+        video: '/brand/videos/gilded-carpet-premiere.mp4',
       },
     ],
     dayInTheLife: [
