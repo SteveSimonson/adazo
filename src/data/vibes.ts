@@ -135,11 +135,11 @@ export const VIBES: Record<string, VibeProfile> = {
       title: 'Soft Power',
       season: 'House Campaign · Prestige',
       concept:
-        'Quiet luxury studio portrait — cream cashmere, candlelit marble, prestige skin as soft authority.',
+        'Full-length quiet-luxury editorial — ivory silk column gown and champagne cape on a grand marble hotel staircase at dusk.',
       direction:
-        'Inspired by refined studio quiet-luxury ads (GapStudio / intimate prestige casting energy).',
-      image: '/brand/vibes/campaigns/luxe.jpg',
-      alt: 'Vivienne in a Soft Power campaign still — cream cashmere at a candlelit vanity',
+        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Vivienne.',
+      image: '/brand/vibes/portfolio/luxe-ad.jpg',
+      alt: 'ADAZO Soft Power campaign — Vivienne in an ivory silk gown on a marble staircase',
     },
     dayInTheLife: [
       'Morning: one prestige serum, no twelve-step circus',
@@ -228,11 +228,11 @@ export const VIBES: Record<string, VibeProfile> = {
       title: 'Mirror First',
       season: 'House Campaign · Soft Glam',
       concept:
-        'Intimate beauty campaign — Hollywood vanity lights, hero lip, the mirror as the main event.',
+        'Bold beauty fashion studio — rose satin cocktail dress on seamless cherry-red paper, hero lip and hand-in-hair cover pose.',
       direction:
-        'Inspired by internet-breaking intimate beauty campaigns and soft-glam editorial intensity.',
-      image: '/brand/vibes/campaigns/muse-mirror.jpg',
-      alt: 'Camille in a Mirror First campaign still — soft glam at a lit vanity',
+        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Camille.',
+      image: '/brand/vibes/portfolio/muse-ad.jpg',
+      alt: 'ADAZO Mirror First campaign — Camille in rose satin against a red studio backdrop',
     },
     dayInTheLife: [
       'Morning: skin prep that makes color sit like silk',
@@ -321,11 +321,11 @@ export const VIBES: Record<string, VibeProfile> = {
       title: 'The Trail',
       season: 'House Campaign · Fragrance',
       concept:
-        'Dreamlike fragrance still — violet haze, crystal bottle, scent as atmosphere you walk through.',
+        'Night rooftop fashion editorial — black evening jumpsuit, sheer violet organza coat, city skyline bokeh. No product — pure atmosphere.',
       direction:
-        'Inspired by surreal 2025 dream-zone campaign aesthetics (cinematic mist, otherworldly light).',
-      image: '/brand/vibes/campaigns/sillage.jpg',
-      alt: 'Noor in The Trail campaign still — misting perfume in violet haze',
+        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Noor.',
+      image: '/brand/vibes/portfolio/sillage-ad.jpg',
+      alt: 'ADAZO The Trail campaign — Noor on a night rooftop in violet organza',
     },
     dayInTheLife: [
       'Morning: day signature on wrists and neck',
@@ -414,11 +414,11 @@ export const VIBES: Record<string, VibeProfile> = {
       title: 'The Finish',
       season: 'House Campaign · Fashion',
       concept:
-        'Architecture of the look — tailored stride, structured bag, gold light that ends the outfit.',
+        'Fashion-week street editorial — espresso pantsuit mid-stride on a limestone boulevard at golden hour, cognac top-handle bag.',
       direction:
-        'Inspired by luxury fashion-house walk campaigns and 2025 finish-first casting energy.',
-      image: '/brand/vibes/campaigns/atelier.jpg',
-      alt: 'Margot in The Finish campaign still — blazer, gold hoops, structured bag mid-stride',
+        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Margot.',
+      image: '/brand/vibes/portfolio/atelier-ad.jpg',
+      alt: 'ADAZO The Finish campaign — Margot walking a European boulevard in a tailored suit',
     },
     dayInTheLife: [
       'Morning: everyday gold before the first meeting',
@@ -507,11 +507,11 @@ export const VIBES: Record<string, VibeProfile> = {
       title: 'Barrier First',
       season: 'House Campaign · Glow',
       concept:
-        'Sanctuary ritual campaign — glass skin, soft steam, honest dew as the long game.',
+        'Sunlit conservatory fashion editorial — white linen cutout dress among pale botanicals, clean-luxury glow without spa tools.',
       direction:
-        'Inspired by 2025 rest-and-ritual beauty aesthetics and clean-luxury skin campaigns.',
-      image: '/brand/vibes/campaigns/dew.jpg',
-      alt: 'Isla in a Barrier First campaign still — dewy freckled skin with jade roller',
+        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Isla.',
+      image: '/brand/vibes/portfolio/dew-ad.jpg',
+      alt: 'ADAZO Barrier First campaign — Isla in white linen in a glass conservatory',
     },
     dayInTheLife: [
       'Morning: cleanse, treat, SPF — no skip, no drama',
@@ -600,11 +600,11 @@ export const VIBES: Record<string, VibeProfile> = {
       title: 'Private Showroom',
       season: 'House Campaign · Collector',
       concept:
-        'Cinematic collector casting — candlelit jewels, bronze silk, the full spectrum on one table.',
+        'Opera-house evening campaign — liquid bronze gown, gold gloves, red-carpet staircase and gold balustrades.',
       direction:
-        'Inspired by prestige icon-casting campaigns and private-showroom drama of 2025.',
-      image: '/brand/vibes/campaigns/gilded.jpg',
-      alt: 'Aurelia in a Private Showroom campaign still — gold jewelry and bronze silk',
+        'Fashionista-inspired house campaign. Model portfolio still — new scene, face locked to Aurelia.',
+      image: '/brand/vibes/portfolio/gilded-ad.jpg',
+      alt: 'ADAZO Private Showroom campaign — Aurelia in a bronze gown on an opera staircase',
     },
     dayInTheLife: [
       'Morning: prestige skin + day scent',
