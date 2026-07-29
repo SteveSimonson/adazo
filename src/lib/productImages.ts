@@ -55,22 +55,18 @@ const CATEGORY_PROMO_POOL: Partial<Record<string, string[]>> = {
   jewelry: [
     '/brand/categories/jewelry.jpg',
     '/brand/promo/nav-jewelry.jpg',
-    '/brand/vibes/atelier-scene.jpg',
   ],
   handbags: [
     '/brand/categories/handbags.jpg',
     '/brand/promo/nav-fashion.jpg',
-    '/brand/vibes/atelier-scene.jpg',
   ],
   watches: [
-    '/brand/categories/jewelry.jpg',
-    '/brand/promo/nav-jewelry.jpg',
-    '/brand/vibes/atelier-scene.jpg',
+    '/brand/categories/watches.jpg',
+    '/brand/promo/nav-watches.jpg',
   ],
   gold: [
-    '/brand/categories/jewelry.jpg',
-    '/brand/promo/nav-jewelry.jpg',
-    '/brand/vibes/luxe-scene.jpg',
+    '/brand/categories/gold.jpg',
+    '/brand/promo/nav-gold.jpg',
     '/brand/vibes/gilded-scene.jpg',
   ],
   skincare: ['/brand/categories/skincare.jpg', '/brand/vibes/dew-scene.jpg'],
