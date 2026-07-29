@@ -13,9 +13,11 @@ import {
   type MagazineSeries,
 } from '../data/magazine'
 
+const TURN_MS = 480
+
 /**
  * Adazo House Book — flippable fashion magazine on the home page.
- * CSS 3D page turns through persona campaign portfolio stills.
+ * Controls: chevrons, edge zones, keyboard (when focused), swipe.
  */
 export function MagazineFlip({
   pages = MAGAZINE_PAGES,
@@ -24,51 +26,99 @@ export function MagazineFlip({
 }) {
   const [filter, setFilter] = useState<'all' | MagazineSeries>('all')
   const [index, setIndex] = useState(0)
-  const [turning, setTurning] = useState(false)
+  const [phase, setPhase] = useState<'idle' | 'out' | 'in'>('idle')
   const [dir, setDir] = useState<1 | -1>(1)
+  const busyRef = useRef(false)
+  const indexRef = useRef(0)
+  const timerRef = useRef<number | null>(null)
   const touchX = useRef<number | null>(null)
-  const bookRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
 
   const filtered = useMemo(() => {
     if (filter === 'all') return pages
     return pages.filter(
-      (p) =>
-        p.kind === 'cover' ||
-        p.series === filter ||
-        (p.kind === 'divider' && p.series === filter),
+      (p) => p.kind === 'cover' || p.series === filter,
     )
   }, [pages, filter])
 
   const n = filtered.length
-  const page = filtered[index] ?? filtered[0]
+  const safeIndex = n === 0 ? 0 : Math.min(index, n - 1)
+  const page = filtered[safeIndex] ?? filtered[0]
 
-  // Reset when filter changes
+  useEffect(() => {
+    indexRef.current = safeIndex
+  }, [safeIndex])
+
   useEffect(() => {
     setIndex(0)
+    indexRef.current = 0
+    setPhase('idle')
+    busyRef.current = false
+    if (timerRef.current != null) {
+      window.clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
   }, [filter])
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current != null) window.clearTimeout(timerRef.current)
+    }
+  }, [])
+
+  // Preload neighbors for snappy flips
+  useEffect(() => {
+    if (!n) return
+    for (const i of [safeIndex - 1, safeIndex + 1]) {
+      if (i < 0 || i >= n) continue
+      const img = filtered[i]?.image
+      if (!img) continue
+      const el = new Image()
+      el.src = img
+    }
+  }, [filtered, safeIndex, n])
 
   const go = useCallback(
     (d: 1 | -1) => {
-      if (turning || n <= 1) return
-      const next = index + d
+      if (busyRef.current || n <= 1) return
+      const i = indexRef.current
+      const next = i + d
       if (next < 0 || next >= n) return
+
+      busyRef.current = true
       setDir(d)
-      setTurning(true)
-      window.setTimeout(() => {
+      setPhase('out')
+      if (timerRef.current != null) window.clearTimeout(timerRef.current)
+
+      timerRef.current = window.setTimeout(() => {
+        indexRef.current = next
         setIndex(next)
-        setTurning(false)
-      }, 620)
+        setPhase('in')
+        timerRef.current = window.setTimeout(() => {
+          setPhase('idle')
+          busyRef.current = false
+          timerRef.current = null
+        }, Math.round(TURN_MS * 0.55))
+      }, Math.round(TURN_MS * 0.45))
     },
-    [turning, n, index],
+    [n],
   )
 
+  // Keyboard only while magazine section (or child) is focused
   useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') go(1)
-      if (e.key === 'ArrowLeft') go(-1)
+      if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        go(1)
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        go(-1)
+      }
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    el.addEventListener('keydown', onKey)
+    return () => el.removeEventListener('keydown', onKey)
   }, [go])
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -79,22 +129,32 @@ export function MagazineFlip({
     const x = e.changedTouches[0]?.clientX
     if (x == null) return
     const dx = x - touchX.current
-    if (Math.abs(dx) > 48) go(dx < 0 ? 1 : -1)
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1)
     touchX.current = null
   }
 
-  if (!page) return null
+  if (!page || n === 0) return null
 
-  const canPrev = index > 0
-  const canNext = index < n - 1
-  const progress = n > 1 ? ((index + 1) / n) * 100 : 100
+  const canPrev = safeIndex > 0 && phase === 'idle'
+  const canNext = safeIndex < n - 1 && phase === 'idle'
+  const progress = n > 1 ? ((safeIndex + 1) / n) * 100 : 100
+
+  const pageClass =
+    phase === 'out'
+      ? dir === 1
+        ? 'magazine-page is-turning-next'
+        : 'magazine-page is-turning-prev-out'
+      : phase === 'in'
+        ? 'magazine-page is-turning-in'
+        : 'magazine-page'
 
   return (
     <section
-      className="relative overflow-hidden border-b border-white/10 bg-[#120e12]"
+      ref={sectionRef}
+      tabIndex={0}
+      className="relative overflow-hidden border-b border-white/10 bg-[#120e12] outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#120e12]"
       aria-label="Adazo house fashion magazine"
     >
-      {/* Ambient stage */}
       <div
         className="pointer-events-none absolute inset-0 opacity-80"
         style={{
@@ -105,7 +165,6 @@ export function MagazineFlip({
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
-        {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
           <div>
             <p className="label-micro text-gold mb-2 inline-flex items-center gap-1.5">
@@ -115,17 +174,20 @@ export function MagazineFlip({
               Flip the fashion edit
             </h2>
             <p className="mt-3 text-white/55 font-light max-w-xl text-sm sm:text-base leading-relaxed">
-              A living magazine of Adazo house models — house campaigns, world
-              travel, and wild on-location editorials. Turn the page.
+              House campaigns, world travel, wild on-location, and red-carpet
+              glamour — every Adazo model, one magazine. Use the arrows or
+              swipe.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Magazine series">
             {MAGAZINE_SERIES_FILTERS.map((f) => {
               const active = filter === f.id
               return (
                 <button
                   key={f.id}
                   type="button"
+                  role="tab"
+                  aria-selected={active}
                   onClick={() => setFilter(f.id)}
                   className={`rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] transition border ${
                     active
@@ -140,83 +202,80 @@ export function MagazineFlip({
           </div>
         </div>
 
-        {/* Book stage */}
         <div className="relative mx-auto max-w-xl lg:max-w-2xl">
-          {/* Soft table shadow */}
-          <div className="absolute -inset-x-8 -bottom-6 h-16 rounded-[100%] bg-black/50 blur-2xl" />
+          <div className="absolute -inset-x-8 -bottom-6 h-16 rounded-[100%] bg-black/50 blur-2xl pointer-events-none" />
 
           <div
-            ref={bookRef}
             className="magazine-book relative mx-auto aspect-[3/4] w-full select-none"
             style={{ perspective: '2200px' }}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
-            {/* Book body / spine depth */}
-            <div className="absolute -inset-y-1 -left-1 w-3 rounded-l-sm bg-gradient-to-b from-[#2a2226] via-[#1a1418] to-[#0c0a0c] shadow-inner" />
-            <div className="absolute inset-0 rounded-r-sm rounded-l-[2px] bg-[#0a0809] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.06)]" />
-
-            {/* Gold edge */}
+            <div className="absolute -inset-y-1 -left-1 w-3 rounded-l-sm bg-gradient-to-b from-[#2a2226] via-[#1a1418] to-[#0c0a0c] shadow-inner pointer-events-none" />
+            <div className="absolute inset-0 rounded-r-sm rounded-l-[2px] bg-[#0a0809] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.06)] pointer-events-none" />
             <div className="pointer-events-none absolute inset-y-3 right-0 w-[3px] bg-gradient-to-b from-gold/10 via-gold/45 to-gold/10 rounded-r-sm" />
 
-            {/* Flipping sheet */}
             <div
-              className={`magazine-page absolute inset-0 origin-left rounded-r-sm overflow-hidden ${
-                turning ? (dir === 1 ? 'is-turning-next' : 'is-turning-prev') : ''
-              }`}
+              key={`${filter}-${safeIndex}-${page.id}`}
+              className={`${pageClass} absolute inset-0 origin-left rounded-r-sm overflow-hidden`}
               style={{ transformStyle: 'preserve-3d' }}
             >
               <PageFace page={page} />
-              {/* Paper curl highlight */}
               <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/25 to-transparent" />
               <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/20 to-transparent" />
             </div>
 
-            {/* Click zones */}
+            {/* Edge hit targets — only when idle so they don't steal mid-turn */}
             <button
               type="button"
               aria-label="Previous page"
-              disabled={!canPrev || turning}
-              onClick={() => go(-1)}
-              className="absolute inset-y-0 left-0 w-1/3 z-20 cursor-w-resize disabled:cursor-default"
+              disabled={!canPrev}
+              onClick={(e) => {
+                e.stopPropagation()
+                go(-1)
+              }}
+              className="absolute inset-y-0 left-0 z-30 w-[28%] cursor-w-resize disabled:cursor-default disabled:pointer-events-none bg-transparent"
             />
             <button
               type="button"
               aria-label="Next page"
-              disabled={!canNext || turning}
-              onClick={() => go(1)}
-              className="absolute inset-y-0 right-0 w-1/3 z-20 cursor-e-resize disabled:cursor-default"
+              disabled={!canNext}
+              onClick={(e) => {
+                e.stopPropagation()
+                go(1)
+              }}
+              className="absolute inset-y-0 right-0 z-30 w-[28%] cursor-e-resize disabled:cursor-default disabled:pointer-events-none bg-transparent"
             />
           </div>
 
-          {/* Controls */}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+          {/* Explicit controls — outside the book, always clickable */}
+          <div className="relative z-40 mt-8 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => go(-1)}
-                disabled={!canPrev || turning}
-                className="inline-flex size-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:border-gold hover:text-gold disabled:opacity-30"
+                disabled={!canPrev}
+                className="inline-flex h-11 items-center gap-1.5 rounded-full border border-white/25 bg-white/5 px-4 text-white transition hover:border-gold hover:text-gold disabled:opacity-35 disabled:hover:border-white/25 disabled:hover:text-white"
                 aria-label="Previous page"
               >
                 <ChevronLeft className="size-5" />
+                <span className="text-xs font-semibold hidden sm:inline">Prev</span>
               </button>
               <button
                 type="button"
                 onClick={() => go(1)}
-                disabled={!canNext || turning}
-                className="inline-flex size-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:border-gold hover:text-gold disabled:opacity-30"
+                disabled={!canNext}
+                className="inline-flex h-11 items-center gap-1.5 rounded-full border border-white/25 bg-white/5 px-4 text-white transition hover:border-gold hover:text-gold disabled:opacity-35 disabled:hover:border-white/25 disabled:hover:text-white"
                 aria-label="Next page"
               >
+                <span className="text-xs font-semibold hidden sm:inline">Next</span>
                 <ChevronRight className="size-5" />
               </button>
             </div>
 
-            <div className="flex-1 min-w-[10rem] max-w-xs mx-auto sm:mx-0">
+            <div className="flex-1 min-w-[10rem] max-w-xs">
               <div className="flex justify-between text-[10px] font-bold uppercase tracking-[0.16em] text-white/45 mb-1.5">
-                <span>
-                  Page {String(index + 1).padStart(2, '0')}
-                </span>
+                <span>Page {String(safeIndex + 1).padStart(2, '0')}</span>
                 <span>{String(n).padStart(2, '0')}</span>
               </div>
               <div className="h-0.5 rounded-full bg-white/10 overflow-hidden">
@@ -237,14 +296,13 @@ export function MagazineFlip({
               </Link>
             ) : (
               <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/30 hidden sm:inline">
-                Arrow keys · swipe · click edges
+                Focus book · ← → keys
               </span>
             )}
           </div>
 
-          {/* Caption strip */}
           {page.kind === 'spread' && (
-            <div className="mt-6 text-center sm:text-left max-w-xl mx-auto sm:mx-0">
+            <div className="mt-6 text-center sm:text-left max-w-xl">
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
                 {page.kicker}
                 {page.destination ? ` · ${page.destination}` : ''}
@@ -283,8 +341,8 @@ function PageFace({ page }: { page: MagazinePage }) {
           <p className="mt-3 font-display text-xl sm:text-2xl text-white/70 italic font-light">
             The House Book
           </p>
-          <p className="mt-4 text-xs text-white/40 uppercase tracking-[0.2em] font-semibold max-w-[14rem] leading-relaxed">
-            Campaigns · Travel · Wild · Models of the house
+          <p className="mt-4 text-xs text-white/40 uppercase tracking-[0.2em] font-semibold max-w-[16rem] leading-relaxed">
+            House · World · Wild · Carpet
           </p>
         </div>
         <div className="flex items-end justify-between gap-4">
@@ -295,7 +353,6 @@ function PageFace({ page }: { page: MagazinePage }) {
             Flip →
           </p>
         </div>
-        {/* decorative corner */}
         <div className="pointer-events-none absolute top-6 right-6 size-16 border border-gold/20 rounded-tl-3xl" />
         <div className="pointer-events-none absolute bottom-6 left-6 size-10 border border-white/10 rounded-br-2xl" />
       </div>
@@ -304,11 +361,13 @@ function PageFace({ page }: { page: MagazinePage }) {
 
   if (page.kind === 'divider') {
     const tint =
-      page.series === 'wild'
-        ? 'from-[#142018] via-[#0e1410] to-[#0a0c0a]'
-        : page.series === 'world'
-          ? 'from-[#141820] via-[#0e1218] to-[#0a0c10]'
-          : 'from-[#1a1418] via-[#120e12] to-[#0a0809]'
+      page.series === 'carpet'
+        ? 'from-[#1a1014] via-[#140c10] to-[#0a0809]'
+        : page.series === 'wild'
+          ? 'from-[#142018] via-[#0e1410] to-[#0a0c0a]'
+          : page.series === 'world'
+            ? 'from-[#141820] via-[#0e1218] to-[#0a0c10]'
+            : 'from-[#1a1418] via-[#120e12] to-[#0a0809]'
     return (
       <div
         className={`absolute inset-0 bg-gradient-to-br ${tint} flex flex-col items-center justify-center text-center px-10`}
@@ -327,12 +386,13 @@ function PageFace({ page }: { page: MagazinePage }) {
             'Travel editorials — destinations that finish the look.'}
           {page.series === 'wild' &&
             'On location with exotic animals. Pure fashion energy.'}
+          {page.series === 'carpet' &&
+            'Oscars & Cannes energy — red-carpet glamour, flash, and finish.'}
         </p>
       </div>
     )
   }
 
-  // Campaign spread — full bleed (branding already on asset)
   return (
     <div className="absolute inset-0 bg-charcoal">
       {page.image && (
