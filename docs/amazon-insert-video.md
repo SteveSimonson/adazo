@@ -36,11 +36,15 @@ A magazine-style **row break** between product rows may use **`16:9`**. That is 
 - ZDR upload path: mint `upload_url` via R2 — see [`imagine-r2-videos.md`](./imagine-r2-videos.md).  
 - Keys can use `video/reels/{category}.mp4` on R2 when not bundling in `public/`.  
 
-### Current v1 pipeline (Product Reels `/reels`)
+### Production pipeline (Product Reels `/reels`)
 
-1. Fashion stills generated with Imagine `image_gen` at **3:4**.  
-2. Clips encoded to **720×900 (4:5), 6s, muted H.264** with a light Ken Burns push (local imageio) because `image_to_video` still requires `output.upload_url` for ZDR and the agent tool does not yet pass that field.  
-3. R2 mint/PUT is ready for true Imagine motion once the tool accepts `upload_url` — regenerate clips without changing the reels page paths.
+1. Fashion stills: Imagine `image_gen` at **3:4** → `public/brand/videos/reels/posters/{cat}.jpg`  
+2. Full generative motion: `python3 scripts/generate-category-reels.py`  
+   - mints dynamic R2 `upload_url` via Worker  
+   - calls xAI `POST /v1/videos/generations` with `output.upload_url`  
+   - downloads MP4 into `public/brand/videos/reels/{cat}.mp4`  
+3. Single clip: `python3 scripts/imagine-video.py --image … --out …`  
+   (see [`imagine-r2-videos.md`](./imagine-r2-videos.md))
 
 ## Related
 

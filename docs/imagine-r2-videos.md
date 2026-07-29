@@ -69,18 +69,47 @@ Optional body fields:
 - `contentType` — signed content type (default `video/mp4` / `image/jpeg`)
 - `ttlSeconds` — 60–21600 (default 3600)
 
-## Use with Imagine (`image_to_video`)
+## Full generative video (required path)
 
-1. Mint `upload_url` + `public_url` as above (or via a small agent script).
-2. Call **`image_to_video`** with:
-   - source `image` (absolute path or URL of the first frame)
-   - animation `prompt`
-   - **`output.upload_url`** = the signed `upload_url` from step 1  
-     *(exact parameter name follows the Imagine / xAI ZDR contract in the tool schema — always pass the full signed PUT URL)*
-3. After success, the MP4 is at **`public_url`**.
-4. Point the site at it either:
-   - temporarily: use `public_url` directly, or
-   - ship: download into `public/brand/videos/…` and reference a static path (CDN cache + offline builds).
+The Grok Build agent tool `image_to_video` does **not** currently expose `upload_url`.
+On ZDR teams the API rejects the call without it. Use the Adazo helper instead — it
+mints R2 dynamically and calls the xAI Video API:
+
+```bash
+# One clip
+python3 scripts/imagine-video.py \
+  --image 'https://adazo.com/brand/videos/reels/posters/handbags.jpg' \
+  --name handbags-reel \
+  --prompt 'Slow gentle camera push-in, soft fabric motion' \
+  --out public/brand/videos/reels/handbags.mp4 \
+  --duration 6 --resolution 720p --aspect-ratio 3:4
+
+# All category product reels
+python3 scripts/generate-category-reels.py
+# optional: only some cats
+python3 scripts/generate-category-reels.py handbags jewelry
+```
+
+Auth:
+
+- `MEDIA_UPLOAD_SECRET` — from `.dev.vars` or env (same as Worker secret)
+- `XAI_API_KEY` **or** logged-in Grok Build (`~/.grok/auth.json` OIDC token)
+
+What the script sends to xAI:
+
+```json
+{
+  "model": "grok-imagine-video",
+  "prompt": "…",
+  "image": { "url": "https://…" },
+  "duration": 6,
+  "resolution": "720p",
+  "output": { "upload_url": "https://adazo.com/api/media/put?…" }
+}
+```
+
+xAI PUTs the finished MP4 to our Worker → R2. We then download `public_url` into
+`public/brand/videos/…` for static deploy.
 
 ### Manual smoke test (no Imagine)
 
