@@ -367,7 +367,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'Riad courtyard at golden hour — flowing black-and-violet silk with gold embroidery, lantern light, scent-of-place without a bottle.',
         direction:
           'Fashionista-inspired world-travel campaign. Face locked to Noor — trail that travels.',
-        image: '/brand/vibes/portfolio/sillage-world-marrakech.jpg',
+        image: '/brand/vibes/portfolio/noor-marrakech.jpg',
         alt: 'ADAZO World Edit — Noor in a Marrakech riad at golden hour',
       },
     ],
