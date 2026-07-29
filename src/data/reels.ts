@@ -108,23 +108,8 @@ export const REELS_GEN1: CategoryReel[] = REEL_CATEGORIES.map((category) =>
   buildReel(category, 1, MOTION_G1[category]),
 )
 
-/**
- * Generation 2 — new creative wave.
- * Only categories with shipped mp4s (expand as gen-2 files land).
- */
-const GEN2_SHIPPED: Category[] = [
-  'handbags',
-  'jewelry',
-  'watches',
-  'gold',
-  'luxury',
-  'fragrance',
-  'skincare',
-  'hair',
-]
-
-/** Generation 2 (second wave) — new creative per category */
-export const REELS_GEN2: CategoryReel[] = GEN2_SHIPPED.map((category) =>
+/** Generation 2 (second wave) — full set, one clip per category */
+export const REELS_GEN2: CategoryReel[] = REEL_CATEGORIES.map((category) =>
   buildReel(category, 2, MOTION_G2[category]),
 )
 
