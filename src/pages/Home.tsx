@@ -12,6 +12,7 @@ import { HEROES } from '../data/categoryHeroes'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductCard } from '../components/ProductCard'
 import { LookbookHero } from '../components/LookbookHero'
+import { MagazineFlip } from '../components/MagazineFlip'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 
@@ -73,6 +74,9 @@ export function Home() {
     <>
       <Seo {...homeSeo()} />
       <LookbookHero />
+
+      {/* Flippable house fashion magazine — persona campaign portfolio */}
+      <MagazineFlip />
 
       {/* Luxury + fashion promo navigation */}
       <section className="border-b border-line bg-cream">

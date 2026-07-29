@@ -74,6 +74,39 @@
   }
 }
 
+/* House Book magazine page turns */
+.magazine-page {
+  transform: rotateY(0deg);
+  transition: transform 0.62s cubic-bezier(0.22, 0.8, 0.28, 1);
+  box-shadow: 8px 0 24px -12px rgba(0, 0, 0, 0.45);
+}
+.magazine-page.is-turning-next {
+  transform: rotateY(-108deg);
+  box-shadow: -12px 0 40px -8px rgba(0, 0, 0, 0.55);
+}
+.magazine-page.is-turning-prev {
+  animation: magazine-flip-in 0.62s cubic-bezier(0.22, 0.8, 0.28, 1) both;
+}
+@keyframes magazine-flip-in {
+  from {
+    transform: rotateY(95deg);
+    opacity: 0.65;
+  }
+  to {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .magazine-page,
+  .magazine-page.is-turning-next,
+  .magazine-page.is-turning-prev {
+    transition: none;
+    animation: none;
+    transform: none;
+  }
+}
+
 @keyframes adazo-fade-up {
   from {
     opacity: 0;
