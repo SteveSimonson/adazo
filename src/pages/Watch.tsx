@@ -3,6 +3,7 @@ import { Play, VolumeX } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Seo } from '../components/Seo'
 import {
+  WATCH_CAFE_CLIPS,
   WATCH_CARPET_CLIPS,
   WATCH_CATEGORY_CLIPS,
   WATCH_CLIPS,
@@ -11,11 +12,11 @@ import {
 } from '../data/videoWatch'
 import { watchSeo } from '../lib/seoData'
 
-type Filter = 'all' | 'category' | 'carpet'
+type Filter = 'all' | 'category' | 'carpet' | 'cafe'
 
 /**
  * Visual short-video gallery — muted autoplay tiles from every brand clip
- * under public/brand/videos (category reels + carpet premieres).
+ * under public/brand/videos (category reels + carpet + café films).
  */
 export function WatchPage() {
   const [filter, setFilter] = useState<Filter>('all')
@@ -24,6 +25,7 @@ export function WatchPage() {
   const clips = useMemo(() => {
     if (filter === 'category') return WATCH_CATEGORY_CLIPS
     if (filter === 'carpet') return WATCH_CARPET_CLIPS
+    if (filter === 'cafe') return WATCH_CAFE_CLIPS
     return WATCH_CLIPS
   }, [filter])
 
@@ -40,8 +42,9 @@ export function WatchPage() {
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
             {counts.total} muted clips from the Adazo library — category fashion
-            reels ({counts.category}) and red-carpet premieres ({counts.carpet}).
-            Scroll to play. Sound off by design.
+            reels ({counts.category}), red-carpet premieres ({counts.carpet}),
+            and café lifestyle films ({counts.cafe}). Scroll to play. Sound off
+            by design.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-2 text-xs font-semibold text-ink-soft">
             <VolumeX className="size-3.5" aria-hidden />
@@ -53,6 +56,7 @@ export function WatchPage() {
                 ['all', `All (${counts.total})`],
                 ['category', `Category reels (${counts.category})`],
                 ['carpet', `Carpet (${counts.carpet})`],
+                ['cafe', `Café (${counts.cafe})`],
               ] as const
             ).map(([id, label]) => (
               <button
@@ -117,6 +121,13 @@ function WatchTile({ clip }: { clip: WatchClip }) {
     return () => io.disconnect()
   }, [])
 
+  const groupLabel =
+    clip.group === 'carpet'
+      ? 'Carpet premiere'
+      : clip.group === 'cafe'
+        ? 'Café Edit'
+        : 'Category reel'
+
   const body = (
     <>
       <div
@@ -146,7 +157,7 @@ function WatchTile({ clip }: { clip: WatchClip }) {
         </span>
         <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">
           <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-gold">
-            {clip.group === 'carpet' ? 'Carpet premiere' : 'Category reel'}
+            {groupLabel}
           </p>
           <p className="mt-0.5 font-display font-semibold text-white leading-snug line-clamp-2 text-base sm:text-lg">
             {clip.title}

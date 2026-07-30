@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import {
   ArrowLeft,
   ArrowRight,
   Check,
   Clock3,
+  Play,
   ShoppingBag,
   Sparkles,
   Star,
+  VolumeX,
   Zap,
 } from 'lucide-react'
 import {
@@ -15,6 +17,7 @@ import {
   readStoredVibeId,
   VIBE_LIST,
   vibePath,
+  type VibeCampaign,
   type VibeProfile,
 } from '../data/vibes'
 import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
@@ -23,6 +26,46 @@ import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
 import { Seo } from '../components/Seo'
 import { vibeSeo } from '../lib/seoData'
+
+function campaignSeriesKind(campaign: VibeCampaign) {
+  const s = campaign.season.toLowerCase()
+  if (s.includes('café') || s.includes('cafe')) return 'cafe' as const
+  if (s.includes('carpet') || s.includes('oscar') || s.includes('cannes'))
+    return 'carpet' as const
+  if (s.includes('wild')) return 'wild' as const
+  if (s.includes('world')) return 'world' as const
+  return 'house' as const
+}
+
+function campaignAsideBlurb(campaign: VibeCampaign, name: string) {
+  switch (campaignSeriesKind(campaign)) {
+    case 'cafe':
+      return `Café Edit — upscale lifestyle film. ${name} in a world-class café; beauty as a lived ritual.`
+    case 'carpet':
+      return `Carpet Edit — Oscars & Cannes glamour. Face locked; jewelry and wardrobe free.`
+    case 'wild':
+      return `Wild Edit — on location with exotic animals. Face locked; jewelry and wardrobe free.`
+    case 'world':
+      return `World Edit — travel fashion still. New destination, same model fidelity.`
+    default:
+      return `House campaign with ${name}’s face locked from her reference — ADAZO branding.`
+  }
+}
+
+function campaignSeriesLabel(campaign: VibeCampaign) {
+  switch (campaignSeriesKind(campaign)) {
+    case 'cafe':
+      return 'Café Edit series'
+    case 'carpet':
+      return 'Carpet Edit series'
+    case 'wild':
+      return 'Wild Edit series'
+    case 'world':
+      return 'World Edit series'
+    default:
+      return 'House campaign'
+  }
+}
 
 export function VibePage() {
   const { vibeId } = useParams()
@@ -214,157 +257,167 @@ export function VibePage() {
       </section>
 
       {/* Fashionista-inspired house campaign ads starring this persona */}
-      {vibe.campaigns.map((campaign, campaignIndex) => (
-        <section
-          key={campaign.image}
-          className="border-b border-line bg-charcoal"
-          aria-labelledby={`campaign-title-${campaignIndex}`}
-        >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-            <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-              <div>
-                <p className="label-micro text-gold mb-2">
-                  Adazo · fashion destination
-                  {campaign.destination ? ` · ${campaign.destination}` : ''}
-                </p>
-                <h2
-                  id={`campaign-title-${campaignIndex}`}
-                  className="font-display text-3xl sm:text-4xl font-semibold text-white"
-                >
-                  {campaign.title}
-                </h2>
-                <p className="mt-2 text-sm text-white/55 max-w-xl">
-                  {campaign.season} · Model portfolio · {vibe.avatar.name}
-                </p>
-              </div>
-              <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
-                {campaign.season.startsWith('Carpet')
-                  ? `Carpet Edit — Oscars & Cannes glamour. Face locked; jewelry and wardrobe free.`
-                  : campaign.season.startsWith('Wild')
-                    ? `Wild Edit — on location with exotic animals. Face locked; jewelry and wardrobe free.`
-                    : campaign.season.startsWith('World')
-                      ? `World Edit — travel fashion still. New destination, same model fidelity.`
-                      : `House campaign with ${vibe.avatar.name}’s face locked from her reference — ADAZO branding.`}
-              </p>
-            </div>
+      {vibe.campaigns.map((campaign, campaignIndex) => {
+        const kind = campaignSeriesKind(campaign)
+        const isCafe = kind === 'cafe'
 
-            <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-              <figure className="lg:col-span-7 relative group">
-                <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-ink shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)]">
-                  <div className="relative aspect-[3/4] w-full">
-                    <img
-                      src={campaign.image}
-                      alt={campaign.alt}
-                      className="absolute inset-0 w-full h-full object-cover object-top"
-                      decoding="async"
-                      loading={campaignIndex === 0 ? 'eager' : 'lazy'}
-                    />
-                  </div>
-                </div>
-                <figcaption className="sr-only">{campaign.alt}</figcaption>
-              </figure>
+        if (isCafe && campaign.video) {
+          return (
+            <CafeEditSection
+              key={campaign.video}
+              vibe={vibe}
+              campaign={campaign}
+              campaignIndex={campaignIndex}
+            />
+          )
+        }
 
-              <div className="lg:col-span-5 flex flex-col justify-between gap-6">
-                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 sm:p-7 space-y-5">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
-                      Creative concept
-                    </p>
-                    <p className="mt-2 text-base text-white/85 font-light leading-relaxed">
-                      {campaign.concept}
-                    </p>
-                  </div>
-                  <div className="border-t border-white/10 pt-5">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
-                      Direction
-                    </p>
-                    <p className="mt-2 text-sm text-white/60 leading-relaxed">
-                      {campaign.direction}
-                    </p>
-                  </div>
-                  <div className="border-t border-white/10 pt-5 grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                        Talent
-                      </p>
-                      <p className="mt-1 font-semibold text-white">
-                        {vibe.avatar.name}
-                      </p>
-                      <p className="text-white/50 text-xs mt-0.5">
-                        {vibe.avatar.role}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                        {campaign.destination ? 'Destination' : 'Persona'}
-                      </p>
-                      <p className="mt-1 font-semibold text-white">
-                        {campaign.destination ?? vibe.title}
-                      </p>
-                      <p className="text-white/50 text-xs mt-0.5">
-                        {campaign.destination
-                          ? campaign.season.startsWith('Carpet')
-                            ? 'Carpet Edit series'
-                            : campaign.season.startsWith('Wild')
-                              ? 'Wild Edit series'
-                              : 'World Edit series'
-                          : vibe.typeLabel}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  <Link
-                    to={`/shop?cat=${vibe.categories[0]}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white text-ink px-5 py-3 text-xs font-bold hover:bg-gold transition"
+        return (
+          <section
+            key={campaign.image}
+            className="border-b border-line bg-charcoal"
+            aria-labelledby={`campaign-title-${campaignIndex}`}
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+              <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+                <div>
+                  <p className="label-micro text-gold mb-2">
+                    Adazo · fashion destination
+                    {campaign.destination ? ` · ${campaign.destination}` : ''}
+                  </p>
+                  <h2
+                    id={`campaign-title-${campaignIndex}`}
+                    className="font-display text-3xl sm:text-4xl font-semibold text-white"
                   >
-                    Shop the campaign edit <ArrowRight className="size-3.5" />
-                  </Link>
-                  <Link
-                    to="/quiz"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-5 py-3 text-xs font-semibold text-white/85 hover:border-white/50 hover:text-white transition"
-                  >
-                    Find my persona
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Seamless premiere clip under carpet (and any campaign with video) */}
-            {campaign.video && (
-              <div className="mt-8 lg:mt-10">
-                <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
-                      Premiere clip · 16:9
-                    </p>
-                    <p className="font-display text-xl sm:text-2xl font-semibold text-white mt-1">
-                      {vibe.avatar.name} on the carpet
-                    </p>
-                  </div>
-                  <p className="text-xs text-white/40 max-w-sm text-right hidden sm:block">
-                    Paparazzi flash energy — same face, living red-carpet moment.
+                    {campaign.title}
+                  </h2>
+                  <p className="mt-2 text-sm text-white/55 max-w-xl">
+                    {campaign.season} · Model portfolio · {vibe.avatar.name}
                   </p>
                 </div>
-                <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]">
-                  <div className="relative aspect-video w-full">
-                    <video
-                      className="absolute inset-0 h-full w-full object-cover"
-                      src={campaign.video}
-                      poster={campaign.image}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      aria-label={`${vibe.avatar.name} red carpet premiere clip`}
-                    />
+                <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
+                  {campaignAsideBlurb(campaign, vibe.avatar.name)}
+                </p>
+              </div>
+
+              <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                <figure className="lg:col-span-7 relative group">
+                  <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-ink shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)]">
+                    <div className="relative aspect-[3/4] w-full">
+                      <img
+                        src={campaign.image}
+                        alt={campaign.alt}
+                        className="absolute inset-0 w-full h-full object-cover object-top"
+                        decoding="async"
+                        loading={campaignIndex === 0 ? 'eager' : 'lazy'}
+                      />
+                    </div>
+                  </div>
+                  <figcaption className="sr-only">{campaign.alt}</figcaption>
+                </figure>
+
+                <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+                  <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 sm:p-7 space-y-5">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
+                        Creative concept
+                      </p>
+                      <p className="mt-2 text-base text-white/85 font-light leading-relaxed">
+                        {campaign.concept}
+                      </p>
+                    </div>
+                    <div className="border-t border-white/10 pt-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
+                        Direction
+                      </p>
+                      <p className="mt-2 text-sm text-white/60 leading-relaxed">
+                        {campaign.direction}
+                      </p>
+                    </div>
+                    <div className="border-t border-white/10 pt-5 grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                          Talent
+                        </p>
+                        <p className="mt-1 font-semibold text-white">
+                          {vibe.avatar.name}
+                        </p>
+                        <p className="text-white/50 text-xs mt-0.5">
+                          {vibe.avatar.role}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                          {campaign.destination ? 'Destination' : 'Persona'}
+                        </p>
+                        <p className="mt-1 font-semibold text-white">
+                          {campaign.destination ?? vibe.title}
+                        </p>
+                        <p className="text-white/50 text-xs mt-0.5">
+                          {campaign.destination
+                            ? campaignSeriesLabel(campaign)
+                            : vibe.typeLabel}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      to={`/shop?cat=${vibe.categories[0]}`}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-white text-ink px-5 py-3 text-xs font-bold hover:bg-gold transition"
+                    >
+                      Shop the campaign edit <ArrowRight className="size-3.5" />
+                    </Link>
+                    <Link
+                      to="/quiz"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-5 py-3 text-xs font-semibold text-white/85 hover:border-white/50 hover:text-white transition"
+                    >
+                      Find my persona
+                    </Link>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
-        </section>
-      ))}
+
+              {/* Seamless premiere clip under carpet (and any non-café campaign with video) */}
+              {campaign.video && (
+                <div className="mt-8 lg:mt-10">
+                  <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
+                        Premiere clip · 16:9
+                      </p>
+                      <p className="font-display text-xl sm:text-2xl font-semibold text-white mt-1">
+                        {kind === 'carpet'
+                          ? `${vibe.avatar.name} on the carpet`
+                          : `${vibe.avatar.name} · living film`}
+                      </p>
+                    </div>
+                    <p className="text-xs text-white/40 max-w-sm text-right hidden sm:block">
+                      {kind === 'carpet'
+                        ? 'Paparazzi flash energy — same face, living red-carpet moment.'
+                        : 'Same face, living motion — muted by design for scroll.'}
+                    </p>
+                  </div>
+                  <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]">
+                    <div className="relative aspect-video w-full">
+                      <video
+                        className="absolute inset-0 h-full w-full object-cover"
+                        src={campaign.video}
+                        poster={campaign.image}
+                        controls
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${vibe.avatar.name} ${campaign.title} clip`}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )
+      })}
 
       <VibeCheckPrompt
         hasChecked={hasChecked}
@@ -699,6 +752,185 @@ export function VibePage() {
         </div>
       </section>
     </div>
+  )
+}
+
+/** Video-first Café Edit block — 16:9 lifestyle film, muted autoplay on view */
+function CafeEditSection({
+  vibe,
+  campaign,
+  campaignIndex,
+}: {
+  vibe: VibeProfile
+  campaign: VibeCampaign
+  campaignIndex: number
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            void el.play().then(() => setPlaying(true)).catch(() => {})
+          } else {
+            el.pause()
+            setPlaying(false)
+          }
+        }
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <section
+      className="border-b border-line relative overflow-hidden"
+      style={{
+        background:
+          'radial-gradient(120% 80% at 20% 0%, rgba(201,162,92,0.12), transparent 55%), #14110e',
+      }}
+      aria-labelledby={`campaign-title-${campaignIndex}`}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <p className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-gold mb-2">
+              <span className="size-1.5 rounded-full bg-gold animate-pulse" />
+              Café Edit · Lifestyle film
+              {campaign.destination ? ` · ${campaign.destination}` : ''}
+            </p>
+            <h2
+              id={`campaign-title-${campaignIndex}`}
+              className="font-display text-3xl sm:text-4xl font-semibold text-white"
+            >
+              {campaign.title}
+            </h2>
+            <p className="mt-2 text-sm text-white/55 max-w-xl">
+              {vibe.avatar.name} · upscale café ritual · muted scroll film
+            </p>
+          </div>
+          <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
+            {campaignAsideBlurb(campaign, vibe.avatar.name)}
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          <div className="lg:col-span-8">
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black shadow-[0_40px_90px_-40px_rgba(0,0,0,0.9)] ring-1 ring-gold/15">
+              <div className="relative aspect-video w-full">
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  src={campaign.video}
+                  poster={campaign.image}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  controls
+                  aria-label={`${vibe.avatar.name} — ${campaign.title}`}
+                />
+                <div className="pointer-events-none absolute top-3 left-3 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-black/55 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 backdrop-blur-sm border border-white/10">
+                    <Play className="size-3 fill-current" aria-hidden />
+                    16:9 · 6s
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-black/55 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 backdrop-blur-sm border border-white/10">
+                    <VolumeX className="size-3" aria-hidden />
+                    Muted
+                  </span>
+                </div>
+                {!playing && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <span className="flex size-14 items-center justify-center rounded-full bg-white/15 border border-white/25 backdrop-blur-md">
+                      <Play className="size-6 text-white fill-white ml-0.5" />
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-white/40 leading-relaxed max-w-2xl">
+              Amazon scroll energy — beauty as a café ritual. Auto-plays when in
+              view; sound stays off by design.
+            </p>
+          </div>
+
+          <div className="lg:col-span-4 flex flex-col gap-4">
+            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 space-y-5 flex-1">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
+                  Creative concept
+                </p>
+                <p className="mt-2 text-base text-white/85 font-light leading-relaxed">
+                  {campaign.concept}
+                </p>
+              </div>
+              <div className="border-t border-white/10 pt-5 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                    Talent
+                  </p>
+                  <p className="mt-1 font-semibold text-white">
+                    {vibe.avatar.name}
+                  </p>
+                  <p className="text-white/50 text-xs mt-0.5">
+                    {vibe.avatar.role}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                    Destination
+                  </p>
+                  <p className="mt-1 font-semibold text-white">
+                    {campaign.destination}
+                  </p>
+                  <p className="text-white/50 text-xs mt-0.5">
+                    Café Edit series
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-[1.5rem] overflow-hidden border border-white/10 bg-ink">
+              <div className="relative aspect-[16/10]">
+                <img
+                  src={campaign.image}
+                  alt={campaign.alt}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
+                <p className="absolute bottom-3 left-3 right-3 text-[10px] font-bold uppercase tracking-[0.14em] text-gold">
+                  Key frame · still
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Link
+                to={`/shop?cat=${vibe.categories[0]}`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-white text-ink px-5 py-3 text-xs font-bold hover:bg-gold transition"
+              >
+                Shop this energy <ArrowRight className="size-3.5" />
+              </Link>
+              <Link
+                to="/watch"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-5 py-3 text-xs font-semibold text-white/85 hover:border-white/50 hover:text-white transition"
+              >
+                All films
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

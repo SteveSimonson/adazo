@@ -18,8 +18,10 @@ export type MagazinePage = {
   to?: string
 }
 
-function seriesOf(campaign: VibeCampaign): MagazineSeries {
+function seriesOf(campaign: VibeCampaign): MagazineSeries | null {
   const s = campaign.season.toLowerCase()
+  // Café Edit is 16:9 lifestyle film — not a still magazine spread
+  if (s.includes('café') || s.includes('cafe')) return null
   if (s.includes('carpet') || s.includes('oscar') || s.includes('cannes')) {
     return 'carpet'
   }
@@ -64,7 +66,9 @@ export function buildMagazinePages(): MagazinePage[] {
 
   for (const vibe of VIBE_LIST) {
     for (const campaign of vibe.campaigns) {
-      bySeries[seriesOf(campaign)].push({ vibe, campaign })
+      const series = seriesOf(campaign)
+      if (!series) continue
+      bySeries[series].push({ vibe, campaign })
     }
   }
 

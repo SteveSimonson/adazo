@@ -13,6 +13,10 @@ Non-negotiables:
 
 Ship via PR ship-gate; do not land campaign assets only on `main` without review.
 
+## Café Edit lifestyle films
+
+Persona pages ship a **Café Edit** series: 16:9 muted ~6s films of each house model in an upscale café worldwide. Assets live under `public/brand/videos/cafe/` (mp4 + `posters/`). Data: last campaign slot on each vibe in `src/data/vibes.ts` with season `Café Edit · Lifestyle film`. UI: video-first block in `src/pages/Vibe.tsx` (`CafeEditSection`). Also listed on `/watch` under the Café filter (`src/data/videoWatch.ts`). Do **not** put café stills in the flip magazine (16:9 lifestyle, not fashion spreads).
+
 ## Amazon insert video size
 
 Clips meant to sit **in the product grid** (same cell as a product card) use **4:5 portrait, 6s, 720p**, muted. Stage Imagine stills at **3:4** if needed. Full note: [`docs/amazon-insert-video.md`](docs/amazon-insert-video.md). Product Reels page: `/reels`.

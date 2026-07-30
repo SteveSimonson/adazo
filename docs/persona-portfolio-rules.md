@@ -15,6 +15,7 @@ Build each house persona as a **model portfolio**: absolute face fidelity to the
 | **World Edit** | Travel fashion ad | `/brand/vibes/portfolio/*` |
 | **Wild Edit** | On-location fashion with exotic animals | `/brand/vibes/portfolio/*-wild-*` |
 | **Carpet Edit** | Oscars / Cannes red-carpet glamour | `/brand/vibes/portfolio/*-carpet-*` |
+| **Café Edit** | Upscale café lifestyle **film** (16:9, ~6s) | `/brand/videos/cafe/{id}-*-cafe.mp4` + `posters/` |
 
 Jewelry / hair / accessories may change. **Core face + body identity** must not.
 
@@ -62,6 +63,7 @@ Across campaigns for the same persona:
 - Series kickers:
   - House: `HOUSE CAMPAIGN`
   - Travel: `WORLD EDIT` + city pin
+  - Café: `CAFÉ EDIT` + city pin (video-first on persona pages; still is poster only)
 - Taglines: fashion destination language; no third-party brand logos.
 
 ### 6. Products optional

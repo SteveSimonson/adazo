@@ -34,7 +34,7 @@ export type VibeCampaign = {
   alt: string
   /** Optional destination pin for travel series */
   destination?: string
-  /** Optional 16:9 premiere clip (Carpet Edit, etc.) */
+  /** Optional 16:9 premiere / lifestyle film (Carpet Edit, Café Edit, etc.) */
   video?: string
 }
 
@@ -183,6 +183,18 @@ export const VIBES: Record<string, VibeProfile> = {
         alt: 'ADAZO Carpet Edit — Vivienne waving on the Oscars red carpet in black crystal',
         video: '/brand/videos/luxe-carpet-premiere.mp4',
       },
+      {
+        title: 'Saint-Germain Morning',
+        season: 'Café Edit · Lifestyle film',
+        destination: 'Paris',
+        concept:
+          'Upscale café terrace ritual — cream cashmere, cappuccino, prestige jar and perfume on marble. Quiet luxe in soft morning light.',
+        direction:
+          'Café Edit lifestyle film. Face locked to Vivienne. Seated terrace three-quarter (not stairs gown, Seine walk, safari seat, or carpet wave); cream cashmere (not ivory gown / charcoal / ochre / black crystal).',
+        image: '/brand/videos/cafe/posters/luxe-paris-cafe.jpg',
+        alt: 'ADAZO Café Edit — Vivienne at a Paris café terrace with cappuccino and prestige beauty',
+        video: '/brand/videos/cafe/luxe-paris-cafe.mp4',
+      },
     ],
     dayInTheLife: [
       'Morning: one prestige serum, no twelve-step circus',
@@ -311,6 +323,18 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/camille-cannes.jpg',
         alt: 'ADAZO Carpet Edit — Camille in silver on the Cannes red carpet stairs',
         video: '/brand/videos/muse-carpet-premiere.mp4',
+      },
+      {
+        title: 'Lantern Matcha',
+        season: 'Café Edit · Lifestyle film',
+        destination: 'Tokyo',
+        concept:
+          'Modern Tokyo café — soft glam, warm lanterns, matcha latte, lipstick and compact on the wood table. Mirror energy after dark.',
+        direction:
+          'Café Edit lifestyle film. Face locked to Camille. Seated café portrait (not vanity, Tokyo street walk, peacock kneel, or Cannes stairs); blush satin (not silver gown).',
+        image: '/brand/videos/cafe/posters/muse-tokyo-cafe.jpg',
+        alt: 'ADAZO Café Edit — Camille in a Tokyo café with matcha and soft glam makeup',
+        video: '/brand/videos/cafe/muse-tokyo-cafe.mp4',
       },
     ],
     dayInTheLife: [
@@ -441,6 +465,18 @@ export const VIBES: Record<string, VibeProfile> = {
         alt: 'ADAZO Carpet Edit — Noor arriving in sapphire satin from a black car',
         video: '/brand/videos/sillage-carpet-premiere.mp4',
       },
+      {
+        title: 'Riad Courtyard Scent',
+        season: 'Café Edit · Lifestyle film',
+        destination: 'Marrakech',
+        concept:
+          'Riad courtyard café — citrus trees, zellige, mint tea, crystal perfume bottle. Signature trail in amber light.',
+        direction:
+          'Café Edit lifestyle film. Face locked to Noor. Seated courtyard table (not perfume mist house, Marrakech stand, falcon profile, or car-door arrival); black silk (not sapphire gown).',
+        image: '/brand/videos/cafe/posters/sillage-marrakech-cafe.jpg',
+        alt: 'ADAZO Café Edit — Noor at a Marrakech riad café with perfume and mint tea',
+        video: '/brand/videos/cafe/sillage-marrakech-cafe.mp4',
+      },
     ],
     dayInTheLife: [
       'Morning: day signature on wrists and neck',
@@ -569,6 +605,18 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/atelier-carpet-walk.jpg',
         alt: 'ADAZO Carpet Edit — Margot walking the Oscars carpet in gold sequins',
         video: '/brand/videos/atelier-carpet-premiere.mp4',
+      },
+      {
+        title: 'Galleria Espresso',
+        season: 'Café Edit · Lifestyle film',
+        destination: 'Milan',
+        concept:
+          'Design-district café — structured blazer, gold hoops, espresso, architecture bag on the chair. The finish, mid-edit.',
+        direction:
+          'Café Edit lifestyle film. Face locked to Margot. Seated leather chair with bag (not closet blazer control, museum look-back, horse stand, or carpet train walk); chocolate suit (not gold sequin gown).',
+        image: '/brand/videos/cafe/posters/atelier-milan-cafe.jpg',
+        alt: 'ADAZO Café Edit — Margot in a Milan café with espresso and structured bag',
+        video: '/brand/videos/cafe/atelier-milan-cafe.mp4',
       },
     ],
     dayInTheLife: [
@@ -699,6 +747,18 @@ export const VIBES: Record<string, VibeProfile> = {
         alt: 'ADAZO Carpet Edit — Isla in blush organza on red carpet steps',
         video: '/brand/videos/dew-carpet-premiere.mp4',
       },
+      {
+        title: 'Nordic Glow Hour',
+        season: 'Café Edit · Lifestyle film',
+        destination: 'Copenhagen',
+        concept:
+          'Bright Scandinavian café — cashmere, herbal tea, jade roller and barrier care on pale oak. Glow as a calm public ritual.',
+        direction:
+          'Café Edit lifestyle film. Face locked to Isla. Seated café with roller (not spa control, Santorini stand, lagoon coral, or carpet step seat); oatmeal knit (not blush organza).',
+        image: '/brand/videos/cafe/posters/dew-copenhagen-cafe.jpg',
+        alt: 'ADAZO Café Edit — Isla in a Copenhagen café with skincare and jade roller',
+        video: '/brand/videos/cafe/dew-copenhagen-cafe.mp4',
+      },
     ],
     dayInTheLife: [
       'Morning: cleanse, treat, SPF — no skip, no drama',
@@ -827,6 +887,18 @@ export const VIBES: Record<string, VibeProfile> = {
         image: '/brand/vibes/portfolio/gilded-carpet-power.jpg',
         alt: 'ADAZO Carpet Edit — Aurelia in ivory crystal couture on the Cannes carpet',
         video: '/brand/videos/gilded-carpet-premiere.mp4',
+      },
+      {
+        title: 'Gilded Espresso',
+        season: 'Café Edit · Lifestyle film',
+        destination: 'Venice',
+        concept:
+          'Grand historic café — gilded mirrors, velvet, marble, espresso and gold-capped cream. Collector energy, unhurried.',
+        direction:
+          'Café Edit lifestyle film. Face locked to Aurelia. Seated grand-café three-quarter (not jewelry table control, Venice walk, Jaipur peacock, or carpet power stance); bronze silk (not ivory crystal).',
+        image: '/brand/videos/cafe/posters/gilded-venice-cafe.jpg',
+        alt: 'ADAZO Café Edit — Aurelia in a Venice grand café with gold cream and espresso',
+        video: '/brand/videos/cafe/gilded-venice-cafe.mp4',
       },
     ],
     dayInTheLife: [
