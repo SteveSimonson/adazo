@@ -202,38 +202,67 @@ export function Quiz() {
     }, 340)
   }
 
+  /**
+   * Multi-select: tap to toggle. No separate Continue.
+   * - Hitting maxSelect auto-advances immediately
+   * - With 1..max-1 selected, a short settle timer advances (tap another to extend)
+   * - Re-tapping a selected card when it's the only pick confirms and advances
+   */
   function toggleMulti(optionId: string) {
     if (!q || advancingRef.current) return
     const max = q.maxSelect ?? 2
+    if (advanceTimer.current) clearTimeout(advanceTimer.current)
+
     setSelectedIds((prev) => {
+      let next: string[]
       if (prev.includes(optionId)) {
-        return prev.filter((id) => id !== optionId)
+        // Only one selected → second tap confirms and advances
+        if (prev.length === 1) {
+          queueMicrotask(() => commitMulti(prev))
+          return prev
+        }
+        next = prev.filter((id) => id !== optionId)
+      } else if (prev.length >= max) {
+        next = [...prev.slice(1), optionId]
+      } else {
+        next = [...prev, optionId]
       }
-      if (prev.length >= max) {
-        // Replace oldest selection so tap always does something
-        return [...prev.slice(1), optionId]
+
+      if (next.length >= max) {
+        queueMicrotask(() => commitMulti(next))
+      } else if (next.length > 0) {
+        // Allow a second pick; if they stop, advance with what they chose
+        advanceTimer.current = setTimeout(() => {
+          commitMulti(next)
+        }, 900)
       }
-      return [...prev, optionId]
+      return next
     })
   }
 
-  function continueMulti() {
-    if (!q || selectedIds.length === 0 || advancingRef.current) return
+  function commitMulti(ids: string[]) {
+    if (!q || ids.length === 0 || advancingRef.current) return
+    if (advanceTimer.current) clearTimeout(advanceTimer.current)
     setAdvancingBoth(true)
     trackQuizAnswer({
       questionId: q.id,
-      optionId: encodeAnswerIds(selectedIds),
+      optionId: encodeAnswerIds(ids),
       step,
       totalSteps,
     })
+    const questionId = q.id
+    const fromStep = step
     const nextAnswers = {
       ...answers,
-      [q.id]: encodeAnswerIds(selectedIds),
+      [questionId]: encodeAnswerIds(ids),
     }
     setAnswers(nextAnswers)
-    setSelectedIds([])
-    setAdvancingBoth(false)
-    advanceAfterAnswer(nextAnswers, step)
+    // Brief highlight, then advance
+    advanceTimer.current = setTimeout(() => {
+      setSelectedIds([])
+      setAdvancingBoth(false)
+      advanceAfterAnswer(nextAnswers, fromStep)
+    }, 280)
   }
 
   function goBackQuestion() {
@@ -376,7 +405,6 @@ export function Quiz() {
             advancing={advancing}
             onSelectSingle={commitSingle}
             onToggleMulti={toggleMulti}
-            onContinueMulti={continueMulti}
             onBack={goBackQuestion}
           />
         )}
@@ -417,9 +445,9 @@ function Intro({ onStart }: { onStart: () => void }) {
         Which Adazo persona is yours — luxury, glam, scent, or finish?
       </h1>
       <p className="mt-5 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">
-        A handful of quick taps. Zero wrong answers. Meet your house persona —
-        Quiet Luxe, Soft Glam Muse, Signature Scent, Fashion Finisher, and more —
-        with named picks ready. Save to the private edit only if you want updates.
+        Quick taps only — every answer advances on click, no extra Continue steps.
+        Meet your house persona with named picks ready. Save to the private edit
+        only if you want updates.
       </p>
       <button type="button" onClick={onStart} className="btn-primary mt-10 !px-10">
         Start the vibe check <ArrowRight className="size-4" />
@@ -437,7 +465,6 @@ function QuestionStep({
   advancing,
   onSelectSingle,
   onToggleMulti,
-  onContinueMulti,
   onBack,
 }: {
   question: QuizQuestion
@@ -445,11 +472,18 @@ function QuestionStep({
   advancing: boolean
   onSelectSingle: (id: string) => void
   onToggleMulti: (id: string) => void
-  onContinueMulti: () => void
   onBack: () => void
 }) {
   const multi = Boolean(question.multiSelect)
   const max = question.maxSelect ?? 2
+  const multiHint =
+    selectedIds.length === 0
+      ? `Tap up to ${max} — advances when you stop or hit ${max}`
+      : selectedIds.length >= max
+        ? 'Next…'
+        : selectedIds.length === 1
+          ? 'Tap another, or tap your pick again to continue'
+          : 'Continuing…'
 
   return (
     <div key={question.id} className="animate-in">
@@ -462,7 +496,7 @@ function QuestionStep({
       {multi && (
         <p className="mt-2 text-xs font-semibold text-bamboo">
           {selectedIds.length === 0
-            ? `Select 1–${max}`
+            ? `Pick 1–${max}`
             : `${selectedIds.length} of ${max} selected`}
         </p>
       )}
@@ -474,7 +508,7 @@ function QuestionStep({
             <button
               key={opt.id}
               type="button"
-              disabled={advancing && !multi}
+              disabled={advancing}
               aria-pressed={active}
               onClick={() =>
                 multi ? onToggleMulti(opt.id) : onSelectSingle(opt.id)
@@ -483,8 +517,8 @@ function QuestionStep({
                 active
                   ? 'border-bamboo bg-bamboo/10 shadow-[0_12px_30px_-16px_rgba(63,107,53,0.45)] scale-[1.02]'
                   : 'border-line bg-card hover:border-bamboo/40 hover:bg-paper-2'
-              } ${advancing && !multi && !active ? 'opacity-50' : ''} ${
-                advancing && !multi ? 'pointer-events-none' : ''
+              } ${advancing && !active ? 'opacity-50' : ''} ${
+                advancing ? 'pointer-events-none' : ''
               }`}
             >
               <div className="flex items-start gap-3">
@@ -514,25 +548,18 @@ function QuestionStep({
         <button
           type="button"
           onClick={onBack}
-          disabled={advancing && !multi}
+          disabled={advancing}
           className="text-sm font-semibold text-ink-soft hover:text-bamboo disabled:opacity-40"
         >
           Back
         </button>
-        {multi ? (
-          <button
-            type="button"
-            onClick={onContinueMulti}
-            disabled={selectedIds.length === 0}
-            className="btn-primary !py-2.5 !px-5 disabled:opacity-40"
-          >
-            Continue <ArrowRight className="size-4" />
-          </button>
-        ) : (
-          <p className="text-xs text-muted font-medium">
-            {advancing ? 'Next…' : 'Tap a card to continue'}
-          </p>
-        )}
+        <p className="text-xs text-muted font-medium text-right">
+          {advancing
+            ? 'Next…'
+            : multi
+              ? multiHint
+              : 'Tap a card to continue'}
+        </p>
       </div>
     </div>
   )
