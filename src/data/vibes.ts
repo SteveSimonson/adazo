@@ -98,7 +98,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'You spot the piece that photographs expensive before it leaves the shelf — cream, serum, or set.',
       },
       {
-        name: 'Gallery Edit',
+        name: 'Gallery Light',
         detail:
           'Fewer products, higher stakes. Every bottle earns permanent vanity real estate.',
       },
@@ -141,7 +141,7 @@ export const VIBES: Record<string, VibeProfile> = {
     campaigns: [
       {
         title: 'Soft Power',
-        season: 'House Campaign · Prestige',
+        season: 'The Atelier · Prestige',
         concept:
           'Full-length quiet-luxury editorial — ivory silk column gown and champagne cape on a grand marble hotel staircase at dusk. Pose: standing, hand on rail.',
         direction:
@@ -151,48 +151,48 @@ export const VIBES: Record<string, VibeProfile> = {
       },
       {
         title: 'Paris at Dusk',
-        season: 'World Edit · Travel',
+        season: 'Abroad',
         destination: 'Paris',
         concept:
           'Travel editorial — charcoal wool coat, crimson gloves, looking back while walking the Seine quay at blue hour. Not cream; not a static frontal coat portrait.',
         direction:
           'World Edit. Face locked to Vivienne. Distinct from Soft Power gown (color, silhouette, motion).',
         image: '/brand/vibes/portfolio/luxe-paris-v2.jpg',
-        alt: 'ADAZO World Edit — Vivienne in a charcoal coat with red gloves on the Seine',
+        alt: 'ADAZO Abroad — Vivienne in a charcoal coat with red gloves on the Seine',
       },
       {
         title: 'Savanna Light',
-        season: 'Wild Edit · On Location',
+        season: 'The Wild',
         destination: 'Botswana',
         concept:
           'Luxury safari editorial — seated on an open vehicle in ochre silk jumpsuit, gold jewelry, elephants in the golden savanna beyond.',
         direction:
           'Wild Edit. Face locked to Vivienne. Pose seated-on-vehicle (not stairs stand, not Seine walk); wardrobe ochre jumpsuit (not ivory gown, not charcoal coat).',
         image: '/brand/vibes/portfolio/luxe-wild-safari.jpg',
-        alt: 'ADAZO Wild Edit — Vivienne on safari with elephants in Botswana',
+        alt: 'ADAZO The Wild — Vivienne on safari with elephants in Botswana',
       },
       {
         title: 'Black Diamond Night',
-        season: 'Carpet Edit · Red carpet',
+        season: 'The Carpet',
         destination: 'Oscar Night',
         concept:
           'Red-carpet wave — midnight black crystal column gown, paparazzi flash, premiere energy outside the theater.',
         direction:
           'Carpet Edit. Face locked to Vivienne. Hip-weight wave (not stairs gown, Seine walk, or safari seat); black crystal gown (not ivory/ochre/charcoal).',
         image: '/brand/vibes/portfolio/vivienne-oscars.jpg',
-        alt: 'ADAZO Carpet Edit — Vivienne waving on the Oscars red carpet in black crystal',
+        alt: 'ADAZO The Carpet — Vivienne waving on the Oscars red carpet in black crystal',
         video: '/brand/videos/luxe-carpet-premiere.mp4',
       },
       {
         title: 'Saint-Germain Morning',
-        season: 'Café Edit · Lifestyle film',
+        season: 'The Café',
         destination: 'Paris',
         concept:
           'Upscale café terrace ritual — cream cashmere, cappuccino, prestige jar and perfume on marble. Quiet luxe in soft morning light.',
         direction:
           'Café Edit lifestyle film. Face locked to Vivienne. Seated terrace three-quarter (not stairs gown, Seine walk, safari seat, or carpet wave); cream cashmere (not ivory gown / charcoal / ochre / black crystal).',
         image: '/brand/videos/cafe/posters/luxe-paris-cafe.jpg',
-        alt: 'ADAZO Café Edit — Vivienne at a Paris café terrace with cappuccino and prestige beauty',
+        alt: 'ADAZO The Café — Vivienne at a Paris café terrace with cappuccino and prestige beauty',
         video: '/brand/videos/cafe/luxe-paris-cafe.mp4',
       },
     ],
@@ -282,7 +282,7 @@ export const VIBES: Record<string, VibeProfile> = {
     campaigns: [
       {
         title: 'Mirror First',
-        season: 'House Campaign · Soft Glam',
+        season: 'The Atelier · Soft Glam',
         concept:
           'Bold beauty fashion studio — rose satin cocktail dress on seamless cherry-red paper, hero lip and hand-in-hair cover pose.',
         direction:
@@ -292,48 +292,48 @@ export const VIBES: Record<string, VibeProfile> = {
       },
       {
         title: 'Tokyo Nights',
-        season: 'World Edit · Travel',
+        season: 'Abroad',
         destination: 'Tokyo',
         concept:
           'Night-city travel editorial — fuchsia trench over black satin mini, neon Shinjuku alley, cosmopolitan soft glam on the move.',
         direction:
           'Fashionista-inspired world-travel campaign. Face locked to Camille — destination nightlife energy.',
         image: '/brand/vibes/portfolio/muse-travel-tokyo.jpg',
-        alt: 'ADAZO World Edit — Camille in Tokyo nights fashion street style',
+        alt: 'ADAZO Abroad — Camille in Tokyo nights fashion street style',
       },
       {
         title: 'Palace Peacocks',
-        season: 'Wild Edit · On Location',
+        season: 'The Wild',
         destination: 'Rajasthan',
         concept:
           'Kneeling palace-courtyard editorial — emerald silk with gold border, loose waves, peacocks in a sandstone Rajasthan courtyard.',
         direction:
           'Wild Edit. Face locked to Camille. Kneeling (not vanity, studio hand-in-hair, or Tokyo walk); emerald sari-inspired gown (not rose/fuchsia/black mini).',
         image: '/brand/vibes/portfolio/camille-peacocks.jpg',
-        alt: 'ADAZO Wild Edit — Camille kneeling in emerald silk with peacocks in Rajasthan',
+        alt: 'ADAZO The Wild — Camille kneeling in emerald silk with peacocks in Rajasthan',
       },
       {
         title: 'Silver Palais',
-        season: 'Carpet Edit · Red carpet',
+        season: 'The Carpet',
         destination: 'Cannes',
         concept:
           'Cannes red-carpet stairs — liquid silver mermaid gown, crystal clutch, looking up into festival flash.',
         direction:
           'Carpet Edit. Face locked to Camille. Stair three-quarter look-up (not vanity, studio hand-in-hair, Tokyo walk, or peacock kneel); silver gown (not rose/fuchsia/emerald).',
         image: '/brand/vibes/portfolio/camille-cannes.jpg',
-        alt: 'ADAZO Carpet Edit — Camille in silver on the Cannes red carpet stairs',
+        alt: 'ADAZO The Carpet — Camille in silver on the Cannes red carpet stairs',
         video: '/brand/videos/muse-carpet-premiere.mp4',
       },
       {
         title: 'Lantern Matcha',
-        season: 'Café Edit · Lifestyle film',
+        season: 'The Café',
         destination: 'Tokyo',
         concept:
           'Modern Tokyo café — soft glam, warm lanterns, matcha latte, lipstick and compact on the wood table. Mirror energy after dark.',
         direction:
           'Café Edit lifestyle film. Face locked to Camille. Seated café portrait (not vanity, Tokyo street walk, peacock kneel, or Cannes stairs); blush satin (not silver gown).',
         image: '/brand/videos/cafe/posters/muse-tokyo-cafe.jpg',
-        alt: 'ADAZO Café Edit — Camille in a Tokyo café with matcha and soft glam makeup',
+        alt: 'ADAZO The Café — Camille in a Tokyo café with matcha and soft glam makeup',
         video: '/brand/videos/cafe/muse-tokyo-cafe.mp4',
       },
     ],
@@ -423,7 +423,7 @@ export const VIBES: Record<string, VibeProfile> = {
     campaigns: [
       {
         title: 'The Trail',
-        season: 'House Campaign · Fragrance',
+        season: 'The Atelier · Fragrance',
         concept:
           'Night rooftop fashion editorial — black evening jumpsuit, sheer violet organza coat, city skyline bokeh. No product — pure atmosphere.',
         direction:
@@ -433,48 +433,48 @@ export const VIBES: Record<string, VibeProfile> = {
       },
       {
         title: 'Marrakech Gold',
-        season: 'World Edit · Travel',
+        season: 'Abroad',
         destination: 'Marrakech',
         concept:
           'Riad courtyard at golden hour — flowing black-and-violet silk with gold embroidery, lantern light, scent-of-place without a bottle.',
         direction:
           'Fashionista-inspired world-travel campaign. Face locked to Noor — trail that travels.',
         image: '/brand/vibes/portfolio/noor-marrakech.jpg',
-        alt: 'ADAZO World Edit — Noor in a Marrakech riad at golden hour',
+        alt: 'ADAZO Abroad — Noor in a Marrakech riad at golden hour',
       },
       {
         title: 'Desert Falcon',
-        season: 'Wild Edit · On Location',
+        season: 'The Wild',
         destination: 'Empty Quarter',
         concept:
           'Desert falconry editorial — ruby coat in dune wind, falcon on glove under dramatic sky. Trail as atmosphere and power.',
         direction:
           'Wild Edit. Face locked to Noor. Profile-with-falcon (not perfume mist, rooftop walk, or Marrakech standing kaftan); ruby coat (not black/violet).',
         image: '/brand/vibes/portfolio/sillage-wild-falcon.jpg',
-        alt: 'ADAZO Wild Edit — Noor with a falcon in the desert dunes',
+        alt: 'ADAZO The Wild — Noor with a falcon in the desert dunes',
       },
       {
         title: 'Sapphire Arrival',
-        season: 'Carpet Edit · Red carpet',
+        season: 'The Carpet',
         destination: 'Premiere',
         concept:
           'Arrivals moment — seated in an open limousine door on the red carpet, royal sapphire satin and diamond-sapphire jewels.',
         direction:
           'Carpet Edit. Face locked to Noor. Car-door seated arrival (not perfume mist, rooftop walk, Marrakech stand, or falcon profile); sapphire gown (not black/violet/ruby).',
         image: '/brand/vibes/portfolio/sillage-carpet-arrival.jpg',
-        alt: 'ADAZO Carpet Edit — Noor arriving in sapphire satin from a black car',
+        alt: 'ADAZO The Carpet — Noor arriving in sapphire satin from a black car',
         video: '/brand/videos/sillage-carpet-premiere.mp4',
       },
       {
         title: 'Riad Courtyard Scent',
-        season: 'Café Edit · Lifestyle film',
+        season: 'The Café',
         destination: 'Marrakech',
         concept:
           'Riad courtyard café — citrus trees, zellige, mint tea, crystal perfume bottle. Signature trail in amber light.',
         direction:
           'Café Edit lifestyle film. Face locked to Noor. Seated courtyard table (not perfume mist house, Marrakech stand, falcon profile, or car-door arrival); black silk (not sapphire gown).',
         image: '/brand/videos/cafe/posters/sillage-marrakech-cafe.jpg',
-        alt: 'ADAZO Café Edit — Noor at a Marrakech riad café with perfume and mint tea',
+        alt: 'ADAZO The Café — Noor at a Marrakech riad café with perfume and mint tea',
         video: '/brand/videos/cafe/sillage-marrakech-cafe.mp4',
       },
     ],
@@ -503,7 +503,7 @@ export const VIBES: Record<string, VibeProfile> = {
   atelier: {
     ...PERSONAS.atelier,
     typeLabel: 'Fashion · Finish',
-    rarity: 'Runway Edit',
+    rarity: 'Runway Presence',
     emoji: '👜',
     flavor:
       'Beauty alone isn’t the look — the finish is. Bags, gold, silhouette: the last piece that makes everything land.',
@@ -564,7 +564,7 @@ export const VIBES: Record<string, VibeProfile> = {
     campaigns: [
       {
         title: 'The Finish',
-        season: 'House Campaign · Fashion',
+        season: 'The Atelier · Fashion',
         concept:
           'Museum power editorial — black sculptural one-shoulder gown, standing profile looking over shoulder, gold architecture cuff. Not a walking suit.',
         direction:
@@ -574,48 +574,48 @@ export const VIBES: Record<string, VibeProfile> = {
       },
       {
         title: 'Milan Caffè',
-        season: 'World Edit · Travel',
+        season: 'Abroad',
         destination: 'Milan',
         concept:
           'Seated café editorial at the Duomo — ivory trench, crossed legs, espresso and sunglasses, looking off-camera. Not walking, not a pantsuit.',
         direction:
           'World Edit. Face locked to Margot. Completely different pose and wardrobe from house gown and control closet blazer.',
         image: '/brand/vibes/portfolio/atelier-milan-v2.jpg',
-        alt: 'ADAZO World Edit — Margot seated at a Milan café in an ivory trench',
+        alt: 'ADAZO Abroad — Margot seated at a Milan café in an ivory trench',
       },
       {
         title: 'White Horse',
-        season: 'Wild Edit · On Location',
+        season: 'The Wild',
         destination: 'Andalucía',
         concept:
           'Andalusian ranch editorial — standing with a white horse, hand on its neck, burgundy velvet riding jacket and tall boots.',
         direction:
           'Wild Edit. Face locked to Margot. Horse-side stand (not closet blazer, museum look-back gown, or café seat); burgundy riding (not black gown or ivory trench).',
         image: '/brand/vibes/portfolio/atelier-wild-andalucia.jpg',
-        alt: 'ADAZO Wild Edit — Margot with a white Andalusian horse',
+        alt: 'ADAZO The Wild — Margot with a white Andalusian horse',
       },
       {
         title: 'Gold Train',
-        season: 'Carpet Edit · Red carpet',
+        season: 'The Carpet',
         destination: 'Oscar Night',
         concept:
           'Full red-carpet walk toward camera — champagne-gold sequin gown with dramatic train and diamond earrings.',
         direction:
           'Carpet Edit. Face locked to Margot. Train walk into lens (not closet blazer, museum look-back, café seat, or horse stand); gold sequin gown (not black/ivory/burgundy).',
         image: '/brand/vibes/portfolio/atelier-carpet-walk.jpg',
-        alt: 'ADAZO Carpet Edit — Margot walking the Oscars carpet in gold sequins',
+        alt: 'ADAZO The Carpet — Margot walking the Oscars carpet in gold sequins',
         video: '/brand/videos/atelier-carpet-premiere.mp4',
       },
       {
         title: 'Galleria Espresso',
-        season: 'Café Edit · Lifestyle film',
+        season: 'The Café',
         destination: 'Milan',
         concept:
           'Design-district café — structured blazer, gold hoops, espresso, architecture bag on the chair. The finish, mid-edit.',
         direction:
           'Café Edit lifestyle film. Face locked to Margot. Seated leather chair with bag (not closet blazer control, museum look-back, horse stand, or carpet train walk); chocolate suit (not gold sequin gown).',
         image: '/brand/videos/cafe/posters/atelier-milan-cafe.jpg',
-        alt: 'ADAZO Café Edit — Margot in a Milan café with espresso and structured bag',
+        alt: 'ADAZO The Café — Margot in a Milan café with espresso and structured bag',
         video: '/brand/videos/cafe/atelier-milan-cafe.mp4',
       },
     ],
@@ -705,7 +705,7 @@ export const VIBES: Record<string, VibeProfile> = {
     campaigns: [
       {
         title: 'Barrier First',
-        season: 'House Campaign · Glow',
+        season: 'The Atelier · Glow',
         concept:
           'Seated greenhouse editorial — sage silk slip dress, hair fully down, low among tropical plants. Not white linen; not standing tourist three-quarter.',
         direction:
@@ -715,48 +715,48 @@ export const VIBES: Record<string, VibeProfile> = {
       },
       {
         title: 'Santorini Light',
-        season: 'World Edit · Travel',
+        season: 'Abroad',
         destination: 'Santorini',
         concept:
           'Standing caldera travel editorial — white linen dress, straw hat in hand, blue domes and sea. Standing vs house seated; white vs sage.',
         direction:
           'World Edit. Face locked to Isla. Must stay opposite house (standing + white vs seated + sage).',
         image: '/brand/vibes/portfolio/dew-travel-santorini.jpg',
-        alt: 'ADAZO World Edit — Isla in Santorini white linen overlooking the caldera',
+        alt: 'ADAZO Abroad — Isla in Santorini white linen overlooking the caldera',
       },
       {
         title: 'Lagoon Flock',
-        season: 'Wild Edit · On Location',
+        season: 'The Wild',
         destination: 'Yucatán',
         concept:
           'Standing knee-deep in a turquoise lagoon at sunrise — coral maxi dress, windblown hair, pink flamingos behind her.',
         direction:
           'Wild Edit. Face locked to Isla. In-water look-back (not spa close-up, seated sage slip, or Santorini white stand); coral maxi (not white/sage).',
         image: '/brand/vibes/portfolio/dew-wild-flamingos.jpg',
-        alt: 'ADAZO Wild Edit — Isla in a coral dress among flamingos in the Yucatán',
+        alt: 'ADAZO The Wild — Isla in a coral dress among flamingos in the Yucatán',
       },
       {
         title: 'Blush Organza',
-        season: 'Carpet Edit · Red carpet',
+        season: 'The Carpet',
         destination: 'Premiere',
         concept:
           'Seated on red-carpet steps — blush organza ball gown, polished updo, soft over-shoulder glamour.',
         direction:
           'Carpet Edit. Face locked to Isla. Seated step over-shoulder (not spa, greenhouse sage, Santorini stand, or lagoon coral); blush organza (not white/sage/coral).',
         image: '/brand/vibes/portfolio/dew-carpet-blush.jpg',
-        alt: 'ADAZO Carpet Edit — Isla in blush organza on red carpet steps',
+        alt: 'ADAZO The Carpet — Isla in blush organza on red carpet steps',
         video: '/brand/videos/dew-carpet-premiere.mp4',
       },
       {
         title: 'Nordic Glow Hour',
-        season: 'Café Edit · Lifestyle film',
+        season: 'The Café',
         destination: 'Copenhagen',
         concept:
           'Bright Scandinavian café — cashmere, herbal tea, jade roller and barrier care on pale oak. Glow as a calm public ritual.',
         direction:
           'Café Edit lifestyle film. Face locked to Isla. Seated café with roller (not spa control, Santorini stand, lagoon coral, or carpet step seat); oatmeal knit (not blush organza).',
         image: '/brand/videos/cafe/posters/dew-copenhagen-cafe.jpg',
-        alt: 'ADAZO Café Edit — Isla in a Copenhagen café with skincare and jade roller',
+        alt: 'ADAZO The Café — Isla in a Copenhagen café with skincare and jade roller',
         video: '/brand/videos/cafe/dew-copenhagen-cafe.mp4',
       },
     ],
@@ -808,7 +808,7 @@ export const VIBES: Record<string, VibeProfile> = {
           'You know how to stack a present that feels like a private showroom visit.',
       },
       {
-        name: 'Spectrum Edit',
+        name: 'Spectrum Light',
         detail:
           'Luxury beauty, fragrance, handbags, jewelry — you let curation do the hard work.',
       },
@@ -846,7 +846,7 @@ export const VIBES: Record<string, VibeProfile> = {
     campaigns: [
       {
         title: 'Private Showroom',
-        season: 'House Campaign · Collector',
+        season: 'The Atelier · Collector',
         concept:
           'Opera staircase editorial — sleeveless liquid bronze gown, opera gloves, hand on gold rail, looking up. Static grandeur.',
         direction:
@@ -856,48 +856,48 @@ export const VIBES: Record<string, VibeProfile> = {
       },
       {
         title: 'Venice Grand Tour',
-        season: 'World Edit · Travel',
+        season: 'Abroad',
         destination: 'Venice',
         concept:
           'Walking a foggy Venice calle at blue hour — black velvet coat, gold buttons, champagne blouse, clutch. Not bronze gown; not static stairs.',
         direction:
           'World Edit. Face locked to Aurelia. Black velvet motion vs house bronze static gown.',
         image: '/brand/vibes/portfolio/gilded-venice-v2.jpg',
-        alt: 'ADAZO World Edit — Aurelia walking a Venice alley in a black velvet coat',
+        alt: 'ADAZO Abroad — Aurelia walking a Venice alley in a black velvet coat',
       },
       {
         title: 'White Peacock',
-        season: 'Wild Edit · On Location',
+        season: 'The Wild',
         destination: 'Jaipur',
         concept:
           'Seated palace-terrace editorial — emerald velvet jacket, gold trousers, dramatic emerald jewelry, white peacock beside her.',
         direction:
           'Wild Edit. Face locked to Aurelia. Seated terrace with peacock (not jewelry-table seat, opera bronze stand, or Venice walk); emerald/gold (not bronze gown or black velvet coat).',
         image: '/brand/vibes/portfolio/gilded-wild-jaipur.jpg',
-        alt: 'ADAZO Wild Edit — Aurelia with a white peacock on a Jaipur palace terrace',
+        alt: 'ADAZO The Wild — Aurelia with a white peacock on a Jaipur palace terrace',
       },
       {
         title: 'Crystal Power',
-        season: 'Carpet Edit · Red carpet',
+        season: 'The Carpet',
         destination: 'Cannes',
         concept:
           'Front-facing red-carpet power stance — ivory crystal couture, architectural shoulders, diamond armor and clutch.',
         direction:
           'Carpet Edit. Face locked to Aurelia. Hand-on-hip frontal (not jewelry table, opera bronze look-up, Venice walk, or Jaipur peacock seat); ivory crystal (not bronze/black/emerald).',
         image: '/brand/vibes/portfolio/gilded-carpet-power.jpg',
-        alt: 'ADAZO Carpet Edit — Aurelia in ivory crystal couture on the Cannes carpet',
+        alt: 'ADAZO The Carpet — Aurelia in ivory crystal couture on the Cannes carpet',
         video: '/brand/videos/gilded-carpet-premiere.mp4',
       },
       {
         title: 'Gilded Espresso',
-        season: 'Café Edit · Lifestyle film',
+        season: 'The Café',
         destination: 'Venice',
         concept:
           'Grand historic café — gilded mirrors, velvet, marble, espresso and gold-capped cream. Collector energy, unhurried.',
         direction:
           'Café Edit lifestyle film. Face locked to Aurelia. Seated grand-café three-quarter (not jewelry table control, Venice walk, Jaipur peacock, or carpet power stance); bronze silk (not ivory crystal).',
         image: '/brand/videos/cafe/posters/gilded-venice-cafe.jpg',
-        alt: 'ADAZO Café Edit — Aurelia in a Venice grand café with gold cream and espresso',
+        alt: 'ADAZO The Café — Aurelia in a Venice grand café with gold cream and espresso',
         video: '/brand/videos/cafe/gilded-venice-cafe.mp4',
       },
     ],

@@ -31,7 +31,7 @@ function fromReel(reel: CategoryReel): WatchClip {
   return {
     id: reel.id,
     title: reel.title,
-    subtitle: `Gen ${reel.generation} · ${reel.motionLabel}`,
+    subtitle: reel.motionLabel,
     video: reel.video,
     poster: reel.poster,
     aspect: 'portrait',

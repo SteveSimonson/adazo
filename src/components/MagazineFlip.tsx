@@ -171,12 +171,11 @@ export function MagazineFlip({
               <BookOpen className="size-3.5" /> The House Book
             </p>
             <h2 className="font-display text-3xl sm:text-5xl font-semibold text-white tracking-tight">
-              Flip the fashion edit
+              The house book
             </h2>
             <p className="mt-3 text-white/55 font-light max-w-xl text-sm sm:text-base leading-relaxed">
-              House campaigns, world travel, wild on-location, and red-carpet
-              glamour — every Adazo model, one magazine. Use the arrows or
-              swipe.
+              The atelier, abroad, the wild, the carpet — every house face, one
+              volume. Use the arrows or swipe.
             </p>
           </div>
           <div className="flex flex-wrap gap-2" role="tablist" aria-label="Magazine series">
@@ -381,13 +380,13 @@ function PageFace({ page }: { page: MagazinePage }) {
         <div className="mt-8 h-px w-16 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
         <p className="mt-6 text-sm text-white/45 font-light max-w-xs leading-relaxed">
           {page.series === 'house' &&
-            'Primary fashion campaigns of the Adazo house models.'}
+            'The faces you return to — the house, season after season.'}
           {page.series === 'world' &&
-            'Travel editorials — destinations that finish the look.'}
+            'New cities. The same quiet authority.'}
           {page.series === 'wild' &&
-            'On location with exotic animals. Pure fashion energy.'}
+            'Beauty that holds when the ground is uneven.'}
           {page.series === 'carpet' &&
-            'Oscars & Cannes energy — red-carpet glamour, flash, and finish.'}
+            'Night light, jewels free, the room already hers.'}
         </p>
       </div>
     )

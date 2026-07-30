@@ -100,12 +100,12 @@ export function Shop() {
           <>
             <p className="label-micro mb-2">Shop</p>
             <h1 className="font-display text-4xl sm:text-5xl font-semibold">
-              {limited ? 'This week’s limited options' : 'The collection'}
+              {limited ? 'This week’s selection' : 'The collection'}
             </h1>
             <p className="text-ink-soft mt-3 max-w-xl text-lg font-light leading-relaxed">
               {limited
-                ? "Amazon Best Sellers edit for women's beauty. Options only available for a limited time—lists refresh weekly and ranks move."
-                : 'Browse by concern and category, then buy on Amazon with secure checkout.'}
+                ? 'A short selection. It will not last. Discover here; complete your purchase on Amazon.'
+                : 'Every room of the house — for treating yourself, or for the woman you love. Discover here; complete your purchase on Amazon.'}
             </p>
 
             {limited && (
