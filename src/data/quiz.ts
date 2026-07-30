@@ -66,7 +66,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'desire',
     prompt: 'What are you craving from Adazo right now?',
-    sub: 'Pick up to two. No wrong answers — this is your edit.',
+    sub: 'Tap up to two — no Continue button. We’ll move on when you’re done.',
     multiSelect: true,
     maxSelect: 2,
     options: [
@@ -222,7 +222,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 'priority',
     prompt: 'If Adazo only kept three shelves for you, which matter most?',
-    sub: 'Pick up to two priorities.',
+    sub: 'Tap up to two priorities — advances on its own.',
     multiSelect: true,
     maxSelect: 2,
     options: [
