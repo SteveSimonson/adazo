@@ -30,9 +30,27 @@ npm run import:bsr
 # Cap how many ASINs to enrich (default 120)
 BSR_ENRICH_CAP=80 npm run import:bsr
 
+# Refresh images for the *current* product line (Creators GetItems, scrape fallback)
+npm run refresh:images
+# npm run refresh:images -- --creators-only
+# npm run refresh:images -- --scrape-only
+
 # Full weekly refresh → import + build + Cloudflare deploy
 npm run refresh:weekly
 ```
+
+### Creators eligibility (`AssociateNotEligible`)
+
+OAuth can succeed while **GetItems** still returns:
+
+```json
+{ "reason": "AssociateNotEligible", "type": "AccessDeniedException" }
+```
+
+That means the Associates account has not met Amazon’s API eligibility bar yet
+(qualifying sales / review). Credentials and partner tag can still be correct.
+Until Amazon enables catalog access, `refresh:images` uses product-page scrape
+for `/images/I/…` URLs so the storefront is not blocked.
 
 ## Outputs
 
