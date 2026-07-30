@@ -574,7 +574,7 @@ export const products: Product[] = [
     features: [
       'Dryer + volumizer in one',
       'Everyday styling tool',
-      'Strong Amazon demand category',
+      'High-demand house pick',
     ],
     specs: [
       { label: 'Type', value: 'Hot air brush' },
@@ -753,7 +753,7 @@ export const products: Product[] = [
     features: [
       'Rich cream texture',
       'Dewy finish',
-      'Luxury Beauty commission tier (~10%)',
+      'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Skin type', value: 'Dry / dehydrated' },
@@ -790,7 +790,7 @@ export const products: Product[] = [
     features: [
       'Prestige treatment essence',
       'High-AOV luxury skincare',
-      'Luxury Beauty commission tier (~10%)',
+      'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Step', value: 'Essence / treatment' },
@@ -826,7 +826,7 @@ export const products: Product[] = [
     features: [
       'Prestige moisturizer',
       'Peptide-focused formula story',
-      'Luxury Beauty commission tier (~10%)',
+      'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Type', value: 'Face cream' },
@@ -862,7 +862,7 @@ export const products: Product[] = [
     features: [
       'Prestige lipstick',
       'High-demand shade story',
-      'Luxury Beauty commission tier (~10%)',
+      'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Finish', value: 'Matte' },
@@ -898,7 +898,7 @@ export const products: Product[] = [
     features: [
       'Ultra-prestige moisturizer',
       'Very high AOV',
-      'Luxury Beauty commission tier (~10%)',
+      'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Tier', value: 'Prestige / Luxury Beauty' },
@@ -934,7 +934,7 @@ export const products: Product[] = [
     features: [
       'Prestige women\'s fragrance',
       'High gift AOV',
-      'Often Luxury Beauty commission adjacency',
+      'Prestige fragrance selection',
     ],
     specs: [
       { label: 'Concentration', value: 'Eau de Parfum' },

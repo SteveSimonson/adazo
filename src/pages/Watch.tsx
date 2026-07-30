@@ -15,8 +15,7 @@ import { watchSeo } from '../lib/seoData'
 type Filter = 'all' | 'category' | 'carpet' | 'cafe'
 
 /**
- * Visual short-video gallery — muted autoplay tiles from every brand clip
- * under public/brand/videos (category reels + carpet + café films).
+ * Visual short-film gallery — muted autoplay from the house library.
  */
 export function WatchPage() {
   const [filter, setFilter] = useState<Filter>('all')
@@ -38,25 +37,23 @@ export function WatchPage() {
             Watch
           </p>
           <h1 className="mt-2 font-display text-4xl sm:text-5xl font-semibold text-ink tracking-tight max-w-2xl">
-            Short films, pure visual
+            The house on film
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
-            {counts.total} muted clips from the Adazo library — category fashion
-            reels ({counts.category}), red-carpet premieres ({counts.carpet}),
-            and café lifestyle films ({counts.cafe}). Scroll to play. Sound off
-            by design.
+            {counts.total} short films — the rooms, the carpet, the café. Scroll
+            to play. Sound stays off until you invite it.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-2 text-xs font-semibold text-ink-soft">
             <VolumeX className="size-3.5" aria-hidden />
-            Always muted · visual only
+            Sound off by design
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {(
               [
                 ['all', `All (${counts.total})`],
-                ['category', `Category reels (${counts.category})`],
-                ['carpet', `Carpet (${counts.carpet})`],
-                ['cafe', `Café (${counts.cafe})`],
+                ['category', `The rooms (${counts.category})`],
+                ['carpet', `The Carpet (${counts.carpet})`],
+                ['cafe', `The Café (${counts.cafe})`],
               ] as const
             ).map(([id, label]) => (
               <button
@@ -75,10 +72,10 @@ export function WatchPage() {
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/reels" className="btn-primary">
-              Product reels
+              All films
             </Link>
             <Link to="/shop" className="btn-ghost">
-              Shop
+              Enter the house
             </Link>
           </div>
         </div>
@@ -123,10 +120,10 @@ function WatchTile({ clip }: { clip: WatchClip }) {
 
   const groupLabel =
     clip.group === 'carpet'
-      ? 'Carpet premiere'
+      ? 'The Carpet'
       : clip.group === 'cafe'
-        ? 'Café Edit'
-        : 'Category reel'
+        ? 'The Café'
+        : 'The rooms'
 
   const body = (
     <>
@@ -149,11 +146,7 @@ function WatchTile({ clip }: { clip: WatchClip }) {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-transparent" />
         <span className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-black/50 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 backdrop-blur-sm">
           <Play className="size-3 fill-current" aria-hidden />
-          {portrait ? '4:5' : '16:9'}
-        </span>
-        <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-black/50 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 backdrop-blur-sm">
-          <VolumeX className="size-3" aria-hidden />
-          Mute
+          Film
         </span>
         <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">
           <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-gold">

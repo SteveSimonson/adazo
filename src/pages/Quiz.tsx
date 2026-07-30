@@ -38,10 +38,9 @@ import {
 import { Seo } from '../components/Seo'
 import { quizSeo } from '../lib/seoData'
 
-/** Short shop-edit label from persona id (luxe → “luxe edit”). */
-function editWordForPersona(personaId: string): string {
-  const known = ['luxe', 'muse', 'sillage', 'atelier', 'dew', 'gilded'] as const
-  return (known as readonly string[]).includes(personaId) ? personaId : 'Adazo'
+/** Short shop label from persona id (luxe → “Quiet Luxe”). */
+function selectionWordForPersona(personaId: string, title: string): string {
+  return title || personaId || 'Adazo'
 }
 
 type Phase = 'intro' | 'questions' | 'result'
@@ -439,18 +438,17 @@ function Intro({ onStart }: { onStart: () => void }) {
   return (
     <div className="text-center animate-in">
       <div className="inline-flex items-center gap-2 rounded-full bg-moss text-paper px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider mb-6">
-        <PartyPopper className="size-3.5" /> 60-second Adazo vibe check
+        <PartyPopper className="size-3.5" /> A few quiet questions
       </div>
       <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.08] text-balance">
-        Which Adazo persona is yours — luxury, glam, scent, or finish?
+        Which woman are you today?
       </h1>
       <p className="mt-5 text-lg text-ink-soft max-w-xl mx-auto leading-relaxed">
-        Quick taps only — every answer advances on click, no extra Continue steps.
-        Meet your house persona with named picks ready. Save to the private edit
-        only if you want updates.
+        Tap through. Meet your house persona. Leave with a selection made for
+        her — for you, or for the woman you love.
       </p>
       <button type="button" onClick={onStart} className="btn-primary mt-10 !px-10">
-        Start the vibe check <ArrowRight className="size-4" />
+        Begin <ArrowRight className="size-4" />
       </button>
       <p className="mt-4 text-xs text-muted">
         No account required · Results first · Email optional
@@ -588,14 +586,12 @@ function SavePrivateEdit({
   onOptIn: (v: boolean) => void
   onSubmit: (e: React.FormEvent) => void
 }) {
-  const editLabel = editWordForPersona(persona.id)
-
   return (
     <section
       className="mt-8 rounded-2xl border border-bamboo/25 bg-paper-2/90 p-5 sm:p-6 shadow-[0_12px_40px_-24px_rgba(63,107,53,0.35)]"
       aria-labelledby="save-private-edit-heading"
     >
-      <p className="label-micro text-bamboo mb-1">Optional · private edit</p>
+      <p className="label-micro text-bamboo mb-1">Optional · for later</p>
       <h3
         id="save-private-edit-heading"
         className="font-display text-xl sm:text-2xl font-semibold leading-tight"
@@ -603,9 +599,8 @@ function SavePrivateEdit({
         Save your {persona.title} card
       </h3>
       <p className="mt-2 text-sm text-ink-soft leading-relaxed">
-        Keep this persona in your private Adazo edit and get this week’s{' '}
-        {editLabel} drop by email. You already have full results above — this is
-        just for follow-up.
+        Keep this persona and receive the occasional house note — new pieces,
+        short selections, nothing that shouts.
       </p>
 
       <form onSubmit={onSubmit} className="mt-5 space-y-3">
@@ -671,7 +666,7 @@ function SavePrivateEdit({
             </>
           ) : (
             <>
-              Save private edit <Sparkles className="size-4" />
+              Save my card <Sparkles className="size-4" />
             </>
           )}
         </button>
@@ -723,7 +718,7 @@ function ResultStep({
   const secondaryVibe = secondaryPersona
     ? getVibe(secondaryPersona.id)
     : null
-  const editWord = editWordForPersona(persona.id)
+  const selectionWord = selectionWordForPersona(persona.id, persona.title)
   const confidencePct = Math.round(confidence * 100)
 
   return (
@@ -841,7 +836,7 @@ function ResultStep({
             {/* CTA hierarchy: shop primary · vibe secondary · limited/retake tertiary */}
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link to={shopTo} className="btn-primary">
-                Shop your {editWord} edit <ArrowRight className="size-4" />
+                Shop {selectionWord} <ArrowRight className="size-4" />
               </Link>
               <Link to={vibePath(persona.id)} className="btn-secondary">
                 See vibe card
@@ -910,7 +905,7 @@ function ResultStep({
           </div>
           <div className="mt-8 text-center">
             <Link to={shopTo} className="btn-primary">
-              Shop your full {editWord} edit <ArrowRight className="size-4" />
+              Shop the full selection <ArrowRight className="size-4" />
             </Link>
           </div>
         </section>

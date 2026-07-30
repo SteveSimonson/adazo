@@ -20,26 +20,26 @@ export type MagazinePage = {
 
 function seriesOf(campaign: VibeCampaign): MagazineSeries | null {
   const s = campaign.season.toLowerCase()
-  // Café Edit is 16:9 lifestyle film — not a still magazine spread
+  // Café films are 16:9 lifestyle — not still magazine spreads
   if (s.includes('café') || s.includes('cafe')) return null
   if (s.includes('carpet') || s.includes('oscar') || s.includes('cannes')) {
     return 'carpet'
   }
   if (s.includes('wild')) return 'wild'
-  if (s.includes('world')) return 'world'
+  if (s.includes('world') || s.includes('abroad')) return 'world'
   return 'house'
 }
 
 function seriesLabel(series: MagazineSeries): { title: string; kicker: string } {
   switch (series) {
     case 'house':
-      return { title: 'House Campaign', kicker: 'Volume One · Fashion finish' }
+      return { title: 'The Atelier', kicker: 'Volume I · The house' }
     case 'world':
-      return { title: 'World Edit', kicker: 'Volume Two · Travel' }
+      return { title: 'Abroad', kicker: 'Volume II · Travel' }
     case 'wild':
-      return { title: 'Wild Edit', kicker: 'Volume Three · On location' }
+      return { title: 'The Wild', kicker: 'Volume III · On location' }
     case 'carpet':
-      return { title: 'Carpet Edit', kicker: 'Volume Four · Red carpet' }
+      return { title: 'The Carpet', kicker: 'Volume IV · Night light' }
   }
 }
 
@@ -50,7 +50,7 @@ export function buildMagazinePages(): MagazinePage[] {
       id: 'cover',
       kind: 'cover',
       title: 'ADAZO',
-      kicker: 'The House Book · Fashion Destination',
+      kicker: 'The House Book · Since 1726',
     },
   ]
 
@@ -113,8 +113,8 @@ export const MAGAZINE_SERIES_FILTERS: {
   label: string
 }[] = [
   { id: 'all', label: 'Full issue' },
-  { id: 'house', label: 'House' },
-  { id: 'world', label: 'World' },
-  { id: 'wild', label: 'Wild' },
-  { id: 'carpet', label: 'Carpet' },
+  { id: 'house', label: 'The Atelier' },
+  { id: 'world', label: 'Abroad' },
+  { id: 'wild', label: 'The Wild' },
+  { id: 'carpet', label: 'The Carpet' },
 ]

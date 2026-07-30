@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
 import { VIBE_LIST, vibePath } from '../data/vibes'
+import { BRAND } from '../data/brand'
 import { GlobalSeo } from './Seo'
 
 /** Lean primary nav — categories live on /shop, not the header. */
@@ -34,12 +35,12 @@ export function Layout() {
           to="/shop?limited=1"
           className="hover:underline underline-offset-2"
         >
-          <span className="font-semibold text-gold">Limited-time options</span>
-          {limited.count > 0 ? ` · ${limited.count} this week` : ''}
-          {until ? ` · Refresh ${until}` : ''}
+          <span className="font-semibold text-gold">This week’s selection</span>
+          {limited.count > 0 ? ` · ${limited.count} pieces` : ''}
+          {until ? ` · Until ${until}` : ''}
           <span className="text-paper/70">
             {' '}
-            · Shop on Adazo · Buy on Amazon
+            · {BRAND.mottoEn}
           </span>
         </Link>
       </div>
@@ -118,7 +119,7 @@ export function Layout() {
               className="block px-3 py-2.5 rounded-xl font-semibold text-ink hover:bg-paper-2"
               onClick={() => setOpen(false)}
             >
-              Product reels
+              Films
             </Link>
             <Link
               to="/why"
@@ -140,12 +141,14 @@ export function Layout() {
           <div className="lg:col-span-1">
             <p className="font-display text-2xl font-semibold text-moss">Adazo</p>
             <p className="text-sm text-ink-soft mt-3 leading-relaxed max-w-xs">
-              Curated Amazon Best Sellers and concern-first routines for women’s
-              health and beauty. Discover here. Buy on Amazon.
+              {BRAND.footerBlurb}
+            </p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-bamboo">
+              {BRAND.mark}
             </p>
           </div>
           <div>
-            <p className="label-micro mb-3">Explore</p>
+            <p className="label-micro mb-3">The house</p>
             <ul className="space-y-2 text-sm font-medium">
               <li>
                 <Link to="/shop" className="hover:text-bamboo">
@@ -154,12 +157,12 @@ export function Layout() {
               </li>
               <li>
                 <Link to="/shop?limited=1" className="hover:text-bamboo">
-                  This week’s edit
+                  This week
                 </Link>
               </li>
               <li>
                 <Link to="/quiz" className="hover:text-bamboo">
-                  Vibe check
+                  Your persona
                 </Link>
               </li>
               <li>
@@ -169,13 +172,13 @@ export function Layout() {
               </li>
               <li>
                 <Link to="/reels" className="hover:text-bamboo">
-                  Product reels
+                  Films
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <p className="label-micro mb-3">Vibes</p>
+            <p className="label-micro mb-3">Personas</p>
             <ul className="space-y-2 text-sm font-medium">
               {VIBE_LIST.map((v) => (
                 <li key={v.id}>
@@ -196,13 +199,12 @@ export function Layout() {
               </li>
             </ul>
             <p className="text-xs text-muted mt-6 leading-relaxed">
-              As an Amazon Associate, Adazo earns from qualifying purchases.
-              Prices and availability are set by Amazon and may change.
+              {BRAND.affiliateDisclosure}
             </p>
           </div>
         </div>
         <div className="border-t border-line py-4 text-center text-xs text-muted">
-          © {new Date().getFullYear()} Adazo · adazo.com
+          © {new Date().getFullYear()} Adazo · Since {BRAND.founded} · adazo.com
         </div>
       </footer>
     </div>

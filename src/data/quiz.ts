@@ -435,7 +435,7 @@ export const PERSONAS: Record<string, Persona> = {
     title: 'The Soft Glam Muse',
     tagline: 'Color, light, and confidence in the mirror.',
     story:
-      'Getting ready is a ritual worth dressing for. You want lips, flush, and finish that photograph expensive — polished, never costume. Adazo curates the soft glam edit; Amazon completes the cart.',
+      'Getting ready is a ritual worth dressing for. You want lips, flush, and finish that photograph expensive — polished, never costume. Discover the soft glam selection here; complete your purchase on Amazon.',
     categories: ['makeup', 'lips', 'luxury'],
     accent: '#b76e79',
   },
@@ -453,7 +453,7 @@ export const PERSONAS: Record<string, Persona> = {
     title: 'The Fashion Finisher',
     tagline: 'Bags, gold, the last perfect piece.',
     story:
-      'Beauty alone isn’t the look — the finish is. You shop Adazo for handbags and jewelry that complete the glow: structure, light, silhouette. Fashion energy with beauty-editor taste.',
+      'Beauty alone isn’t the look — the finish is. Handbags and jewelry that complete the glow: structure, light, silhouette. Fashion energy with a collector’s eye.',
     categories: ['handbags', 'jewelry', 'fragrance'],
     accent: '#5c3a2e',
   },

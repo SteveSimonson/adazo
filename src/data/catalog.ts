@@ -153,27 +153,27 @@ export const collections = Array.from(
 function collectionBlurb(label: string): string {
   const map: Record<string, string> = {
     'Luxury Beauty':
-      'Prestige skincare and makeup — highest Associates commission tier (~10%).',
-    Fragrance: 'Perfume and fine fragrance with gift-ready AOV.',
+      'Prestige skincare and makeup — weighty jars, considered formulas, the top shelf.',
+    Fragrance: 'Perfume and fine fragrance — the trail that arrives first.',
     Skincare: 'Cleansers, serums, moisturizers, and barrier care.',
     Hair: 'Treatments, oils, and refresh essentials.',
     Makeup: 'Everyday color and finish staples.',
     Body: 'Lotions, mists, and body care rituals.',
-    Tools: 'Stylers, dryers, and high-utility devices.',
+    Tools: 'Stylers, dryers, and devices that earn their place.',
     SPF: 'Daily sun protection that wears well under makeup.',
     Wellness: 'Collagen and beauty-adjacent wellness picks.',
     Lips: 'Masks, balms, and soft-finish lip care.',
     Jewelry: 'Fine jewelry $1,000+ — diamonds, designer, pre-loved polish.',
-    Handbags: 'Designer luxury handbags — big-ticket fashion finish.',
+    Handbags: 'Designer handbags — the piece that finishes the exit.',
     'Luxury Handbags':
-      'Designer luxury handbags from Amazon ($900+ focus) — LV, Gucci, Prada, and more.',
+      'Designer handbags — LV, Gucci, Prada, and more. Big-ticket fashion finish.',
     'Luxury Jewelry':
-      'Fine and designer jewelry $1,000+ — Cartier, Tiffany, diamonds, and more.',
+      'Fine and designer jewelry $1,000+ — diamonds, polish, quiet authority.',
     'Luxury Watches':
       'Luxury watches $1,000+ — Swiss and designer timepieces.',
-    Gold: 'Solid gold jewelry $500+ — chains, bands, and fine gold polish.',
+    Gold: 'Solid gold jewelry $500+ — chains, bands, and weight you can feel.',
   }
-  return map[label] ?? 'Curated women\'s health and beauty for real routines.'
+  return map[label] ?? 'Curated for the vanity and the gift box.'
 }
 
 export function getProduct(slug: string): Product | undefined {

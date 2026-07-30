@@ -85,7 +85,7 @@ export function ProductPage() {
       <div className="max-w-lg mx-auto px-4 py-20 text-center">
         <Seo
           title="Product not found"
-          description="This product is no longer on the Adazo beauty edit."
+          description="This piece is no longer in the house selection."
           path={`/product/${slug || ''}`}
           noindex
         />
@@ -254,23 +254,18 @@ export function ProductPage() {
                 <Clock3 className="size-5 text-[#9a3412] shrink-0 mt-0.5" />
                 <div>
                   <p className="text-[11px] font-bold uppercase tracking-wide text-[#9a3412]">
-                    Options only available for a limited time
+                    This week only
                   </p>
                   <p className="text-sm text-[#9a3412]/90 mt-0.5">
-                    {product.source === 'amazon-bsr'
-                      ? 'Part of this week’s Amazon Best Sellers edit'
-                      : product.source === 'curated'
-                        ? 'Part of this week’s Adazo beauty edit'
-                        : 'Part of this week’s limited-time beauty edit'}
+                    Part of this week’s house selection
                     {product.source === 'amazon-bsr' &&
                     product.bsrRank != null &&
-                    product.bsrCategory
+                    product.bsrCategory &&
+                    !/editor limited edit/i.test(product.bsrCategory)
                       ? ` · #${product.bsrRank} in ${product.bsrCategory}`
                       : ''}
-                    {until ? ` · Rotates ${until}` : ''}.
-                    {product.source === 'amazon-bsr'
-                      ? ' Rankings move—shop while it’s on the list.'
-                      : ' Options rotate weekly—shop while this placement is live.'}
+                    {until ? ` · Until ${until}` : ''}. Shop while it holds its
+                    place.
                   </p>
                 </div>
               </div>

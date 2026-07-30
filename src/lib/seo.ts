@@ -2,9 +2,9 @@
 
 export const SITE_URL = 'https://adazo.com'
 export const SITE_NAME = 'Adazo'
-export const DEFAULT_TITLE = "Adazo — Women's health & beauty, curated"
+export const DEFAULT_TITLE = 'Adazo — Beauty is passed down'
 export const DEFAULT_DESCRIPTION =
-  'Discover curated Amazon Best Sellers and concern-first routines for women\'s skincare, hair, makeup, and body. Shop the weekly edit on Adazo; buy securely on Amazon.'
+  'Since 1726. Luxury beauty, fragrance, and fashion finish for treating yourself — or the woman you love. Discover Adazo; complete your purchase on Amazon.'
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/social.png`
 export const TWITTER_HANDLE = '' // set if brand X account exists
 

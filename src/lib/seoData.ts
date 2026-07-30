@@ -60,17 +60,17 @@ export function shopSeo(opts: {
  const title = cat
   ? `${CATEGORY_LABELS[cat]}`
   : limited
-   ? 'This week’s limited options'
-   : 'Shop for every routine'
+   ? 'This week’s selection'
+   : 'The collection'
 
  const description =
   cat && categoryHero
    ? clipMeta(
-     `${categoryHero.blurb} Browse ${count} ${CATEGORY_LABELS[cat].toLowerCase()} picks on Adazo; buy on Amazon.`,
+     `${categoryHero.blurb} ${count} pieces on Adazo — for you, or for her. Complete your purchase on Amazon.`,
     )
    : limited
-    ? 'Amazon Best Sellers edit for skincare, hair, makeup, and body. Limited-time options that refresh weekly—discover on Adazo, buy on Amazon.'
-    : 'Shop skincare, hair, makeup, body, SPF, and tools. Discover the collection on Adazo; complete purchase on Amazon.'
+    ? 'A short house selection this week. Discover on Adazo; complete your purchase on Amazon.'
+    : 'Luxury beauty, fragrance, gold, and fashion finish. Discover Adazo; complete your purchase on Amazon.'
 
  const crumbs = [
   { name: 'Home', path: '/' },
@@ -170,9 +170,9 @@ export function vibeSeo(vibe: VibeProfile): PageSeo {
 
 export function whySeo(): PageSeo {
  return {
-  title: "Our story — women's beauty, curated",
+  title: 'Our story — Ada Zoppi, 1726',
   description:
-   'Adazo is a destination for women\'s beauty—skincare, hair, makeup, and body. We curate the collection; Amazon handles fulfillment you already trust.',
+   'The founding legend of Adazo: Ada Zoppi in the Brianza hills, 1726. Beauty is not taught. It is passed down. Luxury for treating yourself — or the woman you love.',
   path: '/why',
   image: '/brand/social.png',
   preloadImage: '/brand/social.png',
@@ -182,35 +182,33 @@ export function whySeo(): PageSeo {
 
 export function quizSeo(): PageSeo {
  return {
-  title: 'Adazo Vibe Check — find your luxury persona',
+  title: 'Find your Adazo persona',
   description:
-   'Take the 60-second Adazo Vibe Check. Match with Quiet Luxe, Soft Glam Muse, Signature Scent, Fashion Finisher, Glow Ritualist, or Full Edit — then shop prestige beauty, fragrance, and fashion finish.',
+   'A few quiet questions. Discover which house persona you wear today — then shop the selection made for her.',
   path: '/quiz',
  }
 }
 
-/** Product reels — 4:5 Amazon-insert fashion clips (multi-generation). */
 export function reelsSeo(): PageSeo {
  return {
-  title: 'Product reels — fashion in the scroll',
+  title: 'Moving pictures',
   description:
-   'Short fashion reels for every Adazo shop category — multiple creative generations, sized like product cards (4:5 Amazon insert). The same pool randomly inserts into shop grids to cross-promote rooms.',
+   'Short fashion films from every room of the house — beauty, fragrance, gold, and the bag that finishes the exit.',
   path: '/reels',
   image: '/brand/promo/lookbook-handbags.jpg',
   preloadImage: '/brand/promo/lookbook-handbags.jpg',
   jsonLd: breadcrumbJsonLd([
    { name: 'Home', path: '/' },
-   { name: 'Product reels', path: '/reels' },
+   { name: 'Films', path: '/reels' },
   ]),
  }
 }
 
-/** Muted short-video gallery of all brand clips. */
 export function watchSeo(): PageSeo {
  return {
-  title: 'Watch — short fashion films',
+  title: 'Watch — the house on film',
   description:
-   'Muted short videos from the Adazo library: category fashion reels and red-carpet premieres. Pure visual — scroll to play.',
+   'Muted short films from Adazo: the atelier, the carpet, the café. Scroll to watch. Sound off by design.',
   path: '/watch',
   image: '/brand/promo/lookbook-handbags.jpg',
   preloadImage: '/brand/promo/lookbook-handbags.jpg',

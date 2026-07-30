@@ -9,9 +9,9 @@ export const bsrWeekOf = '' as const
 export const bsrFetchedAt = '' as const
 export const bsrExpiresAt = '' as const
 export const bsrMarketing = {
-  headline: 'OPTIONS ONLY AVAILABLE FOR A LIMITED TIME',
+  headline: 'FOR A LIMITED TIME ONLY',
   subhead:
-    "This week's women's beauty edit — Amazon Best Sellers curated for Adazo. Lists refresh weekly.",
+    "A short selection of what the house is wearing now. It will not last.",
   refreshCadence: 'weekly',
 } as const
 

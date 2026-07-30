@@ -5,8 +5,8 @@ import type { CategoryReel } from '../data/reels'
 import { trackEvent } from '../lib/analytics'
 
 /**
- * Amazon-insert-sized fashion tile (same 4:5 well as ProductCard).
- * Muted autoplay when in view; links to the cross-promoted shop category.
+ * Fashion film tile in product grids (same 4:5 well as ProductCard).
+ * Muted autoplay when in view; links to the related shop category.
  */
 export function ReelInsertCard({
   reel,
@@ -62,16 +62,13 @@ export function ReelInsertCard({
             loop
             playsInline
             preload="metadata"
-            aria-label={`${reel.title} fashion reel: ${reel.motionLabel}`}
+            aria-label={`${reel.title} film: ${reel.motionLabel}`}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-charcoal/20" />
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5">
             <span className="inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
               <Sparkles className="size-3 text-bamboo" aria-hidden />
               Discover
-            </span>
-            <span className="rounded-full bg-moss/90 text-paper text-[10px] font-bold uppercase tracking-wider px-2 py-1">
-              G{reel.generation}
             </span>
           </span>
           <span className="absolute top-3 right-3 inline-flex items-center justify-center size-8 rounded-full bg-black/45 text-white backdrop-blur-sm">
@@ -90,7 +87,7 @@ export function ReelInsertCard({
           className={`flex flex-col flex-1 ${compact ? 'p-3.5 gap-1' : 'p-4 gap-1.5'}`}
         >
           <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-bamboo">
-            Cross the edit
+            From the house
           </p>
           <h3
             className={`font-display font-semibold leading-snug text-ink group-hover:text-bamboo transition ${
@@ -104,10 +101,10 @@ export function ReelInsertCard({
           </p>
           <div className="mt-auto pt-3 flex items-end justify-between gap-2 border-t border-line/70">
             <span className="text-xs font-semibold text-bamboo">
-              Browse category
+              Open the room
             </span>
             <span className="text-[11px] font-semibold text-bamboo opacity-0 group-hover:opacity-100 transition">
-              Open
+              Shop
             </span>
           </div>
         </div>

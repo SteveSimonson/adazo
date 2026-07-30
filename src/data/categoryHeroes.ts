@@ -75,7 +75,7 @@ export const HEROES: Record<Category, CategoryHeroContent> = {
   luxury: {
     title: 'Luxury Beauty',
     blurb:
-      'Prestige skincare and makeup — the highest Amazon Associates commission tier (~10%).',
+      'Prestige on the vanity — weighty jars, considered formulas, the quiet of the top shelf.',
     image: '/brand/categories/luxury.jpg',
     objectPosition: 'center 40%',
     alt: 'Prestige cream jars on a champagne marble vanity',

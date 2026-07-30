@@ -84,14 +84,14 @@ export function Home() {
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <div>
               <p className="label-micro mb-2 inline-flex items-center gap-1.5">
-                <Sparkles className="size-3.5" /> Prestige & fashion
+                <Sparkles className="size-3.5" /> The elevated shelves
               </p>
               <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink">
-                Shop the elevated shelves
+                For you — or for her
               </h2>
               <p className="text-ink-soft mt-2 max-w-xl font-light">
-                Big-ticket designer handbags first, then prestige beauty,
-                fragrance, and jewelry to finish the look.
+                The bag that finishes the exit. Gold at the collarbone.
+                Fragrance that arrives before you do.
               </p>
             </div>
           </div>
@@ -193,11 +193,10 @@ export function Home() {
                   {limited.headline}
                 </p>
                 <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink">
-                  This week’s Amazon Best Sellers
+                  What the house is wearing now
                 </h2>
                 <p className="text-ink-soft mt-2 max-w-xl font-light">
-                  Ranked placements from Amazon’s public Best Sellers
-                  lists—curated for women’s beauty on Adazo.
+                  A short selection. It will not last. That is the point.
                 </p>
               </div>
               <Link
@@ -221,9 +220,9 @@ export function Home() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
-            <p className="label-micro mb-2">Shop by category</p>
+            <p className="label-micro mb-2">The rooms</p>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold">
-              Find your category
+              Choose your shelf
             </h2>
           </div>
           <Link to="/shop" className="text-sm font-semibold text-bamboo hover:underline">
@@ -270,9 +269,9 @@ export function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <div>
-              <p className="label-micro mb-2">Editor picks</p>
+              <p className="label-micro mb-2">From the book</p>
               <h2 className="font-display text-3xl sm:text-4xl font-semibold">
-                Curated for confidence
+                Pieces with quiet authority
               </h2>
             </div>
           </div>
@@ -287,9 +286,9 @@ export function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
-        <p className="label-micro mb-2">Adazo vibe check</p>
+        <p className="label-micro mb-2">The house personas</p>
         <h2 className="font-display text-3xl sm:text-4xl font-semibold mb-8">
-          What’s your luxury persona?
+          Which woman are you today?
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {VIBE_LIST.map((v) => (
@@ -306,7 +305,7 @@ export function Home() {
         </div>
         <div className="mt-8">
           <Link to="/quiz" className="btn-primary">
-            Take the vibe check <ArrowRight className="size-4" />
+            Find your persona <ArrowRight className="size-4" />
           </Link>
         </div>
       </section>
@@ -315,7 +314,7 @@ export function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16">
             <h2 className="font-display text-3xl font-semibold mb-8">
-              More from Adazo
+              Further into the house
             </h2>
             <ProductGrid
               products={newArrivals}

@@ -9,7 +9,6 @@ import {
   ShoppingBag,
   Sparkles,
   Star,
-  VolumeX,
   Zap,
 } from 'lucide-react'
 import {
@@ -33,37 +32,37 @@ function campaignSeriesKind(campaign: VibeCampaign) {
   if (s.includes('carpet') || s.includes('oscar') || s.includes('cannes'))
     return 'carpet' as const
   if (s.includes('wild')) return 'wild' as const
-  if (s.includes('world')) return 'world' as const
+  if (s.includes('world') || s.includes('abroad')) return 'world' as const
   return 'house' as const
 }
 
 function campaignAsideBlurb(campaign: VibeCampaign, name: string) {
   switch (campaignSeriesKind(campaign)) {
     case 'cafe':
-      return `Café Edit — upscale lifestyle film. ${name} in a world-class café; beauty as a lived ritual.`
+      return `${name} at the table — daylight, porcelain, the soft discipline of being seen.`
     case 'carpet':
-      return `Carpet Edit — Oscars & Cannes glamour. Face locked; jewelry and wardrobe free.`
+      return `${name} under night light — jewels free, posture certain, the room already hers.`
     case 'wild':
-      return `Wild Edit — on location with exotic animals. Face locked; jewelry and wardrobe free.`
+      return `${name} far from the salon — beauty that holds when the ground is uneven.`
     case 'world':
-      return `World Edit — travel fashion still. New destination, same model fidelity.`
+      return `${name} abroad — a new city, the same quiet authority.`
     default:
-      return `House campaign with ${name}’s face locked from her reference — ADAZO branding.`
+      return `${name} for the house — the face you return to, season after season.`
   }
 }
 
 function campaignSeriesLabel(campaign: VibeCampaign) {
   switch (campaignSeriesKind(campaign)) {
     case 'cafe':
-      return 'Café Edit series'
+      return 'The Café'
     case 'carpet':
-      return 'Carpet Edit series'
+      return 'The Carpet'
     case 'wild':
-      return 'Wild Edit series'
+      return 'The Wild'
     case 'world':
-      return 'World Edit series'
+      return 'Abroad'
     default:
-      return 'House campaign'
+      return 'The Atelier'
   }
 }
 
@@ -282,7 +281,7 @@ export function VibePage() {
               <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
                 <div>
                   <p className="label-micro text-gold mb-2">
-                    Adazo · fashion destination
+                    {campaignSeriesLabel(campaign)}
                     {campaign.destination ? ` · ${campaign.destination}` : ''}
                   </p>
                   <h2
@@ -292,7 +291,7 @@ export function VibePage() {
                     {campaign.title}
                   </h2>
                   <p className="mt-2 text-sm text-white/55 max-w-xl">
-                    {campaign.season} · Model portfolio · {vibe.avatar.name}
+                    {vibe.avatar.name} · {vibe.title}
                   </p>
                 </div>
                 <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
@@ -320,24 +319,16 @@ export function VibePage() {
                   <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 sm:p-7 space-y-5">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
-                        Creative concept
+                        The idea
                       </p>
                       <p className="mt-2 text-base text-white/85 font-light leading-relaxed">
                         {campaign.concept}
                       </p>
                     </div>
-                    <div className="border-t border-white/10 pt-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
-                        Direction
-                      </p>
-                      <p className="mt-2 text-sm text-white/60 leading-relaxed">
-                        {campaign.direction}
-                      </p>
-                    </div>
                     <div className="border-t border-white/10 pt-5 grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                          Talent
+                          Worn by
                         </p>
                         <p className="mt-1 font-semibold text-white">
                           {vibe.avatar.name}
@@ -348,7 +339,7 @@ export function VibePage() {
                       </div>
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                          {campaign.destination ? 'Destination' : 'Persona'}
+                          {campaign.destination ? 'Where' : 'Persona'}
                         </p>
                         <p className="mt-1 font-semibold text-white">
                           {campaign.destination ?? vibe.title}
@@ -367,7 +358,7 @@ export function VibePage() {
                       to={`/shop?cat=${vibe.categories[0]}`}
                       className="inline-flex items-center gap-1.5 rounded-full bg-white text-ink px-5 py-3 text-xs font-bold hover:bg-gold transition"
                     >
-                      Shop the campaign edit <ArrowRight className="size-3.5" />
+                      Shop her selection <ArrowRight className="size-3.5" />
                     </Link>
                     <Link
                       to="/quiz"
@@ -385,18 +376,18 @@ export function VibePage() {
                   <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
-                        Premiere clip · 16:9
+                        On film
                       </p>
                       <p className="font-display text-xl sm:text-2xl font-semibold text-white mt-1">
                         {kind === 'carpet'
-                          ? `${vibe.avatar.name} on the carpet`
-                          : `${vibe.avatar.name} · living film`}
+                          ? `${vibe.avatar.name} after dark`
+                          : `${vibe.avatar.name}, in motion`}
                       </p>
                     </div>
                     <p className="text-xs text-white/40 max-w-sm text-right hidden sm:block">
                       {kind === 'carpet'
-                        ? 'Paparazzi flash energy — same face, living red-carpet moment.'
-                        : 'Same face, living motion — muted by design for scroll.'}
+                        ? 'Night light. Quiet certainty. The room rearranges around her.'
+                        : 'Living motion — beauty that does not pose; it simply is.'}
                     </p>
                   </div>
                   <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]">
@@ -755,7 +746,7 @@ export function VibePage() {
   )
 }
 
-/** Video-first Café Edit block — 16:9 lifestyle film, muted autoplay on view */
+/** Video-first café film — muted autoplay when in view */
 function CafeEditSection({
   vibe,
   campaign,
@@ -802,7 +793,7 @@ function CafeEditSection({
           <div>
             <p className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-gold mb-2">
               <span className="size-1.5 rounded-full bg-gold animate-pulse" />
-              Café Edit · Lifestyle film
+              The Café
               {campaign.destination ? ` · ${campaign.destination}` : ''}
             </p>
             <h2
@@ -812,7 +803,7 @@ function CafeEditSection({
               {campaign.title}
             </h2>
             <p className="mt-2 text-sm text-white/55 max-w-xl">
-              {vibe.avatar.name} · upscale café ritual · muted scroll film
+              {vibe.avatar.name} · daylight · porcelain · the discipline of ease
             </p>
           </div>
           <p className="text-xs text-white/40 max-w-xs text-right hidden sm:block leading-relaxed">
@@ -836,16 +827,6 @@ function CafeEditSection({
                   controls
                   aria-label={`${vibe.avatar.name} — ${campaign.title}`}
                 />
-                <div className="pointer-events-none absolute top-3 left-3 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-black/55 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 backdrop-blur-sm border border-white/10">
-                    <Play className="size-3 fill-current" aria-hidden />
-                    16:9 · 6s
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-black/55 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 backdrop-blur-sm border border-white/10">
-                    <VolumeX className="size-3" aria-hidden />
-                    Muted
-                  </span>
-                </div>
                 {!playing && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                     <span className="flex size-14 items-center justify-center rounded-full bg-white/15 border border-white/25 backdrop-blur-md">
@@ -856,8 +837,8 @@ function CafeEditSection({
               </div>
             </div>
             <p className="mt-3 text-xs text-white/40 leading-relaxed max-w-2xl">
-              Amazon scroll energy — beauty as a café ritual. Auto-plays when in
-              view; sound stays off by design.
+              Beauty as a café ritual. It plays when you arrive; the sound stays
+              off — as luxury should, until invited.
             </p>
           </div>
 
@@ -865,7 +846,7 @@ function CafeEditSection({
             <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 space-y-5 flex-1">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/45">
-                  Creative concept
+                  The idea
                 </p>
                 <p className="mt-2 text-base text-white/85 font-light leading-relaxed">
                   {campaign.concept}
@@ -874,7 +855,7 @@ function CafeEditSection({
               <div className="border-t border-white/10 pt-5 grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                    Talent
+                    Worn by
                   </p>
                   <p className="mt-1 font-semibold text-white">
                     {vibe.avatar.name}
@@ -885,13 +866,13 @@ function CafeEditSection({
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-                    Destination
+                    Where
                   </p>
                   <p className="mt-1 font-semibold text-white">
                     {campaign.destination}
                   </p>
                   <p className="text-white/50 text-xs mt-0.5">
-                    Café Edit series
+                    The Café
                   </p>
                 </div>
               </div>
@@ -908,7 +889,7 @@ function CafeEditSection({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent" />
                 <p className="absolute bottom-3 left-3 right-3 text-[10px] font-bold uppercase tracking-[0.14em] text-gold">
-                  Key frame · still
+                  Still from the film
                 </p>
               </div>
             </div>
