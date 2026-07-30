@@ -661,7 +661,7 @@ export function VibePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
             <p className="label-micro mb-2">Often blends with</p>
             <h2 className="font-display text-2xl font-semibold mb-6">
-              Real edits mix personas
+              Personas blend — the house is not a single face
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {blendVibes.map((v) => (

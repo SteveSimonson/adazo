@@ -530,7 +530,7 @@ export const products: Product[] = [
     name: 'Dyson Airwrap Multi-styler',
     tagline: 'High-ticket styling system for curls, waves, and smooth finishes.',
     description:
-      'Premium multi-styler tool for hair. Higher AOV luxury-adjacent pick. Discover on Adazo; buy on Amazon.',
+      'Premium multi-styler tool for hair. A statement tool for the vanity. Discover on Adazo; buy on Amazon.',
     category: 'tools',
     collection: 'Tools',
     brand: 'Dyson',
@@ -758,12 +758,12 @@ export const products: Product[] = [
     specs: [
       { label: 'Skin type', value: 'Dry / dehydrated' },
       { label: 'Finish', value: 'Dewy' },
-      { label: 'Commission tier', value: 'Luxury Beauty (~10%)' },
+      { label: 'Shelf', value: 'Prestige · top shelf' },
     ],
     priceHint: 72.0,
     asin: 'B0GFQ5QGP5',
     searchKeywords: 'Tatcha The Dewy Skin Cream',
-    badge: 'Luxury · ~10%',
+    badge: 'Prestige',
     images: [
       'https://m.media-amazon.com/images/I/61hBZFTi8qL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/71Cvbr4JY3L._AC_SL1000_.jpg',
@@ -789,17 +789,17 @@ export const products: Product[] = [
     material: 'Facial essence',
     features: [
       'Prestige treatment essence',
-      'High-AOV luxury skincare',
+      'Prestige skincare',
       'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Step', value: 'Essence / treatment' },
-      { label: 'Commission tier', value: 'Luxury Beauty (~10%)' },
+      { label: 'Shelf', value: 'Prestige · top shelf' },
     ],
     priceHint: 99.0,
     asin: 'B0FL9S44DL',
     searchKeywords: 'SK-II Facial Treatment Essence',
-    badge: 'Luxury · ~10%',
+    badge: 'Prestige',
     images: [
       'https://m.media-amazon.com/images/I/61oNY3CSJQL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/71-kdayjHyL._AC_SL1000_.jpg',
@@ -830,12 +830,12 @@ export const products: Product[] = [
     ],
     specs: [
       { label: 'Type', value: 'Face cream' },
-      { label: 'Commission tier', value: 'Luxury Beauty (~10%)' },
+      { label: 'Shelf', value: 'Prestige · top shelf' },
     ],
     priceHint: 68.0,
     asin: 'B08KWRN54G',
     searchKeywords: 'Drunk Elephant Protini Polypeptide Cream',
-    badge: 'Luxury · ~10%',
+    badge: 'Prestige',
     images: [
       'https://m.media-amazon.com/images/I/51HzPP4D9KL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/810sD5jm8zL._AC_SL1000_.jpg',
@@ -866,12 +866,12 @@ export const products: Product[] = [
     ],
     specs: [
       { label: 'Finish', value: 'Matte' },
-      { label: 'Commission tier', value: 'Luxury Beauty (~10%)' },
+      { label: 'Shelf', value: 'Prestige · top shelf' },
     ],
     priceHint: 35.0,
     asin: 'B0848Y5D4B',
     searchKeywords: 'Charlotte Tilbury Pillow Talk lipstick',
-    badge: 'Luxury · ~10%',
+    badge: 'Prestige',
     images: [
       'https://m.media-amazon.com/images/I/61TM3BeC7iL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/81pnOt+8GqL._AC_SL1000_.jpg',
@@ -890,24 +890,24 @@ export const products: Product[] = [
     name: 'La Mer Crème de la Mer Moisturizing Cream',
     tagline: 'Ultra-prestige cream for the high-ticket skincare cart.',
     description:
-      'Flagship luxury cream with top-tier AOV. Discover on Adazo; buy on Amazon.',
+      'Flagship luxury cream. Discover on Adazo; buy on Amazon.',
     category: 'luxury',
     collection: 'Luxury Beauty',
     brand: 'La Mer',
     material: 'Moisturizing cream',
     features: [
       'Ultra-prestige moisturizer',
-      'Very high AOV',
+      'Collector piece',
       'Prestige beauty — top-shelf selection',
     ],
     specs: [
       { label: 'Tier', value: 'Prestige / Luxury Beauty' },
-      { label: 'Commission tier', value: 'Luxury Beauty (~10%)' },
+      { label: 'Shelf', value: 'Prestige · top shelf' },
     ],
     priceHint: 190.0,
     asin: 'B0D1T4FF37',
     searchKeywords: 'La Mer Creme de la Mer moisturizing cream',
-    badge: 'Luxury · ~10%',
+    badge: 'Prestige',
     images: [
       'https://m.media-amazon.com/images/I/61YFx9myqPL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/618WTN5PlML._AC_SL1000_.jpg',
@@ -933,7 +933,7 @@ export const products: Product[] = [
     material: 'Eau de parfum',
     features: [
       'Prestige women\'s fragrance',
-      'High gift AOV',
+      'Gift-ready',
       'Prestige fragrance selection',
     ],
     specs: [
@@ -943,7 +943,7 @@ export const products: Product[] = [
     priceHint: 98.0,
     asin: 'B07X1YGWSX',
     searchKeywords: 'Yves Saint Laurent Libre Eau de Parfum',
-    badge: 'Fragrance AOV',
+    badge: 'Fragrance',
     images: [
       'https://m.media-amazon.com/images/I/51v0HbffdGL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/61P4VIdN9ZL._AC_SL1000_.jpg',
@@ -970,7 +970,7 @@ export const products: Product[] = [
     features: [
       'Floral eau de parfum',
       'Gift-friendly bottle story',
-      'High AOV fragrance',
+      'Signature fragrance',
     ],
     specs: [
       { label: 'Concentration', value: 'Eau de Parfum' },
@@ -979,7 +979,7 @@ export const products: Product[] = [
     priceHint: 120.0,
     asin: 'B00BEG4QH2',
     searchKeywords: 'Viktor Rolf Flowerbomb Eau de Parfum',
-    badge: 'Fragrance AOV',
+    badge: 'Fragrance',
     images: [
       'https://m.media-amazon.com/images/I/61ZR3eNks5L._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/81i39nBxCyL._AC_SL1000_.jpg',
@@ -1006,7 +1006,7 @@ export const products: Product[] = [
     features: [
       'Designer fragrance',
       'High brand search volume',
-      'Strong gift AOV',
+      'Gift-ready',
     ],
     specs: [
       { label: 'Concentration', value: 'Eau de Toilette' },
@@ -1015,7 +1015,7 @@ export const products: Product[] = [
     priceHint: 105.0,
     asin: 'B00B0ZLF9Y',
     searchKeywords: 'Chanel Chance Eau Tendre Eau de Toilette',
-    badge: 'Fragrance AOV',
+    badge: 'Fragrance',
     images: [
       'https://m.media-amazon.com/images/I/713iNaGYSsL._AC_SL1000_.jpg',
       'https://m.media-amazon.com/images/I/71vwTu8tFeL._AC_SL1000_.jpg',
@@ -1041,7 +1041,7 @@ export const products: Product[] = [
     features: [
       'Designer women\'s fragrance',
       'Gift-set friendly',
-      'High AOV',
+      'Elevated pick',
     ],
     specs: [
       { label: 'Concentration', value: 'Eau de Parfum' },
