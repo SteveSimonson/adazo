@@ -5,15 +5,17 @@ import {
   REELS_GEN1,
   REELS_GEN2,
   REELS_JETSET,
+  REELS_SKI,
   reelCtaLabel,
   reelHref,
+  reelSeries,
   type CategoryReel,
 } from '../data/reels'
 import { reelsSeo } from '../lib/seoData'
 import { useEffect, useRef } from 'react'
 
 /**
- * Short fashion films — portrait clips for rooms + persona jet-set.
+ * Short fashion films — rooms + persona series (ski, jet-set).
  */
 export function ReelsPage() {
   return (
@@ -28,9 +30,9 @@ export function ReelsPage() {
             Moving pictures
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
-            House personas jet-setting the world — and short films from every
-            room. They appear in the shop scroll so the house finds you. Scroll
-            to watch.
+            Ski holidays, jet-set arrivals, and short films from every room.
+            They appear in the shop scroll so the house finds you. Scroll to
+            watch.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/quiz" className="btn-primary">
@@ -44,10 +46,15 @@ export function ReelsPage() {
       </section>
 
       <GenerationSection
-        label="Jet set"
-        blurb="Six house faces, six extravagant arrivals — private jets, yachts, helipads. Tap any film to take the vibe check."
-        reels={REELS_JETSET}
+        label="Ski holiday"
+        blurb="Six house faces on extravagant alpine holidays — Courchevel, St. Moritz, Aspen, Gstaad, Zermatt, Verbier. Tap any film for the vibe check."
+        reels={REELS_SKI}
         featured
+      />
+      <GenerationSection
+        label="Jet set"
+        blurb="Private jets, yachts, helipads — the house between cities."
+        reels={REELS_JETSET}
       />
       <GenerationSection
         label="The rooms · new wave"
@@ -144,7 +151,11 @@ function ReelCard({ reel }: { reel: CategoryReel }) {
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
           <span className="inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
             <Play className="size-3 fill-current" aria-hidden />
-            {reel.vibeId ? 'Persona' : 'Film'}
+            {reelSeries(reel) === 'ski'
+              ? 'Ski'
+              : reelSeries(reel) === 'jetset'
+                ? 'Persona'
+                : 'Film'}
           </span>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">

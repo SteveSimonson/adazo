@@ -7,8 +7,10 @@ import {
   REELS_GEN1,
   REELS_GEN2,
   REELS_JETSET,
+  REELS_SKI,
   reelCtaLabel,
   reelHref,
+  reelSeries,
   type CategoryReel,
 } from './reels'
 import { VIBE_LIST } from './vibes'
@@ -23,14 +25,16 @@ export type WatchClip = {
   poster?: string
   aspect: WatchAspect
   /** Filter chip */
-  group: 'category' | 'carpet' | 'cafe' | 'jetset' | 'all'
+  group: 'category' | 'carpet' | 'cafe' | 'jetset' | 'ski' | 'all'
   /** Optional deep link */
   href?: string
   hrefLabel?: string
 }
 
 function fromReel(reel: CategoryReel): WatchClip {
-  const isPersona = Boolean(reel.vibeId)
+  const series = reelSeries(reel)
+  const group =
+    series === 'ski' ? 'ski' : series === 'jetset' ? 'jetset' : 'category'
   return {
     id: reel.id,
     title: reel.title,
@@ -38,7 +42,7 @@ function fromReel(reel: CategoryReel): WatchClip {
     video: reel.video,
     poster: reel.poster,
     aspect: 'portrait',
-    group: isPersona ? 'jetset' : 'category',
+    group,
     href: reelHref(reel),
     hrefLabel: reelCtaLabel(reel),
   }
@@ -65,7 +69,7 @@ const CARPET_CLIPS: WatchClip[] = VIBE_LIST.map((v) => {
   }
 })
 
-/** Persona café lifestyle films (16:9) — Amazon scroll energy */
+/** Persona café lifestyle films (16:9) */
 const CAFE_CLIPS: WatchClip[] = VIBE_LIST.flatMap((v) => {
   const cafe = v.campaigns.find(
     (c) =>
@@ -89,7 +93,7 @@ const CAFE_CLIPS: WatchClip[] = VIBE_LIST.flatMap((v) => {
 })
 
 /**
- * Full watch feed: category + jet-set + carpet + café films.
+ * Full watch feed: category + jet-set + ski + carpet + café films.
  */
 export const WATCH_CLIPS: WatchClip[] = [
   ...CATEGORY_REELS.map(fromReel),
@@ -99,6 +103,7 @@ export const WATCH_CLIPS: WatchClip[] = [
 
 export const WATCH_CATEGORY_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'category')
 export const WATCH_JETSET_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'jetset')
+export const WATCH_SKI_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'ski')
 export const WATCH_CARPET_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'carpet')
 export const WATCH_CAFE_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'cafe')
 
@@ -107,10 +112,12 @@ export function watchClipCount() {
     total: WATCH_CLIPS.length,
     category: WATCH_CATEGORY_CLIPS.length,
     jetset: WATCH_JETSET_CLIPS.length,
+    ski: WATCH_SKI_CLIPS.length,
     carpet: WATCH_CARPET_CLIPS.length,
     cafe: WATCH_CAFE_CLIPS.length,
     gen1: REELS_GEN1.length,
     gen2: REELS_GEN2.length,
     jetsetPool: REELS_JETSET.length,
+    skiPool: REELS_SKI.length,
   }
 }
