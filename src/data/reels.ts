@@ -1,28 +1,35 @@
 /**
  * Fashion reels for product-grid inserts and /reels.
  *
- * Pool includes category room clips + persona jet-set films.
+ * Pool includes category room clips + persona series (jet-set, ski holiday).
  * Product grids interleave unique reels with random 2–6 product gaps
  * (see lib/reelInserts.ts).
+ *
+ * Video gen rate limit: grok-imagine-video is **2 RPS** — always sequential.
  */
 import type { Category } from './types'
 import { CATEGORY_LABELS } from './catalog'
 import { HEROES } from './categoryHeroes'
 import { VIBE_LIST } from './vibes'
 
-/** Creative wave — gen 1 launch, gen 2 second wave, gen 3 persona jet-set */
-export type ReelGeneration = 1 | 2 | 3
+/** Creative wave — 1–2 rooms, 3 jet-set, 4 ski holiday */
+export type ReelGeneration = 1 | 2 | 3 | 4
+
+/** Persona / room series for filters and badges */
+export type ReelSeries = 'room' | 'jetset' | 'ski'
 
 export type CategoryReel = {
   /** Stable id for keys / analytics */
   id: string
   /**
-   * Shop room for category reels. Omitted for persona jet-set inserts
+   * Shop room for category reels. Omitted for persona series inserts
    * (those link to the vibe check, not a shop category).
    */
   category?: Category
-  /** Persona id when this is a house-model jet-set film */
+  /** Persona id when this is a house-model film */
   vibeId?: string
+  /** Series for UI filters (default room if category set) */
+  series?: ReelSeries
   /** Generation wave (1, 2, 3, …) */
   generation: ReelGeneration
   title: string
@@ -60,7 +67,7 @@ export const REEL_CATEGORIES: Category[] = [
 ]
 
 /** Latest generation number in the catalog (bump when adding a wave). */
-export const REEL_LATEST_GENERATION: ReelGeneration = 3
+export const REEL_LATEST_GENERATION: ReelGeneration = 4
 
 const MOTION_G1: Record<Category, string> = {
   handbags: 'Soft light glide across structured leather',
@@ -107,6 +114,7 @@ function buildReel(
   return {
     id: `${category}-g${generation}`,
     category,
+    series: 'room',
     generation,
     title: hero?.title ?? CATEGORY_LABELS[category],
     blurb: hero?.blurb ?? CATEGORY_LABELS[category],
@@ -190,6 +198,7 @@ export const REELS_JETSET: CategoryReel[] = JETSET.map((j) => {
   return {
     id: `jetset-${j.vibeId}`,
     vibeId: j.vibeId,
+    series: 'jetset' as ReelSeries,
     generation: 3 as ReelGeneration,
     title: `${name} · ${j.destination}`,
     blurb: j.blurb,
@@ -203,14 +212,96 @@ export const REELS_JETSET: CategoryReel[] = JETSET.map((j) => {
 })
 
 /**
- * Full insert + /reels catalog (all generations + persona jet-set).
+ * Persona ski-holiday inserts — house models on extravagant alpine holidays.
+ * Link to the vibe check (/quiz).
+ */
+const SKI: {
+  vibeId: string
+  destination: string
+  motionLabel: string
+  blurb: string
+}[] = [
+  {
+    vibeId: 'luxe',
+    destination: 'Courchevel',
+    motionLabel: 'Chalet champagne glow',
+    blurb:
+      'Vivienne on the terrace — cream cashmere, gold low, Alps lit like a private gallery.',
+  },
+  {
+    vibeId: 'muse',
+    destination: 'St. Moritz',
+    motionLabel: 'Pink jacket, village lights',
+    blurb:
+      'Camille at blue hour — soft glam against snow and chalet windows. The mountain dresses up.',
+  },
+  {
+    vibeId: 'sillage',
+    destination: 'Aspen lodge',
+    motionLabel: 'Fireplace trail',
+    blurb:
+      'Noor by the fire — perfume mist, violet wrap, snow beyond the glass. Sillage holds in the cold.',
+  },
+  {
+    vibeId: 'atelier',
+    destination: 'Gstaad gondola',
+    motionLabel: 'Ivory suit, gold bag',
+    blurb:
+      'Margot finishes the mountain — structured bag, gold zippers, the lift as runway.',
+  },
+  {
+    vibeId: 'dew',
+    destination: 'Zermatt powder',
+    motionLabel: 'Glass skin in snow light',
+    blurb:
+      'Isla in white on the powder morning — barrier glow that photographs expensive in thin air.',
+  },
+  {
+    vibeId: 'gilded',
+    destination: 'Verbier night',
+    motionLabel: 'Emerald chalet arrival',
+    blurb:
+      'Aurelia at the chalet door — bronze silk, fur, emerald armor. Collector winter.',
+  },
+]
+
+export const REELS_SKI: CategoryReel[] = SKI.map((j) => {
+  const vibe = VIBE_LIST.find((v) => v.id === j.vibeId)
+  const name = vibe?.avatar.name ?? j.vibeId
+  const personaTitle = vibe?.title ?? 'House persona'
+  return {
+    id: `ski-${j.vibeId}`,
+    vibeId: j.vibeId,
+    series: 'ski' as ReelSeries,
+    generation: 4 as ReelGeneration,
+    title: `${name} · ${j.destination}`,
+    blurb: j.blurb,
+    video: `/brand/videos/reels/ski-${j.vibeId}.mp4`,
+    poster: `/brand/videos/reels/posters/ski-${j.vibeId}.jpg`,
+    motionLabel: j.motionLabel,
+    href: '/quiz',
+    hrefLabel: 'Find your persona',
+    kicker: `${personaTitle} · Ski holiday`,
+  }
+})
+
+/**
+ * Full insert + /reels catalog (rooms + persona series).
  * Product-grid randomizer uses this entire pool — unique per page.
  */
 export const CATEGORY_REELS: CategoryReel[] = [
   ...REELS_GEN1,
   ...REELS_GEN2,
   ...REELS_JETSET,
+  ...REELS_SKI,
 ]
+
+/** Resolve series for filters / badges */
+export function reelSeries(reel: CategoryReel): ReelSeries {
+  if (reel.series) return reel.series
+  if (reel.vibeId) return 'jetset'
+  return 'room'
+}
 
 export function reelsForGeneration(gen: ReelGeneration): CategoryReel[] {
   return CATEGORY_REELS.filter((r) => r.generation === gen)

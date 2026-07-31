@@ -53,7 +53,7 @@ More generations → **more variety** in inserts, **not** denser inserts by defa
 ### Plain English
 
 1. While someone browses a **product grid**, we drop **fashion reel tiles** into the stream — same size as a product card.  
-2. Pool = **category room reels** (all gens) **+ persona jet-set reels** (`REELS_JETSET`).  
+2. Pool = **category room reels** (all gens) **+ persona series** (`REELS_JETSET`, `REELS_SKI`, …).  
 3. **Never repeat the same reel id on one page.**  
 4. Gaps between inserts are **random 2–6 products** (immersive / unpredictable).  
 5. If they’re already in a room (e.g. Handbags), we skip handbags reels — persona jet-set still allowed.  
@@ -74,7 +74,7 @@ More generations → **more variety** in inserts, **not** denser inserts by defa
 
 | Piece | Detail |
 |-------|--------|
-| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ `REELS_JETSET` |
+| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ `REELS_JETSET` ∪ `REELS_SKI` |
 | Interleave | `interleaveReelInserts` → `src/lib/reelInserts.ts` (`minGap`/`maxGap`) |
 | UI grid | `ProductGrid` + `ReelInsertCard` |
 | Cross-promo | `excludeCategory` for room reels only |
@@ -99,7 +99,14 @@ Shuffle is **computed on the client** when the grid renders. Same seed → same 
 | Gen 2 poster | `public/brand/videos/reels/posters/{category}-g2.jpg` |
 | Jet-set video | `public/brand/videos/reels/jetset-{vibeId}.mp4` |
 | Jet-set poster | `public/brand/videos/reels/posters/jetset-{vibeId}.jpg` |
+| Ski holiday video | `public/brand/videos/reels/ski-{vibeId}.mp4` |
+| Ski holiday poster | `public/brand/videos/reels/posters/ski-{vibeId}.jpg` |
 | R2 (optional) | `video/…` via mint — see [`imagine-r2-videos.md`](./imagine-r2-videos.md) |
+
+### Rate limits (Imagine video)
+
+`grok-imagine-video` is **2 requests/second** per team (tier may rise with API spend).  
+**Always generate persona batches sequentially** (one start at a time, ≥2–3s between starts). Parallel fan-out of 6 will 429.
 
 ### Production pipeline
 

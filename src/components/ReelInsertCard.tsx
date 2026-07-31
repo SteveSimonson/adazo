@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import {
   reelCtaLabel,
   reelHref,
+  reelSeries,
   type CategoryReel,
 } from '../data/reels'
 import { trackEvent } from '../lib/analytics'
@@ -11,7 +12,7 @@ import { trackEvent } from '../lib/analytics'
 /**
  * Fashion film tile in product grids (same 4:5 well as ProductCard).
  * Muted autoplay when in view.
- * Category reels → shop room; persona jet-set → vibe check (/quiz).
+ * Category reels → shop room; persona series → vibe check (/quiz).
  */
 export function ReelInsertCard({
   reel,
@@ -25,8 +26,17 @@ export function ReelInsertCard({
   const videoRef = useRef<HTMLVideoElement>(null)
   const to = reelHref(reel)
   const cta = reelCtaLabel(reel)
-  const isPersona = Boolean(reel.vibeId)
-  const kicker = reel.kicker ?? (isPersona ? 'House persona' : 'From the house')
+  const series = reelSeries(reel)
+  const isPersona = series === 'jetset' || series === 'ski'
+  const badge =
+    series === 'ski' ? 'Ski' : series === 'jetset' ? 'Persona' : 'Discover'
+  const kicker =
+    reel.kicker ??
+    (series === 'ski'
+      ? 'Ski holiday'
+      : series === 'jetset'
+        ? 'House persona'
+        : 'From the house')
 
   useEffect(() => {
     const el = videoRef.current
@@ -55,10 +65,10 @@ export function ReelInsertCard({
         onClick={() =>
           trackEvent('reel_insert_click', {
             reel_id: reel.id,
-            reel_category: reel.category ?? 'persona',
+            reel_category: reel.category ?? series,
             vibe_id: reel.vibeId,
             list_name: listName,
-            engagement_type: isPersona ? 'persona_jetset' : 'cross_promo',
+            engagement_type: isPersona ? `persona_${series}` : 'cross_promo',
           })
         }
       >
@@ -78,7 +88,7 @@ export function ReelInsertCard({
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5">
             <span className="inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
               <Sparkles className="size-3 text-bamboo" aria-hidden />
-              {isPersona ? 'Persona' : 'Discover'}
+              {badge}
             </span>
           </span>
           <span className="absolute top-3 right-3 inline-flex items-center justify-center size-8 rounded-full bg-black/45 text-white backdrop-blur-sm">
@@ -124,11 +134,11 @@ export function ReelInsertCard({
           onClick={() =>
             trackEvent('reel_insert_click', {
               reel_id: reel.id,
-              reel_category: reel.category ?? 'persona',
+              reel_category: reel.category ?? series,
               vibe_id: reel.vibeId,
               list_name: listName,
               engagement_type: isPersona
-                ? 'persona_jetset_cta'
+                ? `persona_${series}_cta`
                 : 'cross_promo_cta',
             })
           }
