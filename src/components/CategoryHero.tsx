@@ -35,7 +35,7 @@ export function CategoryHero({
           {limited && (
             <span className="inline-flex items-center gap-1 rounded-full bg-[#b45309] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1">
               <Clock3 className="size-3" />
-              This week in {content.title}
+              Filter on · This week only
             </span>
           )}
         </div>
@@ -51,6 +51,7 @@ export function CategoryHero({
             <span className="text-white/55">
               {' '}
               · {productCount} {productCount === 1 ? 'piece' : 'pieces'}
+              {limited ? ' this week' : ''}
             </span>
           ) : null}
         </p>
