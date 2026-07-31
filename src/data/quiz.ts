@@ -426,7 +426,7 @@ export const PERSONAS: Record<string, Persona> = {
     title: 'The Quiet Luxe',
     tagline: 'Prestige beauty. Soft power. Nothing loud.',
     story:
-      'You don’t chase trends — you collect presence. Adazo’s Luxury Beauty shelf is your language: weighty jars, considered formulas, vanity that looks like a private gallery. Discover here. Buy on Amazon.',
+      'You don’t chase trends — you collect presence. Adazo’s Luxury Beauty shelf is your language: weighty jars, considered formulas, vanity that looks like a private gallery.',
     categories: ['luxury', 'skincare', 'fragrance'],
     accent: '#9a6b2f',
   },
@@ -435,7 +435,7 @@ export const PERSONAS: Record<string, Persona> = {
     title: 'The Soft Glam Muse',
     tagline: 'Color, light, and confidence in the mirror.',
     story:
-      'Getting ready is a ritual worth dressing for. You want lips, flush, and finish that photograph expensive — polished, never costume. Discover the soft glam selection here; complete your purchase on Amazon.',
+      'Getting ready is a ritual worth dressing for. You want lips, flush, and finish that photograph expensive — polished, never costume.',
     categories: ['makeup', 'lips', 'luxury'],
     accent: '#b76e79',
   },
@@ -444,7 +444,7 @@ export const PERSONAS: Record<string, Persona> = {
     title: 'The Signature Scent',
     tagline: 'You arrive before you speak.',
     story:
-      'Fragrance is memory and identity. You build a wardrobe of sillage — day, night, gift — and Adazo points you to the bottles worth the vanity real estate. Discover here. Buy on Amazon.',
+      'Fragrance is memory and identity. You build a wardrobe of sillage — day, night, gift — and Adazo points you to the bottles worth the vanity real estate.',
     categories: ['fragrance', 'luxury', 'body'],
     accent: '#7a4a8a',
   },
