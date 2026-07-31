@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { formatExpiry, limitedTimeCopy } from '../data/catalog'
@@ -24,26 +24,48 @@ function navClass(active: boolean) {
 export function Layout() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
-  const limited = limitedTimeCopy()
-  const until = formatExpiry(limited.expiresAt ?? undefined)
+  const [searchParams] = useSearchParams()
+  const drop = limitedTimeCopy()
+  const until = formatExpiry(drop.expiresAt ?? undefined)
+  const onShop = pathname === '/shop' || pathname.startsWith('/shop')
+  const limitedMode = onShop && searchParams.get('limited') === '1'
+  // When already filtering to this week, offer escape — not another trap door
+  const weekCta = limitedMode
+    ? { to: '/shop', label: 'Full collection', primary: false as const }
+    : { to: '/shop?limited=1', label: 'This week', primary: true as const }
 
   return (
     <div className="min-h-screen flex flex-col">
       <GlobalSeo />
-      <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
-        <Link
-          to="/shop?limited=1"
-          className="hover:underline underline-offset-2"
-        >
-          <span className="font-semibold text-gold">This week’s selection</span>
-          {limited.count > 0 ? ` · ${limited.count} pieces` : ''}
-          {until ? ` · Until ${until}` : ''}
-          <span className="text-paper/70">
-            {' '}
-            · {BRAND.mottoEn}
-          </span>
-        </Link>
-      </div>
+      {limitedMode ? (
+        <div className="bg-[#9a3412] text-white text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
+          <span className="font-semibold">Filter on · This week only</span>
+          {drop.count > 0 ? ` · ${drop.count} pieces` : ''}
+          <span className="text-white/75"> · not the full house</span>
+          {' · '}
+          <Link
+            to="/shop"
+            className="font-bold underline underline-offset-2 hover:text-gold"
+          >
+            Show full collection
+          </Link>
+        </div>
+      ) : (
+        <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
+          <Link
+            to="/shop?limited=1"
+            className="hover:underline underline-offset-2"
+          >
+            <span className="font-semibold text-gold">This week’s selection</span>
+            {drop.count > 0 ? ` · ${drop.count} pieces` : ''}
+            {until ? ` · Until ${until}` : ''}
+            <span className="text-paper/70">
+              {' '}
+              · {BRAND.mottoEn}
+            </span>
+          </Link>
+        </div>
+      )}
 
       <header className="sticky top-0 z-50 bg-paper/92 backdrop-blur-xl border-b border-line shadow-[0_1px_0_rgba(26,20,24,0.04)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 sm:h-[4.75rem] flex items-center justify-between gap-3 sm:gap-4">
@@ -74,10 +96,14 @@ export function Layout() {
 
           <div className="flex items-center gap-2 shrink-0">
             <Link
-              to="/shop?limited=1"
-              className="btn-primary !px-3.5 sm:!px-4 !py-2.5 text-xs"
+              to={weekCta.to}
+              className={
+                weekCta.primary
+                  ? 'btn-primary !px-3.5 sm:!px-4 !py-2.5 text-xs'
+                  : 'inline-flex items-center justify-center rounded-full border-2 border-[#9a3412] text-[#9a3412] bg-white px-3.5 sm:px-4 py-2.5 text-xs font-bold hover:bg-[#fff7ed] transition'
+              }
             >
-              This week
+              {weekCta.label}
             </Link>
             <button
               type="button"
@@ -108,11 +134,15 @@ export function Layout() {
               </Link>
             ))}
             <Link
-              to="/shop?limited=1"
-              className="block px-3 py-2.5 rounded-xl font-semibold text-ink hover:bg-paper-2"
+              to={weekCta.to}
+              className={`block px-3 py-2.5 rounded-xl font-semibold ${
+                limitedMode
+                  ? 'bg-[#fff7ed] text-[#9a3412]'
+                  : 'text-ink hover:bg-paper-2'
+              }`}
               onClick={() => setOpen(false)}
             >
-              This week
+              {weekCta.label}
             </Link>
             <Link
               to="/reels"
