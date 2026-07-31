@@ -102,7 +102,6 @@ export function Layout() {
                   ? 'btn-primary !px-3.5 sm:!px-4 !py-2.5 text-xs'
                   : 'inline-flex items-center justify-center rounded-full border-2 border-[#9a3412] text-[#9a3412] bg-white px-3.5 sm:px-4 py-2.5 text-xs font-bold hover:bg-[#fff7ed] transition'
               }
-              aria-current={limitedMode ? 'page' : undefined}
             >
               {weekCta.label}
             </Link>

@@ -150,7 +150,7 @@ export function Shop() {
               className="shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#9a3412] text-white px-4 py-2.5 text-sm font-bold hover:bg-[#7c2d12] transition"
             >
               <X className="size-3.5" aria-hidden />
-              Show full collection
+              Turn off This week
             </button>
           </div>
         )}
