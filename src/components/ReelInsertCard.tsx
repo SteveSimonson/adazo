@@ -27,16 +27,25 @@ export function ReelInsertCard({
   const to = reelHref(reel)
   const cta = reelCtaLabel(reel)
   const series = reelSeries(reel)
-  const isPersona = series === 'jetset' || series === 'ski'
+  const isPersona =
+    series === 'jetset' || series === 'ski' || series === 'riviera'
   const badge =
-    series === 'ski' ? 'Ski' : series === 'jetset' ? 'Persona' : 'Discover'
+    series === 'ski'
+      ? 'Ski'
+      : series === 'riviera'
+        ? 'Riviera'
+        : series === 'jetset'
+          ? 'Persona'
+          : 'Discover'
   const kicker =
     reel.kicker ??
     (series === 'ski'
       ? 'Ski holiday'
-      : series === 'jetset'
-        ? 'House persona'
-        : 'From the house')
+      : series === 'riviera'
+        ? 'Riviera'
+        : series === 'jetset'
+          ? 'House persona'
+          : 'From the house')
 
   useEffect(() => {
     const el = videoRef.current

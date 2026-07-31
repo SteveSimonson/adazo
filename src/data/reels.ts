@@ -1,7 +1,7 @@
 /**
  * Fashion reels for product-grid inserts and /reels.
  *
- * Pool includes category room clips + persona series (jet-set, ski holiday).
+ * Pool includes category room clips + persona series (jet-set, ski, Riviera).
  * Product grids interleave unique reels with random 2–6 product gaps
  * (see lib/reelInserts.ts).
  *
@@ -12,11 +12,11 @@ import { CATEGORY_LABELS } from './catalog'
 import { HEROES } from './categoryHeroes'
 import { VIBE_LIST } from './vibes'
 
-/** Creative wave — 1–2 rooms, 3 jet-set, 4 ski holiday */
-export type ReelGeneration = 1 | 2 | 3 | 4
+/** Creative wave — 1–2 rooms, 3 jet-set, 4 ski, 5 Riviera */
+export type ReelGeneration = 1 | 2 | 3 | 4 | 5
 
 /** Persona / room series for filters and badges */
-export type ReelSeries = 'room' | 'jetset' | 'ski'
+export type ReelSeries = 'room' | 'jetset' | 'ski' | 'riviera'
 
 export type CategoryReel = {
   /** Stable id for keys / analytics */
@@ -67,7 +67,7 @@ export const REEL_CATEGORIES: Category[] = [
 ]
 
 /** Latest generation number in the catalog (bump when adding a wave). */
-export const REEL_LATEST_GENERATION: ReelGeneration = 4
+export const REEL_LATEST_GENERATION: ReelGeneration = 5
 
 const MOTION_G1: Record<Category, string> = {
   handbags: 'Soft light glide across structured leather',
@@ -286,6 +286,80 @@ export const REELS_SKI: CategoryReel[] = SKI.map((j) => {
 })
 
 /**
+ * Persona Riviera inserts — summer Mediterranean extravagance.
+ * Link to the vibe check (/quiz).
+ */
+const RIVIERA: {
+  vibeId: string
+  destination: string
+  motionLabel: string
+  blurb: string
+}[] = [
+  {
+    vibeId: 'luxe',
+    destination: 'Cap Ferrat',
+    motionLabel: 'Infinity pool, cream silk',
+    blurb:
+      'Vivienne at the villa edge — gold low, sea glass calm, summer that never shouts.',
+  },
+  {
+    vibeId: 'muse',
+    destination: 'Mykonos night',
+    motionLabel: 'Fuchsia satin, island lights',
+    blurb:
+      'Camille in the whitewashed lane — soft glam against the Aegean after dark.',
+  },
+  {
+    vibeId: 'sillage',
+    destination: 'Positano sunset',
+    motionLabel: 'Cliff scent, violet silk',
+    blurb:
+      'Noor on the terrace — perfume first, pastel cliffs second. The trail holds in salt air.',
+  },
+  {
+    vibeId: 'atelier',
+    destination: 'Portofino harbor',
+    motionLabel: 'Ivory linen, gold bag',
+    blurb:
+      'Margot finishes the dock — Riva wood, structured gold, the harbor as runway.',
+  },
+  {
+    vibeId: 'dew',
+    destination: 'Santorini morning',
+    motionLabel: 'White linen, caldera light',
+    blurb:
+      'Isla on the terrace steps — barrier glow, blue domes, glass skin in thin sea air.',
+  },
+  {
+    vibeId: 'gilded',
+    destination: 'Saint-Tropez night',
+    motionLabel: 'Emerald on the jetty',
+    blurb:
+      'Aurelia at the yacht lights — bronze silk, emerald armor, collector summer.',
+  },
+]
+
+export const REELS_RIVIERA: CategoryReel[] = RIVIERA.map((j) => {
+  const vibe = VIBE_LIST.find((v) => v.id === j.vibeId)
+  const name = vibe?.avatar.name ?? j.vibeId
+  const personaTitle = vibe?.title ?? 'House persona'
+  return {
+    id: `riviera-${j.vibeId}`,
+    vibeId: j.vibeId,
+    series: 'riviera' as ReelSeries,
+    generation: 5 as ReelGeneration,
+    title: `${name} · ${j.destination}`,
+    blurb: j.blurb,
+    video: `/brand/videos/reels/riviera-${j.vibeId}.mp4`,
+    poster: `/brand/videos/reels/posters/riviera-${j.vibeId}.jpg`,
+    motionLabel: j.motionLabel,
+    href: '/quiz',
+    hrefLabel: 'Find your persona',
+    kicker: `${personaTitle} · Riviera`,
+  }
+})
+
+/**
  * Full insert + /reels catalog (rooms + persona series).
  * Product-grid randomizer uses this entire pool — unique per page.
  */
@@ -294,6 +368,7 @@ export const CATEGORY_REELS: CategoryReel[] = [
   ...REELS_GEN2,
   ...REELS_JETSET,
   ...REELS_SKI,
+  ...REELS_RIVIERA,
 ]
 
 /** Resolve series for filters / badges */

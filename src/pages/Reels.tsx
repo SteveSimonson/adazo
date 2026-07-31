@@ -5,6 +5,7 @@ import {
   REELS_GEN1,
   REELS_GEN2,
   REELS_JETSET,
+  REELS_RIVIERA,
   REELS_SKI,
   reelCtaLabel,
   reelHref,
@@ -30,9 +31,9 @@ export function ReelsPage() {
             Moving pictures
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
-            Ski holidays, jet-set arrivals, and short films from every room.
-            They appear in the shop scroll so the house finds you. Scroll to
-            watch.
+            Riviera summer, ski holidays, jet-set arrivals — and short films
+            from every room. They appear in the shop scroll so the house finds
+            you.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/quiz" className="btn-primary">
@@ -46,10 +47,15 @@ export function ReelsPage() {
       </section>
 
       <GenerationSection
-        label="Ski holiday"
-        blurb="Six house faces on extravagant alpine holidays — Courchevel, St. Moritz, Aspen, Gstaad, Zermatt, Verbier. Tap any film for the vibe check."
-        reels={REELS_SKI}
+        label="Riviera"
+        blurb="Six house faces on the Mediterranean — Cap Ferrat, Mykonos, Positano, Portofino, Santorini, Saint-Tropez. Tap any film for the vibe check."
+        reels={REELS_RIVIERA}
         featured
+      />
+      <GenerationSection
+        label="Ski holiday"
+        blurb="Alpine extravagance — Courchevel, St. Moritz, Aspen, Gstaad, Zermatt, Verbier."
+        reels={REELS_SKI}
       />
       <GenerationSection
         label="Jet set"
@@ -153,9 +159,11 @@ function ReelCard({ reel }: { reel: CategoryReel }) {
             <Play className="size-3 fill-current" aria-hidden />
             {reelSeries(reel) === 'ski'
               ? 'Ski'
-              : reelSeries(reel) === 'jetset'
-                ? 'Persona'
-                : 'Film'}
+              : reelSeries(reel) === 'riviera'
+                ? 'Riviera'
+                : reelSeries(reel) === 'jetset'
+                  ? 'Persona'
+                  : 'Film'}
           </span>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">

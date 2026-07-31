@@ -74,7 +74,7 @@ More generations → **more variety** in inserts, **not** denser inserts by defa
 
 | Piece | Detail |
 |-------|--------|
-| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ `REELS_JETSET` ∪ `REELS_SKI` |
+| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ jet-set ∪ ski ∪ Riviera |
 | Interleave | `interleaveReelInserts` → `src/lib/reelInserts.ts` (`minGap`/`maxGap`) |
 | UI grid | `ProductGrid` + `ReelInsertCard` |
 | Cross-promo | `excludeCategory` for room reels only |
@@ -101,6 +101,8 @@ Shuffle is **computed on the client** when the grid renders. Same seed → same 
 | Jet-set poster | `public/brand/videos/reels/posters/jetset-{vibeId}.jpg` |
 | Ski holiday video | `public/brand/videos/reels/ski-{vibeId}.mp4` |
 | Ski holiday poster | `public/brand/videos/reels/posters/ski-{vibeId}.jpg` |
+| Riviera video | `public/brand/videos/reels/riviera-{vibeId}.mp4` |
+| Riviera poster | `public/brand/videos/reels/posters/riviera-{vibeId}.jpg` |
 | R2 (optional) | `video/…` via mint — see [`imagine-r2-videos.md`](./imagine-r2-videos.md) |
 
 ### Rate limits (Imagine video)
