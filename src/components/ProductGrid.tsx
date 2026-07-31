@@ -19,6 +19,10 @@ type Props = {
   className?: string
   compact?: boolean
   every?: number
+  /** Min products between inserts (default 2) */
+  minGap?: number
+  /** Max products between inserts (default 6) */
+  maxGap?: number
   maxInserts?: number
   minProducts?: number
   /** When false, pure product grid (default true) */
@@ -29,7 +33,7 @@ type Props = {
 
 /**
  * Product card grid with optional randomized fashion reel inserts.
- * Insert density scales as CATEGORY_REELS grows.
+ * Gaps random 2–6 products; same reel never repeats on one page.
  */
 export function ProductGrid({
   products,
@@ -38,6 +42,8 @@ export function ProductGrid({
   className = DEFAULT_COLS,
   compact = false,
   every,
+  minGap,
+  maxGap,
   maxInserts,
   minProducts,
   inserts = true,
@@ -55,6 +61,8 @@ export function ProductGrid({
       listName,
       excludeCategory,
       every,
+      minGap,
+      maxGap,
       maxInserts,
       minProducts,
     }
@@ -64,6 +72,8 @@ export function ProductGrid({
     listName,
     excludeCategory,
     every,
+    minGap,
+    maxGap,
     maxInserts,
     minProducts,
     inserts,

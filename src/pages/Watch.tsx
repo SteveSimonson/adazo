@@ -7,12 +7,13 @@ import {
   WATCH_CARPET_CLIPS,
   WATCH_CATEGORY_CLIPS,
   WATCH_CLIPS,
+  WATCH_JETSET_CLIPS,
   watchClipCount,
   type WatchClip,
 } from '../data/videoWatch'
 import { watchSeo } from '../lib/seoData'
 
-type Filter = 'all' | 'category' | 'carpet' | 'cafe'
+type Filter = 'all' | 'category' | 'jetset' | 'carpet' | 'cafe'
 
 /**
  * Visual short-film gallery — muted autoplay from the house library.
@@ -23,6 +24,7 @@ export function WatchPage() {
 
   const clips = useMemo(() => {
     if (filter === 'category') return WATCH_CATEGORY_CLIPS
+    if (filter === 'jetset') return WATCH_JETSET_CLIPS
     if (filter === 'carpet') return WATCH_CARPET_CLIPS
     if (filter === 'cafe') return WATCH_CAFE_CLIPS
     return WATCH_CLIPS
@@ -40,8 +42,8 @@ export function WatchPage() {
             The house on film
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
-            {counts.total} short films — the rooms, the carpet, the café. Scroll
-            to play. Sound stays off until you invite it.
+            {counts.total} short films — jet-set personas, the rooms, the carpet,
+            the café. Scroll to play. Sound stays off until you invite it.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3.5 py-2 text-xs font-semibold text-ink-soft">
             <VolumeX className="size-3.5" aria-hidden />
@@ -51,6 +53,7 @@ export function WatchPage() {
             {(
               [
                 ['all', `All (${counts.total})`],
+                ['jetset', `Jet set (${counts.jetset})`],
                 ['category', `The rooms (${counts.category})`],
                 ['carpet', `The Carpet (${counts.carpet})`],
                 ['cafe', `The Café (${counts.cafe})`],
@@ -123,7 +126,9 @@ function WatchTile({ clip }: { clip: WatchClip }) {
       ? 'The Carpet'
       : clip.group === 'cafe'
         ? 'The Café'
-        : 'The rooms'
+        : clip.group === 'jetset'
+          ? 'Jet set'
+          : 'The rooms'
 
   const body = (
     <>

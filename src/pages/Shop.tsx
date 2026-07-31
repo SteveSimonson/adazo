@@ -236,8 +236,9 @@ export function Shop() {
                   : 'shop_all'
             }
             excludeCategory={cat || null}
-            every={5}
-            maxInserts={6}
+            minGap={2}
+            maxGap={6}
+            maxInserts={10}
             className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
           />
         )}

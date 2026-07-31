@@ -176,8 +176,9 @@ export function Home() {
             <ProductGrid
               products={bigTickets}
               listName="home_big_ticket"
-              every={4}
-              maxInserts={2}
+              minGap={2}
+              maxGap={6}
+              maxInserts={4}
               className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
             />
           </div>
@@ -209,8 +210,9 @@ export function Home() {
             <ProductGrid
               products={weekLeaders}
               listName="home_week_leaders"
-              every={4}
-              maxInserts={2}
+              minGap={2}
+              maxGap={6}
+              maxInserts={4}
               className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
             />
           </div>
@@ -278,8 +280,9 @@ export function Home() {
           <ProductGrid
             products={featured}
             listName="home_featured"
-            every={4}
-            maxInserts={2}
+            minGap={2}
+            maxGap={6}
+            maxInserts={4}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
           />
         </div>
@@ -319,8 +322,9 @@ export function Home() {
             <ProductGrid
               products={newArrivals}
               listName="home_more"
-              every={4}
-              maxInserts={1}
+              minGap={2}
+              maxGap={6}
+              maxInserts={2}
               minProducts={3}
               className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
             />

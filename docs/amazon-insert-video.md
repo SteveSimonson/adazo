@@ -52,33 +52,36 @@ More generations → **more variety** in inserts, **not** denser inserts by defa
 
 ### Plain English
 
-1. While someone browses a **product grid**, we sometimes drop a **fashion reel tile** into the stream — same size as a product card.  
-2. That tile is picked from the **full multi-generation pool** of category reels.  
-3. If they’re already in a room (e.g. Handbags), we **don’t** insert handbags reels — only **other** categories (cross-promo).  
-4. About **one reel every few products**, with a **cap** so the grid doesn’t turn into a video wall.  
-5. For a given list/filter, the mix is **stable for the UTC day** (not reshuffled every reload); **next day** it can reshuffle.  
-6. Tap → shop that category. Video is **muted**, loops, plays when on screen.
+1. While someone browses a **product grid**, we drop **fashion reel tiles** into the stream — same size as a product card.  
+2. Pool = **category room reels** (all gens) **+ persona jet-set reels** (`REELS_JETSET`).  
+3. **Never repeat the same reel id on one page.**  
+4. Gaps between inserts are **random 2–6 products** (immersive / unpredictable).  
+5. If they’re already in a room (e.g. Handbags), we skip handbags reels — persona jet-set still allowed.  
+6. For a given list/filter, the mix is **stable for the UTC day**; **next day** it reshuffles.  
+7. Category reels → shop that room. **Jet-set persona reels → `/quiz` (vibe check).**  
+8. Video is **muted**, loops, plays when on screen.
 
 ### Where
 
 | Surface | Density | Cap |
 |---------|---------|-----|
-| **Shop** grid | ~every **5** products | **6** inserts max |
-| **Home** product rows | ~every **4** | **1–2** |
-| **PDP** similar / also-like | ~every **3** | **2** |
+| **Shop** grid | random **2–6** product gaps | **10** inserts max |
+| **Home** product rows | random **2–6** | **2–4** |
+| **PDP** similar / also-like | random **2–5** | **2** |
 | Lists with **&lt; 3** products | — | **no** inserts |
 
 ### Technical
 
 | Piece | Detail |
 |-------|--------|
-| Pool | `CATEGORY_REELS` in `src/data/reels.ts` (all gens) |
-| Interleave | `interleaveReelInserts` → `src/lib/reelInserts.ts` |
+| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ `REELS_JETSET` |
+| Interleave | `interleaveReelInserts` → `src/lib/reelInserts.ts` (`minGap`/`maxGap`) |
 | UI grid | `ProductGrid` + `ReelInsertCard` |
-| Cross-promo | `excludeCategory` = current shop room / PDP category |
+| Cross-promo | `excludeCategory` for room reels only |
+| Persona link | `href: /quiz` on jet-set reels |
 | Seed | `listName + exclude + YYYY-MM-DD (UTC) + product ids` |
 | Click analytics | GA `reel_insert_click` |
-| Full catalog | `/reels` (gen sections) |
+| Full catalog | `/reels` (jet set + room sections) |
 
 ### Not a cron job
 
@@ -94,7 +97,9 @@ Shuffle is **computed on the client** when the grid renders. Same seed → same 
 | Gen 1 poster | `public/brand/videos/reels/posters/{category}.jpg` |
 | Gen 2 video | `public/brand/videos/reels/{category}-g2.mp4` |
 | Gen 2 poster | `public/brand/videos/reels/posters/{category}-g2.jpg` |
-| R2 (optional) | `video/reels/{category}-g2.mp4` via mint — see [`imagine-r2-videos.md`](./imagine-r2-videos.md) |
+| Jet-set video | `public/brand/videos/reels/jetset-{vibeId}.mp4` |
+| Jet-set poster | `public/brand/videos/reels/posters/jetset-{vibeId}.jpg` |
+| R2 (optional) | `video/…` via mint — see [`imagine-r2-videos.md`](./imagine-r2-videos.md) |
 
 ### Production pipeline
 
