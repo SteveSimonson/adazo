@@ -2,7 +2,7 @@
  * Interleave fashion reels into product lists.
  *
  * Rules:
- * - Pool = full CATEGORY_REELS (category waves + persona jet-set)
+ * - Pool = full CATEGORY_REELS (category waves + persona series: jet-set, ski, …)
  * - Never repeat the same reel id on one page
  * - Gap between inserts is random 2–6 products (immersive / unpredictable)
  * - Daily seed keeps order stable for a given list within a day
