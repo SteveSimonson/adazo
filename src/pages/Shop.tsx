@@ -106,7 +106,7 @@ export function Shop() {
             <p className="text-ink-soft mt-3 max-w-xl text-lg font-light leading-relaxed">
               {limited
                 ? `You’re viewing a short weekly list — ${filtered.length} of ${houseTotal} pieces in the house.`
-                : 'Every room of the house — for treating yourself, or for the woman you love. Discover here; complete your purchase on Amazon.'}
+                : 'Every room of the house — for treating yourself, or for the woman you love. Discover the collection here.'}
             </p>
           </>
         )}

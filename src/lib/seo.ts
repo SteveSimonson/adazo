@@ -4,7 +4,7 @@ export const SITE_URL = 'https://adazo.com'
 export const SITE_NAME = 'Adazo'
 export const DEFAULT_TITLE = 'Adazo — Beauty is passed down'
 export const DEFAULT_DESCRIPTION =
-  'Since 1726. Luxury beauty, fragrance, and fashion finish for treating yourself — or the woman you love. Discover Adazo; complete your purchase on Amazon.'
+  'Since 1726. Luxury beauty, fragrance, and fashion finish for treating yourself — or the woman you love. Discover Adazo.'
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/social.png`
 export const TWITTER_HANDLE = '' // set if brand X account exists
 

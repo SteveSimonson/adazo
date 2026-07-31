@@ -69,8 +69,8 @@ export function shopSeo(opts: {
      `${categoryHero.blurb} ${count} pieces on Adazo — for you, or for her. Complete your purchase on Amazon.`,
     )
    : limited
-    ? 'A short house selection this week. Discover on Adazo; complete your purchase on Amazon.'
-    : 'Luxury beauty, fragrance, gold, and fashion finish. Discover Adazo; complete your purchase on Amazon.'
+    ? 'A short house selection this week. Discover the selection on Adazo.'
+    : 'Luxury beauty, fragrance, gold, and fashion finish. Discover Adazo.'
 
  const crumbs = [
   { name: 'Home', path: '/' },

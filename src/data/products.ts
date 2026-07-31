@@ -14,7 +14,7 @@ export const products: Product[] = [
     name: 'CeraVe Hydrating Facial Cleanser',
     tagline: 'Gentle cleanse with ceramides — barrier-friendly daily starter.',
     description:
-      'A dermatologist-developed hydrating cleanser for normal to dry skin. Discover on Adazo; complete your purchase on Amazon. Adazo is an authorized Amazon Associate.',
+      'A dermatologist-developed hydrating cleanser for normal to dry skin.',
     category: 'skincare',
     collection: 'Skincare',
     brand: 'CeraVe',
@@ -56,7 +56,7 @@ export const products: Product[] = [
     name: 'La Roche-Posay Toleriane Double Repair Face Moisturizer',
     tagline: 'Ceramide moisturizer for a calm, resilient barrier.',
     description:
-      'Oil-free daily moisturizer with ceramides and niacinamide. Discover on Adazo; buy on Amazon.',
+      'Oil-free daily moisturizer with ceramides and niacinamide.',
     category: 'skincare',
     collection: 'Skincare',
     brand: 'La Roche-Posay',
@@ -99,7 +99,7 @@ export const products: Product[] = [
     name: 'Neutrogena Hydro Boost Water Gel',
     tagline: 'Hyaluronic hydration that feels like water, not weight.',
     description:
-      'Oil-free hyaluronic acid water gel moisturizer. Discover on Adazo; buy on Amazon.',
+      'Oil-free hyaluronic acid water gel moisturizer.',
     category: 'skincare',
     collection: 'Skincare',
     brand: 'Neutrogena',
@@ -138,7 +138,7 @@ export const products: Product[] = [
     name: 'The Ordinary Niacinamide 10% + Zinc 1%',
     tagline: 'Targeted serum for oil balance and look of pores.',
     description:
-      'High-strength niacinamide serum for blemish-prone and oily skin concerns. Discover on Adazo; buy on Amazon.',
+      'High-strength niacinamide serum for blemish-prone and oily skin concerns.',
     category: 'skincare',
     collection: 'Skincare',
     brand: 'The Ordinary',
@@ -181,7 +181,7 @@ export const products: Product[] = [
     name: 'e.l.f. Holy Hydration! Makeup Melting Cleansing Balm',
     tagline: 'Melt makeup without stripping — gentle first cleanse.',
     description:
-      'Budget-friendly cleansing balm for dissolving makeup and SPF. Discover on Adazo; buy on Amazon.',
+      'Budget-friendly cleansing balm for dissolving makeup and SPF.',
     category: 'skincare',
     collection: 'Skincare',
     brand: 'e.l.f.',
@@ -221,7 +221,7 @@ export const products: Product[] = [
     name: 'Olaplex No.3 Hair Perfector',
     tagline: 'At-home bond care for stronger-feeling hair.',
     description:
-      'Weekly at-home treatment for damaged or chemically treated hair. Discover on Adazo; buy on Amazon.',
+      'Weekly at-home treatment for damaged or chemically treated hair.',
     category: 'hair',
     collection: 'Hair',
     brand: 'Olaplex',
@@ -262,7 +262,7 @@ export const products: Product[] = [
     name: 'Living Proof Perfect Hair Day Dry Shampoo',
     tagline: 'Refresh day-two hair without the heavy cast.',
     description:
-      'Cult dry shampoo for extending styles between washes. Discover on Adazo; buy on Amazon.',
+      'Cult dry shampoo for extending styles between washes.',
     category: 'hair',
     collection: 'Hair',
     brand: 'Living Proof',
@@ -302,7 +302,7 @@ export const products: Product[] = [
     name: 'Maybelline Lash Sensational Sky High Mascara',
     tagline: 'Length and volume mascara that punches above its price.',
     description:
-      'Drugstore mascara favorite for length and lift. Discover on Adazo; buy on Amazon.',
+      'Drugstore mascara favorite for length and lift.',
     category: 'makeup',
     collection: 'Makeup',
     brand: 'Maybelline',
@@ -383,7 +383,7 @@ export const products: Product[] = [
     name: 'eos Shea Better Body Lotion',
     tagline: '24-hour moisture with a soft, non-greasy feel.',
     description:
-      'Shea body lotion for daily softness. Discover on Adazo; buy on Amazon.',
+      'Shea body lotion for daily softness.',
     category: 'body',
     collection: 'Body',
     brand: 'eos',
@@ -423,7 +423,7 @@ export const products: Product[] = [
     name: 'Sol de Janeiro Brazilian Crush Body Fragrance Mist',
     tagline: 'Signature warm-sweet body mist energy.',
     description:
-      'Cult body fragrance mist for gifting and everyday layering. Discover on Adazo; buy on Amazon.',
+      'Cult body fragrance mist for gifting and everyday layering.',
     category: 'body',
     collection: 'Body',
     brand: 'Sol de Janeiro',
@@ -459,7 +459,7 @@ export const products: Product[] = [
     name: 'Supergoop! Unseen Sunscreen SPF 40',
     tagline: 'Invisible, weightless daily SPF that plays well under makeup.',
     description:
-      'Clear gel sunscreen for everyday wear. Discover on Adazo; buy on Amazon.',
+      'Clear gel sunscreen for everyday wear.',
     category: 'sun-spf',
     collection: 'SPF',
     brand: 'Supergoop!',
@@ -495,7 +495,7 @@ export const products: Product[] = [
     name: 'Biore UV Aqua Rich Watery Essence SPF 50+',
     tagline: 'Japanese watery essence SPF for a light daily finish.',
     description:
-      'Lightweight high-SPF essence popular in K-beauty / J-beauty routines. Discover on Adazo; buy on Amazon.',
+      'Lightweight high-SPF essence popular in K-beauty / J-beauty routines.',
     category: 'sun-spf',
     collection: 'SPF',
     brand: 'Biore',
@@ -530,7 +530,7 @@ export const products: Product[] = [
     name: 'Dyson Airwrap Multi-styler',
     tagline: 'High-ticket styling system for curls, waves, and smooth finishes.',
     description:
-      'Premium multi-styler tool for hair. A statement tool for the vanity. Discover on Adazo; buy on Amazon.',
+      'Premium multi-styler tool for hair. A statement tool for the vanity.',
     category: 'tools',
     collection: 'Tools',
     brand: 'Dyson',
@@ -566,7 +566,7 @@ export const products: Product[] = [
     name: 'REVLON One-Step Volumizer PLUS Hair Dryer and Hot Air Brush',
     tagline: 'Blowout-in-a-brush energy for faster morning hair.',
     description:
-      'Popular hot air brush for volume and smooth blowouts. Discover on Adazo; buy on Amazon.',
+      'Popular hot air brush for volume and smooth blowouts.',
     category: 'tools',
     collection: 'Tools',
     brand: 'REVLON',
@@ -600,7 +600,7 @@ export const products: Product[] = [
     name: 'LANEIGE Lip Sleeping Mask',
     tagline: 'Overnight lip care for softer mornings.',
     description:
-      'Cult overnight lip mask. Discover on Adazo; buy on Amazon.',
+      'Cult overnight lip mask.',
     category: 'lips',
     collection: 'Lips',
     brand: 'LANEIGE',
@@ -636,7 +636,7 @@ export const products: Product[] = [
     name: 'Vital Proteins Collagen Peptides',
     tagline: 'Unflavored collagen for coffee, smoothies, and daily routines.',
     description:
-      'Popular collagen peptide powder. Wellness-adjacent pick (verify claims on Amazon). Discover on Adazo; buy on Amazon.',
+      'Popular collagen peptide powder. Wellness-adjacent pick (verify claims on Amazon).',
     category: 'wellness',
     collection: 'Wellness',
     brand: 'Vital Proteins',
@@ -673,7 +673,7 @@ export const products: Product[] = [
     name: 'The INKEY List Retinol Eye Cream',
     tagline: 'Approachable retinol eye care for night routines.',
     description:
-      'Budget retinol eye cream for experienced retinol users. Discover on Adazo; buy on Amazon. Patch test and follow label guidance.',
+      'Budget retinol eye cream for experienced retinol users. Patch test and follow label guidance.',
     category: 'skincare',
     collection: 'Skincare',
     brand: 'The INKEY List',
@@ -710,7 +710,7 @@ export const products: Product[] = [
     name: 'Gisou Honey Infused Hair Oil',
     tagline: 'Shine oil for ends, frizz, and soft-finish styling.',
     description:
-      'Honey-infused hair oil for shine and softness. Discover on Adazo; buy on Amazon.',
+      'Honey-infused hair oil for shine and softness.',
     category: 'hair',
     collection: 'Hair',
     brand: 'Gisou',
@@ -745,7 +745,7 @@ export const products: Product[] = [
     name: 'Tatcha The Dewy Skin Cream',
     tagline: 'Rich, plush cream for dry skin that wants a dewy finish.',
     description:
-      'Prestige moisturizer often sold in Luxury Beauty. Discover on Adazo; buy on Amazon.',
+      'Prestige moisturizer often sold in Luxury Beauty.',
     category: 'luxury',
     collection: 'Luxury Beauty',
     brand: 'Tatcha',
@@ -782,7 +782,7 @@ export const products: Product[] = [
     name: 'SK-II Facial Treatment Essence',
     tagline: 'Cult prestige essence — signature Pitera step.',
     description:
-      'Iconic luxury essence for the prestige skincare shelf. Discover on Adazo; buy on Amazon.',
+      'Iconic luxury essence for the prestige skincare shelf.',
     category: 'luxury',
     collection: 'Luxury Beauty',
     brand: 'SK-II',
@@ -818,7 +818,7 @@ export const products: Product[] = [
     name: 'Drunk Elephant Protini Polypeptide Cream',
     tagline: 'Peptide-forward prestige moisturizer.',
     description:
-      'Clean-luxury moisturizer favorite. Discover on Adazo; buy on Amazon.',
+      'Clean-luxury moisturizer favorite.',
     category: 'luxury',
     collection: 'Luxury Beauty',
     brand: 'Drunk Elephant',
@@ -854,7 +854,7 @@ export const products: Product[] = [
     name: 'Charlotte Tilbury Matte Revolution Lipstick in Pillow Talk',
     tagline: 'The viral nude-pink prestige lipstick.',
     description:
-      'Luxury makeup staple with strong gift demand. Discover on Adazo; buy on Amazon.',
+      'Luxury makeup staple with strong gift demand.',
     category: 'luxury',
     collection: 'Luxury Beauty',
     brand: 'Charlotte Tilbury',
@@ -890,7 +890,7 @@ export const products: Product[] = [
     name: 'La Mer Crème de la Mer Moisturizing Cream',
     tagline: 'Ultra-prestige cream for the high-ticket skincare cart.',
     description:
-      'Flagship luxury cream. Discover on Adazo; buy on Amazon.',
+      'Flagship luxury cream.',
     category: 'luxury',
     collection: 'Luxury Beauty',
     brand: 'La Mer',
@@ -926,7 +926,7 @@ export const products: Product[] = [
     name: 'Yves Saint Laurent Libre Eau de Parfum',
     tagline: 'Modern floral-lavender fragrance with gift energy.',
     description:
-      'Best-selling prestige women\'s fragrance. Discover on Adazo; buy on Amazon.',
+      'Best-selling prestige women\'s fragrance.',
     category: 'fragrance',
     collection: 'Fragrance',
     brand: 'Yves Saint Laurent',
@@ -962,7 +962,7 @@ export const products: Product[] = [
     name: "Viktor&Rolf Flowerbomb Eau de Parfum",
     tagline: 'Explosive floral — perennial fragrance gift.',
     description:
-      'Cult women\'s fragrance with strong Amazon demand. Discover on Adazo; buy on Amazon.',
+      'Cult women\'s fragrance with strong Amazon demand.',
     category: 'fragrance',
     collection: 'Fragrance',
     brand: 'Viktor&Rolf',
@@ -998,7 +998,7 @@ export const products: Product[] = [
     name: 'CHANEL Chance Eau Tendre Eau de Toilette',
     tagline: 'Soft floral-fruity CHANEL classic.',
     description:
-      'Prestige fragrance with brand recognition and gift demand. Discover on Adazo; buy on Amazon.',
+      'Prestige fragrance with brand recognition and gift demand.',
     category: 'fragrance',
     collection: 'Fragrance',
     brand: 'CHANEL',
@@ -1033,7 +1033,7 @@ export const products: Product[] = [
     name: "Paco Rabanne Olympéa Eau de Parfum",
     tagline: 'Salty-vanilla floral with mainstream prestige appeal.',
     description:
-      'Popular women\'s fragrance for gift sets and full bottles. Discover on Adazo; buy on Amazon.',
+      'Popular women\'s fragrance for gift sets and full bottles.',
     category: 'fragrance',
     collection: 'Fragrance',
     brand: 'Paco Rabanne',
@@ -1067,7 +1067,7 @@ export const products: Product[] = [
     name: 'Dazzlingrock Collection 18K Solid White Gold Marquise with Pear & Round White Diamond Festoo…',
     tagline: 'Fine necklace — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'Dazzlingrock',
@@ -1104,7 +1104,7 @@ export const products: Product[] = [
     name: 'AFFY Rose-Cut Antique-Cut Diamond Chain Necklace IN 18k Solid Gold (16.29 cttw) - 27&#34; L',
     tagline: 'Fine necklace — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'AFFY',
@@ -1141,7 +1141,7 @@ export const products: Product[] = [
     name: 'CHOW SANG SANG 999.9 24K Pure Gold Cultural Blessings Diamond Steed Atop Hollow Clouds Neckl…',
     tagline: 'Fine necklace — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'CHOW SANG SANG',
@@ -1178,7 +1178,7 @@ export const products: Product[] = [
     name: 'Houston Diamond District 2 to 50 CT Lab Grown Diamond Tennis Bracelet | 14K White Gold Round…',
     tagline: 'Fine tennis bracelet — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'Houston Diamond',
@@ -1215,7 +1215,7 @@ export const products: Product[] = [
     name: 'IGI Certified 1/4 to 4 Carat Round Lab Grown Diamond Solitaire Pendant Necklace for Women in…',
     tagline: 'Fine necklace — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'Fine Jewelry',
@@ -1252,7 +1252,7 @@ export const products: Product[] = [
     name: 'IGI Certified 3.00-10.00 Carat Lab Grown Diamond Tennis Bracelet for Women 14K / 18K Solid W…',
     tagline: 'Fine tennis bracelet — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'Fine Jewelry',
@@ -1289,7 +1289,7 @@ export const products: Product[] = [
     name: 'LE VIAN 2 or 3 Carat Chocolate Diamond Bolo Bracelet for Women I 14k Gold Bracelet for Her (…',
     tagline: 'Fine bracelet — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'LE VIAN',
@@ -1326,7 +1326,7 @@ export const products: Product[] = [
     name: 'Jewels By Lux 14K Yellow Or White Gold 3 Ctw Round Natural Gem Multi Color Sapphire Tennis B…',
     tagline: 'Fine tennis bracelet — big-ticket polish above $1,000.',
     description:
-      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated fine jewelry from Amazon luxury selection ($1,000+). Verify metal, carat, and seller details on Amazon.',
     category: 'jewelry',
     collection: 'Luxury Jewelry',
     brand: 'Jewels By Lux',
@@ -1361,7 +1361,7 @@ export const products: Product[] = [
     name: 'Louis Vuitton Women\'s Pre-Loved Monogram Pochette Accessoires',
     tagline: 'Designer pochette — authenticated pre-loved luxury.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Louis Vuitton',
@@ -1398,7 +1398,7 @@ export const products: Product[] = [
     name: 'Gucci Women\'s Pre-Loved Supreme Tote Bag',
     tagline: 'Designer tote — authenticated pre-loved luxury.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Gucci',
@@ -1435,7 +1435,7 @@ export const products: Product[] = [
     name: 'Louis Vuitton Women\'s Pre-Loved Luco Monogram Tote Bag',
     tagline: 'Designer tote — authenticated pre-loved luxury.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Louis Vuitton',
@@ -1472,7 +1472,7 @@ export const products: Product[] = [
     name: 'Prada Women\'s Black Nylon Shopping Tote 1BG189',
     tagline: 'Designer tote — statement luxury finish.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Prada',
@@ -1509,7 +1509,7 @@ export const products: Product[] = [
     name: 'Prada Midnight Black Tessuto Nylon & Saffian Leather Designer Crossbody Messenger Trave…',
     tagline: 'Designer crossbody — statement luxury finish.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Prada',
@@ -1546,7 +1546,7 @@ export const products: Product[] = [
     name: 'Prada Blue Black Glace Leather Studded Trim Crossbody Handbag 1BD147',
     tagline: 'Designer crossbody — statement luxury finish.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Prada',
@@ -1583,7 +1583,7 @@ export const products: Product[] = [
     name: 'Gucci Women\'s Pre-Loved GG Canvas Belt Bag, Brown, One Size',
     tagline: 'Designer belt bag — authenticated pre-loved luxury.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Gucci',
@@ -1620,7 +1620,7 @@ export const products: Product[] = [
     name: 'Jacquemus Women\'s The Bambimou Bag',
     tagline: 'Designer handbag — statement luxury finish.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Jacquemus',
@@ -1657,7 +1657,7 @@ export const products: Product[] = [
     name: 'Prada Bianco White Saffiano Leather Monochrome Top Handle Handbag Purse New | Detachabl…',
     tagline: 'Designer top handle — statement luxury finish.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Verify authenticity, size, and seller details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Prada',
@@ -1694,7 +1694,7 @@ export const products: Product[] = [
     name: 'Louis Vuitton Women\'s Pre-Loved Babylone, Monogram',
     tagline: 'Designer handbag — authenticated pre-loved luxury.',
     description:
-      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated designer handbag from Amazon\'s luxury fashion selection. Pre-loved pieces vary by condition — verify details on Amazon.',
     category: 'handbags',
     collection: 'Luxury Handbags',
     brand: 'Louis Vuitton',
@@ -1731,7 +1731,7 @@ export const products: Product[] = [
     name: 'Rado - Florence - Women\'s Quartz Swiss Watch - 30mm White Dial with Date - Silver & Rose Gol…',
     tagline: 'Quartz watch — luxury timepiece above $1,000.',
     description:
-      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon.',
     category: 'watches',
     collection: 'Luxury Watches',
     brand: 'Rado',
@@ -1766,7 +1766,7 @@ export const products: Product[] = [
     name: 'Tissot Ballade Powermatic 48 COSC 30mm, Swiss Automatic Watch for Women, Stainless Steel Cas…',
     tagline: 'Automatic watch — luxury timepiece above $1,000.',
     description:
-      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon.',
     category: 'watches',
     collection: 'Luxury Watches',
     brand: 'Tissot',
@@ -1802,7 +1802,7 @@ export const products: Product[] = [
     name: 'Versace Classic Round Chrono Bracelet Watch',
     tagline: 'Chronograph — luxury timepiece above $1,000.',
     description:
-      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon.',
     category: 'watches',
     collection: 'Luxury Watches',
     brand: 'Versace',
@@ -1838,7 +1838,7 @@ export const products: Product[] = [
     name: 'Rado - Centrix - Women\'s Automatic Swiss Watch - 30mm Silver-White Dial with Date - White & …',
     tagline: 'Automatic watch — luxury timepiece above $1,000.',
     description:
-      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon.',
     category: 'watches',
     collection: 'Luxury Watches',
     brand: 'Rado',
@@ -1874,7 +1874,7 @@ export const products: Product[] = [
     name: 'Versace Antlia Leather Watch',
     tagline: 'Luxury watch — luxury timepiece above $1,000.',
     description:
-      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon.',
     category: 'watches',
     collection: 'Luxury Watches',
     brand: 'Versace',
@@ -1910,7 +1910,7 @@ export const products: Product[] = [
     name: 'Rado - DiaStar Original Open Heart - Women\'s Automatic Swiss Watch - 30mm Oval Yellow Dial -…',
     tagline: 'Automatic watch — luxury timepiece above $1,000.',
     description:
-      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated luxury watch from Amazon ($1,000+). Verify authenticity, size, and seller details on Amazon.',
     category: 'watches',
     collection: 'Luxury Watches',
     brand: 'Rado',
@@ -1945,7 +1945,7 @@ export const products: Product[] = [
     name: 'Real 18k Gold Heart Necklace for Women, Fine Cubic Zirconia Love Jewelry Gifts for Her (18kt…',
     tagline: '18K gold chain necklace — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -1982,7 +1982,7 @@ export const products: Product[] = [
     name: 'Nuragold 18k Real Yellow Gold Rope Chain Diamond Cut Italian Necklace - 3mm',
     tagline: '18K rope chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2019,7 +2019,7 @@ export const products: Product[] = [
     name: 'Jewelry Affairs 14k Yellow Gold Round Box Chain Necklace, 3.4mm',
     tagline: '14K box chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2056,7 +2056,7 @@ export const products: Product[] = [
     name: 'Jewelry Affairs 14k Yellow Solid Gold Imperial Herringbone Chain Necklace, 4.7mm',
     tagline: '14K herringbone chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2093,7 +2093,7 @@ export const products: Product[] = [
     name: 'Nuragold 18k Real Yellow Gold Rope Chain Diamond Cut Italian Necklace - 2mm',
     tagline: '18K rope chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2130,7 +2130,7 @@ export const products: Product[] = [
     name: 'Jewelry Affairs 14k Yellow Solid Gold Imperial Herringbone Chain Necklace, 6.0mm',
     tagline: '14K herringbone chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2167,7 +2167,7 @@ export const products: Product[] = [
     name: 'Nuragold 18K Real Yellow Gold Solid Miami Cuban Link Chain Italian Necklace',
     tagline: '18K cuban link chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2204,7 +2204,7 @@ export const products: Product[] = [
     name: 'Jewelry Affairs 14k Yellow Solid Gold Imperial Herringbone Chain Necklace, 3.0mm',
     tagline: '14K herringbone chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2241,7 +2241,7 @@ export const products: Product[] = [
     name: '10k Yellow Gold 10mm Half Round Wedding Band for Men or Unisex - Wide Solid Gold Ring with S…',
     tagline: '10K wedding band — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2278,7 +2278,7 @@ export const products: Product[] = [
     name: 'Womens 14k White Gold Rolling Ring Three Interlocking Polished Bands Russian Style Wedding B…',
     tagline: '14K wedding band — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2314,7 +2314,7 @@ export const products: Product[] = [
     name: 'Houston Diamond District 0.5 to 10 CT Lab Grown Diamond Solitaire Pendant | 14K White Gold R…',
     tagline: '14K gold pendant — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
@@ -2351,7 +2351,7 @@ export const products: Product[] = [
     name: 'Jewelry Affairs 14k Yellow Real Gold Adjustable Box Chain Necklace, 1.15mm, 22&#34;',
     tagline: '14K box chain — solid gold polish $500+.',
     description:
-      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon. Discover on Adazo; buy on Amazon.',
+      'Elevated solid-gold jewelry from Amazon (\$500+ focus). Verify karat, weight, and seller details on Amazon.',
     category: 'gold',
     collection: 'Gold',
     brand: 'Fine Gold',
