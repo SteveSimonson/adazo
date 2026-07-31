@@ -2,11 +2,13 @@
  * Short-form video gallery catalog — every public brand clip we ship.
  * Muted visual feed only; not the product-grid insert pool (see reels.ts).
  */
-import { CATEGORY_LABELS } from './catalog'
 import {
   CATEGORY_REELS,
   REELS_GEN1,
   REELS_GEN2,
+  REELS_JETSET,
+  reelCtaLabel,
+  reelHref,
   type CategoryReel,
 } from './reels'
 import { VIBE_LIST } from './vibes'
@@ -21,13 +23,14 @@ export type WatchClip = {
   poster?: string
   aspect: WatchAspect
   /** Filter chip */
-  group: 'category' | 'carpet' | 'cafe' | 'all'
+  group: 'category' | 'carpet' | 'cafe' | 'jetset' | 'all'
   /** Optional deep link */
   href?: string
   hrefLabel?: string
 }
 
 function fromReel(reel: CategoryReel): WatchClip {
+  const isPersona = Boolean(reel.vibeId)
   return {
     id: reel.id,
     title: reel.title,
@@ -35,9 +38,9 @@ function fromReel(reel: CategoryReel): WatchClip {
     video: reel.video,
     poster: reel.poster,
     aspect: 'portrait',
-    group: 'category',
-    href: `/shop?cat=${reel.category}`,
-    hrefLabel: `Shop ${CATEGORY_LABELS[reel.category] ?? reel.title}`,
+    group: isPersona ? 'jetset' : 'category',
+    href: reelHref(reel),
+    hrefLabel: reelCtaLabel(reel),
   }
 }
 
@@ -86,7 +89,7 @@ const CAFE_CLIPS: WatchClip[] = VIBE_LIST.flatMap((v) => {
 })
 
 /**
- * Full watch feed: category reels + carpet premieres + café lifestyle films.
+ * Full watch feed: category + jet-set + carpet + café films.
  */
 export const WATCH_CLIPS: WatchClip[] = [
   ...CATEGORY_REELS.map(fromReel),
@@ -95,6 +98,7 @@ export const WATCH_CLIPS: WatchClip[] = [
 ]
 
 export const WATCH_CATEGORY_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'category')
+export const WATCH_JETSET_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'jetset')
 export const WATCH_CARPET_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'carpet')
 export const WATCH_CAFE_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'cafe')
 
@@ -102,9 +106,11 @@ export function watchClipCount() {
   return {
     total: WATCH_CLIPS.length,
     category: WATCH_CATEGORY_CLIPS.length,
+    jetset: WATCH_JETSET_CLIPS.length,
     carpet: WATCH_CARPET_CLIPS.length,
     cafe: WATCH_CAFE_CLIPS.length,
     gen1: REELS_GEN1.length,
     gen2: REELS_GEN2.length,
+    jetsetPool: REELS_JETSET.length,
   }
 }

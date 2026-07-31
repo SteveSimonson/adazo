@@ -441,7 +441,8 @@ export function ProductPage() {
               products={similar}
               listName="product_similar"
               excludeCategory={product.category}
-              every={3}
+              minGap={2}
+              maxGap={5}
               maxInserts={2}
               compact
               className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
@@ -462,7 +463,8 @@ export function ProductPage() {
               products={alsoLike}
               listName="product_also_like"
               excludeCategory={product.category}
-              every={3}
+              minGap={2}
+              maxGap={5}
               maxInserts={2}
               compact
               className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"

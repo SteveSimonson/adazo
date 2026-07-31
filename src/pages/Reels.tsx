@@ -2,20 +2,20 @@ import { Link } from 'react-router-dom'
 import { Play } from 'lucide-react'
 import { Seo } from '../components/Seo'
 import {
-  REEL_LATEST_GENERATION,
-  reelsForGeneration,
+  REELS_GEN1,
+  REELS_GEN2,
+  REELS_JETSET,
+  reelCtaLabel,
+  reelHref,
   type CategoryReel,
 } from '../data/reels'
 import { reelsSeo } from '../lib/seoData'
 import { useEffect, useRef } from 'react'
 
 /**
- * Short fashion films — portrait clips for every room of the house.
+ * Short fashion films — portrait clips for rooms + persona jet-set.
  */
 export function ReelsPage() {
-  const latest = reelsForGeneration(REEL_LATEST_GENERATION)
-  const archive = reelsForGeneration(1)
-
   return (
     <>
       <Seo {...reelsSeo()} />
@@ -28,34 +28,37 @@ export function ReelsPage() {
             Moving pictures
           </h1>
           <p className="mt-4 text-ink-soft max-w-xl leading-relaxed">
-            Short fashion films from every room of the house — beauty,
-            fragrance, gold, and the bag that finishes the exit. Scroll to
-            watch. Shop when something holds your eye.
+            House personas jet-setting the world — and short films from every
+            room. They appear in the shop scroll so the house finds you. Scroll
+            to watch.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/shop" className="btn-primary">
-              Enter the house
-            </Link>
-            <Link to="/quiz" className="btn-ghost">
+            <Link to="/quiz" className="btn-primary">
               Find your persona
+            </Link>
+            <Link to="/shop" className="btn-ghost">
+              Enter the house
             </Link>
           </div>
         </div>
       </section>
 
       <GenerationSection
-        label="The new wave"
-        blurb="Fresh light, new wardrobe, the rooms as they feel now."
-        reels={latest}
+        label="Jet set"
+        blurb="Six house faces, six extravagant arrivals — private jets, yachts, helipads. Tap any film to take the vibe check."
+        reels={REELS_JETSET}
         featured
       />
-      {REEL_LATEST_GENERATION > 1 && archive.length > 0 ? (
-        <GenerationSection
-          label="From the archive"
-          blurb="Earlier studies of the same rooms — still worth a look."
-          reels={archive}
-        />
-      ) : null}
+      <GenerationSection
+        label="The rooms · new wave"
+        blurb="Fresh light, new wardrobe, the shelves as they feel now."
+        reels={REELS_GEN2}
+      />
+      <GenerationSection
+        label="From the archive"
+        blurb="Earlier studies of the same rooms — still worth a look."
+        reels={REELS_GEN1}
+      />
     </>
   )
 }
@@ -71,6 +74,7 @@ function GenerationSection({
   reels: CategoryReel[]
   featured?: boolean
 }) {
+  if (reels.length === 0) return null
   return (
     <section
       className={`mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 ${
@@ -99,7 +103,8 @@ function GenerationSection({
 
 function ReelCard({ reel }: { reel: CategoryReel }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const shopTo = `/shop?cat=${reel.category}`
+  const to = reelHref(reel)
+  const cta = reelCtaLabel(reel)
 
   useEffect(() => {
     const el = videoRef.current
@@ -139,7 +144,7 @@ function ReelCard({ reel }: { reel: CategoryReel }) {
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
           <span className="inline-flex items-center gap-1 rounded-full bg-white/95 text-ink text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 shadow-sm border border-line/80">
             <Play className="size-3 fill-current" aria-hidden />
-            Film
+            {reel.vibeId ? 'Persona' : 'Film'}
           </span>
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4">
@@ -157,10 +162,10 @@ function ReelCard({ reel }: { reel: CategoryReel }) {
         </p>
         <div className="mt-auto pt-2">
           <Link
-            to={shopTo}
+            to={to}
             className="btn-primary !w-full !py-2.5 !text-xs text-center"
           >
-            Shop {reel.title}
+            {cta}
           </Link>
         </div>
       </div>
