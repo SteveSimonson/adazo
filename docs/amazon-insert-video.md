@@ -74,7 +74,7 @@ More generations → **more variety** in inserts, **not** denser inserts by defa
 
 | Piece | Detail |
 |-------|--------|
-| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ `REELS_JETSET` |
+| Pool | `CATEGORY_REELS` = gen1 ∪ gen2 ∪ `REELS_JETSET` ∪ `REELS_SKI` |
 | Interleave | `interleaveReelInserts` → `src/lib/reelInserts.ts` (`minGap`/`maxGap`) |
 | UI grid | `ProductGrid` + `ReelInsertCard` |
 | Cross-promo | `excludeCategory` for room reels only |
