@@ -7,6 +7,7 @@ import {
   REELS_GEN1,
   REELS_GEN2,
   REELS_JETSET,
+  REELS_RIVIERA,
   REELS_SKI,
   reelCtaLabel,
   reelHref,
@@ -25,7 +26,7 @@ export type WatchClip = {
   poster?: string
   aspect: WatchAspect
   /** Filter chip */
-  group: 'category' | 'carpet' | 'cafe' | 'jetset' | 'ski' | 'all'
+  group: 'category' | 'carpet' | 'cafe' | 'jetset' | 'ski' | 'riviera' | 'all'
   /** Optional deep link */
   href?: string
   hrefLabel?: string
@@ -34,7 +35,13 @@ export type WatchClip = {
 function fromReel(reel: CategoryReel): WatchClip {
   const series = reelSeries(reel)
   const group =
-    series === 'ski' ? 'ski' : series === 'jetset' ? 'jetset' : 'category'
+    series === 'ski'
+      ? 'ski'
+      : series === 'riviera'
+        ? 'riviera'
+        : series === 'jetset'
+          ? 'jetset'
+          : 'category'
   return {
     id: reel.id,
     title: reel.title,
@@ -104,6 +111,7 @@ export const WATCH_CLIPS: WatchClip[] = [
 export const WATCH_CATEGORY_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'category')
 export const WATCH_JETSET_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'jetset')
 export const WATCH_SKI_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'ski')
+export const WATCH_RIVIERA_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'riviera')
 export const WATCH_CARPET_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'carpet')
 export const WATCH_CAFE_CLIPS = WATCH_CLIPS.filter((c) => c.group === 'cafe')
 
@@ -113,11 +121,13 @@ export function watchClipCount() {
     category: WATCH_CATEGORY_CLIPS.length,
     jetset: WATCH_JETSET_CLIPS.length,
     ski: WATCH_SKI_CLIPS.length,
+    riviera: WATCH_RIVIERA_CLIPS.length,
     carpet: WATCH_CARPET_CLIPS.length,
     cafe: WATCH_CAFE_CLIPS.length,
     gen1: REELS_GEN1.length,
     gen2: REELS_GEN2.length,
     jetsetPool: REELS_JETSET.length,
     skiPool: REELS_SKI.length,
+    rivieraPool: REELS_RIVIERA.length,
   }
 }
