@@ -13,7 +13,7 @@ import {
  productImageChain,
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
-import type { Category, Product } from '../data/types'
+import type { Category, Product, ProductEnrichment } from '../data/types'
 import type { VibeProfile } from '../data/vibes'
 import { isQuietPlaceholder } from './productImages'
 import {
@@ -22,6 +22,7 @@ import {
  absoluteUrl,
  breadcrumbJsonLd,
  clipMeta,
+ faqPageJsonLd,
  pageTitle,
  productJsonLd,
  type PageSeo,
@@ -95,49 +96,61 @@ export function shopSeo(opts: {
  }
 }
 
-export function productSeo(p: Product): PageSeo {
+export function productSeo(
+ p: Product,
+ enrichment?: ProductEnrichment,
+): PageSeo {
  const productPath = `/product/${p.slug}`
  // SL1000: og/schema images should be high-res (PDP-grade), not card thumbs
  const thumbs = productGalleryThumbs(p, 1000)
  const mainChain = productImageChain(p, 1000)
- const ogImage =
-  thumbs[0] ||
-  mainChain.find((u) => !isQuietPlaceholder(u) && !u.startsWith('data:')) ||
-  '/brand/social.png'
+ const images = (thumbs.length ? thumbs : mainChain).filter(
+  (u) => u && !isQuietPlaceholder(u) && !u.startsWith('data:'),
+ )
+ const ogImage = images[0] || '/brand/social.png'
+
+ const descBase = enrichment
+  ? `${p.tagline} ${enrichment.reviewSnapshot.verdict}`
+  : `${p.tagline} ${p.description} ${categoryLabel(p.category).toLowerCase()} on Adazo — buy on Amazon.`
+
+ const jsonLd: Record<string, unknown>[] = [
+  productJsonLd({
+   name: p.name,
+   description: enrichment
+    ? `${p.description} ${enrichment.reviewSnapshot.verdict}`
+    : p.description || p.tagline,
+   path: productPath,
+   images,
+   price: p.priceHint,
+   asin: p.asin,
+   brand: p.brand,
+   rating: p.rating,
+   reviewCount: p.reviewCount,
+   category: categoryLabel(p.category),
+  }),
+  breadcrumbJsonLd([
+   { name: 'Home', path: '/' },
+   { name: 'Shop', path: '/shop' },
+   {
+    name: categoryLabel(p.category),
+    path: `/shop?cat=${p.category}`,
+   },
+   { name: p.name, path: productPath },
+  ]),
+ ]
+
+ if (enrichment?.faq?.length) {
+  const faqLd = faqPageJsonLd(enrichment.faq, productPath)
+  if (faqLd) jsonLd.push(faqLd)
+ }
 
  return {
   title: p.name,
-  description: clipMeta(
-   `${p.tagline} ${p.description} ${categoryLabel(p.category).toLowerCase()} on Adazo — buy on Amazon.`,
-  ),
+  description: clipMeta(descBase.replace(/\s+/g, ' ')),
   path: productPath,
   image: ogImage,
   type: 'product',
-  jsonLd: [
-   productJsonLd({
-    name: p.name,
-    description: p.description || p.tagline,
-    path: productPath,
-    images: (thumbs.length ? thumbs : mainChain).filter(
-     (u) => !isQuietPlaceholder(u),
-    ),
-    price: p.priceHint,
-    asin: p.asin,
-    brand: p.brand,
-    rating: p.rating,
-    reviewCount: p.reviewCount,
-    category: categoryLabel(p.category),
-   }),
-   breadcrumbJsonLd([
-    { name: 'Home', path: '/' },
-    { name: 'Shop', path: '/shop' },
-    {
-     name: categoryLabel(p.category),
-     path: `/shop?cat=${p.category}`,
-    },
-    { name: p.name, path: productPath },
-   ]),
-  ],
+  jsonLd,
  }
 }
 

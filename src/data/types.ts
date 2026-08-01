@@ -94,3 +94,39 @@ export interface Product {
   /** Short line under the video */
   featureVideoCaption?: string
 }
+
+/** Long-form PDP enrichment — see docs/PRODUCT-ENRICHMENT-RULES.md */
+export interface EnrichmentSection {
+  heading: string
+  body: string
+}
+
+export interface EnrichmentFaq {
+  q: string
+  a: string
+}
+
+export interface ProductEnrichment {
+  productId: string
+  slug: string
+  /** ISO date of last editorial pass */
+  updatedAt: string
+  reviewSnapshot: {
+    verdict: string
+    love: string[]
+    caveats: string[]
+    bestFor: string[]
+    skipIf: string[]
+    /** Human note under stars, e.g. “~4.6 from tens of thousands of ratings” */
+    ratingNote?: string
+  }
+  blog: {
+    title: string
+    dek: string
+    sections: EnrichmentSection[]
+  }
+  faq: EnrichmentFaq[]
+  setupTips?: string[]
+  /** Optional research note sites (names only, not full articles) */
+  researchNotes?: string[]
+}

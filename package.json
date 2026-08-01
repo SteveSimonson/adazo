@@ -14,7 +14,8 @@
     "fill:quota": "node scripts/bsr/fill-quota.mjs",
     "refresh:images": "node scripts/bsr/refresh-catalog-images.mjs",
     "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "content:research": "node scripts/research-product-enrichment.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.25.0",
