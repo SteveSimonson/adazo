@@ -15,7 +15,9 @@
     "refresh:images": "node scripts/bsr/refresh-catalog-images.mjs",
     "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
     "deploy": "npm run build && wrangler deploy",
-    "content:research": "node scripts/research-product-enrichment.mjs"
+    "content:research": "node scripts/research-product-enrichment.mjs",
+    "library:sync": "node scripts/sync-from-library.mjs",
+    "library:sync:dry": "node scripts/sync-from-library.mjs --dry-run"
   },
   "dependencies": {
     "lucide-react": "^1.25.0",
