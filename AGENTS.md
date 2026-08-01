@@ -1,5 +1,20 @@
 # Adazo agent notes
 
+## Product thesis
+
+**Women’s beauty & Riviera finish.** Discover on Adazo; buy on Amazon.
+
+## Product page enrichment
+
+Every catalog SKU should have long-form enrichment (review snapshot, item blog, FAQ, setup tips) so PDPs rank and convert as destinations—not thin affiliate hops.
+
+- **Rules:** [`docs/PRODUCT-ENRICHMENT-RULES.md`](docs/PRODUCT-ENRICHMENT-RULES.md)
+- **Skill:** `~/.grok/skills/product-page-enrichment` (`/product-page-enrichment`)
+- **Data:** `src/data/productEnrichments.ts` via `getProductEnrichment(slug)`
+- **UI:** `src/components/ProductEnrichment.tsx` on `Product.tsx`
+- **Research:** TinyFish via `npm run content:research` → synthesize original Adazo prose (warm Riviera; never clinical cure claims; never paste scraped reviews)
+- **SEO:** FAQPage JSON-LD when FAQs exist (`productSeo` in `seoData.ts`); `scripts/route-meta.ts` must call `productSeo` **with** enrichment
+
 ## Persona modeling / campaign images
 
 **Read and obey** [`docs/persona-portfolio-rules.md`](docs/persona-portfolio-rules.md) before generating or replacing any persona avatar, house campaign, or World Edit travel still.

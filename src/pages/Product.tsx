@@ -21,8 +21,10 @@ import {
   youMayAlsoLike,
 } from '../data/catalog'
 import { ProductGrid } from '../components/ProductGrid'
+import { ProductEnrichmentSections } from '../components/ProductEnrichment'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
+import { getProductEnrichment } from '../data/productEnrichments'
 import { affiliateUrl } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
@@ -99,6 +101,7 @@ export function ProductPage() {
 
   // Local alias so nested handlers keep the narrowed product type
   const p = product
+  const enrichment = getProductEnrichment(p.slug)
   const shopUrl = affiliateUrl({
     asin: p.asin,
     searchKeywords: p.searchKeywords,
@@ -122,7 +125,7 @@ export function ProductPage() {
 
   return (
     <div className="pb-28">
-      <Seo {...productSeo(p)} />
+      <Seo {...productSeo(p, enrichment)} />
       {/* Breadcrumb */}
       <div className="border-b border-line bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-2 text-xs text-muted">
@@ -392,10 +395,9 @@ export function ProductPage() {
             </h2>
             <div className="rounded-2xl border border-line bg-card p-6 space-y-4">
               <p className="text-sm text-ink-soft leading-relaxed">
-                Every Adazo product is selected for material quality, daily
-                usability, and a finish that belongs in a considered home. We
-                show you the details here—then you buy where fulfillment is
-                fast and familiar: Amazon.
+                {enrichment
+                  ? enrichment.reviewSnapshot.verdict
+                  : 'Every Adazo product is selected for material quality, daily usability, and a finish that belongs in a considered home. We show you the details here—then you buy where fulfillment is fast and familiar: Amazon.'}
               </p>
               <a
                 href={shopUrl}
@@ -409,6 +411,32 @@ export function ProductPage() {
             </div>
           </div>
         </section>
+
+        {enrichment ? (
+          <ProductEnrichmentSections enrichment={enrichment} />
+        ) : null}
+
+        {enrichment ? (
+          <div className="mt-12 rounded-2xl border border-bamboo/25 bg-bamboo/5 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <p className="font-display text-lg font-semibold text-ink">
+                Ready when you are
+              </p>
+              <p className="text-sm text-ink-soft mt-1">
+                Price and seller details live on Amazon. We brought the judgment.
+              </p>
+            </div>
+            <a
+              href={shopUrl}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="btn-amazon !py-3.5 shrink-0"
+              onClick={() => onAmazonClick('product_page_after_enrichment')}
+            >
+              Buy on Amazon <ExternalLink className="size-4" />
+            </a>
+          </div>
+        ) : null}
 
         {/* Similar */}
         {similar.length > 0 && (
