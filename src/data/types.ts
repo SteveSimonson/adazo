@@ -130,3 +130,70 @@ export interface ProductEnrichment {
   /** Optional research note sites (names only, not full articles) */
   researchNotes?: string[]
 }
+
+/** Gift guide listicles — avatar-locked beauty edits from the Adazo shelf */
+export type GiftRecipientId =
+  | 'her'
+  | 'wife'
+  | 'mom'
+  | 'girlfriend'
+  | 'teen-girl'
+  | 'coworker'
+  | 'host'
+  | 'couple'
+  | 'self'
+  | 'friend'
+
+export type GiftOccasionId =
+  | 'christmas'
+  | 'mothers-day'
+  | 'valentines'
+  | 'birthday'
+  | 'graduation'
+  | 'wedding'
+  | 'housewarming'
+  | 'black-friday'
+  | 'just-because'
+
+export type GiftBudgetBand = 'under-50' | '50-150' | '150-400' | 'splurge'
+
+export interface GiftGuideProductEntry {
+  productSlug: string
+  rank?: number
+  /** Why this works as a gift — not a PDP paste */
+  giftWhy: string
+  priceBand?: GiftBudgetBand
+  badge?: string
+}
+
+export interface GiftGuideSection {
+  heading: string
+  body: string
+}
+
+export interface GiftGuideFaq {
+  q: string
+  a: string
+}
+
+export interface GiftGuide {
+  slug: string
+  title: string
+  dek: string
+  primaryQuery: string
+  recipientIds: GiftRecipientId[]
+  occasionIds: GiftOccasionId[]
+  budgetBands: GiftBudgetBand[]
+  productEntries: GiftGuideProductEntry[]
+  intro: string
+  sections: GiftGuideSection[]
+  faq: GiftGuideFaq[]
+  heroImage?: string
+  publishedAt: string
+  updatedAt: string
+  seasonal?: {
+    peakMonths: number[]
+    yearHint?: number
+  }
+  readMinutes?: number
+}

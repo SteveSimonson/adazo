@@ -9,11 +9,18 @@ import {
  CATEGORY_LABELS,
  categoryLabel,
  filterProducts,
+ getProduct,
  productGalleryThumbs,
  productImageChain,
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
-import type { Category, Product, ProductEnrichment } from '../data/types'
+import { giftGuides } from '../data/giftGuides'
+import type {
+ Category,
+ GiftGuide,
+ Product,
+ ProductEnrichment,
+} from '../data/types'
 import type { VibeProfile } from '../data/vibes'
 import { isQuietPlaceholder } from './productImages'
 import {
@@ -23,6 +30,7 @@ import {
  breadcrumbJsonLd,
  clipMeta,
  faqPageJsonLd,
+ itemListJsonLd,
  pageTitle,
  productJsonLd,
  type PageSeo,
@@ -229,6 +237,72 @@ export function watchSeo(): PageSeo {
    { name: 'Home', path: '/' },
    { name: 'Watch', path: '/watch' },
   ]),
+ }
+}
+
+export function giftsHubSeo(): PageSeo {
+ return {
+  title: 'Beauty gift guides',
+  description: clipMeta(
+   `Gifts for her, mom, wife, self-care, and under $50 — ${giftGuides.length} curated Adazo beauty guides. Chosen here; buy on Amazon.`,
+  ),
+  path: '/gifts',
+  image: '/brand/social.png',
+  jsonLd: [
+   breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Gifts', path: '/gifts' },
+   ]),
+   itemListJsonLd({
+    name: 'Adazo beauty gift guides',
+    path: '/gifts',
+    items: giftGuides.map((g, i) => ({
+     name: g.title,
+     path: `/gifts/${g.slug}`,
+     position: i + 1,
+    })),
+   }),
+  ],
+ }
+}
+
+export function giftGuideSeo(g: GiftGuide): PageSeo {
+ const path = `/gifts/${g.slug}`
+ const products = g.productEntries
+  .map((e) => getProduct(e.productSlug))
+  .filter(Boolean) as Product[]
+
+ const jsonLd: Record<string, unknown>[] = [
+  breadcrumbJsonLd([
+   { name: 'Home', path: '/' },
+   { name: 'Gifts', path: '/gifts' },
+   { name: g.title, path },
+  ]),
+  itemListJsonLd({
+   name: g.title,
+   path,
+   items: products.map((p, i) => ({
+    name: p.name,
+    path: `/product/${p.slug}`,
+    position: g.productEntries[i]?.rank ?? i + 1,
+   })),
+  }),
+ ]
+
+ if (g.faq.length) {
+  const faqLd = faqPageJsonLd(g.faq, path)
+  if (faqLd) jsonLd.push(faqLd)
+ }
+
+ return {
+  title: g.title,
+  description: clipMeta(
+   `${g.dek} ${g.productEntries.length} beauty picks on Adazo. Updated ${g.updatedAt.slice(0, 4)}.`,
+  ),
+  path,
+  type: 'article',
+  image: g.heroImage || products[0]?.images?.[0] || '/brand/social.png',
+  jsonLd,
  }
 }
 

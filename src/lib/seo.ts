@@ -170,3 +170,24 @@ export function faqPageJsonLd(
     url: absoluteUrl(pagePath),
   }
 }
+
+export function itemListJsonLd(opts: {
+  name: string
+  path: string
+  items: { name: string; path: string; position: number }[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: opts.name,
+    url: absoluteUrl(opts.path),
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: opts.items.length,
+    itemListElement: opts.items.map((item) => ({
+      '@type': 'ListItem',
+      position: item.position,
+      url: absoluteUrl(item.path),
+      name: item.name,
+    })),
+  }
+}

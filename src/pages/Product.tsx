@@ -25,6 +25,7 @@ import { ProductEnrichmentSections } from '../components/ProductEnrichment'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
 import { getProductEnrichment } from '../data/productEnrichments'
+import { guidesForProduct } from '../data/giftGuides'
 import { affiliateUrl } from '../lib/amazon'
 import { trackAmazonClick, trackViewItem } from '../lib/analytics'
 import { isQuietPlaceholder } from '../lib/productImages'
@@ -102,6 +103,7 @@ export function ProductPage() {
   // Local alias so nested handlers keep the narrowed product type
   const p = product
   const enrichment = getProductEnrichment(p.slug)
+  const onGiftGuides = guidesForProduct(p.slug)
   const shopUrl = affiliateUrl({
     asin: p.asin,
     searchKeywords: p.searchKeywords,
@@ -318,6 +320,25 @@ export function ProductPage() {
                 </li>
               ))}
             </ul>
+
+            {onGiftGuides.length > 0 && (
+              <div className="rounded-xl border border-line bg-card/80 px-4 py-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted mb-2">
+                  Also on gift guides
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {onGiftGuides.map((g) => (
+                    <Link
+                      key={g.slug}
+                      to={`/gifts/${g.slug}`}
+                      className="rounded-full border border-bamboo/25 bg-bamboo/5 px-3 py-1 text-xs font-semibold text-bamboo hover:border-bamboo/50 transition"
+                    >
+                      {g.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="flex flex-col gap-3 pt-1">
               <a
