@@ -9,6 +9,7 @@ import { GlobalSeo } from './Seo'
 /** Lean primary nav — categories live on /shop, not the header. */
 const primaryNav = [
   { to: '/shop', label: 'Shop', match: (path: string) => path === '/shop' || path.startsWith('/shop') || path.startsWith('/product/') },
+  { to: '/gifts', label: 'Gifts', match: (path: string) => path.startsWith('/gifts') },
   { to: '/quiz', label: 'Vibe', match: (path: string) => path.startsWith('/quiz') || path.startsWith('/vibe/') },
   { to: '/watch', label: 'Watch', match: (path: string) => path.startsWith('/watch') || path.startsWith('/reels') },
 ] as const
@@ -183,6 +184,11 @@ export function Layout() {
               <li>
                 <Link to="/shop" className="hover:text-bamboo">
                   Shop
+                </Link>
+              </li>
+              <li>
+                <Link to="/gifts" className="hover:text-bamboo">
+                  Gifts
                 </Link>
               </li>
               <li>

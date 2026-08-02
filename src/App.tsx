@@ -10,6 +10,8 @@ import { Quiz } from './pages/Quiz'
 import { VibePage } from './pages/Vibe'
 import { ReelsPage } from './pages/Reels'
 import { WatchPage } from './pages/Watch'
+import { GiftsHubPage } from './pages/Gifts'
+import { GiftGuidePage } from './pages/GiftGuide'
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="product/:slug" element={<ProductPage />} />
+          <Route path="gifts" element={<GiftsHubPage />} />
+          <Route path="gifts/:slug" element={<GiftGuidePage />} />
           <Route path="why" element={<Why />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="reels" element={<ReelsPage />} />
