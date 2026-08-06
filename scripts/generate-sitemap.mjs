@@ -74,6 +74,9 @@ function extractGiftGuideSlugs(filePath) {
   }
 }
 const giftSlugs = extractGiftGuideSlugs(join(ROOT, 'src/data/giftGuides.ts'))
+const buyerGuideSlugs = extractGiftGuideSlugs(
+  join(ROOT, 'src/data/buyerGuides.ts'),
+)
 
 /** @type {{ loc: string, changefreq: string, priority: string }[]} */
 const urls = [
@@ -81,6 +84,7 @@ const urls = [
   { loc: '/shop', changefreq: 'daily', priority: '0.95' },
   { loc: '/shop?limited=1', changefreq: 'daily', priority: '0.9' },
   { loc: '/gifts', changefreq: 'weekly', priority: '0.9' },
+  { loc: '/guides', changefreq: 'weekly', priority: '0.9' },
   { loc: '/quiz', changefreq: 'weekly', priority: '0.85' },
   { loc: '/reels', changefreq: 'weekly', priority: '0.8' },
   { loc: '/watch', changefreq: 'weekly', priority: '0.75' },
@@ -90,6 +94,14 @@ const urls = [
 for (const slug of giftSlugs) {
   urls.push({
     loc: `/gifts/${slug}`,
+    changefreq: 'weekly',
+    priority: '0.85',
+  })
+}
+
+for (const slug of buyerGuideSlugs) {
+  urls.push({
+    loc: `/guides/${slug}`,
     changefreq: 'weekly',
     priority: '0.85',
   })
@@ -147,7 +159,7 @@ ${body}
 const out = join(ROOT, 'public/sitemap.xml')
 writeFileSync(out, xml)
 console.log(
-  `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${giftSlugs.length} gift guides, ${vibes.length} vibes, ${categories.length} categories)`,
+  `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${giftSlugs.length} gifts, ${buyerGuideSlugs.length} guides, ${vibes.length} vibes, ${categories.length} categories)`,
 )
 
 /**

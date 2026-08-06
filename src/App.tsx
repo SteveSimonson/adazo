@@ -12,6 +12,8 @@ import { ReelsPage } from './pages/Reels'
 import { WatchPage } from './pages/Watch'
 import { GiftsHubPage } from './pages/Gifts'
 import { GiftGuidePage } from './pages/GiftGuide'
+import { BuyerGuidesHubPage } from './pages/BuyerGuides'
+import { BuyerGuidePage } from './pages/BuyerGuide'
 
 export default function App() {
   return (
@@ -25,6 +27,8 @@ export default function App() {
           <Route path="product/:slug" element={<ProductPage />} />
           <Route path="gifts" element={<GiftsHubPage />} />
           <Route path="gifts/:slug" element={<GiftGuidePage />} />
+          <Route path="guides" element={<BuyerGuidesHubPage />} />
+          <Route path="guides/:slug" element={<BuyerGuidePage />} />
           <Route path="why" element={<Why />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="reels" element={<ReelsPage />} />

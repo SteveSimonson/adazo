@@ -8,6 +8,7 @@
  */
 import { CATEGORY_OPTIONS, products } from '../src/data/catalog'
 import { giftGuides } from '../src/data/giftGuides'
+import { buyerGuides } from '../src/data/buyerGuides'
 import { getProductEnrichment } from '../src/data/productEnrichments'
 import { VIBE_LIST } from '../src/data/vibes'
 import {
@@ -17,6 +18,8 @@ import {
 } from '../src/lib/seo'
 import {
   finalizeRouteMeta,
+  buyerGuideSeo,
+  buyerGuidesHubSeo,
   giftGuideSeo,
   giftsHubSeo,
   homeSeo,
@@ -56,6 +59,10 @@ export function buildRouteMeta(): RouteMetaFile {
   routes['/gifts'] = finalizeRouteMeta(giftsHubSeo())
   for (const g of giftGuides) {
     routes[`/gifts/${g.slug}`] = finalizeRouteMeta(giftGuideSeo(g))
+  }
+  routes['/guides'] = finalizeRouteMeta(buyerGuidesHubSeo())
+  for (const g of buyerGuides) {
+    routes[`/guides/${g.slug}`] = finalizeRouteMeta(buyerGuideSeo(g))
   }
 
   for (const vibe of VIBE_LIST) {

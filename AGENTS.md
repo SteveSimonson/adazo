@@ -4,6 +4,17 @@
 
 **Women’s beauty & Riviera finish.** Discover on Adazo; buy on Amazon.
 
+
+## Buyer-intent guides (`/guides`)
+
+Money-keyword concern-first beauty jobs (retinol, SPF, cleanser, travel, hair, body, lips, prestige, tools).
+
+- **Data:** `src/data/buyerGuides.ts`
+- **Pages:** `BuyerGuides.tsx` hub, `BuyerGuide.tsx` listicle
+- **SEO:** `buyerGuidesHubSeo` / `buyerGuideSeo` + route-meta + sitemap
+- **Skill:** `~/.grok/skills/affiliate-buyer-guides`
+- Warm Riviera voice; **not medical advice**; separate from `/gifts`
+
 ## Gift guides (avatar-locked SEO listicles)
 
 Wave-1 beauty gift guides live at `/gifts` and `/gifts/:slug`.
