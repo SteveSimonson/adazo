@@ -15,7 +15,9 @@ import {
 } from '../data/catalog'
 import { getCategoryHero } from '../data/categoryHeroes'
 import { giftGuides } from '../data/giftGuides'
+import { buyerGuides } from '../data/buyerGuides'
 import type {
+ BuyerGuide,
  Category,
  GiftGuide,
  Product,
@@ -198,6 +200,73 @@ export function whySeo(): PageSeo {
   image: '/brand/social.png',
   preloadImage: '/brand/social.png',
   type: 'article',
+ }
+}
+
+
+export function buyerGuidesHubSeo(): PageSeo {
+ return {
+  title: 'Buyer guides — skin, SPF, hair, tools',
+  description: clipMeta(
+   `${buyerGuides.length} high-intent Adazo guides: retinol starts, SPF under makeup, sensitive cleansers, travel stacks, hair oil, winter body, lips, prestige creams, heat tools. Catalog-backed.`,
+  ),
+  path: '/guides',
+  image: '/brand/social.png',
+  jsonLd: [
+   breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Guides', path: '/guides' },
+   ]),
+   itemListJsonLd({
+    name: 'Adazo buyer guides',
+    path: '/guides',
+    items: buyerGuides.map((g, i) => ({
+     name: g.title,
+     path: `/guides/${g.slug}`,
+     position: i + 1,
+    })),
+   }),
+  ],
+ }
+}
+
+export function buyerGuideSeo(g: BuyerGuide): PageSeo {
+ const path = `/guides/${g.slug}`
+ const products = g.productEntries
+  .map((e) => getProduct(e.productSlug))
+  .filter(Boolean) as Product[]
+
+ const jsonLd: Record<string, unknown>[] = [
+  breadcrumbJsonLd([
+   { name: 'Home', path: '/' },
+   { name: 'Guides', path: '/guides' },
+   { name: g.title, path },
+  ]),
+  itemListJsonLd({
+   name: g.title,
+   path,
+   items: products.map((p, i) => ({
+    name: p.name,
+    path: `/product/${p.slug}`,
+    position: g.productEntries[i]?.rank ?? i + 1,
+   })),
+  }),
+ ]
+
+ if (g.faq.length) {
+  const faqLd = faqPageJsonLd(g.faq, path)
+  if (faqLd) jsonLd.push(faqLd)
+ }
+
+ return {
+  title: g.title,
+  description: clipMeta(
+   `${g.dek} ${g.productEntries.length} picks on Adazo. Updated ${g.updatedAt.slice(0, 4)}.`,
+  ),
+  path,
+  type: 'article',
+  image: g.heroImage || products[0]?.images?.[0] || '/brand/social.png',
+  jsonLd,
  }
 }
 
