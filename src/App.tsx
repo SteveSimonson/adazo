@@ -14,6 +14,8 @@ import { GiftsHubPage } from './pages/Gifts'
 import { GiftGuidePage } from './pages/GiftGuide'
 import { BuyerGuidesHubPage } from './pages/BuyerGuides'
 import { BuyerGuidePage } from './pages/BuyerGuide'
+import { Privacy } from './pages/Privacy'
+import { Terms } from './pages/Terms'
 
 export default function App() {
   return (
@@ -34,6 +36,8 @@ export default function App() {
           <Route path="reels" element={<ReelsPage />} />
           <Route path="watch" element={<WatchPage />} />
           <Route path="vibe/:vibeId" element={<VibePage />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms" element={<Terms />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
