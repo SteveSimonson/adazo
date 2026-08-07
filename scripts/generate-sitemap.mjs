@@ -89,6 +89,8 @@ const urls = [
   { loc: '/reels', changefreq: 'weekly', priority: '0.8' },
   { loc: '/watch', changefreq: 'weekly', priority: '0.75' },
   { loc: '/why', changefreq: 'monthly', priority: '0.7' },
+  { loc: '/privacy', changefreq: 'yearly', priority: '0.3' },
+  { loc: '/terms', changefreq: 'yearly', priority: '0.3' },
 ]
 
 for (const slug of giftSlugs) {

@@ -56,6 +56,16 @@ export function buildRouteMeta(): RouteMetaFile {
   routes['/reels'] = finalizeRouteMeta(reelsSeo())
   routes['/watch'] = finalizeRouteMeta(watchSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
+  routes['/privacy'] = finalizeRouteMeta({
+    title: 'Privacy Policy',
+    description: 'Privacy Policy for Adazo.',
+    path: '/privacy',
+  } as any)
+  routes['/terms'] = finalizeRouteMeta({
+    title: 'Terms of Use',
+    description: 'Terms of Use for Adazo.',
+    path: '/terms',
+  } as any)
   routes['/gifts'] = finalizeRouteMeta(giftsHubSeo())
   for (const g of giftGuides) {
     routes[`/gifts/${g.slug}`] = finalizeRouteMeta(giftGuideSeo(g))

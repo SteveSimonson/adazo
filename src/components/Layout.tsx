@@ -237,6 +237,16 @@ export function Layout() {
                   Our story
                 </Link>
               </li>
+              <li>
+                <Link to="/privacy" className="hover:text-bamboo">
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-bamboo">
+                  Terms
+                </Link>
+              </li>
             </ul>
             <p className="text-xs text-muted mt-6 leading-relaxed">
               {BRAND.affiliateDisclosure}
@@ -245,6 +255,14 @@ export function Layout() {
         </div>
         <div className="border-t border-line py-4 text-center text-xs text-muted">
           © {new Date().getFullYear()} Adazo · Since {BRAND.founded} · adazo.com
+          {' · '}
+          <Link to="/privacy" className="underline hover:text-ink">
+            Privacy
+          </Link>
+          {' · '}
+          <Link to="/terms" className="underline hover:text-ink">
+            Terms
+          </Link>
         </div>
       </footer>
     </div>
