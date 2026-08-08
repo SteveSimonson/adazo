@@ -16,12 +16,14 @@ import { BuyerGuidesHubPage } from './pages/BuyerGuides'
 import { BuyerGuidePage } from './pages/BuyerGuide'
 import { Privacy } from './pages/Privacy'
 import { Terms } from './pages/Terms'
+import ConbalBalloons from './components/ConbalBalloons'
 
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <GoogleAnalytics />
+      <ConbalBalloons />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
