@@ -22,7 +22,7 @@ Wave-1 beauty gift guides live at `/gifts` and `/gifts/:slug`.
 - **Data:** `src/data/giftGuides.ts` + gift types in `src/data/types.ts`
 - **Pages:** `src/pages/Gifts.tsx` (hub), `src/pages/GiftGuide.tsx` (listicle)
 - **SEO:** `giftsHubSeo` / `giftGuideSeo` in `src/lib/seoData.ts`; `itemListJsonLd` in `src/lib/seo.ts`; sitemap + `scripts/route-meta.ts` include gift URLs
-- **Rules:** Catalog-backed `productEntries` only (every slug must exist in `products.ts`). Original gift framing (`giftWhy` ≥ ~40 words). Warm Riviera voice — never clinical cure claims. Skip Conbal slots (no Conbal on Adazo). Buy on Amazon with `rel="sponsored"`. Footer disclosure already on Layout.
+- **Rules:** Catalog-backed `productEntries` only (every slug must exist in `products.ts`). Original gift framing (`giftWhy` ≥ ~40 words). Warm Riviera voice — never clinical cure claims. ConBal may add host-native v2 editorial notes only at safe section boundaries; never place one inside a product card, list item, form, hero, or conversion CTA. Buy on Amazon with `rel="sponsored"`. Footer disclosure already on Layout.
 - **Nav:** Primary nav + footer “Gifts”; Home featured rail; PDP “Also on gift guides” chips via `guidesForProduct`.
 
 ## Product page enrichment
