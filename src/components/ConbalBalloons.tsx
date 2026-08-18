@@ -1,13 +1,26 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import {
+  parseConbalHistory,
+  validateConbalAssignment,
+  type ConbalAssignment,
+} from '../lib/conbalV2'
 
 const SITE_KEY = 'nNo0a-TuVz6S'
 const API_ORIGIN = 'https://conbal.us'
-const ROOT_PREFIX = 'adazo'
-const HISTORY_KEY = `adazo:conbal-history:${SITE_KEY}`
-const INTEGRATION_VERSION = 'page-aware-20260808'
-const MAX_SLOTS = 6
-const REQUEST_TIMEOUT_MS = 2400
+const HISTORY_KEY = `adazo:conbal-v2-history:${SITE_KEY}`
+const MAX_SLOTS = 3
+const REQUEST_TIMEOUT_MS = 2600
+const SITE_TOPICS = [
+  'beauty',
+  'skin',
+  'hair',
+  'self-care',
+  'fragrance',
+  'ingredients',
+  'travel',
+  'gifting',
+]
 const EDITORIAL_TYPES = [
   'did_you_know',
   'fun_fact',
@@ -18,37 +31,7 @@ const EDITORIAL_TYPES = [
   'culture_craft',
 ]
 
-type BalloonPayload = {
-  slug?: string
-  size?: string
-  html?: string
-  css?: string
-}
-
 type Anchor = { node: Element; text: string }
-
-const TOPIC_RULES: Array<[string, string[]]> = [
-  ['beauty', ['beauty', 'makeup', 'cosmetic', 'glow', 'complexion']],
-  ['skin', ['skin', 'skincare', 'cleanser', 'serum', 'moisturizer', 'spf']],
-  ['hair', ['hair', 'shampoo', 'conditioner', 'scalp', 'curl']],
-  ['self-care', ['self-care', 'wellness', 'ritual', 'routine', 'bath', 'body']],
-  ['fragrance', ['fragrance', 'perfume', 'scent', 'aroma']],
-  ['ingredients', ['ingredient', 'formula', 'botanical', 'oil', 'vitamin']],
-  ['travel', ['travel', 'carry-on', 'vacation', 'weekend', 'portable']],
-  ['gifting', ['gift', 'birthday', 'holiday', 'mother', 'bridal']],
-]
-
-const PAGE_TOPIC_RULES: Array<[string, string[]]> = [
-  ['/shop', ['beauty', 'skin', 'hair', 'self-care']],
-  ['/product/', ['beauty', 'ingredients', 'care', 'routine']],
-  ['/guides', ['beauty', 'skin', 'hair', 'ingredients']],
-  ['/gifts', ['gifting', 'beauty', 'self-care']],
-  ['/quiz', ['beauty', 'self-care', 'routine']],
-  ['/vibe/', ['beauty', 'self-care', 'fragrance']],
-  ['/watch', ['beauty', 'culture', 'routine']],
-  ['/reels', ['beauty', 'culture', 'travel']],
-  ['/why', ['beauty', 'culture', 'self-care']],
-]
 
 function textOf(node: Element | null) {
   return (node?.textContent || '').replace(/\s+/g, ' ').trim()
@@ -59,41 +42,15 @@ function wordCount(text: string) {
 }
 
 function slotCount(words: number, path: string) {
-  if (/^\/(?:admin|privacy|terms|404)(?:\/|$)/.test(path)) return 0
-  if (words < 160) return 0
-  return Math.min(MAX_SLOTS, 1 + Math.floor((words - 160) / 300))
-}
-
-function pageTopics(path: string) {
-  const normalizedPath = path.split('?')[0].replace(/\/+$/, '') || '/'
-  const routeTopics = PAGE_TOPIC_RULES.find(([route]) =>
-    route.endsWith('/')
-      ? normalizedPath.startsWith(route)
-      : normalizedPath === route || normalizedPath.startsWith(`${route}/`),
-  )?.[1]
-  if (routeTopics) return routeTopics
-
-  const focus = document.querySelector('main > section, main > article, main > div')
-  const haystack = [
-    document.title,
-    normalizedPath,
-    textOf(document.querySelector('h1')),
-    textOf(focus),
-  ].join(' ').toLowerCase()
-  const topics = TOPIC_RULES.filter(([, terms]) =>
-    terms.some((term) => haystack.includes(term)),
-  ).map(([topic]) => topic)
-  return (topics.length ? topics : ['beauty', 'self-care', 'general']).slice(0, 8)
+  if (/^\/(?:admin|privacy|terms|404)(?:\/|$)/.test(path) || words < 220) return 0
+  if (words < 700) return 1
+  if (words < 1_400) return 2
+  return MAX_SLOTS
 }
 
 function readHistory() {
   try {
-    const value = JSON.parse(window.localStorage.getItem(HISTORY_KEY) || '[]')
-    return Array.isArray(value)
-      ? value
-          .filter((slug): slug is string => /^[a-z0-9-]{1,80}$/.test(slug))
-          .slice(-36)
-      : []
+    return parseConbalHistory(window.localStorage.getItem(HISTORY_KEY))
   } catch {
     return []
   }
@@ -102,13 +59,10 @@ function readHistory() {
 function remember(slugs: string[]) {
   if (!slugs.length) return
   try {
-    const history = readHistory().concat(slugs)
-    window.localStorage.setItem(
-      HISTORY_KEY,
-      JSON.stringify(Array.from(new Set(history)).slice(-36)),
-    )
+    const history = [...new Set([...readHistory(), ...slugs])].slice(-30)
+    window.localStorage.setItem(HISTORY_KEY, JSON.stringify(history))
   } catch {
-    // A blocked storage API must never affect the host page.
+    // Storage is only a rotation hint. Rendering must still work without it.
   }
 }
 
@@ -117,45 +71,30 @@ function visible(node: Element) {
   return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0'
 }
 
-function ignored(node: Element) {
-  return Boolean(
-    node.closest(
-      'header, nav, footer, form, dialog, aside, li, [data-conbal-managed], [data-conbal-slot], [data-adazo-conbal-slot]',
-    ),
-  )
-}
-
-function usableAnchor(node: Element, root: HTMLElement) {
-  const rect = node.getBoundingClientRect()
+function safeBoundary(node: Element, root: HTMLElement) {
+  if (!visible(node) || node.closest('header, nav, footer, form, dialog, aside, li, [data-conbal-slot]')) return false
+  const parent = node.parentElement
+  if (!parent) return false
+  const parentStyle = window.getComputedStyle(parent)
+  if (parentStyle.display.includes('grid')) return false
+  if (parentStyle.display.includes('flex') && parentStyle.flexDirection.startsWith('row')) return false
   const rootWidth = root.getBoundingClientRect().width
-  const minimumWidth = Math.min(520, Math.max(260, rootWidth * 0.42))
-  const insideCardLayout = Boolean(
-    node.parentElement?.closest(
-      '[class~="grid"], [class*="rounded-"], [data-card], [data-product-card], [data-conbal-managed]',
-    ),
-  )
-  return rect.width >= minimumWidth && !insideCardLayout
+  const parentWidth = parent.getBoundingClientRect().width
+  const minimumWidth = Math.min(560, Math.max(300, rootWidth * 0.68))
+  if (parentWidth < minimumWidth) return false
+  const classNames = `${node.className || ''} ${parent.className || ''}`
+  if (/\b(?:card|tile|hero|cta|modal|drawer|sidebar)\b/i.test(classNames)) return false
+  if (node.querySelector('h1, form, ol, button')) return false
+  return wordCount(textOf(node)) >= 18
 }
 
 function anchors(root: HTMLElement): Anchor[] {
-  const layoutNodes = Array.from(
-    root.querySelectorAll('[class~="grid"], [class*="grid-cols-"], [data-conbal-allow-grid]'),
-  )
-    .filter((node) => visible(node) && !ignored(node))
+  const sections = Array.from(root.querySelectorAll('section')).filter((node) => safeBoundary(node, root))
+  const fallbackArticles = Array.from(root.querySelectorAll('article')).filter((node) => safeBoundary(node, root))
+  const candidates = (sections.length ? sections : fallbackArticles)
     .map((node) => ({ node, text: textOf(node) }))
-    .filter(({ node, text }) => {
-      const rect = node.getBoundingClientRect()
-      return text.length >= 220 && rect.width >= Math.min(520, Math.max(260, root.getBoundingClientRect().width * 0.42))
-    })
-  const nodes = Array.from(root.querySelectorAll('section, article, p, h2, h3'))
-    .filter((node) => visible(node) && !ignored(node) && usableAnchor(node, root))
-    .map((node) => ({ node, text: textOf(node) }))
-    .filter(({ node, text }) => text.length >= (node.matches('p') ? 120 : 180))
-  const allNodes = [...layoutNodes, ...nodes]
-  const paragraphs = allNodes.filter(({ node }) => node.matches('p'))
-  const source = paragraphs.length >= 2 ? paragraphs : layoutNodes.length ? layoutNodes : nodes
   const result: Anchor[] = []
-  for (const entry of source) {
+  for (const entry of candidates) {
     if (result.some(({ node }) => node.contains(entry.node) || entry.node.contains(node))) continue
     result.push(entry)
   }
@@ -165,17 +104,18 @@ function anchors(root: HTMLElement): Anchor[] {
 function chooseAnchors(root: HTMLElement, count: number) {
   const candidates = anchors(root)
   if (!candidates.length) return []
+  // The final section is commonly a related-content or conversion block. Keep
+  // editorial notes in the body rhythm instead of between the page and CTA.
+  const safeCandidates = candidates.length > 2 ? candidates.slice(0, -1) : candidates
+  const target = Math.min(count, safeCandidates.length)
   const picks: Anchor[] = []
-  const step = candidates.length / count
-  for (let index = 0; index < count; index += 1) {
-    const candidate = candidates[Math.min(candidates.length - 1, Math.floor((index + 0.5) * step))]
-    if (
-      !picks.some(
-        ({ node }) => node === candidate.node || node.contains(candidate.node) || candidate.node.contains(node),
-      )
-    ) {
-      picks.push(candidate)
-    }
+  for (let index = 0; index < target; index += 1) {
+    const candidateIndex = Math.min(
+      safeCandidates.length - 1,
+      Math.floor(((index + 0.5) * safeCandidates.length) / target),
+    )
+    const candidate = safeCandidates[candidateIndex]
+    if (!picks.some(({ node }) => node === candidate.node)) picks.push(candidate)
   }
   return picks
 }
@@ -184,102 +124,62 @@ function createSlots(root: HTMLElement, count: number) {
   return chooseAnchors(root, count).map((entry, index) => {
     const slot = document.createElement('div')
     slot.className = 'adazo-conbal-slot'
-    slot.dataset.conbalSlot = String(index)
-    slot.setAttribute('role', 'region')
-    slot.setAttribute('aria-live', 'polite')
-    slot.setAttribute('aria-label', 'Adazo editorial note')
+    slot.dataset.conbalSlot = `adazo-note-${index + 1}`
     entry.node.insertAdjacentElement('afterend', slot)
     return slot
   })
 }
 
-function safeHtml(html: string | undefined, expectedSlug: string) {
-  if (
-    typeof html !== 'string' ||
-    html.length < 40 ||
-    html.length > 50_000 ||
-    /<\s*(script|iframe|object|embed|form|input|textarea|select|style)\b|\bon[a-z]+\s*=|javascript:/i.test(html)
-  ) {
-    return null
-  }
-  const doc = new DOMParser().parseFromString(html, 'text/html')
-  const roots = Array.from(doc.body.children)
-  if (roots.length !== 1 || roots[0].tagName !== 'ARTICLE') return null
-  const root = roots[0]
-  if (root.classList.length !== 1 || root.classList[0] !== `${ROOT_PREFIX}-${expectedSlug}`) return null
-  const allowedTags = new Set(['ARTICLE', 'SMALL', 'H3', 'P', 'SPAN'])
-  for (const node of [root, ...Array.from(root.querySelectorAll('*'))]) {
-    if (!allowedTags.has(node.tagName)) return null
-    for (const attr of Array.from(node.attributes)) {
-      if (attr.name !== 'class' && attr.name !== 'aria-label' && attr.name !== 'aria-hidden') return null
-      if (
-        attr.name === 'class' &&
-        !attr.value.split(/\s+/).filter(Boolean).every((value) =>
-          new RegExp(`^${ROOT_PREFIX}-[a-z0-9-]+$`).test(value),
-        )
-      ) {
-        return null
-      }
-    }
-  }
-  return root
+function render(slot: HTMLElement, assignment: ConbalAssignment) {
+  const card = document.createElement('aside')
+  card.className = 'adazo-conbal-note'
+  card.setAttribute('aria-label', 'Adazo editorial note')
+
+  const eyebrow = document.createElement('p')
+  eyebrow.className = 'adazo-conbal-note__eyebrow'
+  eyebrow.textContent = assignment.editorial_type === 'care_tip' ? 'Ritual note' : 'Adazo field note'
+
+  const headline = document.createElement('h2')
+  headline.className = 'adazo-conbal-note__headline'
+  headline.textContent = assignment.content.headline
+
+  const body = document.createElement('p')
+  body.className = 'adazo-conbal-note__body'
+  body.textContent = assignment.content.body
+
+  card.append(eyebrow, headline, body)
+  slot.replaceChildren(card)
+  slot.dataset.conbalSlug = assignment.slug
 }
 
-function safeCss(css: string | undefined, expectedSlug: string) {
-  if (typeof css !== 'string' || css.length < 40 || css.length > 40_000) return null
-  const root = `.${ROOT_PREFIX}-${expectedSlug}`
-  if (
-    !css.includes(root) ||
-    /<\/?style|@(?:import|supports|font-face|keyframes)|url\s*\(|expression\s*\(|javascript:|position\s*:\s*(?:fixed|sticky)|z-index\s*:/i.test(css) ||
-    /(^|[,{])\s*(?:body|html|:root)\b/i.test(css)
-  ) {
-    return null
-  }
-  return css
-}
-
-function render(slot: HTMLElement, payload: BalloonPayload | undefined) {
-  if (!payload?.slug || !/^[a-z0-9-]{1,80}$/.test(payload.slug) || payload.size !== 'responsive') return false
-  const root = safeHtml(payload.html, payload.slug)
-  const css = safeCss(payload.css, payload.slug)
-  if (!root || !css) return false
-  const style = document.createElement('style')
-  style.textContent = css
-  slot.replaceChildren(style, root)
-  slot.dataset.conbal = 'ready'
-  slot.dataset.conbalSlug = payload.slug
-  return true
-}
-
-async function request(slots: HTMLElement[], topics: string[]) {
-  const url = new URL(`${API_ORIGIN}/b/${SITE_KEY}/_sample`)
-  const nonce = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`
-  url.searchParams.set('nonce', nonce)
-  url.searchParams.set(
-    'slots',
-    JSON.stringify(
-      slots.map((_, id) => ({
-        id: String(id),
-        size: 'responsive',
-        topics,
-        editorial_types: EDITORIAL_TYPES,
-      })),
-    ),
-  )
-  const history = readHistory()
-  if (history.length) url.searchParams.set('exclude_slugs', history.join(','))
+async function request(slots: HTMLElement[]) {
+  const pageViewId = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`
   const controller = new AbortController()
   const timer = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
   try {
-    const response = await fetch(url, {
-      mode: 'cors',
+    const response = await fetch(`${API_ORIGIN}/v2/b/${encodeURIComponent(SITE_KEY)}/sample`, {
+      body: JSON.stringify({
+        contract: '2.0',
+        page_view_id: pageViewId,
+        repeat_policy: 'omit',
+        exclude_slugs: readHistory(),
+        slots: slots.map((slot) => ({
+          id: slot.dataset.conbalSlot,
+          role: 'inline-note',
+          budget: 'compact-v1',
+          topics: SITE_TOPICS,
+          editorial_types: EDITORIAL_TYPES,
+        })),
+      }),
       cache: 'no-store',
       credentials: 'omit',
-      headers: { Accept: 'application/json' },
+      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      mode: 'cors',
       signal: controller.signal,
     })
-    if (!response.ok) return null
-    return (await response.json()) as { slots?: Record<string, BalloonPayload> }
+    if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) return null
+    return (await response.json()) as { assignments?: Record<string, unknown> }
   } catch {
     return null
   } finally {
@@ -288,16 +188,23 @@ async function request(slots: HTMLElement[], topics: string[]) {
 }
 
 function injectHostStyle() {
-  if (document.querySelector('style[data-adazo-conbal-host]')) return
+  if (document.querySelector('style[data-adazo-conbal-v2]')) return
   const style = document.createElement('style')
-  style.dataset.adazoConbalHost = INTEGRATION_VERSION
-  style.textContent =
-    'html{overflow-x:clip}.adazo-conbal-slot{width:100%;min-width:0;min-height:138px;margin:clamp(2.4rem,6vw,5.5rem) 0;container-type:inline-size;contain:layout;overflow:clip}.adazo-conbal-slot[data-conbal="ready"]{display:block}.adazo-conbal-slot[data-conbal="ready"]>article{min-width:0;overflow:hidden!important}.adazo-conbal-slot[data-conbal="ready"]>article>*{min-width:0;overflow-wrap:anywhere}@container (max-width:38rem){.adazo-conbal-slot[data-conbal="ready"]>article{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}}@media(max-width:680px){.adazo-conbal-slot{min-height:190px;margin:2.8rem 0}}'
+  style.dataset.adazoConbalV2 = 'true'
+  style.textContent = `
+    .adazo-conbal-slot{box-sizing:border-box;display:block;margin:clamp(2.5rem,6vw,5rem) auto;max-width:72rem;min-width:0;padding:0 clamp(1rem,4vw,1.5rem);width:100%}
+    .adazo-conbal-slot:empty{display:none}
+    .adazo-conbal-note{background:linear-gradient(120deg,#fff 0%,#fff 68%,#f7f1f3 68%,#f7f1f3 100%);border:1px solid #eadfe4;border-radius:1rem;box-sizing:border-box;display:grid;gap:.55rem;grid-template-columns:minmax(10rem,.7fr) minmax(14rem,1.3fr);margin:0;min-width:0;overflow:hidden;padding:clamp(1.25rem,3vw,2rem)}
+    .adazo-conbal-note__eyebrow{align-self:end;color:#944e5a;font:700 .625rem/1.3 "DM Sans",ui-sans-serif,system-ui,sans-serif;grid-column:1;margin:0;text-transform:uppercase;letter-spacing:.18em}
+    .adazo-conbal-note__headline{color:#1a1418;font:600 clamp(1.35rem,2.5vw,2rem)/1.08 "Cormorant Garamond",ui-serif,Georgia,serif;grid-column:1;margin:0;overflow-wrap:anywhere}
+    .adazo-conbal-note__body{align-self:center;color:#4a3f45;font:400 .95rem/1.65 "DM Sans",ui-sans-serif,system-ui,sans-serif;grid-column:2;grid-row:1 / span 2;margin:0;min-width:0;overflow-wrap:anywhere}
+    @media(max-width:640px){.adazo-conbal-note{background:#fff;grid-template-columns:minmax(0,1fr);padding:1.25rem}.adazo-conbal-note__eyebrow,.adazo-conbal-note__headline,.adazo-conbal-note__body{grid-column:1;grid-row:auto}.adazo-conbal-note__body{font-size:.875rem}}
+  `
   document.head.appendChild(style)
 }
 
 function pageRoot() {
-  return document.querySelector('main, [role="main"], #root') as HTMLElement | null
+  return document.querySelector('main, [role="main"]') as HTMLElement | null
 }
 
 export default function ConbalBalloons() {
@@ -305,69 +212,62 @@ export default function ConbalBalloons() {
 
   useEffect(() => {
     injectHostStyle()
-    const main = pageRoot()
-    if (!main) return
-    main.querySelectorAll('.adazo-conbal-slot').forEach((node) => node.remove())
-    delete main.dataset.conbalInitialized
-    if (/^\/(?:admin|privacy|terms|404)(?:\/|$)/.test(pathname)) return
-
     let cancelled = false
-    let attempts = 0
-    let retryTimer: number | undefined
     let observer: MutationObserver | undefined
-    let pollTimer: number | undefined
-    const schedule = (delay = 180) => {
-      if (cancelled || retryTimer !== undefined) return
-      retryTimer = window.setTimeout(() => {
-        retryTimer = undefined
-        void initialize()
-      }, delay)
-    }
+    let retryTimer: number | undefined
+    let attempts = 0
+
     const initialize = async () => {
       if (cancelled) return
       const root = pageRoot()
-      if (!root || root.dataset.conbalInitialized === 'true') return
+      if (!root || root.dataset.conbalV2Initialized === 'true') return
+      root.querySelectorAll('.adazo-conbal-slot').forEach((node) => node.remove())
       const words = wordCount(textOf(root))
       const count = slotCount(words, pathname)
       if (!count) {
-        if (words < 30 && attempts < 12) {
+        if (words < 40 && attempts < 10) {
           attempts += 1
-          schedule()
+          retryTimer = window.setTimeout(() => void initialize(), 160)
         }
         return
       }
       const slots = createSlots(root, count)
       if (!slots.length) return
-      root.dataset.conbalInitialized = 'true'
-      const data = await request(slots, pageTopics(pathname))
+      root.dataset.conbalV2Initialized = 'true'
+      observer?.disconnect()
+      const response = await request(slots)
       if (cancelled) return
       const shown: string[] = []
-      slots.forEach((slot, index) => {
-        if (render(slot, data?.slots?.[String(index)])) shown.push(slot.dataset.conbalSlug || '')
-        else slot.remove()
-      })
-      if (!shown.length) {
-        delete root.dataset.conbalInitialized
-        return
+      for (const slot of slots) {
+        const id = slot.dataset.conbalSlot || ''
+        const assignment = validateConbalAssignment(response?.assignments?.[id])
+        if (!assignment) {
+          slot.remove()
+          continue
+        }
+        render(slot, assignment)
+        shown.push(assignment.slug)
       }
-      remember(shown.filter(Boolean))
+      remember(shown)
     }
-    observer = new MutationObserver(() => {
-      const root = pageRoot()
-      if (!root || cancelled) return
-      if (slotCount(wordCount(textOf(root)), pathname) && root.dataset.conbalInitialized !== 'true') schedule(240)
-    })
-    observer.observe(document.body, { childList: true, subtree: true, characterData: true })
-    const frame = window.requestAnimationFrame(() => {
-      void initialize()
-      pollTimer = window.setTimeout(() => void initialize(), 320)
-    })
+
+    const root = pageRoot()
+    if (root) {
+      root.querySelectorAll('.adazo-conbal-slot').forEach((node) => node.remove())
+      delete root.dataset.conbalV2Initialized
+    }
+    observer = new MutationObserver(() => void initialize())
+    observer.observe(document.body, { childList: true, subtree: true })
+    const frame = window.requestAnimationFrame(() => void initialize())
+
     return () => {
       cancelled = true
       window.cancelAnimationFrame(frame)
       if (retryTimer) window.clearTimeout(retryTimer)
-      if (pollTimer) window.clearTimeout(pollTimer)
       observer?.disconnect()
+      const activeRoot = pageRoot()
+      activeRoot?.querySelectorAll('.adazo-conbal-slot').forEach((node) => node.remove())
+      if (activeRoot) delete activeRoot.dataset.conbalV2Initialized
     }
   }, [pathname])
 
