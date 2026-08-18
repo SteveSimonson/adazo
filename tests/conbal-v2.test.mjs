@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 import { parseConbalHistory, validateConbalAssignment } from '../src/lib/conbalV2.ts'
@@ -23,4 +24,9 @@ test('history is bounded, deduplicated, and rejects malformed entries', () => {
   assert.deepEqual(parseConbalHistory('{bad'), [])
   assert.deepEqual(parseConbalHistory(JSON.stringify(['one', 'BAD VALUE', 'one', 'two'])), ['one', 'two'])
   assert.equal(parseConbalHistory(JSON.stringify(Array.from({ length: 40 }, (_, index) => `note-${index}`))).length, 30)
+})
+
+test('pending v2 slots reserve no page geometry', async () => {
+  const component = await readFile(new URL('../src/components/ConbalBalloons.tsx', import.meta.url), 'utf8')
+  assert.match(component, /\.adazo-conbal-slot:empty\{display:none\}/)
 })

@@ -193,6 +193,7 @@ function injectHostStyle() {
   style.dataset.adazoConbalV2 = 'true'
   style.textContent = `
     .adazo-conbal-slot{box-sizing:border-box;display:block;margin:clamp(2.5rem,6vw,5rem) auto;max-width:72rem;min-width:0;padding:0 clamp(1rem,4vw,1.5rem);width:100%}
+    .adazo-conbal-slot:empty{display:none}
     .adazo-conbal-note{background:linear-gradient(120deg,#fff 0%,#fff 68%,#f7f1f3 68%,#f7f1f3 100%);border:1px solid #eadfe4;border-radius:1rem;box-sizing:border-box;display:grid;gap:.55rem;grid-template-columns:minmax(10rem,.7fr) minmax(14rem,1.3fr);margin:0;min-width:0;overflow:hidden;padding:clamp(1.25rem,3vw,2rem)}
     .adazo-conbal-note__eyebrow{align-self:end;color:#944e5a;font:700 .625rem/1.3 "DM Sans",ui-sans-serif,system-ui,sans-serif;grid-column:1;margin:0;text-transform:uppercase;letter-spacing:.18em}
     .adazo-conbal-note__headline{color:#1a1418;font:600 clamp(1.35rem,2.5vw,2rem)/1.08 "Cormorant Garamond",ui-serif,Georgia,serif;grid-column:1;margin:0;overflow-wrap:anywhere}
