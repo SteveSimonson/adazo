@@ -5,6 +5,8 @@
  *
  * All copy comes from src/lib/seoData.ts so the Worker cannot drift from what
  * the React app sets after hydration. og:image stays sitewide per scope.
+ * Product / buyer-guide routes also carry `crawler` (h1 + judgment + FAQ)
+ * for Worker body injection.
  */
 import { CATEGORY_OPTIONS, products } from '../src/data/catalog'
 import { giftGuides } from '../src/data/giftGuides'

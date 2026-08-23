@@ -35,6 +35,7 @@ Every catalog SKU should have long-form enrichment (review snapshot, item blog, 
 - **UI:** `src/components/ProductEnrichment.tsx` on `Product.tsx`
 - **Research:** TinyFish via `npm run content:research` → synthesize original Adazo prose (warm Riviera; never clinical cure claims; never paste scraped reviews)
 - **SEO:** FAQPage JSON-LD when FAQs exist (`productSeo` in `seoData.ts`); `scripts/route-meta.ts` must call `productSeo` **with** enrichment
+- **AEO crawler body:** `productSeo` / `buyerGuideSeo` / `buyerGuidesHubSeo` attach a `crawler` payload (h1, paragraphs, faq, footer disclosure). Worker `renderShell` injects `<article id="aeo-main">` **before** `#root` (never inside it). Copy is assembled from enrichments / buyer guides — do not invent. `html.js #aeo-main` is clipped (not `display:none`). Associate tag only in hrefs.
 
 ## Persona modeling / campaign images
 

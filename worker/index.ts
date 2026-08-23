@@ -3,8 +3,10 @@
  *
  * - Canonical redirects: http:// and www.adazo.com → https://adazo.com (301)
  * - Raw-HTML SEO: per-route title/description/canonical/og + JSON-LD injected
- *   into the SPA shell. Route table: worker/generated/routeMeta.json, emitted
- *   by scripts/generate-sitemap.mjs from src/lib/seoData.ts (same source the
+ *   into the SPA shell. Crawler-visible <article id="aeo-main"> (H1 + judgment
+ *   + FAQ) is inserted before #root on product and buyer-guide routes.
+ *   Route table: worker/generated/routeMeta.json, emitted by
+ *   scripts/generate-sitemap.mjs from src/lib/seoData.ts (same source the
  *   React app hydrates from). og:image stays sitewide.
  * - Real 404 status for unknown routes (SPA shell + noindex)
  * - Cache-Control: immutable for Vite-hashed /assets/*, 7d for unhashed media
@@ -18,27 +20,21 @@
 
 import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
+import { renderShell, type RouteMeta } from './renderShell'
 import {
   handleMediaPut,
   handleUploadUrl,
   serveMedia,
 } from './media'
 
+export type { RouteMeta }
+export { renderShell }
+
 /** Secrets not always present in generated Env until re-run wrangler types after secret put */
 type WorkerEnv = Env & {
   GHL_PIT?: string
   GHL_LOCATION_ID?: string
   MEDIA_UPLOAD_SECRET?: string
-}
-
-type RouteMeta = {
-  title: string
-  description: string
-  canonical: string
-  robots: string
-  ogType: 'website' | 'product'
-  jsonLd: Record<string, unknown>[] | null
-  preloadImage?: string
 }
 
 type RouteMetaFile = {
@@ -361,76 +357,6 @@ function findRouteMeta(url: URL): RouteMeta | null {
   return routes[path] ?? null
 }
 
-function escapeHtmlAttr(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-}
-
-function escapeHtmlText(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-}
-
-/** Replace the content="" value of a single <meta> tag in the shell. */
-function setMetaContent(
-  html: string,
-  attr: 'name' | 'property',
-  key: string,
-  value: string,
-): string {
-  const re = new RegExp(`(<meta\\s+${attr}="${key}"\\s+content=")[^"]*(")`)
-  return html.replace(re, `$1${escapeHtmlAttr(value)}$2`)
-}
-
-function jsonLdScript(data: unknown): string {
-  // Escape "<" so embedded JSON can never break out of the <script> block
-  const json = JSON.stringify(data).replace(/</g, '\\u003c')
-  return `<script type="application/ld+json">${json}</script>`
-}
-
-/**
- * Inject per-route head values into the SPA shell (2.8 KB — string replaces,
- * no parser needed). Mirrors what src/components/Seo.tsx sets post-hydration;
- * meta === null yields the noindex shell for unknown routes.
- */
-function renderShell(html: string, meta: RouteMeta | null): string {
-  let out = html
-  if (meta) {
-    out = out.replace(
-      /<title>[^<]*<\/title>/,
-      `<title>${escapeHtmlText(meta.title)}</title>`,
-    )
-    out = setMetaContent(out, 'name', 'description', meta.description)
-    out = setMetaContent(out, 'name', 'robots', meta.robots)
-    out = out.replace(
-      /(<link\s+rel="canonical"\s+href=")[^"]*(")/,
-      `$1${escapeHtmlAttr(meta.canonical)}$2`,
-    )
-    out = setMetaContent(out, 'property', 'og:type', meta.ogType)
-    out = setMetaContent(out, 'property', 'og:url', meta.canonical)
-    out = setMetaContent(out, 'property', 'og:title', meta.title)
-    out = setMetaContent(out, 'property', 'og:description', meta.description)
-    out = setMetaContent(out, 'property', 'og:image', routeMeta.ogImage)
-    out = setMetaContent(out, 'name', 'twitter:title', meta.title)
-    out = setMetaContent(out, 'name', 'twitter:description', meta.description)
-    out = setMetaContent(out, 'name', 'twitter:image', routeMeta.ogImage)
-  } else {
-    out = setMetaContent(out, 'name', 'robots', 'noindex,nofollow')
-  }
-  const schemas = [...routeMeta.globalJsonLd, ...(meta?.jsonLd ?? [])]
-  // Same-origin static path from routeMeta.json — starts the LCP image fetch
-  // before the JS bundle boots and React renders the <img>.
-  const preload = meta?.preloadImage
-    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}" fetchpriority="high">`
-    : ''
-  return out.replace(
-    '</head>',
-    `${preload}${schemas.map(jsonLdScript).join('')}</head>`,
-  )
-}
-
 let shellPromise: Promise<string> | null = null
 
 /** SPA shell (dist/index.html) via the assets binding, memoized per isolate. */
@@ -472,7 +398,12 @@ async function serveShell(
   if (request.method === 'HEAD') {
     return new Response(null, { status, headers })
   }
-  const html = renderShell(await getShell(request, env), meta)
+  const html = renderShell(
+    await getShell(request, env),
+    meta,
+    routeMeta.ogImage,
+    routeMeta.globalJsonLd || [],
+  )
   return new Response(html, { status, headers })
 }
 
