@@ -1,11 +1,43 @@
 import assert from 'node:assert/strict'
+import { mkdirSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import test from 'node:test'
-import {
+import { fileURLToPath, pathToFileURL } from 'node:url'
+import { build } from 'esbuild'
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+const tmpDir = join(ROOT, 'node_modules/.tmp')
+mkdirSync(tmpDir, { recursive: true })
+const bundlePath = join(tmpDir, 'magazine-spread.bundle.mjs')
+
+const bundled = await build({
+  stdin: {
+    contents: `
+export {
   MAGAZINE_PAGES,
   MAGAZINE_SERIES_FILTERS,
   magazineSpread,
   seriesBlurb,
-} from '../src/data/magazine.ts'
+} from './src/data/magazine.ts'
+`,
+    resolveDir: ROOT,
+    sourcefile: 'magazine-spread-entry.ts',
+    loader: 'ts',
+  },
+  bundle: true,
+  format: 'esm',
+  platform: 'node',
+  write: false,
+  logLevel: 'silent',
+})
+writeFileSync(bundlePath, bundled.outputFiles[0].text)
+
+const {
+  MAGAZINE_PAGES,
+  MAGAZINE_SERIES_FILTERS,
+  magazineSpread,
+  seriesBlurb,
+} = await import(`${pathToFileURL(bundlePath).href}?v=${Date.now()}`)
 
 test('house book opens with a cover leaf', () => {
   assert.equal(MAGAZINE_PAGES[0]?.kind, 'cover')
