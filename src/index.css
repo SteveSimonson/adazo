@@ -79,6 +79,47 @@
   }
 }
 
+/* House Book — paper volume on the charcoal well.
+ * Mobile: one 3:4 leaf. lg+: two facing 3:4 pages → 3:2 open book.
+ * Width is height-capped so spread + title + controls fit an 800–900 laptop.
+ * Never enlarge a single 3:4 page (that is the 672×896 dead-side bug). */
+.magazine-stage {
+  width: min(36rem, 100%);
+  margin-inline: auto;
+}
+.magazine-book {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--color-paper);
+}
+@media (min-width: 1024px) {
+  .magazine-stage {
+    /* 13.5rem ≈ compact title row + control bar + section padding */
+    width: min(72rem, 100%, calc((100dvh - 13.5rem) * 1.5));
+  }
+  .magazine-book {
+    aspect-ratio: 3 / 2;
+  }
+}
+.magazine-book-shell {
+  background: var(--color-paper);
+  box-shadow:
+    0 36px 72px -28px rgba(26, 18, 22, 0.72),
+    0 0 0 1px rgba(196, 160, 122, 0.38),
+    0 0 0 10px rgba(250, 247, 248, 0.07);
+}
+.magazine-gutter {
+  background: linear-gradient(
+    90deg,
+    rgba(26, 20, 24, 0.22) 0%,
+    rgba(196, 160, 122, 0.55) 50%,
+    rgba(26, 20, 24, 0.14) 100%
+  );
+  box-shadow:
+    -10px 0 18px -12px rgba(26, 18, 22, 0.35),
+    10px 0 18px -12px rgba(26, 18, 22, 0.22);
+}
+
 /* House Book magazine page turns */
 .magazine-page {
   transform: rotateY(0deg);
@@ -86,7 +127,7 @@
   transition:
     transform 0.45s cubic-bezier(0.22, 0.8, 0.28, 1),
     opacity 0.35s ease;
-  box-shadow: 8px 0 24px -12px rgba(0, 0, 0, 0.45);
+  box-shadow: 8px 0 24px -12px rgba(26, 18, 22, 0.28);
   will-change: transform, opacity;
 }
 .magazine-page.is-turning-next {

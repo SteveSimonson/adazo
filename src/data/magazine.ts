@@ -118,3 +118,53 @@ export const MAGAZINE_SERIES_FILTERS: {
   { id: 'wild', label: 'The Wild' },
   { id: 'carpet', label: 'The Carpet' },
 ]
+
+export const SERIES_BLURB: Record<MagazineSeries, string> = {
+  house: 'The faces you return to — the house, season after season.',
+  world: 'New cities. The same quiet authority.',
+  wild: 'Beauty that holds when the ground is uneven.',
+  carpet: 'Night light, jewels free, the room already hers.',
+}
+
+export function seriesBlurb(series?: MagazineSeries): string | undefined {
+  if (!series) return undefined
+  return SERIES_BLURB[series]
+}
+
+/** Open-spread pairing for desktop: left = current face, right = next leaf. */
+export function magazineSpread(
+  pages: MagazinePage[],
+  index: number,
+): {
+  left: MagazinePage | undefined
+  right: MagazinePage | undefined
+  index: number
+} {
+  if (pages.length === 0) {
+    return { left: undefined, right: undefined, index: 0 }
+  }
+  const safe = Math.min(Math.max(index, 0), pages.length - 1)
+  return {
+    left: pages[safe],
+    right: pages[safe + 1],
+    index: safe,
+  }
+}
+
+/** Spreads that follow a leaf until the next divider or series change. */
+export function upcomingSpreads(
+  pages: MagazinePage[],
+  index: number,
+): MagazinePage[] {
+  if (pages.length === 0) return []
+  const safe = Math.min(Math.max(index, 0), pages.length - 1)
+  const current = pages[safe]
+  const items: MagazinePage[] = []
+  for (let i = safe + 1; i < pages.length; i++) {
+    const page = pages[i]
+    if (page.kind === 'divider') break
+    if (current?.series && page.series && page.series !== current.series) break
+    if (page.kind === 'spread') items.push(page)
+  }
+  return items
+}
