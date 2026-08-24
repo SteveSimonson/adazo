@@ -18,6 +18,7 @@ export {
   MAGAZINE_SERIES_FILTERS,
   magazineSpread,
   seriesBlurb,
+  upcomingSpreads,
 } from './src/data/magazine.ts'
 `,
     resolveDir: ROOT,
@@ -37,6 +38,7 @@ const {
   MAGAZINE_SERIES_FILTERS,
   magazineSpread,
   seriesBlurb,
+  upcomingSpreads,
 } = await import(`${pathToFileURL(bundlePath).href}?v=${Date.now()}`)
 
 test('house book opens with a cover leaf', () => {
@@ -83,6 +85,16 @@ test('series filters stay complete and series blurbs exist', () => {
     assert.ok(copy && copy.length > 20, `${id} blurb`)
   }
   assert.equal(seriesBlurb(undefined), undefined)
+})
+
+test('upcomingSpreads lists campaign leaves until the next divider', () => {
+  const dividerIndex = MAGAZINE_PAGES.findIndex((p) => p.kind === 'divider')
+  assert.ok(dividerIndex >= 0)
+  const items = upcomingSpreads(MAGAZINE_PAGES, dividerIndex)
+  assert.ok(items.length > 0)
+  assert.ok(items.every((p) => p.kind === 'spread'))
+  assert.ok(items.every((p) => p.series === MAGAZINE_PAGES[dividerIndex]?.series))
+  assert.equal(upcomingSpreads([], 0).length, 0)
 })
 
 test('campaign spreads stay catalog-backed with a persona link', () => {

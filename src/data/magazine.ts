@@ -150,3 +150,21 @@ export function magazineSpread(
     index: safe,
   }
 }
+
+/** Spreads that follow a leaf until the next divider or series change. */
+export function upcomingSpreads(
+  pages: MagazinePage[],
+  index: number,
+): MagazinePage[] {
+  if (pages.length === 0) return []
+  const safe = Math.min(Math.max(index, 0), pages.length - 1)
+  const current = pages[safe]
+  const items: MagazinePage[] = []
+  for (let i = safe + 1; i < pages.length; i++) {
+    const page = pages[i]
+    if (page.kind === 'divider') break
+    if (current?.series && page.series && page.series !== current.series) break
+    if (page.kind === 'spread') items.push(page)
+  }
+  return items
+}

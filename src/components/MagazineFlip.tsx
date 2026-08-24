@@ -11,6 +11,7 @@ import {
   MAGAZINE_SERIES_FILTERS,
   magazineSpread,
   seriesBlurb,
+  upcomingSpreads,
   type MagazinePage,
   type MagazineSeries,
 } from '../data/magazine'
@@ -157,7 +158,7 @@ export function MagazineFlip({
     <section
       ref={sectionRef}
       tabIndex={0}
-      className="relative overflow-x-clip border-b border-white/10 bg-charcoal outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
+      className="relative border-b border-white/10 bg-charcoal outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal"
       aria-label="Adazo house fashion magazine"
     >
       <div
@@ -182,7 +183,7 @@ export function MagazineFlip({
             volume. Use the arrows or swipe.
           </p>
           <div
-            className="mt-5 flex flex-wrap gap-2"
+            className="mt-5 flex flex-wrap gap-2 min-w-0"
             role="tablist"
             aria-label="Magazine series"
           >
@@ -239,9 +240,10 @@ export function MagazineFlip({
                 </div>
                 <div className="magazine-gutter relative z-10 w-[3px] shrink-0" />
                 <div className="relative h-full w-1/2 overflow-hidden bg-paper">
-                  <CopyWell
+                  <RectoPage
                     page={page}
                     nextPage={nextPage}
+                    contents={upcomingSpreads(filtered, safeIndex)}
                     folio={safeIndex + 1}
                     total={n}
                   />
@@ -352,14 +354,14 @@ export function MagazineFlip({
 function PageFace({ page }: { page: MagazinePage }) {
   if (page.kind === 'cover') {
     return (
-      <div className="absolute inset-0 bg-gradient-to-br from-paper via-cream to-paper-2 flex flex-col justify-between p-7 sm:p-9 lg:p-10">
+      <div className="absolute inset-0 bg-gradient-to-br from-paper via-cream to-paper-2 flex flex-col p-7 sm:p-9 lg:p-10">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-gold">
             Vol. 01 · Fashion
           </p>
           <div className="mt-5 h-px w-12 bg-gold/70" />
         </div>
-        <div className="py-4">
+        <div className="flex-1 flex flex-col justify-center py-6">
           <p className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold text-ink tracking-[0.12em] leading-none">
             ADAZO
           </p>
@@ -370,7 +372,7 @@ function PageFace({ page }: { page: MagazinePage }) {
             House · World · Wild · Carpet
           </p>
         </div>
-        <div className="flex items-end justify-between gap-4">
+        <div className="flex items-end justify-between gap-4 pt-4">
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted">
             Fashion destination
           </p>
@@ -416,23 +418,53 @@ function PageFace({ page }: { page: MagazinePage }) {
   )
 }
 
-function CopyWell({
+function RectoPage({
   page,
   nextPage,
+  contents,
   folio,
   total,
 }: {
   page: MagazinePage
   nextPage?: MagazinePage
+  contents: MagazinePage[]
   folio: number
   total: number
 }) {
+  // Chapter openings face the first campaign plate — a real magazine pair.
+  if (page.kind === 'divider' && nextPage?.image) {
+    return (
+      <div className="absolute inset-0 bg-charcoal">
+        <img
+          src={nextPage.image}
+          alt={nextPage.alt || nextPage.title}
+          className="absolute inset-0 w-full h-full object-cover object-top"
+          draggable={false}
+          decoding="async"
+        />
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-paper via-paper/92 to-transparent pt-20 pb-7 px-7 xl:px-9">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
+            Next · {nextPage.kicker}
+            {nextPage.destination ? ` · ${nextPage.destination}` : ''}
+          </p>
+          <p className="font-display text-2xl xl:text-3xl font-semibold text-ink mt-1">
+            {nextPage.title}
+          </p>
+          {nextPage.personaName && (
+            <p className="text-sm text-ink-soft mt-1">
+              {nextPage.personaName}
+              {nextPage.personaTitle ? ` · ${nextPage.personaTitle}` : ''}
+            </p>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   const blurb =
     page.kind === 'cover'
       ? 'The atelier, abroad, the wild, the carpet — every house face, one volume. Turn the leaf; the room changes, the finish stays.'
-      : page.kind === 'divider'
-        ? seriesBlurb(page.series)
-        : seriesBlurb(page.series)
+      : seriesBlurb(page.series)
 
   return (
     <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-br from-paper via-cream to-paper-2 px-8 py-9 xl:px-12 xl:py-12">
@@ -446,7 +478,7 @@ function CopyWell({
         </p>
       </div>
 
-      <div className="max-w-md">
+      <div className="max-w-md min-w-0">
         <h3 className="font-display text-4xl xl:text-5xl font-semibold text-ink leading-[1.05] text-balance">
           {page.kind === 'cover' ? 'The House Book' : page.title}
         </h3>
@@ -456,6 +488,19 @@ function CopyWell({
               <li key={f.id} className="flex items-center gap-3">
                 <span className="h-px w-6 bg-gold/70" />
                 {f.label}
+              </li>
+            ))}
+          </ul>
+        )}
+        {page.kind === 'divider' && contents.length > 0 && (
+          <ul className="mt-6 space-y-2.5">
+            {contents.slice(0, 6).map((item) => (
+              <li
+                key={item.id}
+                className="text-[12px] text-ink-soft leading-snug"
+              >
+                <span className="font-semibold text-ink">{item.title}</span>
+                {item.personaName ? ` · ${item.personaName}` : ''}
               </li>
             ))}
           </ul>

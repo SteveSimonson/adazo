@@ -46,7 +46,7 @@ export function LookbookHero({
 
   return (
     <section
-      className="relative min-h-[min(88vh,42rem)] lg:min-h-[min(78vh,44rem)] flex items-end overflow-hidden bg-charcoal"
+      className="relative min-h-[min(90vh,46rem)] lg:min-h-[min(80vh,48rem)] flex items-end overflow-hidden bg-charcoal"
       aria-roledescription="carousel"
       aria-label="Adazo fashion lookbook"
       onMouseEnter={() => setPaused(true)}
@@ -75,7 +75,7 @@ export function LookbookHero({
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent lg:via-charcoal/22 lg:from-charcoal/85" />
       <div className="absolute inset-0 bg-gradient-to-r from-charcoal/75 via-charcoal/28 to-transparent lg:from-charcoal/55 lg:via-charcoal/12 lg:to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-12 sm:pb-16 lg:pb-14 pt-24 sm:pt-32">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-12 sm:pb-16 lg:pb-14 pt-28 sm:pt-36">
         <div className="max-w-xl lg:max-w-2xl xl:max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] mb-5">
             Lookbook · {String(index + 1).padStart(2, '0')} /{' '}
