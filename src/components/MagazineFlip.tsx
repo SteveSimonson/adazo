@@ -20,9 +20,10 @@ const TURN_MS = 480
 
 /**
  * Adazo House Book — flippable fashion magazine on the home page.
- * Mobile: one 3:4 leaf. lg+: two facing 3:4 pages (open spread 3:2)
- * at max-w-6xl — never one enlarged 3:4 phone page. Stills are 1200×1600;
- * keep them uncropped. Controls: chevrons, edges, keyboard, swipe.
+ * Mobile: one 3:4 leaf. lg+: two facing 3:4 pages (open spread 3:2).
+ * Stage width is height-capped so book + controls fit an 800–900 laptop.
+ * Never enlarge a single 3:4 page. Cover is paper, not dark-on-dark.
+ * Stills stay 1200×1600 uncropped. Flip: chevrons, 12% edges, keys, swipe.
  */
 export function MagazineFlip({
   pages = MAGAZINE_PAGES,
@@ -171,50 +172,55 @@ export function MagazineFlip({
       />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
-        <div className="mb-8 sm:mb-10">
-          <p className="label-micro text-gold mb-2 inline-flex items-center gap-1.5">
-            <BookOpen className="size-3.5" /> The House Book
-          </p>
-          <h2 className="font-display text-3xl sm:text-5xl font-semibold text-white tracking-tight">
-            The house book
-          </h2>
-          <p className="mt-3 text-white/55 font-light max-w-xl text-sm sm:text-base leading-relaxed">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-8 lg:py-10">
+        <div className="mb-5 lg:mb-6">
+          <div className="flex flex-wrap items-end gap-x-5 gap-y-3">
+            <div className="min-w-0 max-w-xl">
+              <p className="label-micro text-gold mb-1.5 inline-flex items-center gap-1.5">
+                <BookOpen className="size-3.5" /> The House Book
+              </p>
+              <h2 className="font-display text-3xl lg:text-4xl font-semibold text-white tracking-tight">
+                The house book
+              </h2>
+            </div>
+            <div
+              className="flex flex-wrap gap-2 min-w-0"
+              role="tablist"
+              aria-label="Magazine series"
+            >
+              {MAGAZINE_SERIES_FILTERS.map((f) => {
+                const active = filter === f.id
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setFilter(f.id)}
+                    className={`rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] transition border ${
+                      active
+                        ? 'bg-white text-ink border-white'
+                        : 'border-white/20 text-white/70 hover:border-gold/50 hover:text-white'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+          <p className="mt-2.5 text-white/55 font-light max-w-xl text-sm leading-relaxed">
             The atelier, abroad, the wild, the carpet — every house face, one
             volume. Use the arrows or swipe.
           </p>
-          <div
-            className="mt-5 flex flex-wrap gap-2 min-w-0"
-            role="tablist"
-            aria-label="Magazine series"
-          >
-            {MAGAZINE_SERIES_FILTERS.map((f) => {
-              const active = filter === f.id
-              return (
-                <button
-                  key={f.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => setFilter(f.id)}
-                  className={`rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] transition border ${
-                    active
-                      ? 'bg-white text-ink border-white'
-                      : 'border-white/20 text-white/70 hover:border-gold/50 hover:text-white'
-                  }`}
-                >
-                  {f.label}
-                </button>
-              )
-            })}
-          </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-xl lg:max-w-6xl">
+        <div className="magazine-stage relative">
           <div className="absolute -inset-x-6 -bottom-4 h-14 rounded-[100%] bg-charcoal/80 blur-2xl pointer-events-none" />
 
           <div
-            className="magazine-book magazine-book-shell relative mx-auto w-full aspect-[3/4] lg:aspect-[3/2] select-none rounded-sm"
+            className="magazine-book magazine-book-shell magazine-spread relative mx-auto select-none rounded-sm"
+            data-spread="open"
             style={{ perspective: '2200px' }}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
@@ -233,14 +239,14 @@ export function MagazineFlip({
                 <PageFace page={page} />
               </div>
 
-              {/* Desktop — open magazine: verso + recto */}
-              <div className="hidden lg:flex absolute inset-0">
-                <div className="relative h-full w-1/2 overflow-hidden">
+              {/* Desktop — two facing 3:4 pages */}
+              <div className="magazine-spread-faces hidden lg:flex absolute inset-0">
+                <div className="magazine-verso relative h-full w-1/2 overflow-hidden">
                   <PageFace page={page} />
                   <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-ink/15 to-transparent" />
                 </div>
                 <div className="magazine-gutter relative z-10 w-px shrink-0" />
-                <div className="relative h-full w-1/2 overflow-hidden bg-paper">
+                <div className="magazine-recto relative h-full w-1/2 overflow-hidden bg-paper">
                   <RectoPage
                     page={page}
                     nextPage={nextPage}
@@ -253,7 +259,7 @@ export function MagazineFlip({
               </div>
             </div>
 
-            {/* Edge hit targets — only when idle so they don't steal mid-turn */}
+            {/* Outer flip zones — 12% only, pointer cursor, below in-page CTAs */}
             <button
               type="button"
               aria-label="Previous page"
@@ -262,7 +268,7 @@ export function MagazineFlip({
                 e.stopPropagation()
                 go(-1)
               }}
-              className="absolute inset-y-0 left-0 z-30 w-[28%] cursor-w-resize disabled:cursor-default disabled:pointer-events-none bg-transparent"
+              className="absolute inset-y-0 left-0 z-20 w-[12%] cursor-pointer disabled:cursor-default disabled:pointer-events-none bg-transparent"
             />
             <button
               type="button"
@@ -272,12 +278,12 @@ export function MagazineFlip({
                 e.stopPropagation()
                 go(1)
               }}
-              className="absolute inset-y-0 right-0 z-30 w-[28%] cursor-e-resize disabled:cursor-default disabled:pointer-events-none bg-transparent"
+              className="absolute inset-y-0 right-0 z-20 w-[12%] cursor-pointer disabled:cursor-default disabled:pointer-events-none bg-transparent"
             />
           </div>
 
-          {/* Explicit controls — outside the book, always clickable */}
-          <div className="relative z-40 mt-8 flex flex-wrap items-center justify-between gap-4">
+          {/* Controls span the stage (same width as the open book) */}
+          <div className="relative z-40 mt-5 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -301,7 +307,7 @@ export function MagazineFlip({
               </button>
             </div>
 
-            <div className="flex-1 min-w-[10rem] max-w-xs">
+            <div className="flex-1 min-w-[10rem]">
               <div className="flex justify-between text-[10px] font-bold uppercase tracking-[0.16em] text-white/45 mb-1.5">
                 <span>Page {String(safeIndex + 1).padStart(2, '0')}</span>
                 <span>{String(n).padStart(2, '0')}</span>
@@ -374,7 +380,7 @@ function PageFace({ page }: { page: MagazinePage }) {
           </p>
         </div>
         <div className="flex items-end justify-between gap-4 pt-4">
-          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted">
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink-soft">
             Fashion destination
           </p>
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-gold">

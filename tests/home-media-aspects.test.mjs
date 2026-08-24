@@ -46,9 +46,14 @@ test('house book desktop is two 3:4 leaves (3:2), not one enlarged page', () => 
     join(ROOT, 'src/components/MagazineFlip.tsx'),
     'utf8',
   )
-  assert.match(src, /lg:aspect-\[3\/2\]/)
-  assert.match(src, /lg:max-w-6xl/)
-  assert.doesNotMatch(src, /lg:aspect-\[16\/10\]/)
+  const css = readFileSync(join(ROOT, 'src/index.css'), 'utf8')
+  assert.match(src, /magazine-spread-faces/)
+  assert.match(src, /magazine-verso/)
+  assert.match(src, /magazine-recto/)
+  assert.match(css, /aspect-ratio:\s*3\s*\/\s*2/)
+  assert.match(css, /magazine-stage/)
+  assert.doesNotMatch(src, /cursor-w-resize/)
+  assert.doesNotMatch(src, /w-\[28%\]/)
   assert.doesNotMatch(src, /lg:max-w-none/)
   assert.doesNotMatch(src, /lg:max-w-3xl/)
   assert.doesNotMatch(src, /lg:max-w-4xl/)

@@ -80,7 +80,27 @@
 }
 
 /* House Book — paper volume on the charcoal well.
- * Mobile leaf 3:4; lg+ open spread is two 3:4 pages → 3:2 (max-w-6xl). */
+ * Mobile: one 3:4 leaf. lg+: two facing 3:4 pages → 3:2 open book.
+ * Width is height-capped so spread + title + controls fit an 800–900 laptop.
+ * Never enlarge a single 3:4 page (that is the 672×896 dead-side bug). */
+.magazine-stage {
+  width: min(36rem, 100%);
+  margin-inline: auto;
+}
+.magazine-book {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--color-paper);
+}
+@media (min-width: 1024px) {
+  .magazine-stage {
+    /* 13.5rem ≈ compact title row + control bar + section padding */
+    width: min(72rem, 100%, calc((100dvh - 13.5rem) * 1.5));
+  }
+  .magazine-book {
+    aspect-ratio: 3 / 2;
+  }
+}
 .magazine-book-shell {
   background: var(--color-paper);
   box-shadow:

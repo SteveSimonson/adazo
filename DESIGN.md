@@ -115,7 +115,7 @@ Extracted from live CSS. Prefer these names in new work:
 
 ### Desktop media contracts
 
-- **House Book:** Mobile is one 3:4 leaf. `lg+` is two facing 3:4 pages (open spread **3:2**) at `max-w-5xl` / `max-w-6xl`. Do not enlarge a single 3:4 page — that only makes a taller phone. Campaign stills are 1200×1600; keep them uncropped in 3:4 frames.
+- **House Book:** Mobile is one 3:4 leaf. `lg+` is two facing 3:4 pages (open spread **3:2**), at most `max-w-6xl`, height-capped so the spread + controls fit an 800–900 laptop. Do not enlarge a single 3:4 page (the 672×896 / ~380px-gutter bug). Campaign stills are 1200×1600; keep them uncropped in 3:4 frames. Cover is paper/cream against the charcoal well — never dark-on-dark.
 - **LookbookHero:** Desktop is a **16:9** cinematic band (`aspect-video`). The announcement bar + header are opaque and in-flow (~116px); do not add overlay-style top padding. Thumbs sit on or below the band so in-flow copy cannot change the photo aspect. Hero stills are 1920×1080; do not cover-crop a 3:4 file as the landscape plate.
 
 ## Elevation & Depth
