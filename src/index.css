@@ -79,7 +79,8 @@
   }
 }
 
-/* House Book — paper volume sitting on the charcoal well */
+/* House Book — paper volume on the charcoal well.
+ * Mobile leaf 3:4; lg+ open spread is two 3:4 pages → 3:2 (max-w-6xl). */
 .magazine-book-shell {
   background: var(--color-paper);
   box-shadow:

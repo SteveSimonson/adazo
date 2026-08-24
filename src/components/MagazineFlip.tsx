@@ -20,8 +20,9 @@ const TURN_MS = 480
 
 /**
  * Adazo House Book — flippable fashion magazine on the home page.
- * Mobile: single 3:4 leaf. Desktop (lg+): open two-page spread.
- * Controls: chevrons, edge zones, keyboard (when focused), swipe.
+ * Mobile: one 3:4 leaf. lg+: two facing 3:4 pages (open spread 3:2)
+ * at max-w-6xl — never one enlarged 3:4 phone page. Stills are 1200×1600;
+ * keep them uncropped. Controls: chevrons, edges, keyboard, swipe.
  */
 export function MagazineFlip({
   pages = MAGAZINE_PAGES,
@@ -209,11 +210,11 @@ export function MagazineFlip({
           </div>
         </div>
 
-        <div className="relative mx-auto w-full">
+        <div className="relative mx-auto w-full max-w-xl lg:max-w-6xl">
           <div className="absolute -inset-x-6 -bottom-4 h-14 rounded-[100%] bg-charcoal/80 blur-2xl pointer-events-none" />
 
           <div
-            className="magazine-book magazine-book-shell relative mx-auto w-full max-w-xl aspect-[3/4] lg:max-w-none lg:aspect-[16/10] select-none rounded-sm"
+            className="magazine-book magazine-book-shell relative mx-auto w-full aspect-[3/4] lg:aspect-[3/2] select-none rounded-sm"
             style={{ perspective: '2200px' }}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
@@ -238,7 +239,7 @@ export function MagazineFlip({
                   <PageFace page={page} />
                   <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-ink/15 to-transparent" />
                 </div>
-                <div className="magazine-gutter relative z-10 w-[3px] shrink-0" />
+                <div className="magazine-gutter relative z-10 w-px shrink-0" />
                 <div className="relative h-full w-1/2 overflow-hidden bg-paper">
                   <RectoPage
                     page={page}
