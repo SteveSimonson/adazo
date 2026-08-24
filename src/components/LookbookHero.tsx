@@ -46,7 +46,7 @@ export function LookbookHero({
 
   return (
     <section
-      className="relative min-h-[min(94vh,56rem)] flex items-end overflow-hidden bg-charcoal"
+      className="relative min-h-[min(88vh,42rem)] lg:min-h-[min(78vh,44rem)] flex items-end overflow-hidden bg-charcoal"
       aria-roledescription="carousel"
       aria-label="Adazo fashion lookbook"
       onMouseEnter={() => setPaused(true)}
@@ -72,11 +72,11 @@ export function LookbookHero({
         />
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/15" />
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent lg:via-charcoal/22 lg:from-charcoal/85" />
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/75 via-charcoal/28 to-transparent lg:from-charcoal/55 lg:via-charcoal/12 lg:to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-14 sm:pb-20 pt-28 sm:pt-36">
-        <div className="max-w-2xl">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 w-full pb-12 sm:pb-16 lg:pb-14 pt-24 sm:pt-32">
+        <div className="max-w-xl lg:max-w-2xl xl:max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] mb-5">
             Lookbook · {String(index + 1).padStart(2, '0')} /{' '}
             {String(n).padStart(2, '0')}
@@ -89,13 +89,13 @@ export function LookbookHero({
           </p>
           <h1
             key={`title-${slide.id}`}
-            className="font-display text-5xl sm:text-6xl lg:text-[4.5rem] font-semibold text-white leading-[1.04] text-balance drop-shadow-[0_2px_28px_rgba(0,0,0,0.4)]"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold text-white leading-[1.05] text-balance drop-shadow-[0_2px_28px_rgba(26,18,22,0.45)] max-w-[16ch]"
           >
             {slide.title}
           </h1>
           <p
             key={`blurb-${slide.id}`}
-            className="mt-5 text-lg sm:text-xl text-white/85 max-w-lg leading-relaxed font-light"
+            className="mt-5 text-lg sm:text-xl text-white/85 max-w-md lg:max-w-xl leading-relaxed font-light"
           >
             {slide.blurb}
           </p>
@@ -172,9 +172,10 @@ export function LookbookHero({
                 src={s.image}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500"
+                style={{ objectPosition: s.objectPosition || 'center' }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" />
               <span className="absolute bottom-1.5 left-2 right-2 text-[9px] font-bold uppercase tracking-wider text-white/90 truncate">
                 {s.kicker.replace(/^Look 0\d · /i, '')}
               </span>
