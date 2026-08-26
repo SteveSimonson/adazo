@@ -84,7 +84,7 @@ Docs: [`docs/imagine-r2-videos.md`](docs/imagine-r2-videos.md).
 Adazo is a **consumer** of the network product library at **https://z9go.com** (Z9GO).
 
 ```bash
-export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN on Z9GO (kyasi-net worker)
+export Z9GO_LIBRARY_TOKEN=…   # ADMIN_API_TOKEN on Z9GO
 npm run library:sync:dry
 npm run library:sync           # write-back only (catalog → library)
 ```
