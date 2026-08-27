@@ -233,6 +233,11 @@ export function Layout() {
             <p className="label-micro mb-3">About</p>
             <ul className="space-y-2 text-sm font-medium">
               <li>
+                <Link to="/about" className="hover:text-bamboo">
+                  About
+                </Link>
+              </li>
+              <li>
                 <Link to="/why" className="hover:text-bamboo">
                   Our story
                 </Link>
@@ -255,6 +260,10 @@ export function Layout() {
         </div>
         <div className="border-t border-line py-4 text-center text-xs text-muted">
           © {new Date().getFullYear()} Adazo · Since {BRAND.founded} · adazo.com
+          {' · '}
+          <Link to="/about" className="underline hover:text-ink">
+            About
+          </Link>
           {' · '}
           <Link to="/privacy" className="underline hover:text-ink">
             Privacy
