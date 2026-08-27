@@ -58,6 +58,12 @@ export function buildRouteMeta(): RouteMetaFile {
   routes['/reels'] = finalizeRouteMeta(reelsSeo())
   routes['/watch'] = finalizeRouteMeta(watchSeo())
   routes['/why'] = finalizeRouteMeta(whySeo())
+  routes['/about'] = finalizeRouteMeta({
+    title: 'About Adazo',
+    description:
+      'Adazo is a curated Amazon Associates storefront for women’s health and beauty. Discover on Adazo; buy on Amazon.',
+    path: '/about',
+  } as any)
   routes['/privacy'] = finalizeRouteMeta({
     title: 'Privacy Policy',
     description: 'Privacy Policy for Adazo.',
