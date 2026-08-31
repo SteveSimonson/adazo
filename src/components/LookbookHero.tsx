@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import {
@@ -6,12 +6,16 @@ import {
   LOOKBOOK_SLIDES,
   type LookbookSlide,
 } from '../data/lookbook'
+import { PromoImage } from './PromoImage'
 
 /**
  * Fashion lookbook hero.
  * Mobile: stacked 4:5 band. Desktop: 16:9 cinematic plate.
  * Type overlays the band (header is opaque in-flow — no fake overlay pad).
  * Thumbs sit on the band so in-flow copy cannot stretch the photo.
+ *
+ * Only the current (and previous, after the first rotate) plate is in the
+ * DOM so opacity-0 slides cannot steal the LCP download.
  */
 export function LookbookHero({
   slides = LOOKBOOK_SLIDES,
@@ -21,30 +25,60 @@ export function LookbookHero({
   intervalMs?: number
 }) {
   const [index, setIndex] = useState(0)
+  const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [paused, setPaused] = useState(false)
+  const [desktopThumbs, setDesktopThumbs] = useState(false)
+  const indexRef = useRef(0)
   const n = slides.length
   const slide = slides[index] ?? slides[0]
 
-  const go = useCallback(
-    (dir: 1 | -1) => {
-      setIndex((i) => (i + dir + n) % n)
+  const setLook = useCallback(
+    (next: number) => {
+      if (!n) return
+      const target = ((next % n) + n) % n
+      const cur = indexRef.current
+      if (target === cur) return
+      setPrevIndex(cur)
+      indexRef.current = target
+      setIndex(target)
     },
     [n],
   )
 
-  const goTo = useCallback((i: number) => {
-    setIndex(((i % n) + n) % n)
-  }, [n])
+  const go = useCallback(
+    (dir: 1 | -1) => {
+      setLook(indexRef.current + dir)
+    },
+    [setLook],
+  )
+
+  const goTo = useCallback(
+    (i: number) => {
+      setLook(i)
+    },
+    [setLook],
+  )
 
   useEffect(() => {
     if (paused || n <= 1) return
     const t = setInterval(() => {
-      setIndex((i) => (i + 1) % n)
+      setLook(indexRef.current + 1)
     }, intervalMs)
     return () => clearInterval(t)
-  }, [paused, n, intervalMs, index])
+  }, [paused, n, intervalMs, setLook, index])
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+    const apply = () => setDesktopThumbs(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
 
   if (!slide) return null
+
+  const mounted =
+    prevIndex == null ? [index] : Array.from(new Set([prevIndex, index]))
 
   return (
     <section
@@ -59,20 +93,27 @@ export function LookbookHero({
       }}
     >
       <div className="relative w-full overflow-hidden aspect-[4/5] md:aspect-video bg-charcoal">
-        {slides.map((s, i) => (
-          <img
-            key={s.id}
-            src={s.image}
-            alt=""
-            aria-hidden={i !== index}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
-              i === index ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ objectPosition: s.objectPosition || 'center' }}
-            fetchPriority={i === 0 ? 'high' : 'low'}
-            decoding={i === 0 ? 'sync' : 'async'}
-          />
-        ))}
+        {mounted.map((i) => {
+          const s = slides[i]
+          if (!s) return null
+          const isLcp = i === 0 && prevIndex == null
+          return (
+            <PromoImage
+              key={s.id}
+              src={s.image}
+              alt=""
+              aria-hidden={i !== index}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
+                i === index ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ objectPosition: s.objectPosition || 'center' }}
+              fetchPriority={isLcp ? 'high' : 'low'}
+              decoding={isLcp ? 'sync' : 'async'}
+              width={1920}
+              height={1080}
+            />
+          )
+        })}
 
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/35 to-transparent md:via-charcoal/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/20 to-transparent md:from-charcoal/50 md:via-charcoal/10" />
@@ -156,33 +197,35 @@ export function LookbookHero({
               </div>
             </div>
 
-            <div className="mt-4 hidden md:grid grid-cols-6 gap-1.5">
-              {slides.map((s, i) => (
-                <button
-                  key={`thumb-${s.id}`}
-                  type="button"
-                  onClick={() => goTo(i)}
-                  className={`group relative overflow-hidden rounded-lg aspect-video border transition ${
-                    i === index
-                      ? 'border-gold ring-1 ring-gold/50'
-                      : 'border-white/15 hover:border-white/40'
-                  }`}
-                  aria-label={`Show ${s.title}`}
-                >
-                  <img
-                    src={s.image}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500"
-                    style={{ objectPosition: s.objectPosition || 'center' }}
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" />
-                  <span className="absolute bottom-1 left-1.5 right-1.5 text-[8px] font-bold uppercase tracking-wider text-white/90 truncate">
-                    {s.kicker.replace(/^Look 0\d · /i, '')}
-                  </span>
-                </button>
-              ))}
-            </div>
+            {desktopThumbs ? (
+              <div className="mt-4 hidden md:grid grid-cols-6 gap-1.5">
+                {slides.map((s, i) => (
+                  <button
+                    key={`thumb-${s.id}`}
+                    type="button"
+                    onClick={() => goTo(i)}
+                    className={`group relative overflow-hidden rounded-lg aspect-video border transition ${
+                      i === index
+                        ? 'border-gold ring-1 ring-gold/50'
+                        : 'border-white/15 hover:border-white/40'
+                    }`}
+                    aria-label={`Show ${s.title}`}
+                  >
+                    <PromoImage
+                      src={s.image}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500"
+                      style={{ objectPosition: s.objectPosition || 'center' }}
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" />
+                    <span className="absolute bottom-1 left-1.5 right-1.5 text-[8px] font-bold uppercase tracking-wider text-white/90 truncate">
+                      {s.kicker.replace(/^Look 0\d · /i, '')}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

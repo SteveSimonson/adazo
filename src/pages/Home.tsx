@@ -16,6 +16,7 @@ import { VIBE_LIST, vibePath } from '../data/vibes'
 import { ProductGrid } from '../components/ProductGrid'
 import { LookbookHero } from '../components/LookbookHero'
 import { MagazineFlip } from '../components/MagazineFlip'
+import { PromoImage } from '../components/PromoImage'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 
@@ -105,7 +106,7 @@ export function Home() {
                 to={tile.to}
                 className="group relative overflow-hidden rounded-3xl border border-line aspect-[3/4] bg-charcoal shadow-[0_12px_40px_-24px_rgba(26,20,24,0.35)]"
               >
-                <img
+                <PromoImage
                   src={tile.image}
                   alt={tile.alt}
                   className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105"

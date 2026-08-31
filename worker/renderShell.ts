@@ -108,8 +108,11 @@ export function renderShell(
     out = setMetaContent(out, 'name', 'robots', 'noindex,nofollow')
   }
   const schemas = [...globalJsonLd, ...(meta?.jsonLd ?? [])]
+  const preloadType = meta?.preloadImage?.endsWith('.webp')
+    ? ' type="image/webp"'
+    : ''
   const preload = meta?.preloadImage
-    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}" fetchpriority="high">`
+    ? `<link rel="preload" as="image" href="${escapeHtmlAttr(meta.preloadImage)}"${preloadType} fetchpriority="high">`
     : ''
   out = out.replace(
     '</head>',

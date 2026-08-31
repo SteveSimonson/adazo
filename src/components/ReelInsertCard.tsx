@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { Play, Sparkles } from 'lucide-react'
-import { useEffect, useRef } from 'react'
 import {
   reelCtaLabel,
   reelHref,
@@ -8,6 +7,7 @@ import {
   type CategoryReel,
 } from '../data/reels'
 import { trackEvent } from '../lib/analytics'
+import { LazyFilm } from './LazyFilm'
 
 /**
  * Fashion film tile in product grids (same 4:5 well as ProductCard).
@@ -23,7 +23,6 @@ export function ReelInsertCard({
   listName: string
   compact?: boolean
 }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
   const to = reelHref(reel)
   const cta = reelCtaLabel(reel)
   const series = reelSeries(reel)
@@ -47,25 +46,6 @@ export function ReelInsertCard({
           ? 'House persona'
           : 'From the house')
 
-  useEffect(() => {
-    const el = videoRef.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            void el.play().catch(() => {})
-          } else {
-            el.pause()
-          }
-        }
-      },
-      { threshold: 0.4 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
   return (
     <article className="card-soft group flex flex-col overflow-hidden ring-1 ring-bamboo/25">
       <Link
@@ -82,16 +62,10 @@ export function ReelInsertCard({
         }
       >
         <div className="relative aspect-[4/5] bg-charcoal overflow-hidden border-b border-line/70">
-          <video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
+          <LazyFilm
             src={reel.video}
             poster={reel.poster}
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label={`${reel.title} film: ${reel.motionLabel}`}
+            label={`${reel.title} film: ${reel.motionLabel}`}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/75 via-transparent to-charcoal/20" />
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5">
