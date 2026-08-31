@@ -140,7 +140,7 @@ export function homeSeo(): PageSeo {
   description: DEFAULT_DESCRIPTION,
   path: '/',
   image: '/brand/promo/lookbook-handbags.jpg',
-  preloadImage: '/brand/promo/lookbook-handbags.jpg',
+  preloadImage: '/brand/promo/lookbook-handbags.webp',
  }
 }
 

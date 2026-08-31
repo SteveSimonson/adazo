@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { LOOKBOOK_SLIDES } from '../src/data/lookbook.ts'
+import { renderShell } from '../worker/renderShell.ts'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -67,4 +68,100 @@ test('lookbook hero is a locked cinematic band, not 94vh', () => {
   assert.match(src, /md:aspect-video/)
   assert.doesNotMatch(src, /94vh/)
   assert.doesNotMatch(src, /pt-36/)
+})
+
+test('lookbook hero mounts current/previous plates only, not the full stack', () => {
+  const src = readFileSync(
+    join(ROOT, 'src/components/LookbookHero.tsx'),
+    'utf8',
+  )
+  assert.match(src, /prevIndex/)
+  assert.match(src, /PromoImage/)
+  assert.match(src, /desktopThumbs/)
+  assert.match(src, /prevIndex == null \? \[index\]/)
+})
+
+test('reel inserts do not download MP4s until near the viewport', () => {
+  const film = readFileSync(join(ROOT, 'src/components/LazyFilm.tsx'), 'utf8')
+  const card = readFileSync(
+    join(ROOT, 'src/components/ReelInsertCard.tsx'),
+    'utf8',
+  )
+  assert.match(film, /preload="none"/)
+  assert.match(film, /IntersectionObserver/)
+  assert.match(film, /loading="lazy"/)
+  assert.match(film, /load && !reduceMotion/)
+  assert.doesNotMatch(film, /preload="metadata"/)
+  assert.doesNotMatch(film, /preload="auto"/)
+  assert.match(card, /<LazyFilm/)
+  assert.doesNotMatch(card, /<video/)
+})
+
+test('homepage oversized promo stills ship WebP smaller than JPEG', () => {
+  const files = [
+    'public/brand/promo/lookbook-gold.jpg',
+    'public/brand/promo/nav-gold-cuban.jpg',
+    'public/brand/promo/lookbook-handbags.jpg',
+  ]
+  for (const jpgRel of files) {
+    const jpg = join(ROOT, jpgRel)
+    const webp = jpg.replace(/\.jpg$/, '.webp')
+    assert.ok(existsSync(webp), `missing ${webp}`)
+    const jpegBytes = statSync(jpg).size
+    const webpBytes = statSync(webp).size
+    assert.ok(
+      webpBytes < jpegBytes,
+      `${webp} (${webpBytes}) should be smaller than ${jpgRel} (${jpegBytes})`,
+    )
+    assert.ok(
+      webpBytes < 320 * 1024,
+      `${webp} should be under 320KB, got ${webpBytes}`,
+    )
+  }
+  for (const slide of LOOKBOOK_SLIDES) {
+    const webp = join(
+      ROOT,
+      'public',
+      slide.image.replace(/^\//, '').replace(/\.jpe?g$/i, '.webp'),
+    )
+    assert.ok(existsSync(webp), `missing WebP for ${slide.image}`)
+  }
+})
+
+test('home LCP preload is the lookbook WebP, not a reel MP4', () => {
+  const seoSrc = readFileSync(join(ROOT, 'src/lib/seoData.ts'), 'utf8')
+  const homeFn = seoSrc.match(/export function homeSeo\(\)[\s\S]*?\n\}/)
+  assert.ok(homeFn, 'homeSeo() not found')
+  assert.match(homeFn[0], /preloadImage: '\/brand\/promo\/lookbook-handbags\.webp'/)
+  assert.doesNotMatch(homeFn[0], /\.mp4/)
+  const html = renderShell(
+    `<!doctype html><html><head><title>t</title>
+    <meta name="description" content="d" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://adazo.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://adazo.com/" />
+    <meta property="og:title" content="x" />
+    <meta property="og:description" content="d" />
+    <meta property="og:image" content="https://adazo.com/brand/social.png" />
+    <meta name="twitter:title" content="x" />
+    <meta name="twitter:description" content="d" />
+    <meta name="twitter:image" content="https://adazo.com/brand/social.png" />
+    </head><body><div id="root"></div></body></html>`,
+    {
+      title: 'Adazo',
+      description: 'd',
+      canonical: 'https://adazo.com/',
+      robots: 'index,follow',
+      ogType: 'website',
+      jsonLd: null,
+      preloadImage: '/brand/promo/lookbook-handbags.webp',
+    },
+    'https://adazo.com/brand/social.png',
+  )
+  assert.match(
+    html,
+    /rel="preload" as="image" href="\/brand\/promo\/lookbook-handbags\.webp" type="image\/webp"/,
+  )
+  assert.doesNotMatch(html, /as="video"/)
 })
