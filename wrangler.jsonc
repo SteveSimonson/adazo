@@ -28,5 +28,8 @@
   ],
   "observability": {
     "enabled": true
+  },
+  "vars": {
+    "GHL_LOCATION_ID": "qLAG7Ql2CutghFQ9pemN"
   }
 }
