@@ -19,16 +19,31 @@
 import { buildWelcomeEmail } from './welcomeEmail'
 import routeMetaJson from './generated/routeMeta.json'
 import {
+  corsHeaders,
+  jsonResponse,
+  originAllowed,
+  rateLimited,
+  readJsonBody,
+  secureResponse,
+} from './requestSecurity'
+import type { RateLimiterBinding } from './requestSecurity'
+import {
   handleMediaPut,
   handleUploadUrl,
   serveMedia,
 } from './media'
+import {
+  addUnsubscribeFooter,
+  createUnsubscribeLink,
+  handleUnsubscribe,
+} from './unsubscribe'
 
 /** Secrets not always present in generated Env until re-run wrangler types after secret put */
 type WorkerEnv = Env & {
   GHL_PIT?: string
   GHL_LOCATION_ID?: string
   MEDIA_UPLOAD_SECRET?: string
+  RATE_LIMITER?: RateLimiterBinding
 }
 
 type RouteMeta = {
@@ -52,7 +67,6 @@ const routeMeta = routeMetaJson as unknown as RouteMetaFile
 
 const SITE = 'https://adazo.com'
 const CANONICAL_HOST = 'adazo.com'
-const HSTS = 'max-age=31536000'
 
 type QuizPayload = {
   email?: string
@@ -63,19 +77,11 @@ type QuizPayload = {
   interests?: string[]
   answers?: Record<string, string>
   marketingOptIn?: boolean
+  website?: string
 }
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-}
-
-function json(data: unknown, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json', ...CORS },
-  })
+function json(data: unknown, status = 200, request?: Request) {
+  return jsonResponse(SITE, request ?? new Request(SITE), data, status)
 }
 
 function isEmail(s: string) {
@@ -168,13 +174,14 @@ async function sendWelcomeEmailCf(
   env: WorkerEnv,
   toEmail: string,
   body: QuizPayload,
+  unsubscribeUrl: string,
 ) {
-  const parts = buildWelcomeEmail({
+  const parts = addUnsubscribeFooter(buildWelcomeEmail({
     firstName: body.firstName,
     personaId: body.personaId,
     personaLabel: body.personaLabel,
     interests: body.interests,
-  })
+  }), unsubscribeUrl)
 
   if (!env.EMAIL) {
     throw new Error('Cloudflare Email Sending is not bound (EMAIL).')
@@ -192,8 +199,7 @@ async function sendWelcomeEmailCf(
     html: parts.html,
     text: parts.text,
     headers: {
-      // One-click unsub landing (preference / contact) — keep first-party
-      'List-Unsubscribe': '<https://adazo.com/quiz>',
+      'List-Unsubscribe': `<${unsubscribeUrl}>`,
       'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
     },
   })
@@ -214,17 +220,18 @@ async function sendWelcomeEmailGhl(
   env: WorkerEnv,
   contactId: string,
   body: QuizPayload,
+  unsubscribeUrl: string,
 ) {
   if (!env.GHL_PIT) {
     return { ok: false, provider: 'ghl' as const, status: 0, personaId: body.personaId }
   }
 
-  const parts = buildWelcomeEmail({
+  const parts = addUnsubscribeFooter(buildWelcomeEmail({
     firstName: body.firstName,
     personaId: body.personaId,
     personaLabel: body.personaLabel,
     interests: body.interests,
-  })
+  }), unsubscribeUrl)
 
   const res = await fetch(
     'https://services.leadconnectorhq.com/conversations/messages',
@@ -256,37 +263,62 @@ async function sendWelcomeEmailGhl(
 }
 
 async function handleQuiz(request: Request, env: WorkerEnv) {
-  let body: QuizPayload
-  try {
-    body = (await request.json()) as QuizPayload
-  } catch {
-    return json({ ok: false, error: 'Invalid JSON body' }, 400)
+  if (await rateLimited(SITE, request, env.RATE_LIMITER)) {
+    return json(
+      { ok: false, error: 'Too many submissions. Please try again later.' },
+      429,
+      request,
+    )
   }
+
+  const parsed = await readJsonBody<unknown>(request)
+  if (!parsed.ok) {
+    return json(
+      {
+        ok: false,
+        error: parsed.reason === 'too-large' ? 'Request too large.' : 'Invalid JSON body',
+      },
+      parsed.reason === 'too-large' ? 413 : 400,
+      request,
+    )
+  }
+  if (!parsed.value || typeof parsed.value !== 'object' || Array.isArray(parsed.value)) {
+    return json({ ok: false, error: 'Invalid request body.' }, 400, request)
+  }
+
+  const body = parsed.value as QuizPayload
+  if (body.website?.trim()) return json({ ok: true, stored: false }, 200, request)
 
   const recipient = String(body.email || '')
     .trim()
     .toLowerCase()
   if (!isEmail(recipient)) {
-    return json({ ok: false, error: 'Valid email required' }, 400)
+    return json({ ok: false, error: 'Valid email required' }, 400, request)
   }
 
   try {
     // CRM still lives in GHL when secrets are present
     let contactId: string | null = null
-    let isNew = false
     if (env.GHL_PIT && env.GHL_LOCATION_ID) {
       const upsert = await ghlUpsertContact(env, body)
       contactId = upsert.contactId
-      isNew = upsert.isNew
     }
 
     let emailSent = false
     let emailProvider: string | null = null
     let vibeId = body.personaId || null
-
-    if (body.marketingOptIn !== false) {
+    let unsubscribeUrl: string | null = null
+    if (contactId && env.GHL_PIT) {
       try {
-        const cf = await sendWelcomeEmailCf(env, recipient, body)
+        unsubscribeUrl = await createUnsubscribeLink(SITE, contactId, env.GHL_PIT)
+      } catch (tokenError) {
+        console.error('unsubscribe token creation failed', tokenError instanceof Error ? tokenError.message : 'unknown error')
+      }
+    }
+
+    if (body.marketingOptIn === true && unsubscribeUrl) {
+      try {
+        const cf = await sendWelcomeEmailCf(env, recipient, body, unsubscribeUrl)
         emailSent = true
         emailProvider = 'cloudflare'
         vibeId = cf.personaId
@@ -294,7 +326,7 @@ async function handleQuiz(request: Request, env: WorkerEnv) {
         // Fall back to GHL outbound if CF binding/send fails
         if (contactId) {
           try {
-            const ghl = await sendWelcomeEmailGhl(env, contactId, body)
+            const ghl = await sendWelcomeEmailGhl(env, contactId, body, unsubscribeUrl)
             emailSent = ghl.ok
             emailProvider = ghl.ok ? 'ghl' : null
             vibeId = ghl.personaId || vibeId
@@ -310,17 +342,10 @@ async function handleQuiz(request: Request, env: WorkerEnv) {
       }
     }
 
-    return json({
-      ok: true,
-      contactId,
-      isNew,
-      emailSent,
-      emailProvider,
-      vibeId,
-    })
+    return json({ ok: true, stored: Boolean(contactId), emailSent, emailProvider, vibeId }, 200, request)
   } catch (e) {
-    const msg = e instanceof Error ? e.message : 'Submit failed'
-    return json({ ok: false, error: msg }, 400)
+    console.error('quiz submission failed', e instanceof Error ? e.message : 'unknown error')
+    return json({ ok: false, error: 'Submission could not be completed.' }, 400, request)
   }
 }
 
@@ -512,13 +537,20 @@ async function handleRequest(
   }
 
   if (url.pathname === '/api/quiz') {
+    if (!originAllowed(SITE, request)) {
+      return json({ ok: false, error: 'Forbidden' }, 403, request)
+    }
     if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 204, headers: CORS })
+      return new Response(null, { status: 204, headers: corsHeaders(SITE, request) })
     }
     if (request.method === 'POST') {
       return handleQuiz(request, env)
     }
-    return json({ ok: false, error: 'Method not allowed' }, 405)
+    return json({ ok: false, error: 'Method not allowed' }, 405, request)
+  }
+
+  if (url.pathname === '/api/unsubscribe') {
+    return handleUnsubscribe(request, env, SITE)
   }
 
   // Imagine ZDR: mint a short-lived PUT URL that lands in R2
@@ -567,8 +599,6 @@ async function handleRequest(
 export default {
   async fetch(request: Request, env: WorkerEnv): Promise<Response> {
     const res = await handleRequest(request, env)
-    const out = new Response(res.body, res)
-    out.headers.set('Strict-Transport-Security', HSTS)
-    return out
+    return secureResponse(res)
   },
 }
