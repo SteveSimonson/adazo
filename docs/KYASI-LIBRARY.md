@@ -18,6 +18,8 @@ npm run library:sync
 2. **Write-back** house name, brand, category, slug, and **this product's** images with `imagesMode: replace`.
 3. **Does not** pull library images into the TS catalog (avoids seed pollution).
 
+Catalog `src/data/products.ts` is the image source of truth. After image QC (`npm run qc:images`), sync writes those URLs out — never the reverse.
+
 ## Files
 
 | Path | Role |
