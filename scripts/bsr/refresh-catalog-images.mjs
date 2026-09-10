@@ -17,6 +17,14 @@ import {
   createCreatorsClient,
   mapCreatorsItem,
 } from './creators-client.mjs'
+import {
+  amazonImageId,
+  extractColorImages,
+  isBannedImageUrl,
+  LOCKED_PRIMARY_IMAGE_IDS,
+  upgradeAmazonImage as upgradeSharedAmazonImage,
+} from '../lib/amazon-image-ids.mjs'
+import { loadCatalogProducts } from '../lib/catalog-image-qc.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
 const PRODUCT_FILES = [
@@ -37,21 +45,66 @@ try {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 function upgradeAmazonImage(url) {
-  if (!url) return null
-  let u = String(url).replace(/^http:\/\//i, 'https://').replace(/\\u002F/g, '/')
-  if (
-    !/media-amazon\.com\/images\/I\//i.test(u) &&
-    !/ssl-images-amazon\.com\/images\/I\//i.test(u)
-  ) {
-    return null
+  return upgradeSharedAmazonImage(url)
+}
+
+/**
+ * Drop banned kitchen/home art, refuse locked-primary drift, and skip
+ * galleries that would attach another brand's /images/I/{id} stem.
+ */
+function sanitizeImageMap(imageMap) {
+  const catalog = loadCatalogProducts()
+  const byAsin = new Map(catalog.map((p) => [p.asin, p]))
+
+  for (const [asin, images] of [...imageMap.entries()]) {
+    const cleaned = images.filter((u) => u && !isBannedImageUrl(u))
+    const product = byAsin.get(asin)
+    const locked = product ? LOCKED_PRIMARY_IMAGE_IDS[product.slug] : null
+    if (locked) {
+      const primary = amazonImageId(cleaned[0])
+      if (primary !== locked) {
+        console.warn(
+          `  skip ${asin} (${product.slug}): locked primary ${locked} ≠ ${primary}`,
+        )
+        imageMap.delete(asin)
+        continue
+      }
+    }
+    if (!cleaned.length) {
+      imageMap.delete(asin)
+      continue
+    }
+    imageMap.set(asin, cleaned)
   }
-  return u
-    .replace(/\._AC_UL\d+[^.]*/i, '._AC_SL1000_')
-    .replace(/\._AC_UX\d+[^.]*/i, '._AC_SL1000_')
-    .replace(/\._AC_UY\d+[^.]*/i, '._AC_SL1000_')
-    .replace(/\._AC_SL\d+_/i, '._AC_SL1000_')
-    .replace(/\._SX\d+_/i, '._SL1000_')
-    .replace(/\._SY\d+_/i, '._SL1000_')
+
+  const occupancy = new Map()
+  for (const p of catalog) {
+    if (imageMap.has(p.asin)) continue
+    for (const id of p.imageIds) {
+      if (!occupancy.has(id)) occupancy.set(id, p.brand.toLowerCase())
+    }
+  }
+  for (const [asin, images] of [...imageMap.entries()]) {
+    const brand = (byAsin.get(asin)?.brand || '').toLowerCase()
+    const next = images.filter((u) => {
+      const id = amazonImageId(u)
+      const owner = occupancy.get(id)
+      if (owner && owner !== brand) {
+        console.warn(`  drop ${id} from ${asin}: already used by brand ${owner}`)
+        return false
+      }
+      return true
+    })
+    if (!next.length) imageMap.delete(asin)
+    else {
+      imageMap.set(asin, next)
+      for (const u of next) {
+        const id = amazonImageId(u)
+        if (id && !occupancy.has(id)) occupancy.set(id, brand)
+      }
+    }
+  }
+  return imageMap
 }
 
 function collectAsinsFromFile(path) {
@@ -79,7 +132,9 @@ function patchFileImages(src, imageMap) {
   // Prefer the value array after `= [` — not TypeScript `Product[]` annotation.
   const assign = src.search(/export const \w[\w]*\s*(?::[^=]+)?=\s*\[/)
   if (assign < 0) return { src, changed: 0 }
-  const arrStart = src.indexOf('[', assign)
+  // Skip the TypeScript `Product[]` annotation — take the `[` after `=`.
+  const eq = src.indexOf('=', assign)
+  const arrStart = eq >= 0 ? src.indexOf('[', eq) : -1
   if (arrStart < 0) return { src, changed: 0 }
 
   const prefix = src.slice(0, arrStart + 1)
@@ -172,24 +227,9 @@ async function scrapeImages(asin) {
   if (/Dog page|Enter the characters|Type the characters/i.test(html)) {
     throw new Error('blocked/captcha')
   }
-  const images = []
-  const push = (raw) => {
-    const u = upgradeAmazonImage(raw)
-    if (u && !images.includes(u)) images.push(u)
-  }
-  const landing = html.match(/data-old-hires="(https:\/\/[^"]+)"/)
-  if (landing) push(landing[1])
-  for (const m of html.matchAll(
-    /"hiRes"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/g,
-  )) {
-    push(m[1])
-  }
-  for (const m of html.matchAll(
-    /"large"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/g,
-  )) {
-    push(m[1])
-  }
-  return images.slice(0, 6)
+  const fromGallery = extractColorImages(html)
+  if (fromGallery.length) return fromGallery
+  throw new Error('no colorImages gallery')
 }
 
 async function fetchViaCreators(asins) {
@@ -263,6 +303,12 @@ Credential auth works, but this Associates account cannot call catalog APIs yet
 
   if (!imageMap.size) {
     console.error('No images resolved.')
+    process.exit(1)
+  }
+
+  imageMap = sanitizeImageMap(imageMap)
+  if (!imageMap.size) {
+    console.error('All resolved galleries failed integrity checks.')
     process.exit(1)
   }
 

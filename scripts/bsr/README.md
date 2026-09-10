@@ -35,6 +35,11 @@ npm run refresh:images
 # npm run refresh:images -- --creators-only
 # npm run refresh:images -- --scrape-only
 
+# Static catalog image QC (banned IDs, cross-brand stems, locked primaries)
+npm run qc:images
+# Optional live Amazon colorImages compare (network; may be rate-limited)
+# npm run qc:images -- --scrape
+
 # Full weekly refresh → import + build + Cloudflare deploy
 npm run refresh:weekly
 ```
@@ -51,6 +56,10 @@ That means the Associates account has not met Amazon’s API eligibility bar yet
 (qualifying sales / review). Credentials and partner tag can still be correct.
 Until Amazon enables catalog access, `refresh:images` uses product-page scrape
 for `/images/I/…` URLs so the storefront is not blocked.
+
+Scrape reads the listing's `colorImages` gallery only (not every `hiRes` URL on
+the PDP). Refresh also refuses banned kitchen/home image IDs, locked-primary
+drift, and galleries that would attach another brand's image stem.
 
 ## Outputs
 

@@ -24,6 +24,7 @@ import {
   loadCreatorsEnv,
   mapCreatorsItem,
 } from './creators-client.mjs'
+import { extractColorImages } from '../lib/amazon-image-ids.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '../..')
@@ -304,21 +305,7 @@ async function enrichAsin(asin) {
     if (!titleM) return null
     const title = unescapeHtml(titleM[1].replace(/\s+/g, ' ').trim())
 
-    const images = []
-    const landing = html.match(/data-old-hires="(https:\/\/[^"]+)"/)
-    if (landing) images.push(landing[1].replace(/\\u002F/g, '/'))
-    for (const m of html.matchAll(
-      /"hiRes"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/g,
-    )) {
-      const u = m[1].replace(/\\u002F/g, '/')
-      if (!images.includes(u)) images.push(u)
-    }
-    for (const m of html.matchAll(
-      /"large"\s*:\s*"(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/g,
-    )) {
-      const u = m[1].replace(/\\u002F/g, '/')
-      if (!images.includes(u)) images.push(u)
-    }
+    const images = extractColorImages(html)
 
     let price
     const priceM = html.match(/"priceAmount"\s*:\s*([0-9.]+)/)
