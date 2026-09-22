@@ -228,6 +228,8 @@ export interface BuyerGuide {
   intro: string
   sections: BuyerGuideSection[]
   faq: BuyerGuideFaq[]
+  /** Products that support the routine but do not answer the title. */
+  pairWith?: BuyerGuideProductEntry[]
   hardNo?: string
   heroImage?: string
   publishedAt: string
