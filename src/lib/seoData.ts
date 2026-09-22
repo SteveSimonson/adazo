@@ -96,14 +96,41 @@ function productCrawler(p: Product, enrichment?: ProductEnrichment): CrawlerBody
  }
 }
 
+function firstSentence(s: string, maxWords = 26): string {
+ const text = collapseWs(s)
+ const sentence = text.split(/(?<=[.!?])\s/)[0] || text
+ const words = sentence.split(' ')
+ if (words.length <= maxWords) return sentence
+ return `${words.slice(0, maxWords).join(' ')}…`
+}
+
+function namedPicks(
+ entries: { productSlug: string; pickWhy?: string; giftWhy?: string }[],
+): string {
+ const bits: string[] = []
+ for (const entry of entries) {
+  const product = getProduct(entry.productSlug)
+  if (!product) continue
+  const why = firstSentence(entry.pickWhy || entry.giftWhy || '')
+  bits.push(why ? `${product.name}: ${why}` : product.name)
+ }
+ return bits.join(' ')
+}
+
 function guideCrawler(g: BuyerGuide): CrawlerBody {
  return {
   h1: g.title,
-  paragraphs: takeCrawlerParagraphs([
-   g.dek,
-   g.intro,
-   ...g.sections.map((s) => s.body),
-  ]),
+  paragraphs: takeCrawlerParagraphs(
+   [
+    g.dek,
+    g.intro,
+    g.hardNo || '',
+    namedPicks(g.productEntries),
+    ...g.sections.map((s) => s.body),
+   ],
+   560,
+   8,
+  ),
   faq: g.faq.map(({ q, a }) => ({ q, a })),
   disclosure: AFFILIATE_DISCLOSURE,
  }
@@ -130,6 +157,40 @@ function guidesHubCrawler(): CrawlerBody {
   h1: title,
   paragraphs: takeCrawlerParagraphs([description, intro, roster, footnote]),
   faq,
+  disclosure: AFFILIATE_DISCLOSURE,
+ }
+}
+
+function giftsHubCrawler(): CrawlerBody {
+ const title = 'Beauty gift guides'
+ const description = clipMeta(
+  `Gifts for her, mom, wife, self-care, and under $50 — ${giftGuides.length} curated Adazo beauty guides. Chosen here; buy on Amazon.`,
+ )
+ const roster = giftGuides.map((g) => `${g.title}. ${g.dek}`).join(' ')
+ const footnote =
+  'These are gift listicles, separate from the job guides under /guides. Editorial shopping notes. Bought on Amazon.'
+ return {
+  h1: title,
+  paragraphs: takeCrawlerParagraphs([description, roster, footnote]),
+  faq: giftGuides[0]?.faq.slice(0, 2) ?? [],
+  disclosure: AFFILIATE_DISCLOSURE,
+ }
+}
+
+function giftCrawler(g: GiftGuide): CrawlerBody {
+ return {
+  h1: g.title,
+  paragraphs: takeCrawlerParagraphs(
+   [
+    g.dek,
+    g.intro,
+    namedPicks(g.productEntries),
+    ...g.sections.map((s) => s.body),
+   ],
+   560,
+   8,
+  ),
+  faq: g.faq.map(({ q, a }) => ({ q, a })),
   disclosure: AFFILIATE_DISCLOSURE,
  }
 }
@@ -433,6 +494,7 @@ export function giftsHubSeo(): PageSeo {
     })),
    }),
   ],
+  crawler: giftsHubCrawler(),
  }
 }
 
@@ -473,6 +535,7 @@ export function giftGuideSeo(g: GiftGuide): PageSeo {
   type: 'article',
   image: g.heroImage || products[0]?.images?.[0] || '/brand/social.png',
   jsonLd,
+  crawler: giftCrawler(g),
  }
 }
 

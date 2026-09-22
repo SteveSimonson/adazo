@@ -22,11 +22,14 @@ const bundled = await build({
 export { getProduct } from './src/data/catalog.ts'
 export { getProductEnrichment } from './src/data/productEnrichments.ts'
 export { buyerGuides } from './src/data/buyerGuides.ts'
+export { giftGuides } from './src/data/giftGuides.ts'
 export {
   AFFILIATE_DISCLOSURE,
   buyerGuideSeo,
   buyerGuidesHubSeo,
   finalizeRouteMeta,
+  giftGuideSeo,
+  giftsHubSeo,
   homeSeo,
   productSeo,
 } from './src/lib/seoData.ts'
@@ -52,6 +55,9 @@ const {
   buyerGuidesHubSeo,
   buyerGuides,
   finalizeRouteMeta,
+  giftGuideSeo,
+  giftGuides,
+  giftsHubSeo,
   getProduct,
   getProductEnrichment,
   homeSeo,
@@ -157,6 +163,36 @@ test('buyer guide and hub populate crawler from existing copy', () => {
     hub.crawler?.faq.some((item) => item.q === 'Why does checkout go to Amazon?'),
   )
   assert.ok(hub.crawler?.paragraphs[0])
+  const firstName = getProduct(g.productEntries[0].productSlug)?.name
+  assert.ok(firstName)
+  assert.ok(
+    guideMeta.crawler?.paragraphs.some((p) => p.includes(firstName)),
+    'buyer guide crawler should name its first pick',
+  )
+})
+
+test('gift guides and hub populate crawler from existing copy', () => {
+  const g = giftGuides.find((guide) => guide.slug === 'gifts-for-mom')
+  assert.ok(g)
+  const meta = finalizeRouteMeta(giftGuideSeo(g))
+  assert.equal(meta.crawler?.h1, g.title)
+  assert.ok(meta.crawler?.paragraphs.some((p) => p.includes(g.dek.slice(0, 24))))
+  assert.ok(meta.crawler?.faq.some((item) => item.q === g.faq[0].q))
+  const pickName = getProduct(g.productEntries[0].productSlug)?.name
+  assert.ok(pickName)
+  assert.ok(
+    meta.crawler?.paragraphs.some((p) => p.includes(pickName)),
+    'gift guide crawler should name its first pick',
+  )
+  const words = meta.crawler.paragraphs.join(' ').split(/\s+/).length
+  assert.ok(words >= 80, `expected a real gift answer, got ${words} words`)
+  const article = renderCrawlerArticle(meta.crawler)
+  assert.match(article, /<article id="aeo-main">/)
+  assert.ok(article.includes(g.title))
+
+  const hub = finalizeRouteMeta(giftsHubSeo())
+  assert.equal(hub.crawler?.h1, 'Beauty gift guides')
+  assert.ok(hub.crawler?.paragraphs.some((p) => p.includes('gifts for mom') || p.includes('Mom')))
 })
 
 test('product without enrichment uses tagline and description only', () => {
