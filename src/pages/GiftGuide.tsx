@@ -1,12 +1,5 @@
-import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import {
-  ArrowLeft,
-  ChevronDown,
-  Clock3,
-  ExternalLink,
-  Gift,
-} from 'lucide-react'
+import { ArrowLeft, Clock3, ExternalLink, Gift } from 'lucide-react'
 import { formatMoney, getProduct, primaryImage } from '../data/catalog'
 import {
   BUDGET_LABELS,
@@ -35,25 +28,10 @@ function Paragraphs({ text }: { text: string }) {
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
   return (
-    <div className="border-b border-line last:border-0">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-start justify-between gap-4 py-4 text-left"
-        aria-expanded={open}
-      >
-        <span className="text-sm font-semibold text-ink leading-snug">{q}</span>
-        <ChevronDown
-          className={`size-4 shrink-0 text-muted mt-0.5 transition ${open ? 'rotate-180' : ''}`}
-        />
-      </button>
-      {open ? (
-        <p className="pb-4 text-sm text-ink-soft leading-relaxed -mt-1 pr-8">
-          {a}
-        </p>
-      ) : null}
+    <div className="border-b border-line last:border-0 py-4">
+      <h3 className="text-sm font-semibold text-ink leading-snug">{q}</h3>
+      <p className="mt-2 text-sm text-ink-soft leading-relaxed">{a}</p>
     </div>
   )
 }

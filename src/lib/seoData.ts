@@ -118,6 +118,9 @@ function namedPicks(
 }
 
 function guideCrawler(g: BuyerGuide): CrawlerBody {
+ const pair = g.pairWith?.length
+  ? `Pair it with, not ranked as the answer: ${namedPicks(g.pairWith)}`
+  : ''
  return {
   h1: g.title,
   paragraphs: takeCrawlerParagraphs(
@@ -126,9 +129,10 @@ function guideCrawler(g: BuyerGuide): CrawlerBody {
     g.intro,
     g.hardNo || '',
     namedPicks(g.productEntries),
-    ...g.sections.map((s) => s.body),
+    pair,
+    ...g.sections.map((s) => `${s.heading}. ${s.body}`),
    ],
-   560,
+   720,
    8,
   ),
   faq: g.faq.map(({ q, a }) => ({ q, a })),

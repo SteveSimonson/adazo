@@ -169,6 +169,21 @@ test('buyer guide and hub populate crawler from existing copy', () => {
     guideMeta.crawler?.paragraphs.some((p) => p.includes(firstName)),
     'buyer guide crawler should name its first pick',
   )
+  const body = guideMeta.crawler.paragraphs.join('\n')
+  assert.match(body, /two nights a week/i)
+  assert.match(body, /Pair it with, not ranked as the answer/)
+  assert.equal(body.includes('Niacinamide'), false)
+  const lip = buyerGuides.find((guide) => guide.slug === 'lip-treatment-not-sticky')
+  assert.ok(lip)
+  assert.equal(
+    lip.productEntries.some((entry) => entry.productSlug.includes('ysl')),
+    false,
+  )
+  const airwrap = buyerGuides.find((guide) => guide.slug === 'airwrap-vs-one-step')
+  assert.deepEqual(
+    airwrap.productEntries.map((entry) => entry.productSlug),
+    ['dyson-airwrap-multi-styler', 'revlon-one-step-volumizer-plus'],
+  )
 })
 
 test('gift guides and hub populate crawler from existing copy', () => {

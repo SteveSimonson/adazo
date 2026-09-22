@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, ChevronDown, Clock3, Compass, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Clock3, Compass, ExternalLink } from 'lucide-react'
 import { CATEGORY_LABELS, formatMoney, getProduct } from '../data/catalog'
 import { buyerGuides, getBuyerGuide } from '../data/buyerGuides'
 import { ProductCard } from '../components/ProductCard'
@@ -24,24 +23,118 @@ function Paragraphs({ text }: { text: string }) {
   )
 }
 
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
+type GuideEntry = {
+  entry: {
+    productSlug: string
+    rank?: number
+    pickWhy: string
+    badge?: string
+  }
+  product: NonNullable<ReturnType<typeof getProduct>>
+}
+
+function resolveGuideEntries(
+  list: GuideEntry['entry'][] | undefined,
+): GuideEntry[] {
+  if (!list) return []
+  return list.flatMap((entry) => {
+    const product = getProduct(entry.productSlug)
+    return product ? [{ entry, product }] : []
+  })
+}
+
+function GuideShelf({
+  items,
+  guideSlug,
+  ranked,
+}: {
+  items: GuideEntry[]
+  guideSlug: string
+  ranked: boolean
+}) {
+  const ListTag = ranked ? 'ol' : 'ul'
   return (
-    <div className="border-b border-line last:border-0">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-start justify-between gap-4 py-4 text-left"
-        aria-expanded={open}
-      >
-        <span className="text-sm font-semibold text-ink leading-snug">{q}</span>
-        <ChevronDown
-          className={`size-4 shrink-0 text-muted mt-0.5 transition ${open ? 'rotate-180' : ''}`}
-        />
-      </button>
-      {open ? (
-        <p className="pb-4 text-sm text-ink-soft leading-relaxed -mt-1 pr-8">{a}</p>
-      ) : null}
+    <ListTag className="space-y-10">
+      {items.map(({ entry, product }, i) => {
+        const shopUrl = affiliateUrl({
+          asin: product.asin,
+          searchKeywords: product.searchKeywords,
+          name: product.name,
+        })
+        const label = ranked
+          ? `#${entry.rank ?? i + 1}${entry.badge ? ` · ${entry.badge}` : ''}`
+          : entry.badge || 'Alongside'
+        return (
+          <li
+            key={product.id}
+            className="rounded-2xl border border-line bg-card overflow-hidden"
+          >
+            <div className="grid sm:grid-cols-12 gap-0">
+              <div className="sm:col-span-4 border-b sm:border-b-0 sm:border-r border-line">
+                <ProductCard
+                  product={product}
+                  listName={`buyer_guide_${guideSlug}`}
+                  compact
+                />
+              </div>
+              <div className="sm:col-span-8 p-5 sm:p-6 flex flex-col">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-bamboo">
+                  {label}
+                </p>
+                <h3 className="mt-1.5 font-display text-xl font-semibold">
+                  <Link
+                    to={`/product/${product.slug}`}
+                    className="hover:text-bamboo transition"
+                  >
+                    {product.name}
+                  </Link>
+                </h3>
+                <p className="mt-1 text-sm text-muted">
+                  ~{formatMoney(product.priceHint)} on Amazon · varies
+                </p>
+                <p className="mt-4 text-sm text-ink-soft leading-relaxed flex-1">
+                  {entry.pickWhy}
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Link
+                    to={`/product/${product.slug}`}
+                    className="btn-secondary !py-2.5 !px-4 !text-xs"
+                  >
+                    Why we list it
+                  </Link>
+                  <a
+                    href={shopUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className="btn-amazon !py-2.5 !px-4 !text-xs"
+                    onClick={() =>
+                      trackAmazonClick({
+                        id: product.id,
+                        name: product.name,
+                        category: product.category,
+                        price: product.priceHint,
+                        asin: product.asin,
+                        location: `buyer_guide_${guideSlug}`,
+                      })
+                    }
+                  >
+                    Buy on Amazon <ExternalLink className="size-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        )
+      })}
+    </ListTag>
+  )
+}
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  return (
+    <div className="border-b border-line last:border-0 py-4">
+      <h3 className="text-sm font-semibold text-ink leading-snug">{q}</h3>
+      <p className="mt-2 text-sm text-ink-soft leading-relaxed">{a}</p>
     </div>
   )
 }
@@ -67,15 +160,8 @@ export function BuyerGuidePage() {
     )
   }
 
-  const entries = guide.productEntries
-    .map((e) => {
-      const product = getProduct(e.productSlug)
-      return product ? { entry: e, product } : null
-    })
-    .filter(Boolean) as {
-    entry: (typeof guide.productEntries)[0]
-    product: NonNullable<ReturnType<typeof getProduct>>
-  }[]
+  const entries = resolveGuideEntries(guide.productEntries)
+  const pairs = resolveGuideEntries(guide.pairWith)
 
   const related = buyerGuides.filter((g) => g.slug !== guide.slug).slice(0, 3)
   const catLabel = CATEGORY_LABELS[guide.category] || guide.category
@@ -145,6 +231,10 @@ export function BuyerGuidePage() {
           <span>·</span>
           <span>{entries.length} picks</span>
         </p>
+        <p className="mt-3 text-sm text-muted leading-relaxed">
+          Adazo editorial. Catalog fit notes, not a hands-on lab and not
+          medical advice.
+        </p>
 
         <div className="mt-10 border-t border-line pt-10">
           <Paragraphs text={guide.intro} />
@@ -164,78 +254,24 @@ export function BuyerGuidePage() {
           >
             Starting picks
           </h2>
-          <ol className="space-y-10">
-            {entries.map(({ entry, product }, i) => {
-              const shopUrl = affiliateUrl({
-                asin: product.asin,
-                searchKeywords: product.searchKeywords,
-                name: product.name,
-              })
-              return (
-                <li
-                  key={product.id}
-                  className="rounded-2xl border border-line bg-card overflow-hidden"
-                >
-                  <div className="grid sm:grid-cols-12 gap-0">
-                    <div className="sm:col-span-4 border-b sm:border-b-0 sm:border-r border-line">
-                      <ProductCard
-                        product={product}
-                        listName={`buyer_guide_${guide.slug}`}
-                        compact
-                      />
-                    </div>
-                    <div className="sm:col-span-8 p-5 sm:p-6 flex flex-col">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-bamboo">
-                        #{entry.rank ?? i + 1}
-                        {entry.badge ? ` · ${entry.badge}` : ''}
-                      </p>
-                      <h3 className="mt-1.5 font-display text-xl font-semibold">
-                        <Link
-                          to={`/product/${product.slug}`}
-                          className="hover:text-bamboo transition"
-                        >
-                          {product.name}
-                        </Link>
-                      </h3>
-                      <p className="mt-1 text-sm text-muted">
-                        ~{formatMoney(product.priceHint)} on Amazon · varies
-                      </p>
-                      <p className="mt-4 text-sm text-ink-soft leading-relaxed flex-1">
-                        {entry.pickWhy}
-                      </p>
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        <Link
-                          to={`/product/${product.slug}`}
-                          className="btn-secondary !py-2.5 !px-4 !text-xs"
-                        >
-                          Why we list it
-                        </Link>
-                        <a
-                          href={shopUrl}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
-                          className="btn-amazon !py-2.5 !px-4 !text-xs"
-                          onClick={() =>
-                            trackAmazonClick({
-                              id: product.id,
-                              name: product.name,
-                              category: product.category,
-                              price: product.priceHint,
-                              asin: product.asin,
-                              location: `buyer_guide_${guide.slug}`,
-                            })
-                          }
-                        >
-                          Buy on Amazon <ExternalLink className="size-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              )
-            })}
-          </ol>
+          <GuideShelf items={entries} guideSlug={guide.slug} ranked />
         </section>
+
+        {pairs.length > 0 ? (
+          <section className="mt-14" aria-labelledby="pair-list-heading">
+            <h2
+              id="pair-list-heading"
+              className="font-display text-2xl sm:text-3xl font-semibold mb-3"
+            >
+              Pair it with
+            </h2>
+            <p className="mb-8 text-sm text-ink-soft leading-relaxed">
+              These are not ranked answers to the title. They sit next to the
+              picks.
+            </p>
+            <GuideShelf items={pairs} guideSlug={guide.slug} ranked={false} />
+          </section>
+        ) : null}
 
         {guide.sections.map((sec) => (
           <section key={sec.heading} className="mt-14">

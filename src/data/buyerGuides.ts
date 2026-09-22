@@ -4,7 +4,7 @@
  */
 import type { BuyerGuide } from './types'
 
-const U = '2026-08-06'
+const U = '2026-09-22'
 const P = '2026-08-06'
 
 const AMAZON = {
@@ -37,48 +37,44 @@ export const buyerGuides: BuyerGuide[] = [
       {
         productSlug: 'the-inkey-list-retinol-eye-cream',
         rank: 1,
-        badge: 'Gentle entry',
+        badge: 'Eye area only',
         pickWhy:
-          'A retinol-style eye cream is a smaller canvas than a face serum when you are nervous. Follow the jar’s directions; eyes are not a place to freestyle. If irritation shows up, pause and simplify.',
+          'This is the only retinoid on the Adazo shelf, and it is an eye cream, not a face serum. Use it on the eye area the way the jar says. A first face retinol is a different product. Shop that one for the schedule below, and do not smear an eye cream over the whole face to make the list look complete.',
       },
-      {
-        productSlug: 'the-ordinary-niacinamide-10-zinc-1',
-        rank: 2,
-        badge: 'Texture support',
-        pickWhy:
-          'Many first-timers want texture help without jumping straight into strong retinoids. Niacinamide sits in a different lane — confirm how you layer with any retinoid on the labels you own.',
-      },
+    ],
+    pairWith: [
       {
         productSlug: 'cerave-hydrating-facial-cleanser',
-        rank: 3,
         pickWhy:
-          'Harsh cleanser plus new actives is how barriers throw a fit. A hydrating cleanse keeps the routine boring in the best way.',
+          'The cleanse before a retinoid night. A tight, foaming wash plus a new active is how the first week goes wrong.',
       },
       {
         productSlug: 'la-roche-posay-toleriane-double-repair',
-        rank: 4,
         pickWhy:
-          'Moisturizer is not optional during retinoid weeks. A repair-leaning cream is the buffer between “trying something new” and “why is my face shiny and tight.”',
+          'The buffer. Moisturizer before or after the retinoid, following the product you bought. This is the cream in that sandwich, not a retinol.',
       },
       {
         productSlug: 'supergoop-unseen-sunscreen-spf-40',
-        rank: 5,
         pickWhy:
-          'Daytime SPF is part of the retinol story. A makeup-friendly texture means you will actually wear it.',
+          'The morning after. A makeup-friendly SPF you will actually wear. Foundation SPF does not replace it.',
       },
     ],
     sections: [
       {
         heading: 'What “first-timer” actually means',
-        body: 'It means your barrier has not practiced this ingredient class yet. Frequency beats intensity. If the label says every other night, that is not a dare to go nightly by Wednesday.',
+        body: 'Your barrier has not practiced this ingredient class yet. If the bottle prints a percent, start at the low end of what is sold for faces, commonly 0.1% to 0.3%, not a 1% serum labeled advanced.\n\nTwo nights a week for the first two weeks. A pea-sized amount for the whole face. If the skin is calm, move to every other night. Nightly is a later decision, not a Wednesday dare.',
+      },
+      {
+        heading: 'The only retinoid we list',
+        body: 'Adazo lists The INKEY List Retinol Eye Cream. It is an eye product. Most first-timers need a face serum, and we do not sell one. Buy the face serum somewhere you can read the percent and the return window. Keep the eye cream on the eye area.',
       },
       {
         heading: 'Buffer, don’t battle',
-        body: 'Moisturizer before or after (sandwich methods vary by product — follow the one you bought). Peeling that feels like a sunburn is a stop sign, not a badge. Editorial sites cannot diagnose; a clinician can.',
+        body: 'Moisturizer before the retinoid, or after, following the jar you bought. The sandwich slows the sting. It does not cancel the product.\n\nFlaking that feels like a sunburn is a stop. Skip several nights. Do not “push through” with acids on the same night. Editorial pages cannot diagnose a rash. A clinician can.',
       },
       {
         heading: 'Daytime is half the routine',
-        body: 'Retinoid nights without SPF days is how progress undoes itself. Keep sunscreen as automatic as toothpaste.',
+        body: 'The morning after a retinoid night, wear a dedicated sunscreen. Makeup that claims SPF 15 is not that layer. Reapply when you are actually outside, not only at the bathroom mirror.',
       },
     ],
     faq: [
@@ -124,31 +120,26 @@ export const buyerGuides: BuyerGuide[] = [
         pickWhy:
           'Watery essence SPF suits people who hate greasy films. Check finish with your foundation brand — some pairings love it, some pill. Return policies are part of the product.',
       },
-      {
-        productSlug: 'rare-beauty-soft-pinch-liquid-blush',
-        rank: 3,
-        pickWhy:
-          'Once base sits, cream-to-liquid blush rewards a set canvas. Not SPF — the reward for getting sunscreen right.',
-      },
+    ],
+    pairWith: [
       {
         productSlug: 'la-roche-posay-toleriane-double-repair',
-        rank: 4,
         pickWhy:
-          'If morning moisturizer is too rich under SPF, swap weight before blaming the sunscreen. Layer order matters.',
+          'Not a sunscreen. If the morning cream is heavy, change that layer before you blame the SPF. Rich cream under silicone sunscreen is a common pill.',
       },
     ],
     sections: [
       {
         heading: 'Wait time is free',
-        body: 'Thirty to sixty seconds between SPF and base saves more makeup than another primer. Pilling is often impatience wearing a white cast of product.',
+        body: 'Let sunscreen sit 30 to 60 seconds before foundation. Pat, do not rub the base in like frosting. A light hand pills less than a second pump “to be safe.”\n\nPilling at the nose is often leftover product and friction. Less product and more patting fixes more mornings than a new primer.',
       },
       {
         heading: 'Match texture families',
-        body: 'Heavy cream + silicone SPF + silicone foundation can stack into pills. If two layers fight, change one — not all three at once.',
+        body: 'Heavy cream, then a silicone SPF, then a silicone foundation is the usual fight. If two layers ball up, change one of them and wear that trio for three mornings before you change the rest.\n\nWatery essences and primer-like SPFs are the textures built for makeup days. They still need the wait.',
       },
       {
         heading: 'Reapplication reality',
-        body: 'Full-face reapply over full glam is hard. Powder SPF, spray habits, or honest midday touch-ups matter more than lab talk. Editorial preference: morning SPF you actually wear.',
+        body: 'A full second coat over finished makeup rarely happens. Powder SPF, a spray you will use, or an honest midday touch-up beats a lecture about lab amounts.\n\nFoundation that lists SPF 15 is a bonus, not the base layer. People do not apply foundation at sunscreen thickness.',
       },
     ],
     faq: [
@@ -191,37 +182,37 @@ export const buyerGuides: BuyerGuide[] = [
           'Creamy cleanse that does not try to win a squeak contest. Good first swap if drugstore foams leave you shiny-tight.',
       },
       {
-        productSlug: 'la-roche-posay-toleriane-double-repair',
-        rank: 2,
-        pickWhy:
-          'Not a cleanser — the partner cream after. Sensitive routines are systems; cleanser alone does not finish the job.',
-      },
-      {
         productSlug: 'elf-holy-hydration-makeup-melting-cleansing-balm',
-        rank: 3,
+        rank: 2,
         badge: 'Makeup nights',
         pickWhy:
-          'Balm first on mascara-and-SPF evenings, then a gentle second cleanse if you like double cleanse. Less rubbing, more melt.',
+          'A balm for mascara and sunscreen nights. Melt first, then the cream cleanser if you want a second pass. Bare-skin mornings do not need both.',
+      },
+    ],
+    pairWith: [
+      {
+        productSlug: 'la-roche-posay-toleriane-double-repair',
+        pickWhy:
+          'Not a cleanser. The cream after, when the wash leaves skin feeling open. A cleanser alone does not finish a sensitive routine.',
       },
       {
         productSlug: 'neutrogena-hydro-boost-water-gel',
-        rank: 4,
         pickWhy:
-          'Light gel moisturizer for days cream feels heavy. Patch-test if fragrance or gel textures have bothered you before.',
+          'A lighter gel for days the cream feels heavy. Patch-test if fragrance or gel textures have bothered you. Still not a cleanser.',
       },
     ],
     sections: [
       {
         heading: 'Clean is not squeaky',
-        body: 'If your face feels drum-tight, the cleanser won and your barrier lost. Look for comfort after towel-dry, not foam volume.',
+        body: 'After you towel off, the face should feel comfortable, not drum-tight. Foam volume is not a score. If a gel leaves you shiny-tight, that cleanser is too much for this job, even if the bottle says gentle.\n\nLukewarm water. Hot water is not an exfoliant.',
       },
       {
         heading: 'Double cleanse without drama',
-        body: 'Oil or balm for sunscreen and makeup; gentle cream cleanse after if needed. Skipping the second step is fine on bare-skin days.',
+        body: 'Night with makeup or SPF: balm first, then a cream cleanser if residue remains. About a minute of massage, then rinse. Bare-skin mornings: a splash or the cream cleanser alone.\n\nYou do not need a third step to feel “done.”',
       },
       {
         heading: 'When to see someone',
-        body: 'Burning, swelling, or lasting rash is not a “push through” moment. Editorial shelves are not clinics.',
+        body: 'Burning, swelling, or a rash that stays is not a push-through week. Stop the new product. Editorial shelves are not clinics.',
       },
     ],
     faq: [
@@ -273,30 +264,38 @@ export const buyerGuides: BuyerGuide[] = [
           'Balm cleansers handle airplane makeup and hotel water without a second suitcase of foams.',
       },
       {
-        productSlug: 'sol-de-janeiro-brazilian-crush-body-mist',
+        productSlug: 'supergoop-unseen-sunscreen-spf-40',
         rank: 4,
         pickWhy:
-          'Body mist for “I feel human again” moments. Not skincare medicine — mood and scent finish.',
+          'If this is the SPF that works under your makeup at home, take a travel size or a labeled decant. A new sunscreen on day one of a trip is how you learn about pilling in a hotel mirror.',
       },
       {
-        productSlug: 'supergoop-unseen-sunscreen-spf-40',
+        productSlug: 'neutrogena-hydro-boost-water-gel',
         rank: 5,
+        badge: 'Light moisture',
         pickWhy:
-          'If Unseen is your home SPF, travel with a decant or travel size rather than skipping sunny walking days.',
+          'The moisturizer in a short stack. A gel is easier in a quart bag than a heavy jar, and humid trips rarely want a winter cream.',
+      },
+    ],
+    pairWith: [
+      {
+        productSlug: 'sol-de-janeiro-brazilian-crush-body-mist',
+        pickWhy:
+          'Optional scent if a slot is left. It is not cleanse, moisture, SPF, or lip. Do not give it a seat the sunscreen needed.',
       },
     ],
     sections: [
       {
         heading: 'The quart-bag audit',
-        body: 'If it does not earn use three days in a row at home, it does not earn the bag. Multi-task or leave it.',
+        body: 'In a U.S. carry-on, each liquid, gel, or cream container needs to be 3.4 ounces (100 ml) or smaller, and they share one quart-size bag. If you have not used a product three days in a row at home, it does not get a slot.\n\nThe stack that earns the bag: cleanse, moisturize, SPF, lip. One extra treat if it still fits.',
       },
       {
         heading: 'Decant with honesty',
-        body: 'Label decants. Mystery jars at security and at midnight hotel sinks are how routines die.',
+        body: 'Write the name on the decant before you leave. A mystery jar at security, and again at a midnight sink, is how the routine dies.\n\nFull-size glass does not become travel-sized because you promise to be careful.',
       },
       {
         heading: 'Climate shift',
-        body: 'Dry flights want richer lips and simpler faces. Humid destinations may want lighter gel. Pack for the forecast, not your winter vanity.',
+        body: 'Dry flights want the lip mask and a simpler face. Humid walking days want the lighter gel and the SPF you already trust. Pack for the forecast, not the winter vanity.',
       },
     ],
     faq: [
@@ -338,38 +337,31 @@ export const buyerGuides: BuyerGuide[] = [
         pickWhy:
           'Scent and slip many people love — still apply mid-length down, warm between palms, and start with less than you think.',
       },
-      {
-        productSlug: 'olaplex-no3-hair-perfector',
-        rank: 2,
-        badge: 'Treatment night',
-        pickWhy:
-          'Not a leave-in oil — a treatment step when hair feels fried from heat or color. Follow time-on-hair directions; more minutes is not always more magic.',
-      },
+    ],
+    pairWith: [
       {
         productSlug: 'living-proof-dry-shampoo',
-        rank: 3,
         pickWhy:
-          'Root reset between washes when oil migrated or humidity won. Apply before oil on day-two hair if roots need help first.',
+          'Not an oil. The root reset when shine traveled upward. Spray, wait, brush out, then decide if the ends still want a drop.',
       },
       {
-        productSlug: 'dyson-airwrap-multi-styler',
-        rank: 4,
+        productSlug: 'olaplex-no3-hair-perfector',
         pickWhy:
-          'Heat tools change how oil behaves. If you style often, oil placement after heat can look cleaner than oil under maximum heat — test your order.',
+          'Not a leave-in oil. A rinse-out treatment when lengths feel fried from heat or color. Follow the time on the bottle.',
       },
     ],
     sections: [
       {
         heading: 'Placement map',
-        body: 'Roots: usually skip. Mids: light. Ends: where dryness lives. Fine hair needs almost insultingly small amounts.',
+        body: 'Skip the roots. One drop, rubbed between dry palms, then mids and ends. Fine hair often wants less than that. If the part looks wet at noon, you used too much. Wash, and use less next time.\n\nOil on the scalp “for growth” is not this job, and it is how roots go greasy.',
       },
       {
         heading: 'Wash rhythm',
-        body: 'Oil is not a substitute for cleansing when product builds up. Dry shampoo bridges days; it does not erase a week of layering.',
+        body: 'Oil does not replace a wash once product has stacked up. Dry shampoo can hold a day or two at the roots. It does not erase a week of layers. Pick a real wash day and keep it.',
       },
       {
         heading: 'Scent is a feature',
-        body: 'If fragrance bothers you, patch a wrist first. Beautiful oils that give you a headache are not luxury — they are clutter.',
+        body: 'If fragrance bothers you, try a little on a wrist before you commit to a bottle. A beautiful oil that gives you a headache is clutter.',
       },
     ],
     faq: [
@@ -411,38 +403,31 @@ export const buyerGuides: BuyerGuide[] = [
         pickWhy:
           'Approachable shea lotion people actually finish. Apply on damp skin; a little goes further than dry-skin panic layering.',
       },
+    ],
+    pairWith: [
       {
         productSlug: 'sol-de-janeiro-brazilian-crush-body-mist',
-        rank: 2,
-        badge: 'Scent finish',
         pickWhy:
-          'Mist is not a moisturizer replacement — it is the “I still feel put together” layer after lotion. Fun, not clinical.',
+          'Not a lotion. A scent layer after the cream has gone in. It will not stop ash on black pants.',
       },
       {
         productSlug: 'laneige-lip-sleeping-mask',
-        rank: 3,
         pickWhy:
-          'Winter is a full-body dryness season. Lips crack while you obsess over legs — keep a jar by the bed.',
-      },
-      {
-        productSlug: 'tatcha-the-dewy-skin-cream',
-        rank: 4,
-        pickWhy:
-          'Face cream is not body lotion economically — but if winter face is suffering too, prestige dew cream is the face half of the same climate problem.',
+          'Not body lotion. Winter lips crack on the same weeks legs do. Keep a thin layer by the bed.',
       },
     ],
     sections: [
       {
         heading: 'Damp skin window',
-        body: 'Towel-blot, do not bone-dry, then lotion. Waiting until you are fully dry is how product sits on top and feels greasy.',
+        body: 'Within about three minutes of the shower: towel-blot, do not bone-dry, then lotion. Waiting until the skin is fully dry is how cream sits on top and feels greasy under jeans.\n\nA short, lukewarm shower does more for winter legs than a thicker cream after a scalding one.',
       },
       {
         heading: 'Fragrance tolerance',
-        body: 'Scented body products are a joy until they are not. If you react easily, choose simpler formulas and patch test.',
+        body: 'Scented lotion is a pleasure until it is not. If you react easily, patch a small area of the leg for a day before you cover both. A rash is a stop, not a reason to buy a second scent.',
       },
       {
         heading: 'Consistency over cult jars',
-        body: 'An empty drugstore bottle beats a luxury tub you use twice. Buy what matches your shower habit.',
+        body: 'The lotion that works is the one you will use after showers you already take. An empty approachable bottle beats a prestige tub you open twice. Face cream is a different purchase. It is a poor value spread on legs.',
       },
     ],
     faq: [
@@ -491,31 +476,19 @@ export const buyerGuides: BuyerGuide[] = [
         pickWhy:
           'When treatment has done its job, a flattering nude-rose lipstick is the Riviera exit. Prep with a wipe of balm if lips still feel rough.',
       },
-      {
-        productSlug: 'rare-beauty-soft-pinch-liquid-blush',
-        rank: 3,
-        pickWhy:
-          'Color story beyond lips — cheeks that match the soft mood so lipstick does not look isolated.',
-      },
-      {
-        productSlug: 'ysl-libre-eau-de-parfum',
-        rank: 4,
-        pickWhy:
-          'Not a lip product — the finishing spray when the face is done and you want the whole edit to feel intentional.',
-      },
     ],
     sections: [
       {
         heading: 'Day vs night',
-        body: 'Day: thin balm or hybrid. Night: mask texture. Using night jar under coffee cups all day is how sticky gets a bad reputation.',
+        body: 'Night: a thin layer of the sleeping mask, not a frosting swirl. That heavy coat is what glues hair to your mouth and what people mean by sticky.\n\nDay: a whisper at most under color, or skip the mask and use lipstick on lips that were treated overnight. A thick mask under coffee all morning is how the texture gets a bad name.',
       },
       {
         heading: 'Exfoliation soft-touch',
-        body: 'A damp cloth wipe beats aggressive scrubs. If lips crack and bleed, simplify and consider a clinician for persistent issues.',
+        body: 'A damp washcloth is enough. Do not peel flakes with your teeth, and do not stack minty plumping glosses that sting. If lips crack and bleed, stop the new products. Lasting splits are a clinician’s question, not another gloss.',
       },
       {
         heading: 'Color on prepared lips',
-        body: 'Lipstick on flakes emphasizes flakes. Treatment first, pigment second.',
+        body: 'Lipstick on flakes shows the flakes. Treatment at night, pigment the next day. Pillow Talk is a day color, not an overnight mask. It belongs in this guide because the title includes color, and it does not belong in the night jar.',
       },
     ],
     faq: [
@@ -558,36 +531,32 @@ export const buyerGuides: BuyerGuide[] = [
           'Useful between washes — overuse is a common buildup story. Spray, wait, brush out; do not cement layers for a week.',
       },
       {
-        productSlug: 'olaplex-no3-hair-perfector',
-        rank: 2,
-        pickWhy:
-          'When lengths feel brittle from heat and color, treatment helps the hair fiber story. Scalp conditions still need appropriate care or a pro.',
-      },
-      {
         productSlug: 'gisou-honey-infused-hair-oil',
-        rank: 3,
+        rank: 2,
+        badge: 'Ends, not scalp',
         pickWhy:
-          'Keep oil on mids and ends if roots already feel coated. Shine lower down, clarity up top.',
+          'The contrast case. Oil belongs on mids and ends when roots already feel coated. Putting it on an itchy scalp “to moisturize” usually feeds buildup. This pick is here so you do not use it as a scalp treatment.',
       },
+    ],
+    pairWith: [
       {
-        productSlug: 'revlon-one-step-volumizer-plus',
-        rank: 4,
+        productSlug: 'olaplex-no3-hair-perfector',
         pickWhy:
-          'Heat + tension changes how scalp feels. Lower heat and less daily blowouts can matter as much as a new bottle.',
+          'A lengths treatment, not a scalp diagnosis. Useful when hair feels brittle from heat or color. It does not tell you whether the itch is dryness or buildup.',
       },
     ],
     sections: [
       {
         heading: 'Two different problems',
-        body: 'Dry ends want moisture. Congested roots want cleansing. Treating both with oil often worsens the root half.',
+        body: 'Dry ends want a little moisture lower down. Congested roots want a real wash. Itch plus a chalky feel at the scalp after several dry-shampoo days is the buildup story. Tight, flaky skin that is worse right after you clarify can be dryness. They are not the same bottle.\n\nOil on the scalp is the wrong first move for either story.',
       },
       {
         heading: 'Wash as data',
-        body: 'If itch calms after a thorough wash and gentle dry, buildup was a suspect. If flakes and itch persist aggressively, see a professional — do not endless-aisle experiment.',
+        body: 'Wash gently, once, and see what changes over the next day. If the itch calms, buildup was a fair suspect. Ease off dry shampoo and keep oil off the roots.\n\nIf thick flakes, pain, or itch stay after that wash, stop shopping and see a clinician. This page cannot tell dandruff from psoriasis or an irritation.',
       },
       {
         heading: 'Dry shampoo is a tool',
-        body: 'It is not a personality. Schedule real wash days.',
+        body: 'Spray, wait, brush it out. Two bridge days, then a wash. A week of layers cemented at the root is how “dry scalp” gets mislabeled. Daily max-heat blowouts can make the scalp feel angry too. Lower the heat before you add another scented product.',
       },
     ],
     faq: [
@@ -636,9 +605,9 @@ export const buyerGuides: BuyerGuide[] = [
       {
         productSlug: 'sk-ii-facial-treatment-essence',
         rank: 3,
-        badge: 'Essence ritual',
+        badge: 'Essence, not a cream',
         pickWhy:
-          'Different format: essence before cream. Only worth it if you will enjoy the ritual; abandoned essences are expensive dust collectors.',
+          'An essence is a step before cream, not a moisturizer you can swap in. Worth it only if you will do that step. An abandoned bottle is an expensive dust collector.',
       },
       {
         productSlug: 'la-mer-creme-de-la-mer',
@@ -650,22 +619,23 @@ export const buyerGuides: BuyerGuide[] = [
       {
         productSlug: 'la-roche-posay-toleriane-double-repair',
         rank: 5,
+        badge: 'The comparison',
         pickWhy:
-          'The control group. If a drugstore repair cream already makes you happy, prestige is optional joy — not a moral upgrade.',
+          'Not a prestige cream. The control. If this repair cream already makes the face comfortable, a $300 jar is optional pleasure, not an upgrade you owe your skin.',
       },
     ],
     sections: [
       {
         heading: 'What you are really buying',
-        body: 'Texture, scent (or lack), packaging ritual, brand story. Active “results” still depend on the whole routine and time.',
+        body: 'Texture, scent or the lack of it, and a ritual you will repeat. A cream does not replace sleep, sunscreen, or a cleanser. If the claim on the jar sounds like a prescription, put it back.\n\nUse a new prestige cream four nights a week for a month before you decide it “does nothing.” Two uses is not a trial.',
       },
       {
         heading: 'When to stay accessible',
-        body: 'If budget stress cancels the pleasure, a solid mid-range cream wins. Glowing skin under financial dread is a bad trade.',
+        body: 'If the price makes you dread the pump, buy the repair cream and spend the difference elsewhere. A routine you resent will lose to a cheaper cream you finish.\n\nEssence is a separate decision. Buy it only when the cream step is already a habit.',
       },
       {
         heading: 'Patch and pace',
-        body: 'New prestige jars still deserve a patch if you react easily. Luxury is not hypoallergenic by price.',
+        body: 'Price is not a hypoallergenic promise. If you react easily, try a small area for a day before the whole face. Travel sizes are the honest way to test a jar you might abandon.',
       },
     ],
     faq: [
@@ -714,37 +684,36 @@ export const buyerGuides: BuyerGuide[] = [
         pickWhy:
           'When the job is mainly volume blowouts without multi-styler tuition. Learning curve is shorter for many people.',
       },
+    ],
+    pairWith: [
       {
         productSlug: 'olaplex-no3-hair-perfector',
-        rank: 3,
         pickWhy:
-          'Heat tools pair with treatment weeks. Healthier-feeling fiber styles cleaner — still not a license for unlimited heat.',
+          'Not a dryer. A treatment on non-heat nights if color or daily styling has left lengths feeling straw-like. It does not pick the tool for you.',
       },
       {
         productSlug: 'gisou-honey-infused-hair-oil',
-        rank: 4,
         pickWhy:
-          'A drop on ends after styling can calm frizz flyaways. Keep it out of the root volume you just built.',
+          'A drop on the ends after the style is done. Keep it out of the root volume you just built.',
       },
       {
         productSlug: 'living-proof-dry-shampoo',
-        rank: 5,
         pickWhy:
-          'Day-two volume after a good blowout often needs dry shampoo more than another heat pass.',
+          'Day-two volume. Use this before you reheat the whole head.',
       },
     ],
     sections: [
       {
         heading: 'Name the Tuesday goal',
-        body: 'Smooth blowout only? One-step class tools often win. Curls, waves, multi-look flexibility? Multi-styler starts to justify space and cost.',
+        body: 'Smooth blowout only: the one-step brush is the tool. Curls, waves, or more than one shape in the same week: that is when a multi-styler starts to justify the price and the counter space.\n\nIf you want the Dyson because it is the expensive one, and your real routine is a ten-minute blowout, buy the Revlon.',
       },
       {
         heading: 'Learning curve is real',
-        body: 'Airwrap-class tools reward practice sections and tension. Budget an evening to learn, not a rushed event morning.',
+        body: 'Give an Airwrap-class tool a quiet evening of sections and tension before an event morning. The one-step brush is shorter to learn and less flexible once you have learned it.\n\nConfirm the kit on the listing. Barrels and brushes are not the same box.',
       },
       {
-        heading: 'Arms and outlets',
-        body: 'Weight, cord, and bathroom outlet reality matter. A lighter tool you use beats a flagship you dread lifting.',
+        heading: 'Arms, outlets, and heat',
+        body: 'Weight and cord matter more than the ad. A lighter tool you lift wins over a flagship you dread.\n\nUse a heat protectant either way. Max heat every day, with no protectant, is the hard no. Neither machine replaces that habit.',
       },
     ],
     faq: [
@@ -771,6 +740,8 @@ export function getBuyerGuide(slug: string): BuyerGuide | undefined {
 
 export function buyerGuidesForProduct(productSlug: string): BuyerGuide[] {
   return buyerGuides.filter((g) =>
-    g.productEntries.some((e) => e.productSlug === productSlug),
+    [...g.productEntries, ...(g.pairWith ?? [])].some(
+      (e) => e.productSlug === productSlug,
+    ),
   )
 }
