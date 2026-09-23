@@ -2612,6 +2612,162 @@ export const productEnrichments: ProductEnrichment[] = [
     setupTips: ["Prefer sellers that show clear stamps and return policy.", "Confirm karat, length, and clasp type on the listing.", "Compare length to a chain you already wear.", "Search Amazon for the exact Fine Gold configuration you researched—not a near-name cousin."],
     researchNotes: ["Karat explainers", "Chain style guides", "Precious metal diligence"],
   },
+  {
+    productId: 'ad-029',
+    slug: 'cerave-resurfacing-retinol-serum',
+    updatedAt: '2026-09-22',
+    reviewSnapshot: {
+      verdict: 'This is the face retinol on the shelf. The INKEY List jar is the eye cream. They are not the same product.',
+      love: ['Encapsulated retinol for the face', 'Ceramides in the same bottle', 'Fragrance-free', 'A typical price near $19'],
+      caveats: ['The bottle does not print a simple percent', 'First weeks can flake if you start nightly', 'Not an eye cream'],
+      bestFor: ['A first face retinol', 'Someone who wants fragrance-free'],
+      skipIf: ['You need a printed percent such as 0.2%', 'You only wanted eye cream', 'Your skin is already irritated'],
+      ratingNote: '~4.6 from tens of thousands of Amazon ratings (approx.)',
+    },
+    blog: {
+      title: 'Face retinol, not the eye cream',
+      dek: 'How this serum differs from the other retinoid on Adazo.',
+      sections: [
+        {
+          heading: 'Who this is really for',
+          body: 'Buy this when the job is a first retinol for the whole face. Use two nights a week, a pea-sized amount, and a moisturizer with it. Move to every other night only if the skin stays calm.\n\nIt is the wrong bottle if you wanted a number printed on the front. CeraVe does not give you that tidy percent.',
+        },
+        {
+          heading: 'What it does differently',
+          body: 'The INKEY List Retinol Eye Cream stays on the eye area. This serum is the face step. Do not swap them to save a purchase.\n\nBoth can sit in one routine: serum on the face, eye cream where the jar says. Sunscreen the next morning is part of either choice.',
+        },
+        {
+          heading: 'What to confirm',
+          body: 'Match the Amazon title to Resurfacing Retinol Serum, not a different CeraVe retinol or a multipack. Price moves around $19. Confirm the seller and the return window on the listing.',
+        },
+      ],
+    },
+    faq: [
+      { q: 'Is this the same as the INKEY List eye cream?', a: 'No. This is a face serum. The INKEY List product is an eye cream. Use each where it belongs.' },
+      { q: 'What percent is it?', a: 'The bottle does not print a simple percent the way some serums do. Follow the schedule instead: two nights a week to start.' },
+      { q: 'Why does the price differ from $19?', a: 'Adazo shows a typical recent price. Amazon changes it by seller and promotion. Read the live listing.' },
+      { q: 'Who should skip it?', a: 'Skip it if you need a labeled percent, if you only wanted eye cream, or if your skin is already irritated. This is shopping guidance, not a prescription.' },
+    ],
+    setupTips: ['Two nights a week for the first two weeks.', 'Pea-sized amount for the face.', 'Moisturizer before or after, following the product you bought.', 'Sunscreen the next morning.'],
+    researchNotes: ['CeraVe listing', 'Retinol starter schedules'],
+  },
+  {
+    productId: 'ad-030',
+    slug: 'olaplex-no7-bonding-oil',
+    updatedAt: '2026-09-22',
+    reviewSnapshot: {
+      verdict: 'Choose No.7 when Gisou’s honey oil is too much scent or too much slip at the roots. A few drops, mids and ends.',
+      love: ['Sold as two or three drops', 'Less perfume than a honey oil', 'Leave-in, not the No.3 rinse-out', 'About $30'],
+      caveats: ['Still greasy if you oil the scalp', 'Not a treatment that replaces No.3', 'Heat-protectant claims belong to the brand, confirm them on the bottle'],
+      bestFor: ['Fine hair that goes flat under Gisou', 'Someone who wants shine without a honey cloud'],
+      skipIf: ['You want the honey scent', 'You wanted a rinse-out mask', 'You plan to coat the roots'],
+      ratingNote: '~4.7 from tens of thousands of Amazon ratings (approx.)',
+    },
+    blog: {
+      title: 'No.7 or Gisou',
+      dek: 'Two hair oils, two different reasons.',
+      sections: [
+        {
+          heading: 'Who this is really for',
+          body: 'Buy No.7 when the last hair oil made your part look wet or the scent was the whole event. The listing says two or three drops. Keep them on the mids and ends.',
+        },
+        {
+          heading: 'What it does differently',
+          body: 'Gisou is the honey-scented shine oil, about $36. No.7 is the quieter few-drop oil, about $30. Olaplex No.3 is a different product again: a rinse-out treatment, not a leave-in oil. Do not buy No.7 thinking it is No.3.',
+        },
+        {
+          heading: 'What to confirm',
+          body: 'Confirm you are looking at the 1 fl oz bonding oil, not a gift set. About $30 is a typical recent price. It moves.',
+        },
+      ],
+    },
+    faq: [
+      { q: 'Is this the same as Olaplex No.3?', a: 'No. No.3 is a rinse-out treatment. No.7 is a leave-in oil you use in drops on the lengths.' },
+      { q: 'Will it keep my roots from looking greasy?', a: 'Only if you keep it off the roots. Any oil on the scalp can look wet. Use less, not more, the first week.' },
+      { q: 'Gisou or No.7?', a: 'Gisou if you want the honey scent. No.7 if you want fewer drops and less perfume. Not both, unless you already know you use two different oils.' },
+      { q: 'Why does the price differ from $30?', a: 'That is a typical recent street price. Confirm the live Amazon listing before you buy.' },
+    ],
+    setupTips: ['Two or three drops.', 'Mids and ends only.', 'If the part looks wet, wash and use less next time.'],
+    researchNotes: ['Olaplex listing', 'Gisou comparison on this shelf'],
+  },
+  {
+    productId: 'ad-031',
+    slug: 'summer-fridays-lip-butter-balm',
+    updatedAt: '2026-09-22',
+    reviewSnapshot: {
+      verdict: 'The day balm when Laneige’s night jar feels too heavy. Pink Sugar is a sheer pink, not a clear balm.',
+      love: ['Thin layer through the day', 'Sheer pink instead of a heavy mask', 'About $24', 'A real alternative to the sleeping mask'],
+      caveats: ['The pink is visible', 'A thick coat can still feel like a mask', 'Shade names change; confirm Pink Sugar'],
+      bestFor: ['Daytime lips', 'Someone who already likes a sheer pink'],
+      skipIf: ['You need zero color', 'You wanted an overnight jar with no tint', 'Mint or tingle is what you are avoiding and this flavor is not that, but a heavy layer still will not help'],
+      ratingNote: '~4.7 from thousands of Amazon ratings (approx.)',
+    },
+    blog: {
+      title: 'Day balm versus the night jar',
+      dek: 'Summer Fridays Pink Sugar against Laneige’s sleeping mask.',
+      sections: [
+        {
+          heading: 'Who this is really for',
+          body: 'Buy this when lips need a thin layer during the day and a sheer pink is welcome. It is the wrong gift if any color is a risk. Laneige is the no-color night jar.',
+        },
+        {
+          heading: 'What it does differently',
+          body: 'Laneige is the overnight jar. A thick swipe of that is what people mean by sticky. This balm is the daytime layer. Use a little. Pillow Talk lipstick is a third thing: color, after the lips are already comfortable.',
+        },
+        {
+          heading: 'What to confirm',
+          body: 'The listing must say Pink Sugar. Other Summer Fridays balms are other shades, including mint. About $24 is typical. Confirm it.',
+        },
+      ],
+    },
+    faq: [
+      { q: 'Is this less sticky than Laneige?', a: 'It is a thinner day balm. A heavy coat of either product can feel like a mask. Use a thin layer, and keep Laneige for night if you want the jar.' },
+      { q: 'Is Pink Sugar colorless?', a: 'No. It is a sheer pink. If you need no color, buy the Laneige sleeping mask instead.' },
+      { q: 'Can I wear it under lipstick?', a: 'A thin layer, then Pillow Talk or whatever she already wears. A thick layer makes color slide.' },
+      { q: 'Why does the price differ from $24?', a: 'That is a typical recent price. The Amazon listing is the price that matters today.' },
+    ],
+    setupTips: ['Confirm the shade is Pink Sugar.', 'Thin layer.', 'Night jar stays Laneige if she wants no color.'],
+    researchNotes: ['Summer Fridays listing', 'Laneige sleeping mask on this shelf'],
+  },
+  {
+    productId: 'ad-032',
+    slug: 'cerave-moisturizing-cream',
+    updatedAt: '2026-09-22',
+    reviewSnapshot: {
+      verdict: 'The unscented tub when eos lotion’s fragrance is why the bottle stays closed. 19 ounces, about $19.',
+      love: ['Fragrance-free', 'A size that makes sense for legs', 'Ceramides', 'About $19'],
+      caveats: ['It looks like a tub, not a gift bottle', 'Thick cream, so a little on damp skin', 'Not a body mist'],
+      bestFor: ['Winter legs', 'Someone who reacts to fragrance'],
+      skipIf: ['You want a light shea scent', 'You wanted a stocking-stuffer bottle', 'You need a clinician for a rash'],
+      ratingNote: '~4.7 from a very large Amazon rating count (approx.)',
+    },
+    blog: {
+      title: 'The tub versus the scented lotion',
+      dek: 'CeraVe cream or eos, depending on scent.',
+      sections: [
+        {
+          heading: 'Who this is really for',
+          body: 'Buy the 19 ounce cream when legs ash in winter and fragrance is a problem, or when you simply need enough product to use every night. Apply within a few minutes of the shower, on damp skin.',
+        },
+        {
+          heading: 'What it does differently',
+          body: 'eos Shea Better is the scented lotion, about $11, and the right pick when a light fragrance is a pleasure. This cream is the fragrance-free tub. A body mist does not replace either one.',
+        },
+        {
+          heading: 'What to confirm',
+          body: 'Confirm 19 ounce moisturizing cream, not a smaller lotion bottle with a similar name. About $19 is typical. It moves.',
+        },
+      ],
+    },
+    faq: [
+      { q: 'eos or this cream?', a: 'eos if you like a light shea scent and a lotion. This tub if you want no fragrance and enough cream for legs. If scent has ever bothered you, take the CeraVe.' },
+      { q: 'Is this only for the face?', a: 'The 19 ounce cream is for face and body. On this site it is here for winter legs. A pea on the face is a different use of the same tub.' },
+      { q: 'Will it feel greasy under clothes?', a: 'Use it on damp skin and wait a minute before jeans. A thick coat on dry skin is what sits on top.' },
+      { q: 'Why does the price differ from $19?', a: 'That is a typical recent price for the 19 ounce size. Read the live listing, and check you are not buying a smaller bottle by accident.' },
+    ],
+    setupTips: ['Confirm 19 ounces.', 'Damp skin, within a few minutes of the shower.', 'Skip it if you wanted a scented gift bottle.'],
+    researchNotes: ['CeraVe listing', 'eos Shea Better on this shelf'],
+  },
 ]
 
 const bySlug = new Map(productEnrichments.map((e) => [e.slug, e]))
