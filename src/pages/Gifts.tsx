@@ -3,6 +3,7 @@ import { ArrowRight, Gift } from 'lucide-react'
 import {
   BUDGET_LABELS,
   RECIPIENT_LABELS,
+  featuredGiftGuides,
   giftGuides,
 } from '../data/giftGuides'
 import { getProduct, primaryImage } from '../data/catalog'
@@ -19,6 +20,8 @@ function guideCardImage(slug: string, heroImage?: string): string | undefined {
 }
 
 export function GiftsHubPage() {
+  const month = new Date().getMonth() + 1
+  const christmasSeason = month >= 9 && month <= 12
   return (
     <div className="pb-24">
       <Seo {...giftsHubSeo()} />
@@ -33,11 +36,13 @@ export function GiftsHubPage() {
             Gifts worth unwrapping
           </h1>
           <p className="mt-4 text-lg text-paper/80 max-w-xl font-light leading-relaxed">
-            Beauty listicles locked to Adazo’s shelf — for her, mom, wife,
-            self-care, and under $50. Chosen here. Bought on Amazon.
+            {christmasSeason
+              ? 'Start with the Christmas edit, then her, mom, wife, self-care, and under $50.'
+              : 'Beauty listicles for her, mom, wife, self-care, and under $50.'}{' '}
+            Chosen here. Bought on Amazon.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
-            {giftGuides.map((g) => (
+            {featuredGiftGuides(giftGuides.length).map((g) => (
               <Link
                 key={g.slug}
                 to={`/gifts/${g.slug}`}
@@ -55,12 +60,14 @@ export function GiftsHubPage() {
           <div>
             <p className="label-micro mb-1">Wave one</p>
             <h2 className="font-display text-2xl sm:text-3xl font-semibold">
-              Start with the recipient
+              {christmasSeason
+                ? 'Start with Christmas, then the person'
+                : 'Start with the recipient'}
             </h2>
           </div>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {giftGuides.map((g) => {
+          {featuredGiftGuides(giftGuides.length).map((g) => {
             const recipients = g.recipientIds
               .map((id) => RECIPIENT_LABELS[id] || id)
               .filter(Boolean)

@@ -14,6 +14,132 @@ const AMAZON_FAQ = {
 
 export const giftGuides: GiftGuide[] = [
   {
+    slug: 'christmas-beauty-gifts',
+    title: 'Christmas Beauty Gifts',
+    dek: 'One default if you know nothing, then the step-ups by budget. No shade guesses. No seven-piece kits.',
+    primaryQuery: 'christmas beauty gifts',
+    recipientIds: ['her', 'mom', 'wife', 'friend'],
+    occasionIds: ['christmas'],
+    budgetBands: ['under-50', '50-150', 'splurge'],
+    publishedAt: '2026-09-22',
+    updatedAt: '2026-09-22',
+    readMinutes: 8,
+    seasonal: { peakMonths: [9, 10, 11, 12], yearHint: 2026 },
+    intro:
+      'Christmas beauty fails as a pile of minis and a perfume you have never smelled on her. It works as one object she will finish. This page is the order of operations for Adazo’s shelf: a default under $30, a hair or color step-up still under $50, a jar or a perfume when you want it to feel considered, and a splurge only when you already know she will use it.',
+    decision: {
+      title: 'If you buy one',
+      body: 'Laneige Lip Sleeping Mask, when you do not know her routine. A typical recent price is about $24. She uses it, and a wrong shade cannot ruin it. Move to Tatcha The Dewy Skin Cream, about $72, when the gift should feel like a jar she keeps. Buy one perfume only if you already know her scent family. Buy the Dyson Airwrap, about $599, only if you have watched her dry her hair and wish it were easier.',
+    },
+    productEntries: [
+      {
+        productSlug: 'laneige-lip-sleeping-mask',
+        rank: 1,
+        priceBand: 'under-50',
+        badge: 'If you buy one',
+        giftWhy:
+          'The default Christmas beauty gift on this shelf. A thin layer at night, a jar that looks finished under a tree, and no undertone to guess. About $24 on a typical recent listing. It is the stocking gift and the main gift when you are unsure. Skip it only if you already know she hates thick lip masks.',
+      },
+      {
+        productSlug: 'gisou-honey-infused-hair-oil',
+        rank: 2,
+        priceBand: 'under-50',
+        badge: 'If hair is her thing',
+        giftWhy:
+          'About $36. One drop on the mids and ends, not the roots. This is the step-up when she talks about hair more than skincare and you still want to stay under $50. It is a worse guess than Laneige if you have never seen her routine.',
+      },
+      {
+        productSlug: 'charlotte-tilbury-pillow-talk-lipstick',
+        rank: 3,
+        priceBand: 'under-50',
+        badge: 'Only if she wears lipstick',
+        giftWhy:
+          'About $35, and only when you have seen Pillow Talk, or a nude-rose close to it, on her mouth. A lipstick in the wrong family sits in a drawer. If you are guessing, go back to the lip mask.',
+      },
+      {
+        productSlug: 'tatcha-the-dewy-skin-cream',
+        rank: 4,
+        priceBand: '50-150',
+        badge: 'The considered jar',
+        giftWhy:
+          'About $72. This is the gift that feels expensive without being a gamble, for someone who likes a dewy cream. Skip it if she only wears oil-free gel. Pair the box with a short note. The jar does not need a basket of extras around it.',
+      },
+      {
+        productSlug: 'ysl-libre-eau-de-parfum',
+        rank: 5,
+        priceBand: '50-150',
+        badge: 'Perfume, if you know her',
+        giftWhy:
+          'About $98. Lavender and orange blossom, modern, a little loud. Buy it when she already wears this bottle or this family. Do not buy it and Chanel Chance. One perfume is the gift. Two is you hoping.',
+      },
+      {
+        productSlug: 'chanel-chance-eau-tendre',
+        rank: 6,
+        priceBand: '50-150',
+        badge: 'The softer perfume',
+        giftWhy:
+          'About $105. Softer than Libre. Choose Chance when her scents are powdery or tender, not when you want “a nice Chanel” as a category. If you cannot describe her scent, buy Tatcha or Laneige instead.',
+      },
+      {
+        productSlug: 'la-mer-creme-de-la-mer',
+        rank: 7,
+        priceBand: 'splurge',
+        badge: 'Splurge cream',
+        giftWhy:
+          'About $190. Buy this when she already loves rich creams and the pleasure of a jar is the point. Do not buy it to fix her skin, and do not buy it for someone who will feel guilty using it. A little, warmed between fingers, is how the jar is meant to be used.',
+      },
+      {
+        productSlug: 'dyson-airwrap-multi-styler',
+        rank: 8,
+        priceBand: 'splurge',
+        badge: 'Splurge tool',
+        giftWhy:
+          'About $599. The right splurge when she styles her hair and will learn the attachments. The wrong splurge when you want a wow that stays in the closet. Confirm the kit on the listing. If the budget is the problem, the Revlon one-step is the other tool on this page.',
+      },
+      {
+        productSlug: 'revlon-one-step-volumizer-plus',
+        rank: 9,
+        priceBand: 'under-50',
+        badge: 'The tool under $50',
+        giftWhy:
+          'About $50. A blowout brush for someone whose real routine is a smooth dry, not a case of barrels. Buy this instead of a Dyson you cannot quite afford. Do not buy both.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'Three budgets',
+        body: 'Under $50: Laneige if you are unsure, Gisou if hair is the hobby, Pillow Talk only with evidence, Revlon if she wants a dryer she will use tomorrow.\n\n$50 to $150: Tatcha for the dewy-cream person. One perfume, Libre or Chance, only with evidence. Do not assemble a trio so the total looks generous.\n\nSplurge: La Mer for a cream person who will enjoy the ritual. The Airwrap for a styling person who will practice. Those are different people. A splurge for the wrong person is the gift she politely keeps.',
+      },
+      {
+        heading: 'Scent and shade',
+        body: 'Blush, foundation, and a precise lipstick shade are knowledge gifts. Without that knowledge they are returns. Perfume is the same: beautiful, and personal. Body mist is the lower-risk scent if you want smell without a full bottle of commitment, and it lives on the under-$50 guide.\n\nIf she says she wants nothing, she usually means she does not want clutter. A lip mask or a cream she will empty beats a basket.',
+      },
+      {
+        heading: 'December shipping',
+        body: 'The date that matters is the delivery date on the Amazon listing the week you order. Prime on a beauty staple often moves later than a third-party dress or a pre-loved bag. This page is beauty you can wrap. Check the promise before you leave the listing, and order earlier than feels necessary once the calendar says December.\n\nPrices on this page are typical recent street prices. They move. If a pick jumps out of its band, use the next item that still fits. The budget was the promise.',
+      },
+    ],
+    faq: [
+      AMAZON_FAQ,
+      {
+        q: 'What if I am shopping the week of Christmas?',
+        a: 'Open the listing and read the delivery date before you fall in love with the idea. Laneige, Gisou, and the Revlon are the picks most likely to be ordinary Prime items. The Airwrap and La Mer depend on the seller in front of you that day. If the date misses Christmas morning, choose the item that arrives, and say when the other one will.',
+      },
+      {
+        q: 'She says she does not want anything.',
+        a: 'Believe the part about clutter. Buy one thing she will use up: the lip mask, or Tatcha if a single jar still feels like enough. Skip sets, skip a second perfume, skip a tool she did not ask for.',
+      },
+      {
+        q: 'What works for an office exchange under $25?',
+        a: 'Laneige when the price is still in that range. If it is not, use the under-$50 guide for mascara or a balm, and skip shade-specific color. A perfume is too personal for a desk you share.',
+      },
+      {
+        q: 'Should I buy Libre and Chance together?',
+        a: 'No. They are the two perfume answers, for two different women. Pick the family you have actually smelled on her. If you cannot, leave perfume for someone who can.',
+      },
+    ],
+  },
+  {
     slug: 'gifts-for-her',
     title: 'Beauty Gifts for Her',
     dek: 'Skincare she will reach for, hair that smells like a weekend, fragrance that lingers — and one tool that feels like a private salon.',
@@ -555,7 +681,14 @@ export function featuredGiftGuides(limit = 5): GiftGuide[] {
     return { g, score: seasonalBoost + (updated >= U ? 10 : 0) }
   })
   scored.sort((a, b) => b.score - a.score)
-  return scored.slice(0, limit).map((x) => x.g)
+  let list = scored.map((x) => x.g)
+  if (month >= 9 && month <= 12) {
+    const christmas = giftGuides.find((g) => g.slug === 'christmas-beauty-gifts')
+    if (christmas) {
+      list = [christmas, ...list.filter((g) => g.slug !== christmas.slug)]
+    }
+  }
+  return list.slice(0, limit)
 }
 
 export const BUDGET_LABELS: Record<string, string> = {

@@ -186,6 +186,8 @@ export interface GiftGuide {
   budgetBands: GiftBudgetBand[]
   productEntries: GiftGuideProductEntry[]
   intro: string
+  /** The single call a hurried buyer needs before the list. */
+  decision?: { title: string; body: string }
   sections: GiftGuideSection[]
   faq: GiftGuideFaq[]
   heroImage?: string
