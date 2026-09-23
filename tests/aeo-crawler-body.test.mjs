@@ -208,6 +208,17 @@ test('gift guides and hub populate crawler from existing copy', () => {
   const hub = finalizeRouteMeta(giftsHubSeo())
   assert.equal(hub.crawler?.h1, 'Beauty gift guides')
   assert.ok(hub.crawler?.paragraphs.some((p) => p.includes('gifts for mom') || p.includes('Mom')))
+
+  const christmas = giftGuides.find((guide) => guide.slug === 'christmas-beauty-gifts')
+  assert.ok(christmas)
+  const christmasMeta = finalizeRouteMeta(giftGuideSeo(christmas))
+  const christmasBody = christmasMeta.crawler.paragraphs.join('\n')
+  assert.match(christmasBody, /If you buy one/)
+  assert.match(christmasBody, /Laneige/)
+  assert.equal(
+    christmas.productEntries.filter((entry) => entry.priceBand === '50-150' && /perfume|Perfume|softer perfume/i.test(entry.badge || '')).length >= 1,
+    true,
+  )
 })
 
 test('product without enrichment uses tagline and description only', () => {

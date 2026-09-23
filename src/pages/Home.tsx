@@ -33,6 +33,11 @@ const bigTickets = bigTicketProducts(8)
 
 const newArrivals = shopProducts.slice().reverse().slice(0, 4)
 
+const christmasSeason = (() => {
+  const month = new Date().getMonth() + 1
+  return month >= 9 && month <= 12
+})()
+
 /** High-impact navigational promos — luxury / fashion brand energy */
 const PROMO_TILES = [
   {
@@ -232,8 +237,10 @@ export function Home() {
                 Gifts worth unwrapping
               </h2>
               <p className="text-ink-soft mt-2 max-w-xl font-light">
-                For her, mom, wife, self-care — and true under $50. Listicles from
-                the Adazo shelf only.
+                {christmasSeason
+                  ? 'The Christmas edit leads until December. Then her, mom, wife, and under $50.'
+                  : 'For her, mom, wife, self-care, and under $50.'}{' '}
+                Listicles from the Adazo shelf only.
               </p>
             </div>
             <Link

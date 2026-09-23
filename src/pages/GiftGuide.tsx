@@ -158,6 +158,17 @@ export function GiftGuidePage() {
           <Paragraphs text={guide.intro} />
         </div>
 
+        {guide.decision ? (
+          <div className="mt-8 rounded-2xl border border-bamboo/30 bg-card px-5 py-4">
+            <h2 className="font-display text-2xl font-semibold">
+              {guide.decision.title}
+            </h2>
+            <p className="mt-2 text-sm sm:text-base text-ink-soft leading-relaxed">
+              {guide.decision.body}
+            </p>
+          </div>
+        ) : null}
+
         <section className="mt-14" aria-labelledby="gift-list-heading">
           <h2
             id="gift-list-heading"

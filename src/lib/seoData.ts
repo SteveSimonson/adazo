@@ -168,7 +168,7 @@ function guidesHubCrawler(): CrawlerBody {
 function giftsHubCrawler(): CrawlerBody {
  const title = 'Beauty gift guides'
  const description = clipMeta(
-  `Gifts for her, mom, wife, self-care, and under $50 — ${giftGuides.length} curated Adazo beauty guides. Chosen here; buy on Amazon.`,
+  `Christmas beauty gifts, plus edits for her, mom, wife, self-care, and under $50 — ${giftGuides.length} Adazo guides. Chosen here; buy on Amazon.`,
  )
  const roster = giftGuides.map((g) => `${g.title}. ${g.dek}`).join(' ')
  const footnote =
@@ -188,6 +188,7 @@ function giftCrawler(g: GiftGuide): CrawlerBody {
    [
     g.dek,
     g.intro,
+    g.decision ? `${g.decision.title}. ${g.decision.body}` : '',
     namedPicks(g.productEntries),
     ...g.sections.map((s) => s.body),
    ],
@@ -479,7 +480,7 @@ export function giftsHubSeo(): PageSeo {
  return {
   title: 'Beauty gift guides',
   description: clipMeta(
-   `Gifts for her, mom, wife, self-care, and under $50 — ${giftGuides.length} curated Adazo beauty guides. Chosen here; buy on Amazon.`,
+   `Christmas beauty gifts, plus edits for her, mom, wife, self-care, and under $50 — ${giftGuides.length} Adazo guides. Chosen here; buy on Amazon.`,
   ),
   path: '/gifts',
   image: '/brand/social.png',
