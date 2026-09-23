@@ -20,18 +20,22 @@ import { PromoImage } from '../components/PromoImage'
 import { Seo } from '../components/Seo'
 import { homeSeo } from '../lib/seoData'
 
-/** Editor picks: badge first, then highest price (big tickets lead). */
+const HOME_RAIL_MAX = 5000
+const onHomeRail = (p: { priceHint?: number }) => (p.priceHint || 0) < HOME_RAIL_MAX
+
+/** Editor picks: badge first, then price — marketplace pieces at $5,000+ stay on /shop. */
 const featured = [
   ...shopProducts.filter((p) => p.badge === 'Big ticket' || p.badge === 'Luxury bag'),
   ...shopProducts.filter((p) => p.badge && p.badge !== 'Big ticket' && p.badge !== 'Luxury bag'),
   ...shopProducts.slice().sort((a, b) => (b.priceHint || 0) - (a.priceHint || 0)),
 ]
+  .filter(onHomeRail)
   .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
   .slice(0, 8)
 
-const bigTickets = bigTicketProducts(8)
+const bigTickets = bigTicketProducts(48).filter(onHomeRail).slice(0, 8)
 
-const newArrivals = shopProducts.slice().reverse().slice(0, 4)
+const newArrivals = shopProducts.filter(onHomeRail).slice().reverse().slice(0, 4)
 
 const christmasSeason = (() => {
   const month = new Date().getMonth() + 1
@@ -76,7 +80,7 @@ const PROMO_TILES = [
 
 export function Home() {
   const limited = limitedTimeCopy()
-  const weekLeaders = bsrLeaders(8)
+  const weekLeaders = bsrLeaders(24).filter(onHomeRail).slice(0, 8)
   const limitedAll = limitedProducts()
 
   return (
@@ -194,7 +198,7 @@ export function Home() {
         </section>
       )}
 
-      {weekLeaders.length > 0 && (
+      {limited.active && weekLeaders.length > 0 && (
         <section className="border-b border-line bg-[#fff5f7]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14">
             <div className="flex flex-wrap items-end justify-between gap-4 mb-8">

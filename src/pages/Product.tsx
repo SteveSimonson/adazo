@@ -14,6 +14,7 @@ import {
   categoryLabel,
   formatExpiry,
   formatMoney,
+  showLimitedPlacement,
   getProduct,
   productGalleryThumbs,
   productImageChain,
@@ -22,6 +23,7 @@ import {
 } from '../data/catalog'
 import { ProductGrid } from '../components/ProductGrid'
 import { ProductEnrichmentSections } from '../components/ProductEnrichment'
+import { AffiliateNote } from '../components/AffiliateNote'
 import { StarRating } from '../components/StarRating'
 import { Seo } from '../components/Seo'
 import { getProductEnrichment } from '../data/productEnrichments'
@@ -254,7 +256,7 @@ export function ProductPage() {
 
           {/* Buy box */}
           <div className="lg:col-span-5 space-y-6">
-            {product.limitedTime && (
+            {showLimitedPlacement(product) && (
               <div className="rounded-2xl border border-[#fdba74] bg-[#fff7ed] px-4 py-3 flex gap-3">
                 <Clock3 className="size-5 text-[#9a3412] shrink-0 mt-0.5" />
                 <div>
@@ -350,6 +352,7 @@ export function ProductPage() {
               >
                 Buy on Amazon <ExternalLink className="size-4" />
               </a>
+              <AffiliateNote />
             </div>
 
             <div className="grid grid-cols-3 gap-3 pt-2">
@@ -429,6 +432,7 @@ export function ProductPage() {
               >
                 Continue to Amazon <ExternalLink className="size-4" />
               </a>
+              <AffiliateNote />
             </div>
           </div>
         </section>
@@ -447,15 +451,18 @@ export function ProductPage() {
                 Price and seller details live on Amazon. We brought the judgment.
               </p>
             </div>
+            <div className="flex flex-col items-start sm:items-end shrink-0">
             <a
               href={shopUrl}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="btn-amazon !py-3.5 shrink-0"
+              className="btn-amazon !py-3.5"
               onClick={() => onAmazonClick('product_page_after_enrichment')}
             >
               Buy on Amazon <ExternalLink className="size-4" />
             </a>
+            <AffiliateNote className="sm:text-right" />
+            </div>
           </div>
         ) : null}
 

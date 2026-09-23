@@ -11,14 +11,14 @@ export const BRAND = {
   mottoIt: 'La bellezza non si insegna. Si tramanda.',
   mottoEn: 'Beauty is not taught. It is passed down.',
   /** Short mark line for UI */
-  mark: 'Since 1726',
+  mark: 'A founding legend, 1726',
   tagline: 'Beauty is not taught. It is passed down.',
   /** One-line site positioning */
   promise:
     'Luxury for treating yourself — or for the woman you love.',
   /** Footer / about blurb */
   footerBlurb:
-    'Since 1726, beauty as inheritance. Discover the house here.',
+    'A founding legend, 1726. Beauty as inheritance. Discover the house here.',
   affiliateDisclosure:
     'As an affiliate, Adazo may earn a referral commission on qualifying purchases.',
 } as const

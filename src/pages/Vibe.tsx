@@ -19,7 +19,7 @@ import {
   type VibeCampaign,
   type VibeProfile,
 } from '../data/vibes'
-import { CATEGORY_LABELS, shopProducts } from '../data/catalog'
+import { CATEGORY_LABELS, limitedTimeCopy, shopProducts } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import type { Category } from '../data/types'
 import { trackVibeView } from '../lib/analytics'
@@ -612,10 +612,10 @@ export function VibePage() {
               </Link>
             ))}
             <Link
-              to="/shop?limited=1"
-              className="rounded-full bg-moss text-paper px-4 py-2.5 text-sm font-semibold hover:bg-bamboo-deep transition"
+              to={limitedTimeCopy().active ? '/shop?limited=1' : '/shop'}
+              className="rounded-full bg-moss text-paper px-4 py-2.5 text-sm font-semibold hover:bg-bamboo-deep transition overflow-hidden min-w-0 truncate"
             >
-              This week’s drop
+              {limitedTimeCopy().active ? 'This week’s drop' : 'Shop the house'}
             </Link>
           </div>
         </div>

@@ -35,7 +35,7 @@ export function Shop() {
 
   const cat = (params.get('cat') as Category | '') || ''
   const q = params.get('q') || ''
-  const limited = params.get('limited') === '1'
+  const limited = params.get('limited') === '1' && limitedTimeCopy().active
 
   // Track filter/search changes (debounced for typing)
   const filterKey = `${cat}|${limited ? 1 : 0}|${q}`
@@ -215,6 +215,7 @@ export function Shop() {
               className="w-full rounded-2xl border border-line bg-card pl-10 pr-4 py-3.5 text-sm font-medium outline-none focus:border-bamboo focus:ring-2 focus:ring-bamboo/15"
             />
           </div>
+          {drop.active ? (
           <button
             type="button"
             aria-pressed={limited}
@@ -228,6 +229,7 @@ export function Shop() {
             <Clock3 className="size-3.5" aria-hidden />
             {limited ? 'This week · On' : 'This week only'}
           </button>
+          ) : null}
         </div>
 
         {/* Single room taxonomy */}
