@@ -29,7 +29,7 @@ export const giftGuides: GiftGuide[] = [
       'Christmas beauty fails as a pile of minis and a perfume you have never smelled on her. It works as one object she will finish. This page is the order of operations for Adazo’s shelf: a default under $30, a hair or color step-up still under $50, a jar or a perfume when you want it to feel considered, and a splurge only when you already know she will use it.',
     decision: {
       title: 'If you buy one',
-      body: 'Laneige Lip Sleeping Mask, when you do not know her routine. A typical recent price is about $24. She uses it, and a wrong shade cannot ruin it. Move to Tatcha The Dewy Skin Cream, about $72, when the gift should feel like a jar she keeps. Buy one perfume only if you already know her scent family. Buy the Dyson Airwrap, about $599, only if you have watched her dry her hair and wish it were easier.',
+      body: 'Laneige Lip Sleeping Mask, about $24, when you do not want color. Summer Fridays Lip Butter Balm in Pink Sugar, about $24, when she wants a thinner day balm and a sheer pink is welcome. Gisou, about $36, when hair is the hobby and she likes a honey scent. Olaplex No.7, about $30, when she wants a few drops and less perfume. Tatcha, about $72, when the gift should feel like a jar she keeps. One perfume only if you already know her scent. The Dyson, about $599, only if you have watched her dry her hair.',
     },
     productEntries: [
       {
@@ -38,19 +38,35 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'If you buy one',
         giftWhy:
-          'The default Christmas beauty gift on this shelf. A thin layer at night, a jar that looks finished under a tree, and no undertone to guess. About $24 on a typical recent listing. It is the stocking gift and the main gift when you are unsure. Skip it only if you already know she hates thick lip masks.',
+          'The default when you do not want color. A thin layer at night, a jar that looks finished under a tree. About $24. If she hates a thick night mask, the Summer Fridays balm is the other lip on this page.',
+      },
+      {
+        productSlug: 'summer-fridays-lip-butter-balm',
+        rank: 2,
+        priceBand: 'under-50',
+        badge: 'Day balm, sheer pink',
+        giftWhy:
+          'About $24. Pink Sugar is a sheer pink, not a clear balm. Buy it when a thinner day balm is the gift and a little pink is fine. If any color is a risk, stay with Laneige.',
       },
       {
         productSlug: 'gisou-honey-infused-hair-oil',
-        rank: 2,
+        rank: 3,
         priceBand: 'under-50',
-        badge: 'If hair is her thing',
+        badge: 'If she likes scent',
         giftWhy:
-          'About $36. One drop on the mids and ends, not the roots. This is the step-up when she talks about hair more than skincare and you still want to stay under $50. It is a worse guess than Laneige if you have never seen her routine.',
+          'About $36. One drop on the mids and ends. The honey scent is the point. If she wants less perfume in her hair, Olaplex No.7 is the other oil.',
+      },
+      {
+        productSlug: 'olaplex-no7-bonding-oil',
+        rank: 4,
+        priceBand: 'under-50',
+        badge: 'If she wants less scent',
+        giftWhy:
+          'About $30. Two or three drops, mids and ends. Buy this instead of Gisou when scent and weight are the worry. Do not buy both oils.',
       },
       {
         productSlug: 'charlotte-tilbury-pillow-talk-lipstick',
-        rank: 3,
+        rank: 5,
         priceBand: 'under-50',
         badge: 'Only if she wears lipstick',
         giftWhy:
@@ -58,7 +74,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         productSlug: 'tatcha-the-dewy-skin-cream',
-        rank: 4,
+        rank: 6,
         priceBand: '50-150',
         badge: 'The considered jar',
         giftWhy:
@@ -66,7 +82,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         productSlug: 'ysl-libre-eau-de-parfum',
-        rank: 5,
+        rank: 7,
         priceBand: '50-150',
         badge: 'Perfume, if you know her',
         giftWhy:
@@ -74,7 +90,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         productSlug: 'chanel-chance-eau-tendre',
-        rank: 6,
+        rank: 8,
         priceBand: '50-150',
         badge: 'The softer perfume',
         giftWhy:
@@ -82,7 +98,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         productSlug: 'la-mer-creme-de-la-mer',
-        rank: 7,
+        rank: 9,
         priceBand: 'splurge',
         badge: 'Splurge cream',
         giftWhy:
@@ -90,7 +106,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         productSlug: 'dyson-airwrap-multi-styler',
-        rank: 8,
+        rank: 10,
         priceBand: 'splurge',
         badge: 'Splurge tool',
         giftWhy:
@@ -98,7 +114,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         productSlug: 'revlon-one-step-volumizer-plus',
-        rank: 9,
+        rank: 11,
         priceBand: 'under-50',
         badge: 'The tool under $50',
         giftWhy:
@@ -108,7 +124,7 @@ export const giftGuides: GiftGuide[] = [
     sections: [
       {
         heading: 'Three budgets',
-        body: 'Under $50: Laneige if you are unsure, Gisou if hair is the hobby, Pillow Talk only with evidence, Revlon if she wants a dryer she will use tomorrow.\n\n$50 to $150: Tatcha for the dewy-cream person. One perfume, Libre or Chance, only with evidence. Do not assemble a trio so the total looks generous.\n\nSplurge: La Mer for a cream person who will enjoy the ritual. The Airwrap for a styling person who will practice. Those are different people. A splurge for the wrong person is the gift she politely keeps.',
+        body: 'Under $50: Laneige if you want no color. Summer Fridays Pink Sugar if a sheer pink day balm is welcome. Gisou if she likes a honey hair scent, Olaplex No.7 if she wants fewer drops and less perfume. Do not buy both oils. Pillow Talk only with evidence. Revlon if she wants a dryer she will use tomorrow.\n\n$50 to $150: Tatcha for the dewy-cream person. One perfume, Libre or Chance, only with evidence. Do not assemble a trio so the total looks generous.\n\nSplurge: La Mer for a cream person who will enjoy the ritual. The Airwrap for a styling person who will practice. Those are different people. A splurge for the wrong person is the gift she politely keeps.',
       },
       {
         heading: 'Scent and shade',

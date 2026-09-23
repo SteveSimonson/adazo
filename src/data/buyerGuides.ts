@@ -35,11 +35,18 @@ export const buyerGuides: BuyerGuide[] = [
       'Hard no: stacking three acids with a strong retinoid on night one, using eye product as a full-face free-for-all without reading the label, and skipping SPF the next morning.',
     productEntries: [
       {
-        productSlug: 'the-inkey-list-retinol-eye-cream',
+        productSlug: 'cerave-resurfacing-retinol-serum',
         rank: 1,
+        badge: 'Face serum',
+        pickWhy:
+          'This is the face retinol. Encapsulated retinol, ceramides, fragrance-free, about $19. CeraVe does not print a simple percent on the bottle, so do not hunt the front label for 0.3%. Two nights a week, a pea for the whole face, moisturizer as the buffer. It is not an eye cream.',
+      },
+      {
+        productSlug: 'the-inkey-list-retinol-eye-cream',
+        rank: 2,
         badge: 'Eye area only',
         pickWhy:
-          'This is the only retinoid on the Adazo shelf, and it is an eye cream, not a face serum. Use it on the eye area the way the jar says. A first face retinol is a different product. Shop that one for the schedule below, and do not smear an eye cream over the whole face to make the list look complete.',
+          'Use this on the eye area the way the jar says. Do not spread it over the face because it is the other retinoid on the shelf. If the job is a first face retinol, the CeraVe serum is the one.',
       },
     ],
     pairWith: [
@@ -65,8 +72,8 @@ export const buyerGuides: BuyerGuide[] = [
         body: 'Your barrier has not practiced this ingredient class yet. If the bottle prints a percent, start at the low end of what is sold for faces, commonly 0.1% to 0.3%, not a 1% serum labeled advanced.\n\nTwo nights a week for the first two weeks. A pea-sized amount for the whole face. If the skin is calm, move to every other night. Nightly is a later decision, not a Wednesday dare.',
       },
       {
-        heading: 'The only retinoid we list',
-        body: 'Adazo lists The INKEY List Retinol Eye Cream. It is an eye product. Most first-timers need a face serum, and we do not sell one. Buy the face serum somewhere you can read the percent and the return window. Keep the eye cream on the eye area.',
+        heading: 'Face serum, then the eye cream',
+        body: 'CeraVe Resurfacing Retinol Serum is the face product. The INKEY List cream is the eye product. They are not substitutes.\n\nThe serum does not print a tidy percent. Follow the nights, not a number you cannot see: two nights a week, then every other night if the skin is calm. Keep the eye cream inside the orbital area.',
       },
       {
         heading: 'Buffer, don’t battle',
@@ -331,11 +338,18 @@ export const buyerGuides: BuyerGuide[] = [
       'Hard no: dumping oil at the roots “for growth myths,” and stacking oil + heavy cream + skipping wash day forever.',
     productEntries: [
       {
-        productSlug: 'gisou-honey-infused-hair-oil',
+        productSlug: 'olaplex-no7-bonding-oil',
         rank: 1,
-        badge: 'Mid-lengths & ends',
+        badge: 'Fewer drops',
         pickWhy:
-          'Scent and slip many people love — still apply mid-length down, warm between palms, and start with less than you think.',
+          'Choose this when a scented honey oil made the roots look wet. Olaplex sells No.7 as two or three drops, about $30. Still mids and ends, not the scalp. It is a leave-in oil, not the No.3 rinse-out treatment.',
+      },
+      {
+        productSlug: 'gisou-honey-infused-hair-oil',
+        rank: 2,
+        badge: 'Scent and shine',
+        pickWhy:
+          'Choose this when you want the honey scent and you already know one drop stays on the ends. About $36. If the part looks wet by noon, you wanted No.7, or you used too much of this.',
       },
     ],
     pairWith: [
@@ -397,11 +411,18 @@ export const buyerGuides: BuyerGuide[] = [
       'Hard no: scalding showers that strip you, then wondering why lotion cannot keep up.',
     productEntries: [
       {
-        productSlug: 'eos-shea-better-body-lotion',
+        productSlug: 'cerave-moisturizing-cream',
         rank: 1,
-        badge: 'Daily legs',
+        badge: 'Unscented tub',
         pickWhy:
-          'Approachable shea lotion people actually finish. Apply on damp skin; a little goes further than dry-skin panic layering.',
+          'Choose this when fragrance is the reason lotion sits unused, or when legs need a lot of cream. Fragrance-free, about $19 for 19 ounces. Apply on damp skin. It is a tub, not a pretty gift bottle.',
+      },
+      {
+        productSlug: 'eos-shea-better-body-lotion',
+        rank: 2,
+        badge: 'Scented shea',
+        pickWhy:
+          'Choose this when a light shea scent is a pleasure and you want a lotion, not a thick tub. About $11. If you react to fragrance, go back to the CeraVe cream.',
       },
     ],
     pairWith: [
@@ -463,18 +484,25 @@ export const buyerGuides: BuyerGuide[] = [
       'Hard no: peeling flakes with your teeth, and stacking five minty plumping glosses that sting as a personality.',
     productEntries: [
       {
-        productSlug: 'laneige-lip-sleeping-mask',
+        productSlug: 'summer-fridays-lip-butter-balm',
         rank: 1,
-        badge: 'Overnight',
+        badge: 'Day balm',
         pickWhy:
-          'The classic jar for a reason — softens the “I live in heated air” look. A thin layer beats a frosting swirl.',
+          'Choose this when the complaint is a heavy night jar. Pink Sugar is a sheer pink day balm, about $24. Use a thin layer. It is not a neutral, so skip it if any pink is too much color.',
+      },
+      {
+        productSlug: 'laneige-lip-sleeping-mask',
+        rank: 2,
+        badge: 'Overnight jar',
+        pickWhy:
+          'Choose this for night, in a thin layer. A frosting swirl is what glues hair to your mouth. If that happened, use less, or switch the daytime product to the Summer Fridays balm.',
       },
       {
         productSlug: 'charlotte-tilbury-pillow-talk-lipstick',
-        rank: 2,
+        rank: 3,
         badge: 'Day color',
         pickWhy:
-          'When treatment has done its job, a flattering nude-rose lipstick is the Riviera exit. Prep with a wipe of balm if lips still feel rough.',
+          'Color, not a treatment. Pillow Talk after the lips are already comfortable. It does not replace either balm.',
       },
     ],
     sections: [

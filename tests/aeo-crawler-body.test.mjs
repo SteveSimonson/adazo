@@ -179,6 +179,20 @@ test('buyer guide and hub populate crawler from existing copy', () => {
     lip.productEntries.some((entry) => entry.productSlug.includes('ysl')),
     false,
   )
+  const retinolPicks = g.productEntries.map((entry) => entry.productSlug)
+  assert.deepEqual(retinolPicks.slice(0, 2), [
+    'cerave-resurfacing-retinol-serum',
+    'the-inkey-list-retinol-eye-cream',
+  ])
+  const hair = buyerGuides.find((guide) => guide.slug === 'hair-oil-no-grease')
+  assert.deepEqual(
+    hair.productEntries.map((entry) => entry.productSlug),
+    ['olaplex-no7-bonding-oil', 'gisou-honey-infused-hair-oil'],
+  )
+  const lips = buyerGuides.find((guide) => guide.slug === 'lip-treatment-not-sticky')
+  assert.equal(lips.productEntries[0].productSlug, 'summer-fridays-lip-butter-balm')
+  const winter = buyerGuides.find((guide) => guide.slug === 'winter-body-lotion')
+  assert.equal(winter.productEntries[0].productSlug, 'cerave-moisturizing-cream')
   const airwrap = buyerGuides.find((guide) => guide.slug === 'airwrap-vs-one-step')
   assert.deepEqual(
     airwrap.productEntries.map((entry) => entry.productSlug),
