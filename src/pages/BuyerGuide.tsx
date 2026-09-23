@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, Clock3, Compass, ExternalLink } from 'lucide-react'
 import { CATEGORY_LABELS, formatMoney, getProduct } from '../data/catalog'
 import { buyerGuides, getBuyerGuide } from '../data/buyerGuides'
+import { AffiliateNote } from '../components/AffiliateNote'
 import { ProductCard } from '../components/ProductCard'
 import { Seo } from '../components/Seo'
 import { affiliateUrl } from '../lib/amazon'
@@ -102,6 +103,7 @@ function GuideShelf({
                   >
                     Why we list it
                   </Link>
+                  <div className="flex flex-col items-start">
                   <a
                     href={shopUrl}
                     target="_blank"
@@ -120,6 +122,8 @@ function GuideShelf({
                   >
                     Buy on Amazon <ExternalLink className="size-3.5" />
                   </a>
+                  <AffiliateNote />
+                  </div>
                 </div>
               </div>
             </div>

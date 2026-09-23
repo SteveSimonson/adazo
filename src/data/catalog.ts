@@ -350,24 +350,40 @@ export function formatRating(n?: number) {
   return n.toFixed(1)
 }
 
+/** True only when the ISO timestamp is still in the future. */
+export function isFreshExpiry(iso?: string | null): boolean {
+  if (!iso) return false
+  const t = Date.parse(iso)
+  return Number.isFinite(t) && t > Date.now()
+}
+
+export function showLimitedPlacement(p: {
+  limitedTime?: boolean
+  expiresAt?: string | null
+}): boolean {
+  return Boolean(p.limitedTime && isFreshExpiry(p.expiresAt))
+}
+
 export function limitedTimeCopy() {
+  const active = isFreshExpiry(bsrExpiresAt)
   return {
-    headline: bsrMarketing.headline,
-    subhead: bsrMarketing.subhead,
-    weekOf: bsrWeekOf || null,
-    expiresAt: bsrExpiresAt || null,
-    count: limitedProducts().length,
+    headline: active ? bsrMarketing.headline : 'The house',
+    subhead: active ? bsrMarketing.subhead : '',
+    weekOf: active ? bsrWeekOf || null : null,
+    expiresAt: active ? bsrExpiresAt || null : null,
+    count: active ? limitedProducts().length : 0,
+    active,
   }
 }
 
 export function formatExpiry(iso?: string) {
-  if (!iso) return null
+  if (!isFreshExpiry(iso)) return null
   try {
     return new Intl.DateTimeFormat('en-US', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
-    }).format(new Date(iso))
+    }).format(new Date(iso as string))
   } catch {
     return null
   }

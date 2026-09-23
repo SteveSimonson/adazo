@@ -4,7 +4,7 @@ export const SITE_URL = 'https://adazo.com'
 export const SITE_NAME = 'Adazo'
 export const DEFAULT_TITLE = 'Adazo — Beauty is passed down'
 export const DEFAULT_DESCRIPTION =
-  'Since 1726. Luxury beauty, fragrance, and fashion finish for treating yourself — or the woman you love. Discover Adazo.'
+  'A founding legend, 1726. Luxury beauty, fragrance, and fashion finish for treating yourself — or the woman you love. Discover Adazo.'
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/social.png`
 export const TWITTER_HANDLE = '' // set if brand X account exists
 
@@ -139,17 +139,25 @@ export function productJsonLd(opts: {
   }
 
   if (opts.price != null && opts.price > 0) {
+    const asin =
+      opts.asin && /^[A-Z0-9]{10}$/i.test(opts.asin) ? opts.asin : ''
     data.offers = {
       '@type': 'Offer',
-      url: absoluteUrl(opts.path),
+      url: asin
+        ? `https://www.amazon.com/dp/${asin}?tag=iu0e3-20`
+        : absoluteUrl(opts.path),
       priceCurrency: 'USD',
       price: opts.price.toFixed(2),
-      availability: 'https://schema.org/InStock',
       seller: { '@type': 'Organization', name: 'Amazon' },
     }
   }
 
-  if (opts.rating != null && opts.reviewCount != null && opts.reviewCount > 0) {
+  if (
+    opts.rating != null &&
+    opts.reviewCount != null &&
+    opts.reviewCount > 0 &&
+    opts.reviewCount % 1000 !== 0
+  ) {
     data.aggregateRating = {
       '@type': 'AggregateRating',
       ratingValue: opts.rating,

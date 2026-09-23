@@ -32,31 +32,35 @@ export function Layout() {
   const onShop = pathname === '/shop' || pathname.startsWith('/shop')
   const limitedMode = onShop && searchParams.get('limited') === '1'
   // When already filtering to this week, offer escape — not another trap door
-  const weekCta = limitedMode
-    ? { to: '/shop', label: 'Full collection', primary: false as const }
-    : { to: '/shop?limited=1', label: 'This week', primary: true as const }
+  const weekCta = !drop.active
+    ? { to: '/shop', label: 'The house', primary: true as const }
+    : limitedMode
+      ? { to: '/shop', label: 'Full collection', primary: false as const }
+      : { to: '/shop?limited=1', label: 'This week', primary: true as const }
 
   return (
     <div className="min-h-screen flex flex-col">
       <GlobalSeo />
-      {limitedMode ? (
-        <div className="bg-[#9a3412] text-white text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
-          <span className="font-semibold">Filter on · This week only</span>
-          {drop.count > 0 ? ` · ${drop.count} pieces` : ''}
-          <span className="text-white/75"> · not the full house</span>
-          {' · '}
-          <Link
-            to="/shop"
-            className="font-bold underline underline-offset-2 hover:text-gold"
-          >
-            Show full collection
-          </Link>
+      {drop.active && limitedMode ? (
+        <div className="bg-[#9a3412] text-white text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide overflow-hidden min-w-0">
+          <span className="block overflow-hidden min-w-0 truncate">
+            <span className="font-semibold">Filter on · This week only</span>
+            {drop.count > 0 ? ` · ${drop.count} pieces` : ''}
+            <span className="text-white/75"> · not the full house</span>
+            {' · '}
+            <Link
+              to="/shop"
+              className="font-bold underline underline-offset-2 hover:text-gold"
+            >
+              Show full collection
+            </Link>
+          </span>
         </div>
-      ) : (
-        <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide">
+      ) : drop.active ? (
+        <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide overflow-hidden min-w-0">
           <Link
             to="/shop?limited=1"
-            className="hover:underline underline-offset-2"
+            className="block overflow-hidden min-w-0 truncate hover:underline underline-offset-2"
           >
             <span className="font-semibold text-gold">This week’s selection</span>
             {drop.count > 0 ? ` · ${drop.count} pieces` : ''}
@@ -67,7 +71,7 @@ export function Layout() {
             </span>
           </Link>
         </div>
-      )}
+      ) : null}
 
       <header className="sticky top-0 z-50 bg-paper/92 backdrop-blur-xl border-b border-line shadow-[0_1px_0_rgba(26,20,24,0.04)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 sm:h-[4.75rem] flex items-center justify-between gap-3 sm:gap-4">
@@ -101,8 +105,8 @@ export function Layout() {
               to={weekCta.to}
               className={
                 weekCta.primary
-                  ? 'btn-primary !px-3.5 sm:!px-4 !py-2.5 text-xs'
-                  : 'inline-flex items-center justify-center rounded-full border-2 border-[#9a3412] text-[#9a3412] bg-white px-3.5 sm:px-4 py-2.5 text-xs font-bold hover:bg-[#fff7ed] transition'
+                  ? 'btn-primary !px-3.5 sm:!px-4 !py-2.5 text-xs overflow-hidden min-w-0 truncate'
+                  : 'inline-flex items-center justify-center rounded-full border-2 border-[#9a3412] text-[#9a3412] bg-white px-3.5 sm:px-4 py-2.5 text-xs font-bold hover:bg-[#fff7ed] transition overflow-hidden min-w-0 truncate'
               }
             >
               {weekCta.label}
@@ -195,11 +199,13 @@ export function Layout() {
                   Gifts
                 </Link>
               </li>
+              {drop.active ? (
               <li>
                 <Link to="/shop?limited=1" className="hover:text-bamboo">
                   This week
                 </Link>
               </li>
+              ) : null}
               <li>
                 <Link to="/quiz" className="hover:text-bamboo">
                   Your persona

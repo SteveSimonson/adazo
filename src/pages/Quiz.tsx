@@ -24,6 +24,7 @@ import {
 import { getVibe, vibePath, writeStoredVibeId } from '../data/vibes'
 import {
   CATEGORY_LABELS,
+  limitedTimeCopy,
   shopProducts,
 } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
@@ -850,10 +851,10 @@ function ResultStep({
                 </Link>
               )}
               <Link
-                to="/shop?limited=1"
+                to={limitedTimeCopy().active ? '/shop?limited=1' : '/shop'}
                 className="text-sm font-semibold text-ink-soft hover:text-bamboo px-2 py-2"
               >
-                This week’s limited drop
+                {limitedTimeCopy().active ? 'This week’s limited drop' : 'Shop the house'}
               </Link>
               <button
                 type="button"

@@ -50,7 +50,7 @@ export function buildMagazinePages(): MagazinePage[] {
       id: 'cover',
       kind: 'cover',
       title: 'ADAZO',
-      kicker: 'The House Book · Since 1726',
+      kicker: 'The House Book · A founding legend, 1726',
     },
   ]
 

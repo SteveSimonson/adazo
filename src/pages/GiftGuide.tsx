@@ -6,6 +6,7 @@ import {
   getGiftGuide,
   giftGuides,
 } from '../data/giftGuides'
+import { AffiliateNote } from '../components/AffiliateNote'
 import { ProductCard } from '../components/ProductCard'
 import { Seo } from '../components/Seo'
 import { affiliateUrl } from '../lib/amazon'
@@ -229,6 +230,7 @@ export function GiftGuidePage() {
                         >
                           Why we list it
                         </Link>
+                        <div className="flex flex-col items-start">
                         <a
                           href={shopUrl}
                           target="_blank"
@@ -247,6 +249,8 @@ export function GiftGuidePage() {
                         >
                           Buy on Amazon <ExternalLink className="size-3.5" />
                         </a>
+                        <AffiliateNote />
+                        </div>
                       </div>
                     </div>
                   </div>
