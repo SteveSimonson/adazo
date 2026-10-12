@@ -28,8 +28,8 @@ import { extractColorImages } from '../lib/amazon-image-ids.mjs'
 import {
   catalogOfferFields,
   finiteAmount,
-  patchCatalogOfferFields,
 } from '../lib/catalog-offers.mjs'
+import { refreshCatalogOffers } from './refresh-catalog-offers.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '../..')
@@ -658,57 +658,6 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
   }
 }
 
-/**
- * Write offersV2 availability, checkedAt, and price onto curated products.ts.
- * ASINs the API does not return are left untouched.
- */
-async function persistCuratedOffers(creators) {
-  const file = join(ROOT, 'src/data/products.ts')
-  if (!existsSync(file)) return
-  const src = readFileSync(file, 'utf8')
-  const asins = [
-    ...new Set(
-      [...src.matchAll(/\basin\s*:\s*['"]([A-Z0-9]{10})['"]/gi)].map((m) =>
-        m[1].toUpperCase(),
-      ),
-    ),
-  ]
-  if (!asins.length) return
-  console.log(`\n== Curated catalog offers (${asins.length} ASINs)`)
-  try {
-    const { items, errors } = await creators.getItems(asins)
-    if (errors?.length) {
-      console.warn(`Creators API returned ${errors.length} item errors`)
-    }
-    const byAsin = new Map()
-    for (const item of items || []) {
-      const mapped = mapCreatorsItem(item)
-      if (!mapped?.asin || !mapped.checkedAt) continue
-      byAsin.set(String(mapped.asin).toUpperCase(), {
-        availability: mapped.availability,
-        checkedAt: mapped.checkedAt,
-        price: mapped.price,
-      })
-    }
-    const { src: next, changed } = patchCatalogOfferFields(src, byAsin)
-    if (!changed) {
-      console.log('No curated offer updates')
-      return
-    }
-    if (!/export const products/.test(next)) {
-      throw new Error('Refusing to write products.ts without products export')
-    }
-    writeFileSync(file, next)
-    console.log(`Updated offers on ${changed} curated products`)
-  } catch (error) {
-    if (error.body?.reason === 'AssociateNotEligible') {
-      console.warn('Creators API not eligible; curated offers left unchanged')
-      return
-    }
-    console.warn(`Curated offer refresh skipped: ${error.message}`)
-  }
-}
-
 async function main() {
   const config = JSON.parse(
     readFileSync(join(__dirname, 'categories.json'), 'utf8'),
@@ -1142,7 +1091,15 @@ export const bsrProducts: Product[] = ${JSON.stringify(products, null, 2)}
   writeFileSync(join(ROOT, 'src/data/products.bsr.generated.ts'), ts)
 
   if (creatorsEligible) {
-    await persistCuratedOffers(creators)
+    try {
+      await refreshCatalogOffers({ root: ROOT, creators })
+    } catch (error) {
+      if (error.body?.reason === 'AssociateNotEligible') {
+        console.warn('Creators API not eligible; curated offers left unchanged')
+      } else {
+        console.warn(`Curated offer refresh skipped: ${error.message}`)
+      }
+    }
   }
 
   console.log(`\n✓ Wrote ${products.length} limited-time BSR products`)

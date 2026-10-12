@@ -1,0 +1,74 @@
+# Refresh Amazon offer availability, build, and deploy at least every 12 hours.
+#
+# Product JSON-LD offers expire 24h after checkedAt. The Worker drops them at
+# request time, so this job must refresh the Creators check and deploy before
+# that window closes. Schedule runs only after this file is on the default branch.
+#
+# Deploy matches package.json: `npm run deploy` → `npm run build && wrangler deploy`.
+#
+# Repository secrets (names only; do not commit values):
+#   AMAZON_CREATORS_CREDENTIAL_ID          required
+#   AMAZON_CREATORS_CREDENTIAL_SECRET      required
+#   AMAZON_CREATORS_PARTNER_TAG            required, unless VITE_AMAZON_ASSOCIATE_TAG is set
+#   VITE_AMAZON_ASSOCIATE_TAG              optional fallback for the partner tag
+#   AMAZON_CREATORS_CREDENTIAL_VERSION     optional, default 3.1
+#   AMAZON_CREATORS_MARKETPLACE            optional, default www.amazon.com
+#   Z9GO_LIBRARY_TOKEN                     required for library sync
+#   Z9GO_LIBRARY_URL                       optional, default https://z9go.com
+#   CLOUDFLARE_API_TOKEN                   required (Workers deploy)
+#   CLOUDFLARE_ACCOUNT_ID                  required (wrangler.jsonc has no account_id)
+
+name: Refresh offers
+
+on:
+  schedule:
+    # 00:00 and 12:00 UTC. Twelve hours apart, inside the 24h offer window.
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: refresh-offers
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Sync, build, deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Refresh Creators offers
+        env:
+          AMAZON_CREATORS_CREDENTIAL_ID: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_ID }}
+          AMAZON_CREATORS_CREDENTIAL_SECRET: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_SECRET }}
+          AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+          AMAZON_CREATORS_PARTNER_TAG: ${{ secrets.AMAZON_CREATORS_PARTNER_TAG }}
+          AMAZON_CREATORS_MARKETPLACE: ${{ secrets.AMAZON_CREATORS_MARKETPLACE }}
+          VITE_AMAZON_ASSOCIATE_TAG: ${{ secrets.VITE_AMAZON_ASSOCIATE_TAG }}
+        run: npm run refresh:offers
+
+      - name: Sync product library
+        env:
+          Z9GO_LIBRARY_TOKEN: ${{ secrets.Z9GO_LIBRARY_TOKEN }}
+          Z9GO_LIBRARY_URL: ${{ secrets.Z9GO_LIBRARY_URL }}
+        run: npm run library:sync
+
+      - name: Build and deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run deploy

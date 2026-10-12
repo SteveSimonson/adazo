@@ -8,6 +8,10 @@
  *   Route table: worker/generated/routeMeta.json, emitted by
  *   scripts/generate-sitemap.mjs from src/lib/seoData.ts (same source the
  *   React app hydrates from). og:image stays sitewide.
+ *   Product offers in that snapshot include `offerCheckedAt`. renderShell
+ *   drops them on the request when that Creators check is older than 24h,
+ *   so JSON-LD is not frozen at build time. The React app applies the same
+ *   cutoff when it renders. A deploy at least every 12h refreshes checkedAt.
  * - Real 404 status for unknown routes (SPA shell + noindex)
  * - Cache-Control: immutable for Vite-hashed /assets/*, 7d for unhashed media
  * - HSTS on every response

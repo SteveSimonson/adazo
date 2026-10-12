@@ -56,9 +56,14 @@ function creatorsConfig(overrides = {}) {
       'www.amazon.com',
   }
 
-  const missing = Object.entries(config)
-    .filter(([, value]) => !value)
-    .map(([key]) => key)
+  const envNames = {
+    credentialId: 'AMAZON_CREATORS_CREDENTIAL_ID',
+    credentialSecret: 'AMAZON_CREATORS_CREDENTIAL_SECRET',
+    partnerTag: 'AMAZON_CREATORS_PARTNER_TAG or VITE_AMAZON_ASSOCIATE_TAG',
+  }
+  const missing = Object.entries(envNames)
+    .filter(([key]) => !config[key])
+    .map(([, name]) => name)
   if (missing.length) {
     throw new Error(
       `Missing Amazon Creators API configuration: ${missing.join(', ')}`,
