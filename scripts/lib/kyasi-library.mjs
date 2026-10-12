@@ -99,24 +99,26 @@ export async function listSiteItems(siteId, limit = 100) {
 }
 
 export async function upsertAmazonItem(input) {
+  const json = {
+    networkId: "amazon",
+    externalId: input.asin,
+    marketplace: "www.amazon.com",
+    title: input.title,
+    brand: input.brand,
+    images: input.images || [],
+    /** Catalog is source of truth — never merge polluted library galleries */
+    imagesMode: input.imagesMode || "replace",
+    rating: input.rating ?? null,
+    reviewCount: input.reviewCount ?? null,
+    fetchStatus: input.fetchStatus,
+    attributes: input.attributes || {},
+  };
+  // Omit price when the caller has no offers check. null clears a stale amount.
+  if (input.price !== undefined) json.price = input.price;
   return req("/api/library/items", {
     method: "POST",
     auth: true,
-    json: {
-      networkId: "amazon",
-      externalId: input.asin,
-      marketplace: "www.amazon.com",
-      title: input.title,
-      brand: input.brand,
-      images: input.images || [],
-      /** Catalog is source of truth — never merge polluted library galleries */
-      imagesMode: input.imagesMode || "replace",
-      price: input.price ?? null,
-      rating: input.rating ?? null,
-      reviewCount: input.reviewCount ?? null,
-      fetchStatus: input.fetchStatus,
-      attributes: input.attributes || {},
-    },
+    json,
   });
 }
 

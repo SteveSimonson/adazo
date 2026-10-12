@@ -4,6 +4,9 @@
  *
  * GET each ASIN from library; write-back house metadata + local images
  * with imagesMode: replace. Does NOT pull library images into catalog.
+ * Offer price / availability / checkedAt are written from the catalog.
+ * A newer library offers check is patched back into the product file.
+ * priceHint is not an offer price and is not sent.
  *
  *   Z9GO_LIBRARY_TOKEN=… npm run library:sync
  *   npm run library:sync:dry
@@ -16,6 +19,11 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  isNewerOffer,
+  offerFromLibraryItem,
+  patchCatalogOfferFields,
+} from "./lib/catalog-offers.mjs";
 import {
   getAmazonItem,
   health,
@@ -75,7 +83,10 @@ function parseProducts(text) {
       category: g("category"),
       tagline: g("tagline"),
       asin,
-      priceHint: num("priceHint"),
+      // Live offer price only. priceHint is a display number, not this check.
+      price: num("price"),
+      availability: g("availability"),
+      checkedAt: g("checkedAt"),
       rating: num("rating"),
       reviewCount: num("reviewCount"),
       images,
@@ -97,7 +108,7 @@ function loadAll() {
     console.log("loaded", list.length, "from", rel);
     for (const p of list) {
       if (!p.asin) continue;
-      if (!byAsin.has(p.asin)) byAsin.set(p.asin, p);
+      if (!byAsin.has(p.asin)) byAsin.set(p.asin, { ...p, sourceFile: rel });
     }
   }
   return [...byAsin.values()];
@@ -123,8 +134,11 @@ async function main() {
     writtenBack: 0,
     linked: 0,
     errors: 0,
+    catalogOffers: 0,
   };
   const report = [];
+  /** @type {Map<string, Map<string, { price?: number, availability?: string, checkedAt: string }>>} */
+  const catalogOfferPatches = new Map();
 
   for (const p of products) {
     const asin = p.asin;
@@ -138,6 +152,21 @@ async function main() {
     }
     if (lib) stats.libraryHit++;
     else stats.libraryMiss++;
+
+    const libOffer = offerFromLibraryItem(lib);
+    if (
+      libOffer &&
+      p.sourceFile &&
+      isNewerOffer(p.checkedAt, libOffer.checkedAt)
+    ) {
+      p.price = libOffer.price ?? null;
+      p.availability = libOffer.availability || null;
+      p.checkedAt = libOffer.checkedAt;
+      if (!catalogOfferPatches.has(p.sourceFile)) {
+        catalogOfferPatches.set(p.sourceFile, new Map());
+      }
+      catalogOfferPatches.get(p.sourceFile).set(p.asin, libOffer);
+    }
 
     const writeImages = (p.images || []).filter(Boolean).slice(0, 8);
     report.push({
@@ -157,7 +186,8 @@ async function main() {
         brand: p.brand || null,
         images: writeImages,
         imagesMode: "replace",
-        price: p.priceHint ?? null,
+        // No offers check yet: omit price. Do not send priceHint.
+        price: p.checkedAt ? (p.price ?? null) : undefined,
         rating: p.rating ?? null,
         reviewCount: p.reviewCount ?? null,
         fetchStatus: writeImages.some(isGoodAmazonImage) ? "ok" : "partial",
@@ -165,6 +195,8 @@ async function main() {
           [`${SITE_ID}Id`]: p.id,
           category: p.category,
           slug: p.slug,
+          ...(p.availability ? { availability: p.availability } : {}),
+          ...(p.checkedAt ? { checkedAt: p.checkedAt } : {}),
         },
       });
       stats.writtenBack++;
@@ -183,6 +215,27 @@ async function main() {
       console.error("WRITE fail", asin, e.message);
     }
     await new Promise((r) => setTimeout(r, 30));
+  }
+
+  if (!dryRun) {
+    for (const [rel, offers] of catalogOfferPatches) {
+      const path = join(root, rel);
+      const src = readFileSync(path, "utf8");
+      const { src: next, changed } = patchCatalogOfferFields(src, offers);
+      if (!changed) continue;
+      if (!/export const /.test(next)) {
+        console.error(`Refusing to write corrupted ${rel}`);
+        stats.errors++;
+        continue;
+      }
+      writeFileSync(path, next);
+      stats.catalogOffers += changed;
+      console.log(`catalog offers updated: ${changed} in ${rel}`);
+    }
+  } else if (catalogOfferPatches.size) {
+    let pending = 0;
+    for (const offers of catalogOfferPatches.values()) pending += offers.size;
+    console.log(`dry-run catalog offer patches: ${pending}`);
   }
 
   mkdirSync(join(root, "tmp"), { recursive: true });
