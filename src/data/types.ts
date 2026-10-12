@@ -59,10 +59,28 @@ export interface Product {
   features: string[]
   /** Structured specs for the PDP table */
   specs: ProductSpec[]
-  /** Display price (Amazon retail varies) */
+  /**
+   * Display price (Amazon retail varies). 0 means “See Amazon”.
+   * Schema offers do not use this — it is not a stock check.
+   */
   priceHint: number
   /** Compare-at / list price for strikethrough when set */
   listPrice?: number
+  /**
+   * Offer price from the same Creators `offersV2` call as `availability`
+   * and `checkedAt`. Omitted when that call did not return an amount.
+   */
+  price?: number
+  /**
+   * `offersV2.listings.availability.type` from that call
+   * (`IN_STOCK`, `OUT_OF_STOCK`, `PREORDER`, `BACKORDER`, or another API type).
+   */
+  availability?: string
+  /**
+   * ISO-8601 timestamp of that offers check.
+   * Schema omits offers when this is missing or older than 24 hours.
+   */
+  checkedAt?: string
   asin?: string
   searchKeywords: string
   badge?: string
