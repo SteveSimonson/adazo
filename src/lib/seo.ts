@@ -29,6 +29,11 @@ export type PageSeo = {
   type?: 'website' | 'article' | 'product'
   noindex?: boolean
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  /**
+   * ISO time of the Creators offers check baked into `jsonLd`.
+   * The Worker re-checks this on each request and drops offers after 24h.
+   */
+  offerCheckedAt?: string
   crawler?: CrawlerBody
 }
 
@@ -110,7 +115,12 @@ const SCHEMA_OFFER_AVAILABILITY: Record<string, string> = {
   BACKORDER: 'https://schema.org/BackOrder',
 }
 
-/** Offers older than this are omitted. A guessed availability is worse than none. */
+/**
+ * Offers older than this are omitted.
+ * `productJsonLd` applies the cutoff for the live React render.
+ * Route meta is a build snapshot, so the Worker applies the same cutoff
+ * again at request time (`renderShell`) using `offerCheckedAt`.
+ */
 export const OFFER_AVAILABILITY_MAX_AGE_MS = 24 * 60 * 60 * 1000
 
 export function schemaOfferAvailability(

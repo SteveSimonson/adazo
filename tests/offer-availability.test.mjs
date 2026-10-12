@@ -5,6 +5,8 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
 import { mapCreatorsItem } from '../scripts/bsr/creators-client.mjs'
+import { refreshCatalogOffers } from '../scripts/bsr/refresh-catalog-offers.mjs'
+import { renderShell } from '../worker/renderShell.ts'
 import {
   catalogOfferFields,
   isNewerOffer,
@@ -261,4 +263,99 @@ test('productJsonLd maps a fresh offers check and never guesses', () => {
   assert.doesNotMatch(call, /p\.priceHint/)
   assert.match(call, /availability:\s*p\.availability/)
   assert.match(call, /checkedAt:\s*p\.checkedAt/)
+})
+
+const SHELL = `<!doctype html><html><head><title>t</title>
+<meta name="description" content="d" />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://adazo.com/product/x" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://adazo.com/product/x" />
+<meta property="og:title" content="x" />
+<meta property="og:description" content="d" />
+<meta property="og:image" content="https://adazo.com/brand/social.png" />
+<meta name="twitter:title" content="x" />
+<meta name="twitter:description" content="d" />
+<meta name="twitter:image" content="https://adazo.com/brand/social.png" />
+</head><body><div id="root"></div></body></html>`
+
+function shellMeta(offerCheckedAt) {
+  return {
+    title: 'CeraVe',
+    description: 'd',
+    canonical: 'https://adazo.com/product/x',
+    robots: 'index,follow',
+    ogType: 'product',
+    offerCheckedAt,
+    jsonLd: [
+      {
+        '@type': 'Product',
+        name: 'CeraVe',
+        offers: {
+          '@type': 'Offer',
+          price: '16.99',
+          availability: 'https://schema.org/InStock',
+        },
+      },
+    ],
+  }
+}
+
+function offersInShell(html) {
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+  return blocks.flatMap((match) => {
+    const data = JSON.parse(match[1])
+    return data['@type'] === 'Product' && data.offers ? [data.offers] : []
+  })
+}
+
+test('renderShell evaluates offer freshness at request time', () => {
+  const fresh = shellMeta(FRESH)
+  const freshHtml = renderShell(SHELL, fresh, 'https://adazo.com/brand/social.png', [], NOW)
+  assert.equal(offersInShell(freshHtml)[0].availability, 'https://schema.org/InStock')
+  assert.equal(fresh.jsonLd[0].offers.availability, 'https://schema.org/InStock')
+
+  const staleHtml = renderShell(
+    SHELL,
+    shellMeta(STALE),
+    'https://adazo.com/brand/social.png',
+    [],
+    NOW,
+  )
+  assert.deepEqual(offersInShell(staleHtml), [])
+  assert.match(staleHtml, /"@type":"Product"/)
+
+  const untimedHtml = renderShell(
+    SHELL,
+    shellMeta(undefined),
+    'https://adazo.com/brand/social.png',
+    [],
+    NOW,
+  )
+  assert.deepEqual(offersInShell(untimedHtml), [])
+})
+
+test('offer refresh names missing Creators env vars and does not write the catalog', async () => {
+  const catalogPath = join(ROOT, 'src/data/products.ts')
+  const before = readFileSync(catalogPath, 'utf8')
+  const keys = [
+    'AMAZON_CREATORS_CREDENTIAL_ID',
+    'AMAZON_CREATORS_CREDENTIAL_SECRET',
+    'AMAZON_CREATORS_PARTNER_TAG',
+    'VITE_AMAZON_ASSOCIATE_TAG',
+  ]
+  const saved = Object.fromEntries(keys.map((key) => [key, process.env[key]]))
+  for (const key of keys) delete process.env[key]
+  try {
+    await assert.rejects(
+      () => refreshCatalogOffers(),
+      /AMAZON_CREATORS_CREDENTIAL_ID[\s\S]*AMAZON_CREATORS_CREDENTIAL_SECRET[\s\S]*AMAZON_CREATORS_PARTNER_TAG or VITE_AMAZON_ASSOCIATE_TAG/,
+    )
+  } finally {
+    for (const key of keys) {
+      if (saved[key] == null) delete process.env[key]
+      else process.env[key] = saved[key]
+    }
+  }
+  assert.equal(readFileSync(catalogPath, 'utf8'), before)
 })

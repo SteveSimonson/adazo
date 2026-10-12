@@ -1,7 +1,13 @@
 /**
  * SPA shell transforms: per-route head + crawler-visible body.
  * Kept separate from the Worker fetch handler so unit tests can import it.
+ *
+ * Product offers in route meta are a build snapshot. Freshness is decided
+ * here on each request from `offerCheckedAt`, so a deploy cannot keep
+ * serving availability after the 24h Creators check expires.
  */
+
+import { isFreshOfferCheck } from '../src/lib/seo.ts'
 
 export type CrawlerBody = {
   h1: string
@@ -17,8 +23,30 @@ export type RouteMeta = {
   robots: string
   ogType: 'website' | 'product'
   jsonLd: Record<string, unknown>[] | null
+  /** ISO Creators check time for product offers in `jsonLd`. */
+  offerCheckedAt?: string
   preloadImage?: string
   crawler?: CrawlerBody
+}
+
+/** Drop product offers when the Creators check is missing or older than 24h. */
+export function jsonLdForRequest(
+  meta: RouteMeta | null,
+  now = Date.now(),
+): Record<string, unknown>[] | null {
+  const jsonLd = meta?.jsonLd
+  if (!jsonLd?.length) return jsonLd ?? null
+  const hasOffers = jsonLd.some(
+    (block) => block['@type'] === 'Product' && block.offers != null,
+  )
+  if (!hasOffers) return jsonLd
+  if (isFreshOfferCheck(meta?.offerCheckedAt, now)) return jsonLd
+  return jsonLd.map((block) => {
+    if (block['@type'] !== 'Product' || block.offers == null) return block
+    const next = { ...block }
+    delete next.offers
+    return next
+  })
 }
 
 export function escapeHtmlAttr(s: string): string {
@@ -83,6 +111,7 @@ export function renderShell(
   meta: RouteMeta | null,
   ogImage: string,
   globalJsonLd: Record<string, unknown>[] = [],
+  now = Date.now(),
 ): string {
   let out = html
   if (meta) {
@@ -107,7 +136,7 @@ export function renderShell(
   } else {
     out = setMetaContent(out, 'name', 'robots', 'noindex,nofollow')
   }
-  const schemas = [...globalJsonLd, ...(meta?.jsonLd ?? [])]
+  const schemas = [...globalJsonLd, ...(jsonLdForRequest(meta, now) ?? [])]
   const preloadType = meta?.preloadImage?.endsWith('.webp')
     ? ' type="image/webp"'
     : ''
