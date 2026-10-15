@@ -49,6 +49,7 @@ const routeMeta = routeMetaJson as unknown as RouteMetaFile
 const SITE = 'https://adazo.com'
 const CANONICAL_HOST = 'adazo.com'
 const HSTS = 'max-age=31536000'
+const CSP = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; upgrade-insecure-requests"
 
 type QuizPayload = {
   email?: string
@@ -500,6 +501,9 @@ export default {
     const res = await handleRequest(request, env)
     const out = new Response(res.body, res)
     out.headers.set('Strict-Transport-Security', HSTS)
+    out.headers.set('Content-Security-Policy', CSP)
+    out.headers.set('X-Frame-Options', 'DENY')
+    out.headers.set('X-Content-Type-Options', 'nosniff')
     return out
   },
 }
