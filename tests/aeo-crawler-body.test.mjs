@@ -132,10 +132,23 @@ test('renderShell injects crawler article before #root for a product', () => {
   const rootAt = html.indexOf('<div id="root"')
   assert.ok(articleAt > 0 && rootAt > articleAt)
 
+  // #100 puts the Associates tag on the schema.org Offer URL inside JSON-LD.
+  // That script is not visible #aeo-main copy, so the tag check is the article.
+  const article = html.slice(articleAt, rootAt)
   assert.equal(
-    html.includes('iu0e3-20'),
+    article.includes('iu0e3-20'),
     false,
     'Associate tag must not appear in visible crawler HTML',
+  )
+  const outside = `${html.slice(0, articleAt)}${html.slice(rootAt)}`
+  assert.match(
+    outside,
+    new RegExp(`https://www\\.amazon\\.com/dp/${p.asin}\\?tag=iu0e3-20`),
+  )
+  assert.equal(
+    outside.split('iu0e3-20').length - 1,
+    1,
+    'Associate tag belongs only on the schema.org Offer URL',
   )
 })
 
