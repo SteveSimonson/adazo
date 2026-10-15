@@ -25,6 +25,11 @@ import {
   mapCreatorsItem,
 } from './creators-client.mjs'
 import { extractColorImages } from '../lib/amazon-image-ids.mjs'
+import {
+  catalogOfferFields,
+  finiteAmount,
+} from '../lib/catalog-offers.mjs'
+import { refreshCatalogOffers } from './refresh-catalog-offers.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '../..')
@@ -570,6 +575,10 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
   }
 
   const family = materialFamily(enriched.title, enriched.material)
+  // Offer `price` only when this row is an offersV2 check. A scraped amount
+  // may still fill the display hint; it is not copied into `price`.
+  const offer = catalogOfferFields(enriched)
+  const displayPrice = offer.price ?? finiteAmount(enriched.price) ?? 0
   const hueBase = {
     kitchen: 85,
     'cutting-boards': 40,
@@ -609,10 +618,8 @@ function toProduct(enriched, meta, weekOf, expiresAt) {
               'Limited-time placement on Adazo',
             ],
     specs,
-    priceHint:
-      enriched.price != null && !Number.isNaN(enriched.price)
-        ? enriched.price
-        : 0,
+    priceHint: displayPrice,
+    ...offer,
     ...(enriched.listPrice != null &&
     !Number.isNaN(enriched.listPrice) &&
     enriched.listPrice > enriched.price
@@ -1082,6 +1089,18 @@ export const bsrProducts: Product[] = ${JSON.stringify(products, null, 2)}
 `
 
   writeFileSync(join(ROOT, 'src/data/products.bsr.generated.ts'), ts)
+
+  if (creatorsEligible) {
+    try {
+      await refreshCatalogOffers({ root: ROOT, creators })
+    } catch (error) {
+      if (error.body?.reason === 'AssociateNotEligible') {
+        console.warn('Creators API not eligible; curated offers left unchanged')
+      } else {
+        console.warn(`Curated offer refresh skipped: ${error.message}`)
+      }
+    }
+  }
 
   console.log(`\n✓ Wrote ${products.length} limited-time BSR products`)
   console.log(`  src/data/bsr-snapshot.json`)

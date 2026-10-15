@@ -29,6 +29,11 @@ export type PageSeo = {
   type?: 'website' | 'article' | 'product'
   noindex?: boolean
   jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  /**
+   * ISO time of the Creators offers check baked into `jsonLd`.
+   * The Worker re-checks this on each request and drops offers after 24h.
+   */
+  offerCheckedAt?: string
   crawler?: CrawlerBody
 }
 
@@ -102,12 +107,53 @@ export function breadcrumbJsonLd(
   }
 }
 
+/** Schema.org Offer.availability URLs for Creators `availability.type` values. */
+const SCHEMA_OFFER_AVAILABILITY: Record<string, string> = {
+  IN_STOCK: 'https://schema.org/InStock',
+  OUT_OF_STOCK: 'https://schema.org/OutOfStock',
+  PREORDER: 'https://schema.org/PreOrder',
+  BACKORDER: 'https://schema.org/BackOrder',
+}
+
+/**
+ * Offers older than this are omitted.
+ * `productJsonLd` applies the cutoff for the live React render.
+ * Route meta is a build snapshot, so the Worker applies the same cutoff
+ * again at request time (`renderShell`) using `offerCheckedAt`.
+ */
+export const OFFER_AVAILABILITY_MAX_AGE_MS = 24 * 60 * 60 * 1000
+
+export function schemaOfferAvailability(
+  availability: string | undefined,
+): string | undefined {
+  if (!availability) return undefined
+  return SCHEMA_OFFER_AVAILABILITY[availability]
+}
+
+/** True when `checkedAt` is a real timestamp no older than 24h and not in the future. */
+export function isFreshOfferCheck(
+  checkedAt: string | undefined,
+  now = Date.now(),
+): boolean {
+  if (!checkedAt) return false
+  const checked = Date.parse(checkedAt)
+  if (!Number.isFinite(checked)) return false
+  const age = now - checked
+  return age >= 0 && age <= OFFER_AVAILABILITY_MAX_AGE_MS
+}
+
 export function productJsonLd(opts: {
   name: string
   description: string
   path: string
   images: string[]
+  /** Offer price from the same check as `availability` / `checkedAt`. */
   price?: number
+  availability?: string
+  /** ISO timestamp of the offers check. */
+  checkedAt?: string
+  /** Clock for the 24h freshness check. Defaults to `Date.now()`. */
+  now?: number
   asin?: string
   brand?: string
   rating?: number
@@ -138,7 +184,10 @@ export function productJsonLd(opts: {
     data.gtin = undefined
   }
 
-  if (opts.price != null && opts.price > 0) {
+  const availabilityUrl = schemaOfferAvailability(opts.availability)
+  const fresh = isFreshOfferCheck(opts.checkedAt, opts.now)
+  // Unknown, unmapped, or stale checks omit offers entirely. Never guess InStock.
+  if (opts.price != null && opts.price > 0 && availabilityUrl && fresh) {
     const asin =
       opts.asin && /^[A-Z0-9]{10}$/i.test(opts.asin) ? opts.asin : ''
     data.offers = {
@@ -148,6 +197,7 @@ export function productJsonLd(opts: {
         : absoluteUrl(opts.path),
       priceCurrency: 'USD',
       price: opts.price.toFixed(2),
+      availability: availabilityUrl,
       seller: { '@type': 'Organization', name: 'Amazon' },
     }
   }

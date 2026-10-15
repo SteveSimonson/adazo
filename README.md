@@ -29,7 +29,9 @@ npm run dev
 npm run dev
 npm run build
 npm run lint
-npm run deploy
+npm run deploy          # npm run build && wrangler deploy
+npm run refresh:offers  # Creators availability + price → products.ts
+npm run refresh:daily   # offers + library sync + deploy (also .github/workflows/refresh-offers.yml)
 npm run import:bsr      # weekly Best Sellers import
 npm run refresh:weekly  # import + build + deploy
 ```
