@@ -1,25 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Seo } from '../components/Seo'
-
-const HTML = `<p><strong>Adazo</strong> is a curated Amazon Associates storefront for women’s health and beauty. Discover products, guides, and gift lists here; complete purchases on Amazon.</p>
-
-<h2>Who we are</h2>
-<p>We publish an editorial catalog of skin, hair, fragrance, makeup, body, sun, lips, tools, and related rituals — chosen for finish and everyday fit, not for clinical claims. Adazo is operated by SYMO, LLC (Sheridan, Wyoming, USA). We are <strong>not</strong> the seller of record. We do not warehouse, ship, or process payment for the products featured on <strong>https://adazo.com</strong>.</p>
-
-<h2>How shopping works</h2>
-<p>Each listing and guide is written so you can compare texture, ritual, and occasion before you buy. Outbound links send you to Amazon (or another retailer) to check live price, seller, size, and returns. Their checkout, shipping, and customer service apply to your order.</p>
-
-<h2>Amazon Associates</h2>
-<p>We are a participant in the Amazon Services LLC Associates Program. As an Amazon Associate, we may earn a commission on qualifying purchases made through links on the Site. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
-
-<h2>Editorial, not medical advice</h2>
-<p>Guides, FAQs, and product notes are shopping editorial for general information. They are not medical, dermatological, or other professional advice. Always read the manufacturer’s directions and warnings, and speak with a qualified professional when your health is involved.</p>
-
-<h2>The house</h2>
-<p>The founding legend — Ada Zoppi, the Brianza hills, 1726 — lives on our story page. This About page is the factual storefront: a women’s health and beauty edit, bought on Amazon.</p>
-
-<h2>Contact</h2>
-<p>Questions: use the contact options on this website. Operator: SYMO, LLC, Sheridan, Wyoming, USA.</p>`
+import { ABOUT_HTML as HTML } from '../data/legalHtml'
 
 /** Storefront About page — crawlable counterpart to Privacy / Terms. */
 export function About() {

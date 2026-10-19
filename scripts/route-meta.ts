@@ -11,6 +11,7 @@
 import { CATEGORY_OPTIONS, products } from '../src/data/catalog'
 import { giftGuides } from '../src/data/giftGuides'
 import { buyerGuides } from '../src/data/buyerGuides'
+import { ABOUT_HTML, PRIVACY_HTML, TERMS_HTML } from '../src/data/legalHtml'
 import { getProductEnrichment } from '../src/data/productEnrichments'
 import { VIBE_LIST } from '../src/data/vibes'
 import {
@@ -20,6 +21,7 @@ import {
 } from '../src/lib/seo'
 import {
   finalizeRouteMeta,
+  AFFILIATE_DISCLOSURE,
   buyerGuideSeo,
   buyerGuidesHubSeo,
   giftGuideSeo,
@@ -63,17 +65,38 @@ export function buildRouteMeta(): RouteMetaFile {
     description:
       'Adazo is a curated Amazon Associates storefront for women’s health and beauty. Discover on Adazo; buy on Amazon.',
     path: '/about',
-  } as any)
+    crawler: {
+      h1: 'About Adazo',
+      paragraphs: [],
+      faq: [],
+      disclosure: AFFILIATE_DISCLOSURE,
+      html: ABOUT_HTML,
+    },
+  })
   routes['/privacy'] = finalizeRouteMeta({
     title: 'Privacy Policy',
     description: 'Privacy Policy for Adazo.',
     path: '/privacy',
-  } as any)
+    crawler: {
+      h1: 'Privacy Policy',
+      paragraphs: [],
+      faq: [],
+      disclosure: AFFILIATE_DISCLOSURE,
+      html: PRIVACY_HTML,
+    },
+  })
   routes['/terms'] = finalizeRouteMeta({
     title: 'Terms of Use',
     description: 'Terms of Use for Adazo.',
     path: '/terms',
-  } as any)
+    crawler: {
+      h1: 'Terms of Use',
+      paragraphs: [],
+      faq: [],
+      disclosure: AFFILIATE_DISCLOSURE,
+      html: TERMS_HTML,
+    },
+  })
   routes['/gifts'] = finalizeRouteMeta(giftsHubSeo())
   for (const g of giftGuides) {
     routes[`/gifts/${g.slug}`] = finalizeRouteMeta(giftGuideSeo(g))

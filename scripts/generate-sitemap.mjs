@@ -82,7 +82,6 @@ const buyerGuideSlugs = extractGiftGuideSlugs(
 const urls = [
   { loc: '/', changefreq: 'daily', priority: '1.0' },
   { loc: '/shop', changefreq: 'daily', priority: '0.95' },
-  { loc: '/shop?limited=1', changefreq: 'daily', priority: '0.9' },
   { loc: '/gifts', changefreq: 'weekly', priority: '0.9' },
   { loc: '/guides', changefreq: 'weekly', priority: '0.9' },
   { loc: '/quiz', changefreq: 'weekly', priority: '0.85' },
