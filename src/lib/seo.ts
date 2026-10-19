@@ -10,12 +10,24 @@ export const TWITTER_HANDLE = '' // set if brand X account exists
 
 export type CrawlerFaq = { q: string; a: string }
 
+export type CrawlerLink = { href: string; label: string }
+
+export type CrawlerSection = {
+  h2: string
+  paragraphs?: string[]
+  links?: CrawlerLink[]
+}
+
 /** Visible HTML body for raw-fetch crawlers / answer engines (Worker injection). */
 export type CrawlerBody = {
   h1: string
   paragraphs: string[]
   faq: CrawlerFaq[]
   disclosure: string
+  sections?: CrawlerSection[]
+  /** Page markup already published in the repo (About, Privacy, Terms). */
+  html?: string
+  image?: { src: string; alt: string }
 }
 
 export type PageSeo = {
@@ -70,7 +82,6 @@ export function organizationJsonLd() {
     url: SITE_URL,
     logo: absoluteUrl('/brand/logo-color.svg'),
     description: DEFAULT_DESCRIPTION,
-    sameAs: [] as string[],
   }
 }
 

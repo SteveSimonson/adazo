@@ -7,14 +7,14 @@
  * serving availability after the 24h Creators check expires.
  */
 
-import { isFreshOfferCheck } from '../src/lib/seo.ts'
+import {
+  isFreshOfferCheck,
+  type CrawlerBody,
+  type CrawlerLink,
+  type CrawlerSection,
+} from '../src/lib/seo.ts'
 
-export type CrawlerBody = {
-  h1: string
-  paragraphs: string[]
-  faq: { q: string; a: string }[]
-  disclosure: string
-}
+export type { CrawlerBody }
 
 export type RouteMeta = {
   title: string
@@ -79,10 +79,61 @@ function jsonLdScript(data: unknown): string {
 /** DESIGN.md Riviera tokens for no-JS readers; visually hidden when html.js. */
 const CRAWLER_HEAD = `<style>#aeo-main{font-family:"DM Sans",ui-sans-serif,system-ui,sans-serif;color:#1a1418;background:#faf7f8;max-width:42rem;margin:0 auto;padding:24px 16px 40px;line-height:1.6}#aeo-main h1,#aeo-main h2,#aeo-main h3{font-family:"Cormorant Garamond",ui-serif,Georgia,serif;font-weight:600;color:#1a1418}#aeo-main p,#aeo-main dd{color:#4a3f45}html.js #aeo-main{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style><script>document.documentElement.classList.add('js')</script>`
 
+function renderLinkList(links: CrawlerLink[] | undefined): string {
+  if (!links?.length) return ''
+  const items = links
+    .filter(
+      (link) =>
+        link.label.trim() &&
+        link.href.startsWith('/') &&
+        !link.href.startsWith('//'),
+    )
+    .map(
+      (link) =>
+        `<li><a href="${escapeHtmlAttr(link.href)}">${escapeHtmlText(link.label)}</a></li>`,
+    )
+    .join('')
+  return items ? `<ul>${items}</ul>` : ''
+}
+
+function renderSections(sections: CrawlerSection[] | undefined): string {
+  if (!sections?.length) return ''
+  return sections
+    .map((section) => {
+      const paras = (section.paragraphs ?? [])
+        .map((p) => `<p>${escapeHtmlText(p)}</p>`)
+        .join('')
+      return `<section><h2>${escapeHtmlText(section.h2)}</h2>${paras}${renderLinkList(section.links)}</section>`
+    })
+    .join('')
+}
+
+function houseNav(): string {
+  const house = renderLinkList([
+    { href: '/shop', label: 'Shop' },
+    { href: '/guides', label: 'Guides' },
+    { href: '/gifts', label: 'Gifts' },
+    { href: '/quiz', label: 'Vibe' },
+    { href: '/watch', label: 'Watch' },
+    { href: '/reels', label: 'Films' },
+  ])
+  const about = renderLinkList([
+    { href: '/about', label: 'About' },
+    { href: '/why', label: 'Our story' },
+    { href: '/privacy', label: 'Privacy' },
+    { href: '/terms', label: 'Terms' },
+  ])
+  return `<nav aria-label="The house"><h2>The house</h2>${house}</nav><nav aria-label="About"><h2>About</h2>${about}</nav>`
+}
+
 export function renderCrawlerArticle(crawler: CrawlerBody): string {
   const paras = crawler.paragraphs
     .map((p) => `<p>${escapeHtmlText(p)}</p>`)
     .join('')
+  const image =
+    crawler.image?.src && crawler.image.alt.trim()
+      ? `<img src="${escapeHtmlAttr(crawler.image.src)}" alt="${escapeHtmlAttr(crawler.image.alt)}">`
+      : ''
   const faq =
     crawler.faq.length > 0
       ? `<section><h2>FAQ</h2><dl>${crawler.faq
@@ -92,7 +143,7 @@ export function renderCrawlerArticle(crawler: CrawlerBody): string {
           )
           .join('')}</dl></section>`
       : ''
-  return `<article id="aeo-main"><h1>${escapeHtmlText(crawler.h1)}</h1>${paras}${faq}<p>${escapeHtmlText(crawler.disclosure)}</p></article>`
+  return `<article id="aeo-main"><h1>${escapeHtmlText(crawler.h1)}</h1>${image}${paras}${crawler.html ?? ''}${renderSections(crawler.sections)}${faq}${houseNav()}<p>${escapeHtmlText(crawler.disclosure)}</p></article>`
 }
 
 function injectCrawler(html: string, crawler: CrawlerBody): string {

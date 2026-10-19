@@ -7,6 +7,7 @@
 
 import {
  CATEGORY_LABELS,
+ CATEGORY_OPTIONS,
  categoryLabel,
  filterProducts,
  getProduct,
@@ -14,6 +15,8 @@ import {
  productGalleryThumbs,
  productImageChain,
 } from '../data/catalog'
+import { LOOKBOOK_SLIDES } from '../data/lookbook'
+import { VIBE_LIST } from '../data/vibes'
 import { getCategoryHero } from '../data/categoryHeroes'
 import { BRAND } from '../data/brand'
 import { giftGuides } from '../data/giftGuides'
@@ -38,6 +41,7 @@ import {
  pageTitle,
  productJsonLd,
  type CrawlerBody,
+ type CrawlerSection,
  type PageSeo,
 } from './seo'
 
@@ -73,6 +77,28 @@ export function takeCrawlerParagraphs(
   break
  }
  return out
+}
+
+function shellCrawler(
+ body: Omit<CrawlerBody, 'faq' | 'disclosure'> & {
+  faq?: CrawlerBody['faq']
+ },
+): CrawlerBody {
+ return {
+  ...body,
+  faq: body.faq ?? [],
+  disclosure: AFFILIATE_DISCLOSURE,
+ }
+}
+
+function shelfLinks(): CrawlerSection {
+ return {
+  h2: 'Choose your shelf',
+  links: CATEGORY_OPTIONS.map((c) => ({
+   href: `/shop?cat=${c.id}`,
+   label: c.label,
+  })),
+ }
 }
 
 function productCrawler(p: Product, enrichment?: ProductEnrichment): CrawlerBody {
@@ -201,6 +227,50 @@ function giftCrawler(g: GiftGuide): CrawlerBody {
  }
 }
 
+function homeCrawler(): CrawlerBody {
+ const lead = LOOKBOOK_SLIDES[0]
+ return shellCrawler({
+  h1: BRAND.mottoEn,
+  paragraphs: [DEFAULT_DESCRIPTION, BRAND.footerBlurb, BRAND.promise],
+  image: lead
+   ? {
+      src: '/brand/promo/lookbook-handbags.webp',
+      alt: lead.alt,
+     }
+   : undefined,
+  sections: [
+   {
+    h2: 'For you — or for her',
+    paragraphs: [
+     'The bag that finishes the exit. Gold at the collarbone. Fragrance that arrives before you do.',
+    ],
+    links: LOOKBOOK_SLIDES.map((slide) => ({
+     href: slide.to,
+     label: slide.cta,
+    })),
+   },
+   {
+    h2: 'Gifts worth unwrapping',
+    paragraphs: [
+     'For her, mom, wife, self-care, and under $50. Listicles from the Adazo shelf only.',
+    ],
+    links: [{ href: '/gifts', label: 'All gift guides' }],
+   },
+   shelfLinks(),
+   {
+    h2: 'Which woman are you today?',
+    links: [
+     ...VIBE_LIST.map((vibe) => ({
+      href: `/vibe/${vibe.id}`,
+      label: vibe.title,
+     })),
+     { href: '/quiz', label: 'Find your persona' },
+    ],
+   },
+  ],
+ })
+}
+
 export function homeSeo(): PageSeo {
  return {
   title: DEFAULT_TITLE,
@@ -208,6 +278,7 @@ export function homeSeo(): PageSeo {
   path: '/',
   image: '/brand/promo/lookbook-handbags.jpg',
   preloadImage: '/brand/promo/lookbook-handbags.webp',
+  crawler: homeCrawler(),
  }
 }
 
@@ -259,6 +330,12 @@ export function shopSeo(opts: {
   crumbs.push({ name: 'This week', path: '/shop?limited=1' })
  }
 
+ const shopParagraphs = [description]
+ if (!cat && !limited) {
+  shopParagraphs.push(
+   'Every room of the house — for treating yourself, or for the woman you love. Discover the collection here.',
+  )
+ }
  return {
   title,
   description,
@@ -266,6 +343,11 @@ export function shopSeo(opts: {
   image: categoryHero?.image || '/brand/social.png',
   preloadImage: cat && categoryHero ? categoryHero.image : undefined,
   jsonLd: breadcrumbJsonLd(crumbs),
+  crawler: shellCrawler({
+   h1: categoryHero?.title || title,
+   paragraphs: shopParagraphs,
+   sections: [shelfLinks()],
+  }),
  }
 }
 
@@ -355,18 +437,49 @@ export function vibeSeo(vibe: VibeProfile): PageSeo {
     { name: vibe.title, path },
    ]),
   ],
+  crawler: shellCrawler({
+   h1: vibe.title,
+   paragraphs: takeCrawlerParagraphs([
+    vibe.tagline,
+    vibe.story,
+    vibe.flavor,
+    vibe.signatureSetup,
+   ]),
+   sections: vibe.campaigns.slice(0, 2).map((campaign) => ({
+    h2: campaign.title,
+    paragraphs: [campaign.season, campaign.concept].filter(Boolean),
+   })),
+  }),
  }
 }
 
 export function whySeo(): PageSeo {
+ const description =
+  'The founding legend of Adazo: Ada Zoppi in the Brianza hills, 1726. Beauty is not taught. It is passed down. Luxury for treating yourself — or the woman you love.'
  return {
   title: 'Our story — Ada Zoppi, 1726',
-  description:
-   'The founding legend of Adazo: Ada Zoppi in the Brianza hills, 1726. Beauty is not taught. It is passed down. Luxury for treating yourself — or the woman you love.',
+  description,
   path: '/why',
   image: '/brand/social.png',
   preloadImage: '/brand/social.png',
   type: 'article',
+  crawler: shellCrawler({
+   h1: 'The founding legend',
+   paragraphs: [
+    description,
+    BRAND.mottoIt,
+    BRAND.mottoEn,
+    'As it has been told, in the Brianza hills north of Milan, for three hundred years.',
+   ],
+   sections: [
+    {
+     h2: 'Chapter one · The alchemist’s atelier',
+     paragraphs: [
+      `In the summer of ${BRAND.founded}, in a stone house at the edge of a hill town between Milan and the lake, a young woman named ${BRAND.founder} kept a small room off her family’s kitchen where she mixed oils.`,
+     ],
+    },
+   ],
+  }),
  }
 }
 
@@ -442,19 +555,37 @@ export function buyerGuideSeo(g: BuyerGuide): PageSeo {
 }
 
 export function quizSeo(): PageSeo {
+ const description =
+  'A few quiet questions. Discover which house persona you wear today — then shop the selection made for her.'
  return {
   title: 'Find your Adazo persona',
-  description:
-   'A few quiet questions. Discover which house persona you wear today — then shop the selection made for her.',
+  description,
   path: '/quiz',
+  crawler: shellCrawler({
+   h1: 'Which woman are you today?',
+   paragraphs: [
+    description,
+    'Tap through. Meet your house persona. Leave with a selection made for her — for you, or for the woman you love.',
+   ],
+   sections: [
+    {
+     h2: 'The house personas',
+     links: VIBE_LIST.map((vibe) => ({
+      href: `/vibe/${vibe.id}`,
+      label: vibe.title,
+     })),
+    },
+   ],
+  }),
  }
 }
 
 export function reelsSeo(): PageSeo {
+ const description =
+  'Short fashion films from every room of the house — beauty, fragrance, gold, and the bag that finishes the exit.'
  return {
   title: 'Moving pictures',
-  description:
-   'Short fashion films from every room of the house — beauty, fragrance, gold, and the bag that finishes the exit.',
+  description,
   path: '/reels',
   image: '/brand/promo/lookbook-handbags.jpg',
   preloadImage: '/brand/promo/lookbook-handbags.jpg',
@@ -462,14 +593,38 @@ export function reelsSeo(): PageSeo {
    { name: 'Home', path: '/' },
    { name: 'Films', path: '/reels' },
   ]),
+  crawler: shellCrawler({
+   h1: 'Moving pictures',
+   paragraphs: [
+    description,
+    'Riviera summer, ski holidays, jet-set arrivals — and short films from every room. They appear in the shop scroll so the house finds you.',
+   ],
+   sections: [
+    {
+     h2: 'Riviera',
+     paragraphs: [
+      'Six house faces on the Mediterranean — Cap Ferrat, Mykonos, Positano, Portofino, Santorini, Saint-Tropez. Tap any film for the vibe check.',
+     ],
+     links: [{ href: '/quiz', label: 'Find your persona' }],
+    },
+    {
+     h2: 'Ski holiday',
+     paragraphs: [
+      'Alpine extravagance — Courchevel, St. Moritz, Aspen, Gstaad, Zermatt, Verbier.',
+     ],
+     links: [{ href: '/shop', label: 'Enter the house' }],
+    },
+   ],
+  }),
  }
 }
 
 export function watchSeo(): PageSeo {
+ const description =
+  'Muted short films from Adazo: the atelier, the carpet, the café. Scroll to watch. Sound off by design.'
  return {
   title: 'Watch — the house on film',
-  description:
-   'Muted short films from Adazo: the atelier, the carpet, the café. Scroll to watch. Sound off by design.',
+  description,
   path: '/watch',
   image: '/brand/promo/lookbook-handbags.jpg',
   preloadImage: '/brand/promo/lookbook-handbags.jpg',
@@ -477,6 +632,13 @@ export function watchSeo(): PageSeo {
    { name: 'Home', path: '/' },
    { name: 'Watch', path: '/watch' },
   ]),
+  crawler: shellCrawler({
+   h1: 'The house on film',
+   paragraphs: [
+    description,
+    'Scroll to play. Sound stays off until you invite it.',
+   ],
+  }),
  }
 }
 

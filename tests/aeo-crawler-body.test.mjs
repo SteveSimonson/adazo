@@ -30,7 +30,6 @@ export {
   finalizeRouteMeta,
   giftGuideSeo,
   giftsHubSeo,
-  homeSeo,
   productSeo,
 } from './src/lib/seoData.ts'
 `,
@@ -60,7 +59,6 @@ const {
   giftsHubSeo,
   getProduct,
   getProductEnrichment,
-  homeSeo,
   productSeo,
 } = await import(`${pathToFileURL(bundlePath).href}?v=${Date.now()}`)
 
@@ -177,7 +175,11 @@ test('renderShell injects crawler article before #root for a product', () => {
 })
 
 test('renderShell skips crawler article on routes without crawler meta', () => {
-  const meta = finalizeRouteMeta(homeSeo())
+  const meta = finalizeRouteMeta({
+    title: 'Untitled',
+    description: 'No crawler body',
+    path: '/missing-crawler',
+  })
   assert.equal(meta.crawler, undefined)
   const html = renderShell(SHELL, meta, OG)
   assert.equal(html.includes('id="aeo-main"'), false)
