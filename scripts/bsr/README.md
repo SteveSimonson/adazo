@@ -69,9 +69,21 @@ drift, and galleries that would attach another brand's image stem.
 | `src/data/bsr-snapshot.json` | JSON snapshot + marketing copy |
 | `data/bsr/raw/snapshot-*.json` | Archive of each run |
 
-## Schedule (weekly)
+## Schedule
 
-**Suggested:** Monday 9:00 AM local (or your market timezone).
+**Offer availability:** every 12 hours via `.github/workflows/refresh-offers.yml`
+(`npm run refresh:offers && npm run library:sync && npm run deploy`).
+`npm run deploy` is `npm run build && wrangler deploy`. The Worker drops product
+offers 24 hours after `checkedAt`, so the deploy interval stays inside that window.
+If any required secret is missing, the job logs a skip line and does not refresh, sync, or deploy.
+
+Required secrets: `AMAZON_CREATORS_CREDENTIAL_ID`, `AMAZON_CREATORS_CREDENTIAL_SECRET`,
+`AMAZON_CREATORS_PARTNER_TAG`, `Z9GO_LIBRARY_TOKEN`, `CLOUDFLARE_API_TOKEN`,
+`CLOUDFLARE_ACCOUNT_ID`. Optional: `AMAZON_CREATORS_CREDENTIAL_VERSION` (default 3.1),
+`AMAZON_CREATORS_MARKETPLACE` (default www.amazon.com), `Z9GO_LIBRARY_URL`,
+`VITE_AMAZON_ASSOCIATE_TAG`.
+
+**Best Sellers import:** Monday 9:00 AM local (or your market timezone).
 
 ### macOS `launchd` / cron example
 

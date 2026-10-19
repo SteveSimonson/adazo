@@ -132,8 +132,6 @@ test('renderShell injects crawler article before #root for a product', () => {
   const rootAt = html.indexOf('<div id="root"')
   assert.ok(articleAt > 0 && rootAt > articleAt)
 
-  // #100 puts the Associates tag on the schema.org Offer URL inside JSON-LD.
-  // That script is not visible #aeo-main copy, so the tag check is the article.
   const article = html.slice(articleAt, rootAt)
   assert.equal(
     article.includes('iu0e3-20'),
@@ -141,12 +139,38 @@ test('renderShell injects crawler article before #root for a product', () => {
     'Associate tag must not appear in visible crawler HTML',
   )
   const outside = `${html.slice(0, articleAt)}${html.slice(rootAt)}`
+  const productLd = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((match) => JSON.parse(match[1]))
+    .find((data) => data['@type'] === 'Product')
+  assert.ok(productLd)
+  assert.equal(productLd.offers, undefined)
+  assert.equal(outside.includes('iu0e3-20'), false)
+
+  const offered = structuredClone(meta)
+  const offeredProduct = offered.jsonLd.find((data) => data['@type'] === 'Product')
+  offeredProduct.offers = {
+    '@type': 'Offer',
+    url: `https://www.amazon.com/dp/${p.asin}?tag=iu0e3-20`,
+    priceCurrency: 'USD',
+    price: '16.99',
+    availability: 'https://schema.org/InStock',
+  }
+  offered.offerCheckedAt = new Date().toISOString()
+  const offeredHtml = renderShell(SHELL, offered, OG)
+  const offeredArticleAt = offeredHtml.indexOf('<article id="aeo-main">')
+  const offeredRootAt = offeredHtml.indexOf('<div id="root"')
+  assert.equal(
+    offeredHtml.slice(offeredArticleAt, offeredRootAt).includes('iu0e3-20'),
+    false,
+    'Associate tag must not appear in visible crawler HTML',
+  )
+  const offeredOutside = `${offeredHtml.slice(0, offeredArticleAt)}${offeredHtml.slice(offeredRootAt)}`
   assert.match(
-    outside,
+    offeredOutside,
     new RegExp(`https://www\\.amazon\\.com/dp/${p.asin}\\?tag=iu0e3-20`),
   )
   assert.equal(
-    outside.split('iu0e3-20').length - 1,
+    offeredOutside.split('iu0e3-20').length - 1,
     1,
     'Associate tag belongs only on the schema.org Offer URL',
   )

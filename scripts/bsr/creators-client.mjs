@@ -56,9 +56,14 @@ function creatorsConfig(overrides = {}) {
       'www.amazon.com',
   }
 
-  const missing = Object.entries(config)
-    .filter(([, value]) => !value)
-    .map(([key]) => key)
+  const envNames = {
+    credentialId: 'AMAZON_CREATORS_CREDENTIAL_ID',
+    credentialSecret: 'AMAZON_CREATORS_CREDENTIAL_SECRET',
+    partnerTag: 'AMAZON_CREATORS_PARTNER_TAG or VITE_AMAZON_ASSOCIATE_TAG',
+  }
+  const missing = Object.entries(envNames)
+    .filter(([key]) => !config[key])
+    .map(([, name]) => name)
   if (missing.length) {
     throw new Error(
       `Missing Amazon Creators API configuration: ${missing.join(', ')}`,
@@ -225,6 +230,24 @@ function displayValue(value) {
   return value?.displayValue ?? value?.displayValues?.[0]
 }
 
+/** Listing amount only. Display strings, zero, and missing values stay unset. */
+function finiteAmount(amount) {
+  let n
+  if (typeof amount === 'number') n = amount
+  else if (typeof amount === 'string' && amount.trim() !== '') n = Number(amount)
+  else return undefined
+  if (!Number.isFinite(n) || n <= 0) return undefined
+  return n
+}
+
+/** `offersV2.listings.availability.type`, trimmed. Unmapped types are kept. */
+function listingAvailability(listing) {
+  const type = listing?.availability?.type
+  if (typeof type !== 'string') return undefined
+  const trimmed = type.trim()
+  return trimmed || undefined
+}
+
 export function mapCreatorsItem(item, fallback = {}) {
   const itemInfo = item.itemInfo || {}
   const productInfo = itemInfo.productInfo || {}
@@ -275,8 +298,11 @@ export function mapCreatorsItem(item, fallback = {}) {
     asin: item.asin,
     title: displayValue(itemInfo.title) || fallback.title,
     images: [...new Set(imageCandidates)].slice(0, 6),
-    price: listing?.price?.money?.amount,
-    listPrice: listing?.price?.savingBasis?.money?.amount,
+    // Price and availability come from this same offersV2 listing. No static hint.
+    price: finiteAmount(listing?.price?.money?.amount),
+    listPrice: finiteAmount(listing?.price?.savingBasis?.money?.amount),
+    availability: listingAvailability(listing),
+    checkedAt: new Date().toISOString(),
     rating:
       item.customerReviews?.starRating?.value ??
       item.customerReviews?.starRating ??

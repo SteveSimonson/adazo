@@ -14,9 +14,11 @@
     "import:bsr": "node scripts/bsr/import-bsr.mjs && node scripts/bsr/fill-quota.mjs",
     "fill:quota": "node scripts/bsr/fill-quota.mjs",
     "refresh:images": "node scripts/bsr/refresh-catalog-images.mjs",
+    "refresh:offers": "node scripts/bsr/refresh-catalog-offers.mjs",
     "qc:images": "node scripts/qc-catalog-images.mjs",
     "refresh:weekly": "npm run import:bsr && npm run build && wrangler deploy",
     "deploy": "npm run build && wrangler deploy",
+    "refresh:daily": "npm run refresh:offers && npm run library:sync && npm run deploy",
     "content:research": "node scripts/research-product-enrichment.mjs",
     "library:sync": "node scripts/sync-from-library.mjs",
     "library:sync:dry": "node scripts/sync-from-library.mjs --dry-run"

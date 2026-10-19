@@ -294,7 +294,9 @@ export function productSeo(
     : p.description || p.tagline,
    path: productPath,
    images,
-   price: p.priceHint,
+   price: p.price,
+   availability: p.availability,
+   checkedAt: p.checkedAt,
    asin: p.asin,
    brand: p.brand,
    rating: p.rating,
@@ -324,6 +326,7 @@ export function productSeo(
   image: ogImage,
   type: 'product',
   jsonLd,
+  ...(p.checkedAt ? { offerCheckedAt: p.checkedAt } : {}),
   crawler: productCrawler(p, enrichment),
  }
 }
@@ -553,6 +556,8 @@ export type RouteMeta = {
  robots: string
  ogType: 'website' | 'product'
  jsonLd: Record<string, unknown>[] | null
+ /** ISO Creators check time. The Worker drops product offers 24h after this. */
+ offerCheckedAt?: string
  /** Same-origin LCP image the Worker preloads; absent when the route has none */
  preloadImage?: string
  crawler?: CrawlerBody
@@ -576,6 +581,7 @@ export function finalizeRouteMeta(seo: PageSeo): RouteMeta {
   ogType: seo.type === 'product' ? 'product' : 'website',
   jsonLd,
   // undefined keys drop out of routeMeta.json on JSON.stringify
+  ...(seo.offerCheckedAt ? { offerCheckedAt: seo.offerCheckedAt } : {}),
   preloadImage: seo.preloadImage,
   ...(seo.crawler ? { crawler: seo.crawler } : {}),
  }
