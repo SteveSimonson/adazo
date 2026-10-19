@@ -49,12 +49,23 @@ function served(path) {
 const sitemap = readFileSync(join(ROOT, 'public/sitemap.xml'), 'utf8')
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
 
-test('sitemap lists path URLs only', () => {
-  assert.ok(locs.length > 10)
-  assert.equal(
-    locs.some((loc) => loc.includes('?') || loc.includes('limited=1')),
-    false,
-  )
+test('sitemap omits /shop?limited=1 because its canonical is /shop', () => {
+  assert.equal(locs.includes('https://adazo.com/shop?limited=1'), false)
+  const limited = routeMeta.routes['/shop?limited=1']
+  assert.equal(limited.canonical, 'https://adazo.com/shop')
+})
+
+test('sitemap includes every self-canonical /shop?cat= URL', () => {
+  const cats = Object.entries(routeMeta.routes).filter(([key, meta]) => {
+    return (
+      key.startsWith('/shop?cat=') &&
+      meta.canonical === `https://adazo.com${key}`
+    )
+  })
+  assert.equal(cats.length, 14)
+  for (const [key] of cats) {
+    assert.ok(locs.includes(`https://adazo.com${key}`), key)
+  }
 })
 
 test('organization JSON-LD does not publish an empty sameAs', () => {

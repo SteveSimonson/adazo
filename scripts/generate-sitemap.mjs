@@ -14,6 +14,23 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const SITE = 'https://adazo.com'
 const today = new Date().toISOString().slice(0, 10)
 
+const categories = [
+  'handbags',
+  'jewelry',
+  'watches',
+  'gold',
+  'luxury',
+  'fragrance',
+  'skincare',
+  'hair',
+  'makeup',
+  'body',
+  'tools',
+  'sun-spf',
+  'lips',
+  'wellness',
+]
+
 const vibes = ['luxe', 'muse', 'sillage', 'atelier', 'dew', 'gilded']
 
 function extractSlugs(filePath) {
@@ -92,6 +109,14 @@ for (const slug of buyerGuideSlugs) {
   })
 }
 
+for (const cat of categories) {
+  urls.push({
+    loc: `/shop?cat=${cat}`,
+    changefreq: 'daily',
+    priority: '0.85',
+  })
+}
+
 for (const id of vibes) {
   urls.push({
     loc: `/vibe/${id}`,
@@ -136,7 +161,7 @@ ${body}
 const out = join(ROOT, 'public/sitemap.xml')
 writeFileSync(out, xml)
 console.log(
-  `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${giftSlugs.length} gifts, ${buyerGuideSlugs.length} guides, ${vibes.length} vibes)`,
+  `Wrote ${out} (${urls.length} URLs: ${products.length} products, ${giftSlugs.length} gifts, ${buyerGuideSlugs.length} guides, ${vibes.length} vibes, ${categories.length} categories)`,
 )
 
 /**
