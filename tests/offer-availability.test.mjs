@@ -211,6 +211,38 @@ function offerLd(extra) {
   return data.offers
 }
 
+test('a product with no availability emits Product JSON-LD with no offers', () => {
+  const data = productJsonLd({
+    name: 'CeraVe',
+    description: 'Cleanser',
+    path: '/product/cerave-hydrating-facial-cleanser',
+    images: ['/brand/social.png'],
+    price: 16.99,
+    asin: 'B01MSSDEPK',
+    now: NOW,
+  })
+  assert.equal(data['@type'], 'Product')
+  assert.equal('offers' in data, false)
+})
+
+test('fresh IN_STOCK availability is schema.org InStock', () => {
+  const offers = offerLd({
+    price: 16.99,
+    availability: 'IN_STOCK',
+    checkedAt: FRESH,
+  })
+  assert.equal(offers['@type'], 'Offer')
+  assert.equal(offers.availability, 'https://schema.org/InStock')
+})
+
+test('availability checked 25 hours ago omits offers', () => {
+  const checkedAt = new Date(NOW - 25 * 60 * 60 * 1000).toISOString()
+  assert.equal(
+    offerLd({ price: 16.99, availability: 'IN_STOCK', checkedAt }),
+    undefined,
+  )
+})
+
 test('productJsonLd maps a fresh offers check and never guesses', () => {
   const cases = [
     ['IN_STOCK', 'https://schema.org/InStock'],

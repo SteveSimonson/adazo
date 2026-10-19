@@ -1,28 +1,22 @@
-# Refresh Amazon offer availability, build, and deploy at least every 12 hours.
+# Refresh Amazon offer availability, build, and deploy every 12 hours.
+# `npm run deploy` is `npm run build && wrangler deploy`.
+# If any required secret is missing, the job logs a skip line and does not
+# refresh, sync, build, or deploy.
 #
-# Product JSON-LD offers expire 24h after checkedAt. The Worker drops them at
-# request time, so this job must refresh the Creators check and deploy before
-# that window closes. Schedule runs only after this file is on the default branch.
-#
-# Deploy matches package.json: `npm run deploy` → `npm run build && wrangler deploy`.
-#
-# Repository secrets (names only; do not commit values):
-#   AMAZON_CREATORS_CREDENTIAL_ID          required
-#   AMAZON_CREATORS_CREDENTIAL_SECRET      required
-#   AMAZON_CREATORS_PARTNER_TAG            required, unless VITE_AMAZON_ASSOCIATE_TAG is set
-#   VITE_AMAZON_ASSOCIATE_TAG              optional fallback for the partner tag
-#   AMAZON_CREATORS_CREDENTIAL_VERSION     optional, default 3.1
-#   AMAZON_CREATORS_MARKETPLACE            optional, default www.amazon.com
-#   Z9GO_LIBRARY_TOKEN                     required for library sync
-#   Z9GO_LIBRARY_URL                       optional, default https://z9go.com
-#   CLOUDFLARE_API_TOKEN                   required (Workers deploy)
-#   CLOUDFLARE_ACCOUNT_ID                  required (wrangler.jsonc has no account_id)
+# Required secrets:
+#   AMAZON_CREATORS_CREDENTIAL_ID
+#   AMAZON_CREATORS_CREDENTIAL_SECRET
+#   AMAZON_CREATORS_PARTNER_TAG
+#   Z9GO_LIBRARY_TOKEN
+#   CLOUDFLARE_API_TOKEN
+#   CLOUDFLARE_ACCOUNT_ID
+# Optional: AMAZON_CREATORS_CREDENTIAL_VERSION (3.1),
+# AMAZON_CREATORS_MARKETPLACE (www.amazon.com), Z9GO_LIBRARY_URL (https://z9go.com)
 
 name: Refresh offers
 
 on:
   schedule:
-    # 00:00 and 12:00 UTC. Twelve hours apart, inside the 24h offer window.
     - cron: "0 */12 * * *"
   workflow_dispatch:
 
@@ -39,19 +33,57 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      - name: Check required secrets
+        id: gate
+        env:
+          AMAZON_CREATORS_CREDENTIAL_ID: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_ID }}
+          AMAZON_CREATORS_CREDENTIAL_SECRET: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_SECRET }}
+          AMAZON_CREATORS_PARTNER_TAG: ${{ secrets.AMAZON_CREATORS_PARTNER_TAG }}
+          Z9GO_LIBRARY_TOKEN: ${{ secrets.Z9GO_LIBRARY_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          required=(
+            AMAZON_CREATORS_CREDENTIAL_ID
+            AMAZON_CREATORS_CREDENTIAL_SECRET
+            AMAZON_CREATORS_PARTNER_TAG
+            Z9GO_LIBRARY_TOKEN
+            CLOUDFLARE_API_TOKEN
+            CLOUDFLARE_ACCOUNT_ID
+          )
+          missing=()
+          for name in "${required[@]}"; do
+            value="${!name-}"
+            if [ -z "$value" ]; then
+              missing+=("$name")
+            fi
+          done
+          if [ "${#missing[@]}" -gt 0 ]; then
+            echo "Skipping offer refresh, library sync, and deploy. Missing secrets: ${missing[*]}"
+            echo "skip=true" >> "${GITHUB_OUTPUT:-/dev/null}"
+          else
+            echo "Offer refresh secrets are present."
+            echo "skip=false" >> "${GITHUB_OUTPUT:-/dev/null}"
+          fi
+
       - name: Checkout
-        uses: actions/checkout@v4
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
           cache: npm
 
       - name: Install
+        if: steps.gate.outputs.skip != 'true'
         run: npm ci
 
       - name: Refresh Creators offers
+        if: steps.gate.outputs.skip != 'true'
         env:
           AMAZON_CREATORS_CREDENTIAL_ID: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_ID }}
           AMAZON_CREATORS_CREDENTIAL_SECRET: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_SECRET }}
@@ -62,12 +94,14 @@ jobs:
         run: npm run refresh:offers
 
       - name: Sync product library
+        if: steps.gate.outputs.skip != 'true'
         env:
           Z9GO_LIBRARY_TOKEN: ${{ secrets.Z9GO_LIBRARY_TOKEN }}
           Z9GO_LIBRARY_URL: ${{ secrets.Z9GO_LIBRARY_URL }}
         run: npm run library:sync
 
       - name: Build and deploy
+        if: steps.gate.outputs.skip != 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
