@@ -116,14 +116,14 @@ export const buyerGuides: BuyerGuide[] = [
       {
         productSlug: 'supergoop-unseen-sunscreen-spf-40',
         rank: 1,
-        badge: 'Makeup primer lane',
+        badge: 'Stick over makeup',
         pickWhy:
           'The Unseen on this shelf is the clear SPF 40 stick, for a swipe over makeup. The Unseen gel is a different product, and the brand’s current gel page is SPF 50. Read stick, gel, and the SPF on the listing.',
       },
       {
         productSlug: 'biore-uv-aqua-rich-watery-essence',
         rank: 2,
-        badge: 'Sheer essence feel',
+        badge: 'Read the brand',
         pickWhy:
           'Only if the bottle says Bioré. This listing has shown a moisturizer SPF 50 under a brand that was not Bioré. The Japanese Watery Essence is a different sunscreen. Read the drug facts.',
       },
@@ -242,7 +242,7 @@ export const buyerGuides: BuyerGuide[] = [
     primaryQuery: 'travel skincare liquids bag',
     category: 'skincare',
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 6,
     heroImage:
       'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80',
@@ -256,13 +256,13 @@ export const buyerGuides: BuyerGuide[] = [
         rank: 1,
         badge: 'Tiny hero',
         pickWhy:
-          'Lip mask that moonlights as emergency cuticle help on dry flights. Small jar, high utility.',
+          'This listing is the clear Berry duo, a full jar plus a mini. The mini is the piece that fits a liquids bag. Berry is a scent, not a tint.',
       },
       {
         productSlug: 'biore-uv-aqua-rich-watery-essence',
         rank: 2,
         pickWhy:
-          'SPF essence textures often travel kinder than heavy creams. Confirm size against 3-1-1; decant if needed.',
+          'Only if the bottle says Bioré. This listing has shown a moisturizer SPF 50 under a brand that was not Bioré. Read the size against a 3-1-1 bag, and read the drug facts.',
       },
       {
         productSlug: 'elf-holy-hydration-makeup-melting-cleansing-balm',
@@ -274,7 +274,7 @@ export const buyerGuides: BuyerGuide[] = [
         productSlug: 'supergoop-unseen-sunscreen-spf-40',
         rank: 4,
         pickWhy:
-          'If this is the SPF that works under your makeup at home, take a travel size or a labeled decant. A new sunscreen on day one of a trip is how you learn about pilling in a hotel mirror.',
+          'This shelf’s Unseen is the clear SPF 40 stick, about 0.7 oz, for a swipe over makeup. It is not the gel. Confirm the title says stick before you pack it.',
       },
       {
         productSlug: 'neutrogena-hydro-boost-water-gel',

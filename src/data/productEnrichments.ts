@@ -524,7 +524,7 @@ export const productEnrichments: ProductEnrichment[] = [
     },
     blog: {
       title: "Which Airwrap this listing is",
-      dek: "Co-anda2x Straight+Wavy, and what does not come in the box.",
+      dek: "Co-anda2x Straight+Wavy. Confirm the attachments in the title.",
       sections: [
         {
           heading: "Who this is really for",
@@ -532,7 +532,7 @@ export const productEnrichments: ProductEnrichment[] = [
         },
         {
           heading: "What to confirm in the box",
-          body: "Dyson’s own Straight+Wavy page lists a conical barrel, a 1.6 inch barrel, an air straightener, brushes, and a fast dryer. Copy on the Amazon listing has named a different attachment mix, including an AirSmooth2x. Read the title you are about to buy. Do not assume every Co-anda2x photo is this kit.\n\nIn August 2026 Dyson also put four more Co-anda2x attachments on sale, starting around £35. Those are extras. They are not packed into this listing because a headline said new.",
+          body: "Read the attachment names in the title you are about to buy. A Dyson.com kit list and a marketplace title for this machine have already disagreed. Do not assume the photo matches the title, and do not assume every Co-anda2x is this kit.\n\nIn August 2026 Dyson also sold more Co-anda2x attachments on their own, starting around £35. Treat those as extras unless the title names them.",
         },
         {
           heading: "What it is not",
@@ -547,7 +547,7 @@ export const productEnrichments: ProductEnrichment[] = [
       { q: "Why does the price differ from $599?", a: "That is a typical recent street price on this shelf. Dyson.com lists the Ceramic Pink Straight+Wavy at $749.99. Confirm the seller, the color, and the kit before you pay." },
     ],
     setupTips: ["Read the attachment names in the title.", "Plan one quiet evening before an event morning.", "Keep original Airwrap barrels in their own box. They do not click on."],
-    researchNotes: ["Dyson Co-anda2x Straight+Wavy page", "Dyson support page for model 587990-01", "August 2026 attachment announcement"],
+    researchNotes: ["Dyson Co-anda2x Straight+Wavy page", "August 2026 separate-attachment announcement"],
   },
   {
     productId: "ad-015",
