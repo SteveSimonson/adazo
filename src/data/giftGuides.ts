@@ -234,7 +234,7 @@ export const giftGuides: GiftGuide[] = [
     sections: [
       {
         heading: 'Who this list is for',
-        body: 'Women who keep a vanity, not a junk drawer of half-used minis. Commuters who want soft hair, hosts who want a signature scent, friends who collect jars that feel special in the hand.\n\nIf you only know “she likes beauty,” start with lip mask, body mist, or a liquid blush — highest odds of delight without shade anxiety.',
+        body: 'Women who keep a vanity, not a junk drawer of half-used minis. Commuters who want soft hair, hosts who want a signature scent, friends who collect jars that feel special in the hand.\n\nIf you only know “she likes beauty,” start with the clear Berry lip mask. The mist on this page is Cheirosa 59, and the blush is Grace. Both need a scent or a shade you have already seen.',
       },
       {
         heading: 'How to choose in sixty seconds',
@@ -343,7 +343,7 @@ export const giftGuides: GiftGuide[] = [
       },
       {
         q: 'Is fragrance too personal for Mother’s Day?',
-        a: 'It can be. If you do not know her scent family, pick unfragranced-feeling care (Laneige, Tatcha) or a light floral like Chance Eau Tendre only if she already wears soft florals. When in doubt, ask her sister or your other parent.',
+        a: 'It can be. If you do not know her scent family, skip perfume. The Laneige on this shelf is Berry, which is a scent, and Chance Eau Tendre only if she already wears soft florals. When in doubt, ask her sister or your other parent.',
       },
       {
         q: 'Can I gift these with other siblings?',
