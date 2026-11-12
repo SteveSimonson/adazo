@@ -22,14 +22,14 @@ export const giftGuides: GiftGuide[] = [
     occasionIds: ['christmas'],
     budgetBands: ['under-50', '50-150', 'splurge'],
     publishedAt: '2026-09-22',
-    updatedAt: '2026-09-22',
+    updatedAt: '2026-11-12',
     readMinutes: 8,
     seasonal: { peakMonths: [9, 10, 11, 12], yearHint: 2026 },
     intro:
       'Christmas beauty fails as a pile of minis and a perfume you have never smelled on her. It works as one object she will finish. This page is the order of operations for Adazo’s shelf: a default under $30, a hair or color step-up still under $50, a jar or a perfume when you want it to feel considered, and a splurge only when you already know she will use it.',
     decision: {
       title: 'If you buy one',
-      body: 'Laneige Lip Sleeping Mask, about $24, when you do not want color. Summer Fridays Lip Butter Balm in Pink Sugar, about $24, when she wants a thinner day balm and a sheer pink is welcome. Gisou, about $36, when hair is the hobby and she likes a honey scent. Olaplex No.7, about $30, when she wants a few drops and less perfume. Tatcha, about $72, when the gift should feel like a jar she keeps. One perfume only if you already know her scent. The Dyson, about $599, only if you have watched her dry her hair.',
+      body: 'Laneige Lip Sleeping Mask Berry duo, clear, when you do not want color. Read the live price, because this listing is a full jar plus a mini. Summer Fridays Lip Butter Balm in Pink Sugar, about $24, when she wants a thinner day balm and a sheer pink is welcome. Gisou, about $36, when hair is the hobby and she likes a honey scent. Olaplex No.7, about $30, when she wants a few drops and less perfume. Tatcha, about $72, when the gift should feel like a jar she keeps. One perfume only if you already know her scent. The Dyson, about $599, only if you have watched her dry her hair.',
     },
     productEntries: [
       {
@@ -38,7 +38,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'If you buy one',
         giftWhy:
-          'The default when you do not want color. A thin layer at night, a jar that looks finished under a tree. About $24. If she hates a thick night mask, the Summer Fridays balm is the other lip on this page.',
+          'The default when you do not want color. This listing is the clear Berry duo, a full jar plus a mini, for night. Berry is a scent, not a tint. About $24 is a single-jar memory, so read the live price. If she hates a thick night mask, the Summer Fridays balm is the other lip on this page.',
       },
       {
         productSlug: 'summer-fridays-lip-butter-balm',
@@ -70,7 +70,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'Only if she wears lipstick',
         giftWhy:
-          'About $35, and only when you have seen Pillow Talk, or a nude-rose close to it, on her mouth. A lipstick in the wrong family sits in a drawer. If you are guessing, go back to the lip mask.',
+          'About $35, and only when you have seen Pillow Talk Medium on her mouth. The original Pillow Talk is a lighter nude-pink and a different lipstick. If you are guessing, go back to the lip mask.',
       },
       {
         productSlug: 'tatcha-the-dewy-skin-cream',
@@ -110,7 +110,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'splurge',
         badge: 'Splurge tool',
         giftWhy:
-          'About $599. The right splurge when she styles her hair and will learn the attachments. The wrong splurge when you want a wow that stays in the closet. Confirm the kit on the listing. If the budget is the problem, the Revlon one-step is the other tool on this page.',
+          'About $599. This listing is the Co-anda2x Straight+Wavy. The right splurge when she styles her hair and will learn the attachments. Older Airwrap barrels do not fit. Confirm the attachments in the title. If the budget is the problem, the Revlon on this page is the other tool.',
       },
       {
         productSlug: 'revlon-one-step-volumizer-plus',
@@ -118,7 +118,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'The tool under $50',
         giftWhy:
-          'About $50. A blowout brush for someone whose real routine is a smooth dry, not a case of barrels. Buy this instead of a Dyson you cannot quite afford. Do not buy both.',
+          'About $50. The 2.8-inch fixed-head blowout brush, not the Plus 2.0. Buy this instead of a Dyson you cannot quite afford. Do not buy both.',
       },
     ],
     sections: [
@@ -164,7 +164,7 @@ export const giftGuides: GiftGuide[] = [
     occasionIds: ['birthday', 'christmas', 'valentines', 'just-because'],
     budgetBands: ['under-50', '50-150', 'splurge'],
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 7,
     intro:
       'You are not shopping for “a woman who likes beauty.” You are shopping for someone who notices when a cream feels expensive on the cheek, when a mist blooms in a room, when a brush stroke looks considered rather than loud. This list stays on Adazo’s shelf: prestige and cult favorites with a clear job — glow, scent, soft hair, a flush of color. Skip novelty kits. Buy the piece that earns a permanent place on her vanity.',
@@ -198,7 +198,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'Color gift',
         giftWhy:
-          'A little bottle that delivers a soft, lived-in flush — the opposite of heavy powder. Ideal when she already has foundations and needs the one product that makes a bare face feel finished. Shade is personal; if you know her undertone, this lands. If not, keep the receipt energy by gifting with a note that she can exchange.',
+          'Soft Pinch liquid blush in Grace. Buy it when you have seen Grace on her cheek. Another shade is another listing. If you do not know the shade, skip the blush.',
       },
       {
         productSlug: 'laneige-lip-sleeping-mask',
@@ -212,7 +212,7 @@ export const giftGuides: GiftGuide[] = [
         rank: 6,
         priceBand: 'under-50',
         giftWhy:
-          'Pistachio-caramel warmth that turns a hallway into vacation. Body mist is the low-risk fragrance gift — lighter than perfume, louder than lotion. She will spray it after the shower and smile. Best for playful taste; less ideal for ultra-minimal, unscented purists.',
+          'Cheirosa 59, a woody gourmand mist, not the pistachio 62. Lighter than a perfume, and still a scent she has to like. Skip it for someone who wants no fragrance.',
       },
       {
         productSlug: 'dyson-airwrap-multi-styler',
@@ -220,7 +220,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'splurge',
         badge: 'Splurge',
         giftWhy:
-          'The tool that makes a home bathroom feel like a Riviera salon. Airwrap is for the woman who invests time in hair and will use attachments, not leave them in a drawer. Confirm voltage and hair length culture before you buy — this is a statement gift, not a polite thank-you.',
+          'This listing is the Co-anda2x Straight+Wavy, in Ceramic Pink. Older Airwrap barrels do not fit. Buy it when she will use the attachments. Confirm the attachment names in the title.',
       },
       {
         productSlug: 'sk-ii-facial-treatment-essence',
@@ -360,7 +360,7 @@ export const giftGuides: GiftGuide[] = [
     occasionIds: ['valentines', 'birthday', 'christmas', 'wedding', 'just-because'],
     budgetBands: ['50-150', '150-400', 'splurge'],
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 7,
     seasonal: { peakMonths: [1, 2, 11, 12], yearHint: 2026 },
     intro:
@@ -395,7 +395,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'splurge',
         badge: 'Splurge',
         giftWhy:
-          'The upgrade tool for the woman who already owns “fine” and deserves “pro.” Airwrap says you noticed how long mornings take and bought her time and polish. Coordinate colorway with her bathroom if you can. This is not a joke gift — check that she wants heat styling before you commit.',
+          'This listing is the Co-anda2x Straight+Wavy, in Ceramic Pink. Older barrels do not fit. Buy it when she already heat-styles and will learn the attachments. Confirm the kit in the title.',
       },
       {
         productSlug: 'sk-ii-facial-treatment-essence',
@@ -410,7 +410,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'Universal glam',
         giftWhy:
-          'The nude-rose lipstick that photographs like a compliment. Pillow Talk is the safe glam when you know her makeup bag is considered but not experimental. It upgrades a date night without requiring a full face tutorial. If she already owns the shade, choose a matching liner or a different Charlotte finish she has eyed.',
+          'Pillow Talk Medium, the deeper lipstick, when you have seen that depth on her mouth. The original nude-pink Pillow Talk is a different tube. If she already owns Medium, choose another finish she has eyed. If you are guessing the depth, skip the lipstick.',
       },
       {
         productSlug: 'chanel-chance-eau-tendre',
@@ -430,7 +430,7 @@ export const giftGuides: GiftGuide[] = [
     sections: [
       {
         heading: 'Who this list is for',
-        body: 'Partners who share a life and a bathroom counter. You know her taste well enough to upgrade it — not to guess a stranger’s shade.\n\nIf you are still learning her routine, start with Pillow Talk, Tatcha, or a fragrance she has sampled, and save Airwrap and La Mer for moments when certainty is high.',
+        body: 'Partners who share a life and a bathroom counter. You know her taste well enough to upgrade it — not to guess a stranger’s shade.\n\nIf you are still learning her routine, start with the clear Laneige mask or Tatcha, or a fragrance she has sampled. Pillow Talk Medium only if you have seen that depth. Save the Airwrap and La Mer for moments when certainty is high.',
       },
       {
         heading: 'Anniversary vs just because',
@@ -462,7 +462,7 @@ export const giftGuides: GiftGuide[] = [
     occasionIds: ['just-because', 'birthday', 'black-friday'],
     budgetBands: ['under-50', '50-150'],
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 6,
     intro:
       'Self-gifting is not a consolation prize. It is how you stock a bathroom that feels like a small hotel on the Riviera. This edit is for the cart you build for yourself — or the friend who needs permission to choose softness. Nothing clinical. Nothing that promises to “fix” you. Just textures, scents, and steps that make the day feel finished.',
@@ -473,14 +473,14 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'Mood shift',
         giftWhy:
-          'Spray after the shower and the room changes temperature in your mind. Brazilian Crush is vacation in a mist — warm, sweet, and unapologetically fun. Perfect when you need a five-second ritual between meetings. Keep one in the gym bag and one on the vanity if you empty bottles the way some people empty coffee.',
+          'Cheirosa 59, the woody gourmand, not Cheirosa 62. One cloud after the shower. Confirm the ounces on the listing before you compare it with a travel bottle.',
       },
       {
         productSlug: 'laneige-lip-sleeping-mask',
         rank: 2,
         priceBand: 'under-50',
         giftWhy:
-          'The last thing you touch before sleep. A lip mask is self-care with zero learning curve — open, swipe, rest. Ideal for dry office air and long flights. Buy it for yourself when you are tired of disposable balms that disappear by noon.',
+          'The clear Berry sleeping mask, and this listing is a full jar plus a mini. Night, not a tinted day balm. Read the live price, because a duo is not the old single-jar checkout.',
       },
       {
         productSlug: 'drunk-elephant-protini-polypeptide-cream',
@@ -502,21 +502,21 @@ export const giftGuides: GiftGuide[] = [
         rank: 5,
         priceBand: 'under-50',
         giftWhy:
-          'Invisible finish sunscreen that plays well under makeup and on bare skin days. Unseen is the practical self-gift: protection that does not feel like a chore. Keep it next to your keys so the habit sticks. Always recheck the live listing for current SPF claims and size.',
+          'The Unseen on this shelf is the clear SPF 40 stick, for a swipe over makeup. It is not the Unseen gel. Supergoop’s current gel page is SPF 50. Recheck the word stick and the SPF on the live listing.',
       },
       {
         productSlug: 'living-proof-dry-shampoo',
         rank: 6,
         priceBand: 'under-50',
         giftWhy:
-          'Second-day hair that still photographs clean. Dry shampoo is permission to sleep in and still look intentional at the café. A self-care staple for travel weeks and late nights. Shake well, section, and brush through — the small ritual is half the pleasure.',
+          'The original Perfect Hair Day aerosol, and this listing is the 9.9 oz can. Not Advanced Clean, and not a travel mini. Shake it, hold it back from the roots, and brush after it sets.',
       },
       {
         productSlug: 'rare-beauty-soft-pinch-liquid-blush',
         rank: 7,
         priceBand: 'under-50',
         giftWhy:
-          'One pinch of color when you cannot face a full face. Liquid blush is the “I still showed up” product — soft, buildable, kind under morning light. Gift it to yourself when your makeup bag feels heavy and you want one joyful step.',
+          'Soft Pinch in Grace. One dot, then tap. Buy it when Grace is the flush you want. Another shade is another listing.',
       },
       {
         productSlug: 'vital-proteins-collagen-peptides',
@@ -561,7 +561,7 @@ export const giftGuides: GiftGuide[] = [
     occasionIds: ['christmas', 'birthday', 'just-because', 'black-friday'],
     budgetBands: ['under-50'],
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 5,
     intro:
       'Under fifty is not code for forgettable. It is where beauty gifts get used up and reordered — the cleanser, the mascara, the mist, the lip mask. Every pick on this list sits near or under fifty on typical Amazon pricing; prices move, so confirm the live listing. No handbags, no jewelry, no jokes. Just pieces that feel generous in the hand.',
@@ -616,21 +616,21 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'Always works',
         giftWhy:
-          'The under-fifty gift that feels like more. Lip sleeping mask is texture theater — glossy jar, soft scent, nightly use. Ideal for Secret Santa, desk gifts, and “just because” texts that arrive as packages. If prices creep over fifty, wait for a deal or swap to Ordinary or e.l.f.',
+          'The clear Berry duo, a full jar plus a mini, for night. Berry is a scent, not a tint. If the live price leaves the under-fifty band, swap to another lip on this page.',
       },
       {
         productSlug: 'sol-de-janeiro-brazilian-crush-body-mist',
         rank: 8,
         priceBand: 'under-50',
         giftWhy:
-          'Fragrance joy without full perfume commitment. Body mist is the playful under-fifty scent gift — loud enough to delight, light enough to risk. Perfect for friends who love warm gourmand notes. Skip for scent-free offices or highly sensitive skin households.',
+          'Cheirosa 59, a woody gourmand hair and body mist. It is not the pistachio 62. Confirm the ounces, and skip it for a scent-free office.',
       },
       {
         productSlug: 'rare-beauty-soft-pinch-liquid-blush',
         rank: 9,
         priceBand: 'under-50',
         giftWhy:
-          'A modern blush that earns compliments in natural light. Soft Pinch is the color gift under fifty that still feels current and considered. Shade risk is real — if you do not know her undertone, include a note that Amazon returns are straightforward for beauty when unopened per seller policy.',
+          'Soft Pinch liquid blush in Grace. If you have not seen Grace on her, skip it. Another shade is another listing.',
       },
       {
         productSlug: 'revlon-one-step-volumizer-plus',
@@ -638,7 +638,7 @@ export const giftGuides: GiftGuide[] = [
         priceBand: 'under-50',
         badge: 'Tool under $50',
         giftWhy:
-          'The rare heated tool that often sits near the under-fifty line and replaces a drawer of half-working dryers. Volume and speed for people who style hair on weekdays. Confirm live price — if it spikes, drop to mist plus mascara and keep the promise of the query. Always check voltage and reviews for the exact model.',
+          'The 2.8-inch fixed-head One-Step, not the Plus 2.0. A weekday blowout brush near $50. If the live price leaves the band, leave the tool. It is a 120V brush.',
       },
     ],
     sections: [

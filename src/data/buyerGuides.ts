@@ -104,7 +104,7 @@ export const buyerGuides: BuyerGuide[] = [
     primaryQuery: 'sunscreen under makeup no pilling',
     category: 'sun-spf',
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 6,
     heroImage:
       'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1600&q=80',
@@ -118,14 +118,14 @@ export const buyerGuides: BuyerGuide[] = [
         rank: 1,
         badge: 'Makeup primer lane',
         pickWhy:
-          'Unseen-style textures are built for under makeup days. Still: wait a minute, use a light hand, and confirm the current formula on the listing.',
+          'The Unseen on this shelf is the clear SPF 40 stick, for a swipe over makeup. The Unseen gel is a different product, and the brand’s current gel page is SPF 50. Read stick, gel, and the SPF on the listing.',
       },
       {
         productSlug: 'biore-uv-aqua-rich-watery-essence',
         rank: 2,
         badge: 'Sheer essence feel',
         pickWhy:
-          'Watery essence SPF suits people who hate greasy films. Check finish with your foundation brand — some pairings love it, some pill. Return policies are part of the product.',
+          'Only if the bottle says Bioré. This listing has shown a moisturizer SPF 50 under a brand that was not Bioré. The Japanese Watery Essence is a different sunscreen. Read the drug facts.',
       },
     ],
     pairWith: [
@@ -474,7 +474,7 @@ export const buyerGuides: BuyerGuide[] = [
     primaryQuery: 'best lip sleeping mask not sticky',
     category: 'lips',
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 5,
     heroImage:
       'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1600&q=80',
@@ -502,7 +502,7 @@ export const buyerGuides: BuyerGuide[] = [
         rank: 3,
         badge: 'Day color',
         pickWhy:
-          'Color, not a treatment. Pillow Talk after the lips are already comfortable. It does not replace either balm.',
+          'Color, not a treatment. This lipstick is Pillow Talk Medium, the deeper shade. Original Pillow Talk is the lighter nude-pink and a different tube. It does not replace either balm.',
       },
     ],
     sections: [
@@ -516,7 +516,7 @@ export const buyerGuides: BuyerGuide[] = [
       },
       {
         heading: 'Color on prepared lips',
-        body: 'Lipstick on flakes shows the flakes. Treatment at night, pigment the next day. Pillow Talk is a day color, not an overnight mask. It belongs in this guide because the title includes color, and it does not belong in the night jar.',
+        body: 'Lipstick on flakes shows the flakes. Treatment at night, pigment the next day. Pillow Talk Medium is a day color. The original nude-pink Pillow Talk is a different lipstick. Neither belongs in the night jar.',
       },
     ],
     faq: [
@@ -689,7 +689,7 @@ export const buyerGuides: BuyerGuide[] = [
     primaryQuery: 'dyson airwrap vs revlon one step',
     category: 'tools',
     publishedAt: P,
-    updatedAt: U,
+    updatedAt: '2026-11-12',
     readMinutes: 6,
     heroImage:
       'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1600&q=80',
@@ -703,14 +703,14 @@ export const buyerGuides: BuyerGuide[] = [
         rank: 1,
         badge: 'Multi-styler',
         pickWhy:
-          'When you want curl/wave barrels plus dry in one system and will use the attachments. Confirm kit contents on the ASIN — bundles differ hard.',
+          'The Co-anda2x Straight+Wavy, in Ceramic Pink. Older Airwrap barrels do not fit. Confirm the attachments in the title. The Airsmooth dryer brush is a different tool.',
       },
       {
         productSlug: 'revlon-one-step-volumizer-plus',
         rank: 2,
         badge: 'Blowout brush',
         pickWhy:
-          'When the job is mainly volume blowouts without multi-styler tuition. Learning curve is shorter for many people.',
+          'The earlier 2.8-inch fixed-head One-Step, for a blowout. It is not the smaller Plus 2.0. The lesson is shorter than an Airwrap, and the head does not detach.',
       },
     ],
     pairWith: [
