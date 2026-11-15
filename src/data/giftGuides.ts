@@ -667,6 +667,114 @@ export const giftGuides: GiftGuide[] = [
       },
     ],
   },
+  {
+    slug: 'black-friday',
+    title: 'Black Friday Beauty Edit',
+    dek: 'Eight bottles and tools worth opening. Amazon names the price. The house names the exact product.',
+    primaryQuery: 'black friday beauty gifts',
+    recipientIds: ['her', 'self', 'friend'],
+    occasionIds: ['black-friday', 'christmas'],
+    budgetBands: ['under-50', '50-150', 'splurge'],
+    publishedAt: '2026-11-15',
+    updatedAt: '2026-11-15',
+    readMinutes: 8,
+    seasonal: { peakMonths: [11, 12], yearHint: 2026 },
+    intro:
+      'Beauty is passed down, and so are the wrong bottles. This Black Friday edit stays on the Adazo shelf: the mask, the mist, the blush, the lipstick, the stick sunscreen, the dry shampoo, the rinse-out treatment, and the styler whose attachments have to be named. Adazo does not invent a percent off. The live Amazon price is the only one that matters.\n\nRead the title the way you would read a shade name at a counter. Berry Duo is not Vanilla. Cheirosa 59 is not 62. Pillow Talk Medium is not the original. Grace is this liquid blush. The Unseen stick is not the gel. The One-Step on our other page is a different tool. If the title and the photo disagree, do not talk yourself into the photo.',
+    productEntries: [
+      {
+        productSlug: 'laneige-lip-sleeping-mask',
+        rank: 1,
+        priceBand: 'under-50',
+        badge: 'Berry Duo',
+        giftWhy:
+          'The overnight lip mask people finish. Confirm Berry Duo, the clear jar, not Vanilla and not a single mini. Two jars and one jar are different gifts.',
+      },
+      {
+        productSlug: 'sol-de-janeiro-brazilian-crush-body-mist',
+        rank: 2,
+        priceBand: 'under-50',
+        badge: 'Cheirosa 59',
+        giftWhy:
+          'A mist she will actually spray. The number is the scent. Confirm 59 on the title, and the ounce size. 62 and 40 are other houses.',
+      },
+      {
+        productSlug: 'rare-beauty-soft-pinch-liquid-blush',
+        rank: 3,
+        priceBand: 'under-50',
+        badge: 'Grace',
+        giftWhy:
+          'Liquid blush in Grace. Confirm Grace, and liquid, not a powder that borrowed the shade name. A dewy or matte finish has to be in the title if that is what she wears.',
+      },
+      {
+        productSlug: 'charlotte-tilbury-pillow-talk-lipstick',
+        rank: 4,
+        priceBand: 'under-50',
+        giftWhy:
+          'Pillow Talk Medium, the lipstick on this page. Original Pillow Talk is a different nude-pink. Read Medium before you wrap a shade she did not ask for.',
+      },
+      {
+        productSlug: 'supergoop-unseen-sunscreen-spf-40',
+        rank: 5,
+        priceBand: 'under-50',
+        badge: 'The stick',
+        giftWhy:
+          'The Unseen stick, SPF 40, not the Unseen gel. Format is the gift. A tube and a stick do not live in the same pocket.',
+      },
+      {
+        productSlug: 'living-proof-dry-shampoo',
+        rank: 6,
+        priceBand: 'under-50',
+        giftWhy:
+          'Perfect hair day aerosol in the original full size this page means, about 9.9 ounces. Advanced Clean, Sheer Clean, and the travel mini are other cans. Read the ounces.',
+      },
+      {
+        productSlug: 'olaplex-no3-hair-perfector',
+        rank: 7,
+        priceBand: 'under-50',
+        badge: 'Rinse-out',
+        giftWhy:
+          'No.3 is the rinse-out treatment, not a leave-in oil and not No.3PLUS unless the title says PLUS. Confirm the number and that she is willing to wash it out.',
+      },
+      {
+        productSlug: 'dyson-airwrap-multi-styler',
+        rank: 8,
+        priceBand: 'splurge',
+        badge: 'Name the attachments',
+        giftWhy:
+          'Co-anda2x Straight+Wavy. The title has to name the attachments. A Dyson.com kit list and a marketplace title have already disagreed. If the words are missing, it is not this machine.',
+      },
+    ],
+    sections: [
+      {
+        heading: 'The house does not set the sale',
+        body: 'A gold banner is not a coupon. If Laneige or the mist is the same price it was last Tuesday, it can still be the right gift. If the Airwrap title is vague, no discount repairs a missing attachment. Leave the listing. The stick, the mask, and the mist are the gifts that fail the least when you know her taste and not her shade chart.',
+      },
+      {
+        heading: 'Shade and size are the work',
+        body: 'Grace, Medium, 59, Berry Duo, SPF 40 stick, 9.9 ounce aerosol, No.3, Straight+Wavy. Those are the words to find with your eyes, not a feeling from the photo. Fragrance concentration matters on other Adazo pages. This list stays with objects whose names we have already separated from their cousins.',
+      },
+      {
+        heading: 'Who should skip the styler',
+        body: 'The Airwrap is a splurge for someone who wants that kit and will check the attachment names with you. It is the wrong surprise if you cannot read the title together. Christmas, gifts for her, and under $50 are the calmer doors. This page is the weekend you might find the bottle at a price you like, after you have named it.',
+      },
+    ],
+    faq: [
+      AMAZON_FAQ,
+      {
+        q: 'Will Adazo tell me the Black Friday percent?',
+        a: 'No. Amazon sets the price. Adazo tells you which exact bottle or tool is on this shelf, and which cousin to refuse. Confirm the live number before you buy.',
+      },
+      {
+        q: 'What if I only know she likes scent?',
+        a: 'Cheirosa 59 is the mist on this list. Libre, Chance, and Olympéa live on other guides and are different juices. Do not substitute a number you have not checked.',
+      },
+      {
+        q: 'Is the Airwrap worth it only on sale?',
+        a: 'Worth is the kit in the title, not the weekend. If Straight+Wavy and the attachment names are there and the price is one you accept, it is the splurge. If the title is quiet about the box, skip it at any price.',
+      },
+    ],
+  },
 ]
 
 const bySlug = new Map(giftGuides.map((g) => [g.slug, g]))
@@ -689,16 +797,30 @@ export function guidesForRecipient(recipient: GiftRecipientId): GiftGuide[] {
   return giftGuides.filter((g) => g.recipientIds.includes(recipient))
 }
 
+function blackFridayBoost(now = new Date()): number {
+  const y = now.getFullYear()
+  const m = now.getMonth() + 1
+  const d = now.getDate()
+  if (y === 2026 && (m === 11 || (m === 12 && d <= 2))) return 80
+  return 0
+}
+
 export function featuredGiftGuides(limit = 5): GiftGuide[] {
   const month = new Date().getMonth() + 1
   const scored = giftGuides.map((g) => {
     const seasonalBoost = g.seasonal?.peakMonths.includes(month) ? 100 : 0
+    const friday = g.slug === 'black-friday' ? blackFridayBoost() : 0
     const updated = g.updatedAt || g.publishedAt
-    return { g, score: seasonalBoost + (updated >= U ? 10 : 0) }
+    return { g, score: seasonalBoost + friday + (updated >= U ? 10 : 0) }
   })
   scored.sort((a, b) => b.score - a.score)
   let list = scored.map((x) => x.g)
-  if (month >= 9 && month <= 12) {
+  if (blackFridayBoost() > 0) {
+    const friday = giftGuides.find((g) => g.slug === 'black-friday')
+    if (friday) {
+      list = [friday, ...list.filter((g) => g.slug !== friday.slug)]
+    }
+  } else if (month >= 9 && month <= 12) {
     const christmas = giftGuides.find((g) => g.slug === 'christmas-beauty-gifts')
     if (christmas) {
       list = [christmas, ...list.filter((g) => g.slug !== christmas.slug)]

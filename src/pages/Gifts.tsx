@@ -6,7 +6,7 @@ import {
   featuredGiftGuides,
   giftGuides,
 } from '../data/giftGuides'
-import { getProduct, primaryImage } from '../data/catalog'
+import { getProduct, isBlackFridaySeason, primaryImage } from '../data/catalog'
 import { Seo } from '../components/Seo'
 import { giftsHubSeo } from '../lib/seoData'
 
@@ -22,6 +22,7 @@ function guideCardImage(slug: string, heroImage?: string): string | undefined {
 export function GiftsHubPage() {
   const month = new Date().getMonth() + 1
   const christmasSeason = month >= 9 && month <= 12
+  const friday = isBlackFridaySeason()
   return (
     <div className="pb-24">
       <Seo {...giftsHubSeo()} />
@@ -36,9 +37,11 @@ export function GiftsHubPage() {
             Gifts worth unwrapping
           </h1>
           <p className="mt-4 text-lg text-paper/80 max-w-xl font-light leading-relaxed">
-            {christmasSeason
-              ? 'Start with the Christmas edit, then her, mom, wife, self-care, and under $50.'
-              : 'Beauty listicles for her, mom, wife, self-care, and under $50.'}{' '}
+            {friday
+              ? 'Start with the Black Friday edit. Amazon sets the price. The house names the bottle.'
+              : christmasSeason
+                ? 'Start with the Christmas edit, then her, mom, wife, self-care, and under $50.'
+                : 'Beauty listicles for her, mom, wife, self-care, and under $50.'}{' '}
             Chosen here. Bought on Amazon.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
@@ -60,9 +63,11 @@ export function GiftsHubPage() {
           <div>
             <p className="label-micro mb-1">Wave one</p>
             <h2 className="font-display text-2xl sm:text-3xl font-semibold">
-              {christmasSeason
-                ? 'Start with Christmas, then the person'
-                : 'Start with the recipient'}
+              {friday
+                ? 'Start with Black Friday, then the person'
+                : christmasSeason
+                  ? 'Start with Christmas, then the person'
+                  : 'Start with the recipient'}
             </h2>
           </div>
         </div>

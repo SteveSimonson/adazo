@@ -388,3 +388,10 @@ export function formatExpiry(iso?: string) {
     return null
   }
 }
+
+/** Nov 1 through Dec 2, 2026. Amazon’s sale window, not a house discount. */
+export function isBlackFridaySeason(now = Date.now()): boolean {
+  const start = Date.parse('2026-11-01T00:00:00Z')
+  const end = Date.parse('2026-12-03T08:00:00Z')
+  return now >= start && now < end
+}

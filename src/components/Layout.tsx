@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import { formatExpiry, limitedTimeCopy } from '../data/catalog'
+import { formatExpiry, isBlackFridaySeason, limitedTimeCopy } from '../data/catalog'
 import { VIBE_LIST, vibePath } from '../data/vibes'
 import { BRAND } from '../data/brand'
 import { GlobalSeo } from './Seo'
@@ -33,7 +33,9 @@ export function Layout() {
   const limitedMode = onShop && searchParams.get('limited') === '1'
   // When already filtering to this week, offer escape — not another trap door
   const weekCta = !drop.active
-    ? { to: '/shop', label: 'The house', primary: true as const }
+    ? isBlackFridaySeason()
+      ? { to: '/gifts/black-friday', label: 'Black Friday', primary: true as const }
+      : { to: '/shop', label: 'The house', primary: true as const }
     : limitedMode
       ? { to: '/shop', label: 'Full collection', primary: false as const }
       : { to: '/shop?limited=1', label: 'This week', primary: true as const }
@@ -68,6 +70,19 @@ export function Layout() {
             <span className="text-paper/70">
               {' '}
               · {BRAND.mottoEn}
+            </span>
+          </Link>
+        </div>
+      ) : isBlackFridaySeason() ? (
+        <div className="bg-moss text-paper text-center text-[11px] sm:text-xs py-2.5 px-4 font-medium tracking-wide overflow-hidden min-w-0">
+          <Link
+            to="/gifts/black-friday"
+            className="block overflow-hidden min-w-0 truncate hover:underline underline-offset-2"
+          >
+            <span className="font-semibold text-gold">Black Friday edit</span>
+            <span className="text-paper/70">
+              {' '}
+              · The house names the bottle · Amazon names the price
             </span>
           </Link>
         </div>
